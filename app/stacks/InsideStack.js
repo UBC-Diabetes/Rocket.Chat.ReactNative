@@ -1,4 +1,5 @@
 import React from 'react';
+import { I18nManager } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -30,13 +31,16 @@ import PickerView from '../views/PickerView';
 import ThreadMessagesView from '../views/ThreadMessagesView';
 import MarkdownTableView from '../views/MarkdownTableView';
 import ReadReceiptsView from '../views/ReadReceiptView';
-import QueueListView from '../views/QueueListView';
 
 // Profile Stack
 import ProfileView from '../views/ProfileView';
+import UserPreferencesView from '../views/UserPreferencesView';
+import UserNotificationPrefView from '../views/UserNotificationPreferencesView';
 
 // Settings Stack
 import SettingsView from '../views/SettingsView';
+import SecurityPrivacyView from '../views/SecurityPrivacyView';
+import E2EEncryptionSecurityView from '../views/E2EEncryptionSecurityView';
 import LanguageView from '../views/LanguageView';
 import ThemeView from '../views/ThemeView';
 import DefaultBrowserView from '../views/DefaultBrowserView';
@@ -52,6 +56,13 @@ import CreateChannelView from '../views/CreateChannelView';
 //Profile Library Stack
 import ProfileLibraryView from '../views/ProfileLibrary';
 
+// E2ESaveYourPassword Stack
+import E2ESaveYourPasswordView from '../views/E2ESaveYourPasswordView';
+import E2EHowItWorksView from '../views/E2EHowItWorksView';
+
+// E2EEnterYourPassword Stack
+import E2EEnterYourPasswordView from '../views/E2EEnterYourPasswordView';
+
 // InsideStackNavigator
 import AttachmentView from '../views/AttachmentView';
 import ModalBlockView from '../views/ModalBlockView';
@@ -59,6 +70,8 @@ import JitsiMeetView from '../views/JitsiMeetView';
 import StatusView from '../views/StatusView';
 import ShareView from '../views/ShareView';
 import CreateDiscussionView from '../views/CreateDiscussionView';
+
+import QueueListView from '../ee/omnichannel/views/QueueListView';
 
 // ChatsStackNavigator
 const ChatsStack = createStackNavigator();
@@ -192,6 +205,21 @@ const ProfileStackNavigator = () => {
 				component={RoomInfoView}
 				options={RoomInfoView.navigationOptions}
 			/>
+			<ProfileStack.Screen
+				name='UserPreferencesView'
+				component={UserPreferencesView}
+				options={UserPreferencesView.navigationOptions}
+			/>
+			<ProfileStack.Screen
+				name='UserNotificationPrefView'
+				component={UserNotificationPrefView}
+				options={UserNotificationPrefView.navigationOptions}
+			/>
+			<ProfileStack.Screen
+				name='PickerView'
+				component={PickerView}
+				options={PickerView.navigationOptions}
+			/>
 		</ProfileStack.Navigator>
 	);
 };
@@ -207,6 +235,16 @@ const SettingsStackNavigator = () => {
 				name='SettingsView'
 				component={SettingsView}
 				options={SettingsView.navigationOptions}
+			/>
+			<SettingsStack.Screen
+				name='SecurityPrivacyView'
+				component={SecurityPrivacyView}
+				options={SecurityPrivacyView.navigationOptions}
+			/>
+			<SettingsStack.Screen
+				name='E2EEncryptionSecurityView'
+				component={E2EEncryptionSecurityView}
+				options={E2EEncryptionSecurityView.navigationOptions}
 			/>
 			<SettingsStack.Screen
 				name='LanguageView'
@@ -268,6 +306,7 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
 	<Drawer.Navigator
 		drawerContent={({ navigation, state }) => <Sidebar navigation={navigation} state={state} />}
+		drawerPosition={I18nManager.isRTL ? 'right' : 'left'}
 		screenOptions={{ swipeEnabled: false }}
 		drawerType='back'
 	>
@@ -308,6 +347,43 @@ const NewMessageStackNavigator = () => {
 	);
 };
 
+// E2ESaveYourPasswordStackNavigator
+const E2ESaveYourPasswordStack = createStackNavigator();
+const E2ESaveYourPasswordStackNavigator = () => {
+	const { theme } = React.useContext(ThemeContext);
+
+	return (
+		<E2ESaveYourPasswordStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation }}>
+			<E2ESaveYourPasswordStack.Screen
+				name='E2ESaveYourPasswordView'
+				component={E2ESaveYourPasswordView}
+				options={E2ESaveYourPasswordView.navigationOptions}
+			/>
+			<E2ESaveYourPasswordStack.Screen
+				name='E2EHowItWorksView'
+				component={E2EHowItWorksView}
+				options={E2EHowItWorksView.navigationOptions}
+			/>
+		</E2ESaveYourPasswordStack.Navigator>
+	);
+};
+
+// E2EEnterYourPasswordStackNavigator
+const E2EEnterYourPasswordStack = createStackNavigator();
+const E2EEnterYourPasswordStackNavigator = () => {
+	const { theme } = React.useContext(ThemeContext);
+
+	return (
+		<E2EEnterYourPasswordStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation }}>
+			<E2EEnterYourPasswordStack.Screen
+				name='E2EEnterYourPasswordView'
+				component={E2EEnterYourPasswordView}
+				options={E2EEnterYourPasswordView.navigationOptions}
+			/>
+		</E2EEnterYourPasswordStack.Navigator>
+	);
+};
+
 // InsideStackNavigator
 const InsideStack = createStackNavigator();
 const InsideStackNavigator = () => {
@@ -323,6 +399,16 @@ const InsideStackNavigator = () => {
 			<InsideStack.Screen
 				name='NewMessageStackNavigator'
 				component={NewMessageStackNavigator}
+				options={{ headerShown: false }}
+			/>
+			<InsideStack.Screen
+				name='E2ESaveYourPasswordStackNavigator'
+				component={E2ESaveYourPasswordStackNavigator}
+				options={{ headerShown: false }}
+			/>
+			<InsideStack.Screen
+				name='E2EEnterYourPasswordStackNavigator'
+				component={E2EEnterYourPasswordStackNavigator}
 				options={{ headerShown: false }}
 			/>
 			<InsideStack.Screen

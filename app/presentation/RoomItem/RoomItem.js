@@ -19,10 +19,7 @@ const RoomItem = ({
 	avatar,
 	width,
 	avatarSize,
-	baseUrl,
-	userId,
 	username,
-	token,
 	showLastMessage,
 	status,
 	useRealName,
@@ -39,7 +36,9 @@ const RoomItem = ({
 	unread,
 	userMentions,
 	groupMentions,
-	roomUpdatedAt,
+	tunread,
+	tunreadUser,
+	tunreadGroup,
 	testID,
 	swipeEnabled,
 	onPress,
@@ -67,10 +66,8 @@ const RoomItem = ({
 			avatar={avatar}
 			avatarSize={avatarSize}
 			type={type}
-			baseUrl={baseUrl}
-			userId={userId}
-			token={token}
 			theme={theme}
+			rid={rid}
 		>
 			{showLastMessage
 				? (
@@ -90,7 +87,6 @@ const RoomItem = ({
 								alert={alert}
 							/>
 							<UpdatedAt
-								roomUpdatedAt={roomUpdatedAt}
 								date={date}
 								theme={theme}
 								hideUnreadStatus={hideUnreadStatus}
@@ -111,7 +107,9 @@ const RoomItem = ({
 								unread={unread}
 								userMentions={userMentions}
 								groupMentions={groupMentions}
-								theme={theme}
+								tunread={tunread}
+								tunreadUser={tunreadUser}
+								tunreadGroup={tunreadGroup}
 							/>
 						</View>
 					</>
@@ -135,7 +133,9 @@ const RoomItem = ({
 							unread={unread}
 							userMentions={userMentions}
 							groupMentions={groupMentions}
-							theme={theme}
+							tunread={tunread}
+							tunreadUser={tunreadUser}
+							tunreadGroup={tunreadGroup}
 						/>
 					</View>
 				)
@@ -150,11 +150,8 @@ RoomItem.propTypes = {
 	prid: PropTypes.string,
 	name: PropTypes.string.isRequired,
 	avatar: PropTypes.string.isRequired,
-	baseUrl: PropTypes.string.isRequired,
 	showLastMessage: PropTypes.bool,
-	userId: PropTypes.string,
 	username: PropTypes.string,
-	token: PropTypes.string,
 	avatarSize: PropTypes.number,
 	testID: PropTypes.string,
 	width: PropTypes.number,
@@ -173,7 +170,9 @@ RoomItem.propTypes = {
 	unread: PropTypes.number,
 	userMentions: PropTypes.number,
 	groupMentions: PropTypes.number,
-	roomUpdatedAt: PropTypes.instanceOf(Date),
+	tunread: PropTypes.array,
+	tunreadUser: PropTypes.array,
+	tunreadGroup: PropTypes.array,
 	swipeEnabled: PropTypes.bool,
 	toggleFav: PropTypes.func,
 	toggleRead: PropTypes.func,
