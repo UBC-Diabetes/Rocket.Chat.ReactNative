@@ -80,7 +80,6 @@ export const handlePayloadUserInteraction = (type, { triggerId, ...data }) => {
 		return MODAL_ACTIONS.UPDATE;
 	}
 
-
 	if ([MODAL_ACTIONS.OPEN].includes(type) || [MODAL_ACTIONS.MODAL].includes(type)) {
 		Navigation.navigate('ModalBlockView', {
 			data: {

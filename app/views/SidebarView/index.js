@@ -109,10 +109,7 @@ class Sidebar extends Component {
 		if (nextProps.useRealName !== useRealName) {
 			return true;
 		}
-		if (nextState.isAdmin !== isAdmin) {
-			return true;
-		}
-		return false;
+		return nextState.isAdmin !== isAdmin;
 	}
 
 	async setIsAdmin() {

@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-	View, FlatList, Text
-} from 'react-native';
+import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import Touch from '../../utils/touch';
 import RocketChat from '../../lib/rocketchat';
 import DirectoryItem from '../../presentation/DirectoryItem';
 import sharedStyles from '../Styles';
@@ -26,7 +23,6 @@ import { goRoom } from '../../utils/goRoom';
 import RoomTypeIcon from '../../containers/RoomTypeIcon';
 
 class ProfileLibraryView extends React.Component {
-	
 	static navigationOptions = ({ navigation, isMasterDetail }) => {
 		const options = {
 			title: I18n.t('Profile_library')
@@ -36,6 +32,7 @@ class ProfileLibraryView extends React.Component {
 		}
 		return options;
 	}
+
 	static propTypes = {
 		navigation: PropTypes.object,
 		baseUrl: PropTypes.string,
@@ -58,15 +55,16 @@ class ProfileLibraryView extends React.Component {
 			total: -1,
 			showOptionsDropdown: false,
 			globalUsers: true,
-			type: props.directoryDefaultView,
+			type: props.directoryDefaultView
 		};
 	}
-	 userInfoObject = {};
 
 	componentDidMount() {
 		this.load({});
 		logEvent(events.DIRECTORY_SEARCH_USERS);
 	}
+
+	userInfoObject = {};
 
 	onSearchChangeText = (text) => {
 		this.setState({ text });
@@ -74,7 +72,6 @@ class ProfileLibraryView extends React.Component {
 
 	// eslint-disable-next-line react/sort-comp
 	load = debounce(async({ newSearch = false }) => {
-	
 		if (newSearch) {
 			this.setState({ data: [], total: -1, loading: false });
 		}
@@ -103,11 +100,10 @@ class ProfileLibraryView extends React.Component {
 
 				const userInfo = await Promise.all(results.map(async(item) => {
 					const user = await RocketChat.getUserInfo(item._id);
-					return {id: user.user.customFields};
+					return { id: user.user.customFields };
 				}));
-			userInfo.forEach(data => userInfoObject = {...data, ...userInfo})
-			
-				
+				userInfo.forEach(d => this.userInfoObject = { ...d, ...userInfo });
+
 				this.setState({
 					data: [...data, ...results],
 					loading: false,
@@ -154,7 +150,7 @@ class ProfileLibraryView extends React.Component {
 		goRoom({ item, isMasterDetail });
 	}
 
-	onPressItem = async(item) => {
+	onPressItem = (item) => {
 		const { type } = this.state;
 		const { navigation } = this.props;
 		if (type === 'users') {
@@ -172,31 +168,25 @@ class ProfileLibraryView extends React.Component {
 		}
 	}
 
-	renderHeader = () => {
-		const { type } = this.state;
-		const { theme } = this.props;
-		return (
-			<>
-				<SearchBox
-					onChangeText={this.onSearchChangeText}
-					onSubmitEditing={this.search}
-					testID='federation-view-search'
-				/>
+	renderHeader = () => (
+		<>
+			<SearchBox
+				onChangeText={this.onSearchChangeText}
+				onSubmitEditing={this.search}
+				testID='federation-view-search'
+			/>
 
-			</>
-		);
-	}
+		</>
+	)
 
 	// renderSeparator = () => {
 	// 	const { theme } = this.props;
 	// 	return <View style={[sharedStyles.separator, styles.separator, { backgroundColor: themes[theme].separatorColor }]} />;
 	// }
-	
 
 	renderItem = ({ item, index }) => {
 		const { data, type } = this.state;
 		const { baseUrl, user, theme } = this.props;
-
 
 		let style;
 		if (index === data.length - 1) {
@@ -221,11 +211,11 @@ class ProfileLibraryView extends React.Component {
 			return (
 				<DirectoryItem
 					avatar={item.username}
-					description={userInfoObject[`${index}`].id.Location}
+					description={this.userInfoObject[`${ index }`].id.Location}
 					rightLabel={item.federation && item.federation.peer}
 					type='d'
 					icon={PinIcon()}
-					age={`${userInfoObject[`${index}`].id.Age} years old`}
+					age={`${ this.userInfoObject[`${ index }`].id.Age } years old`}
 					{...commonProps}
 				/>
 			);
@@ -246,7 +236,6 @@ class ProfileLibraryView extends React.Component {
 		const {
 			data, loading, showOptionsDropdown, type, globalUsers
 		} = this.state;
-		console.log('00000000000',data)
 		const { isFederationEnabled, theme } = this.props;
 
 		return (

@@ -53,7 +53,6 @@ class Touchable extends React.Component {
 			}
 		}
 
-
 		_handleRelease = (nativeEvent) => {
 			const { translationX } = nativeEvent;
 			const { rowState } = this.state;

@@ -559,7 +559,6 @@ export default ({ theme }) => {
 				msg='This is a discussion'
 			/> */}
 
-
 			<Separator title='URL' theme={theme} />
 			<Message
 				urls={[{

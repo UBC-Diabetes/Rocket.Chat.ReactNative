@@ -9,7 +9,6 @@ import styles from '../styles';
 import { themes } from '../../../constants/colors';
 import { withTheme } from '../../../theme';
 
-
 const Sort = React.memo(({
 	searching, sortBy, toggleSort, theme
 }) => {

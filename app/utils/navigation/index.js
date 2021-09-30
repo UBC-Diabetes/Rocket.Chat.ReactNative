@@ -11,7 +11,6 @@ export const defaultHeader = {
 	cardStyle: { backgroundColor: 'transparent' }
 };
 
-
 export const cardStyle = {
 	backgroundColor: 'rgba(0,0,0,0)'
 };

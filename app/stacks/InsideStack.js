@@ -49,7 +49,7 @@ import AdminPanelView from '../views/AdminPanelView';
 import NewMessageView from '../views/NewMessageView';
 import CreateChannelView from '../views/CreateChannelView';
 
-//Profile Library Stack
+// Profile Library Stack
 import ProfileLibraryView from '../views/ProfileLibrary';
 
 // InsideStackNavigator
@@ -173,7 +173,7 @@ const ChatsStackNavigator = () => {
 				component={QueueListView}
 				options={QueueListView.navigationOptions}
 			/>
-			
+
 		</ChatsStack.Navigator>
 	);
 };
@@ -194,7 +194,7 @@ const ProfileStackNavigator = () => {
 				component={RoomInfoView}
 				options={RoomInfoView.navigationOptions}
 			/>
-			
+
 		</ProfileStack.Navigator>
 	);
 };
@@ -267,11 +267,10 @@ const ProfileLibraryStackNavigator = () => {
 				component={VideoPlayerView}
 				options={VideoPlayerView.navigationOptions}
 			/> */}
-			
+
 		</ProfileLibraryStack.Navigator>
 	);
 };
-
 
 // DrawerNavigator
 const Drawer = createDrawerNavigator();
@@ -286,7 +285,7 @@ const DrawerNavigator = () => (
 		<Drawer.Screen name='ProfileStackNavigator' component={ProfileStackNavigator} />
 		<Drawer.Screen name='SettingsStackNavigator' component={SettingsStackNavigator} />
 		<Drawer.Screen name='AdminPanelStackNavigator' component={AdminPanelStackNavigator} />
-		
+
 	</Drawer.Navigator>
 );
 

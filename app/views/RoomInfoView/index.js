@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {
-	View, Text, ScrollView,
-} from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import UAParser from 'ua-parser-js';
 import _ from 'lodash';
@@ -33,13 +31,14 @@ import Direct from './Direct';
 import SafeAreaView from '../../containers/SafeAreaView';
 import { goRoom } from '../../utils/goRoom';
 import Navigation from '../../lib/Navigation';
+import { showErrorAlert } from '../../utils/info';
 
 const PERMISSION_EDIT_ROOM = 'edit-room';
-const getRoomTitle = (room, type, name, username,age, statusText, theme) => (type === 'd'
+const getRoomTitle = (room, type, name, username, age, statusText, theme) => (type === 'd'
 	? (
 		<>
-			<Text testID='room-info-view-name' style={[styles.roomTitle, { color: themes[theme].titleText }]}>{`${ name }, ${age}`}</Text>
-			{username && <Text testID='room-info-view-username' style={[styles.roomUsername, { color: themes[theme].auxiliaryText }]}></Text>}
+			<Text testID='room-info-view-name' style={[styles.roomTitle, { color: themes[theme].titleText }]}>{`${ name }, ${ age }`}</Text>
+			{username && <Text testID='room-info-view-username' style={[styles.roomUsername, { color: themes[theme].auxiliaryText }]} />}
 			{!!statusText && <View testID='room-info-view-custom-status'><Markdown msg={statusText} style={[styles.roomUsername, { color: themes[theme].auxiliaryText }]} preview theme={theme} /></View>}
 		</>
 	)
@@ -57,7 +56,9 @@ class RoomInfoView extends React.Component {
 		route: PropTypes.object,
 		user: PropTypes.shape({
 			id: PropTypes.string,
-			token: PropTypes.string
+			token: PropTypes.string,
+			customFields: PropTypes.object,
+			roles: PropTypes.array
 		}),
 		baseUrl: PropTypes.string,
 		rooms: PropTypes.array,
@@ -289,15 +290,15 @@ class RoomInfoView extends React.Component {
 		const { roomUser } = this.state;
 		const { username } = roomUser;
 
-		if (user !== null && user.customFields != undefined && user.customFields !== null) {
+		if (user !== null && user.customFields !== undefined && user.customFields !== null) {
 			user.customFields.ConnectIds = user.customFields.ConnectIds === undefined || user.customFields.ConnectIds === ''
 				? username
 				: `${ user.customFields.ConnectIds },${ username }`;
 		}
 
 		try {
-			const result = await RocketChat.saveUserProfile({}, user.customFields);
-			
+			await RocketChat.saveUserProfile({}, user.customFields);
+
 			await this.createDirect();
 			this.goRoom();
 		} catch (e) {
@@ -323,57 +324,66 @@ class RoomInfoView extends React.Component {
 	renderAvatar = (room, roomUser) => {
 		const { baseUrl, user, theme } = this.props;
 		let isPeerSupporter = false;
-		let embedVideoUrl = 'https://www.youtube.com/embed/'
-        let videoUrl = roomUser?.customFields?.VideoUrl
-		const id = videoUrl?.split('/')[3]
-		embedVideoUrl = embedVideoUrl.concat(id)
+		let embedVideoUrl = 'https://www.youtube.com/embed/';
+		const videoUrl = roomUser?.customFields?.VideoUrl;
+		const id = videoUrl?.split('/')[3];
+		embedVideoUrl = embedVideoUrl.concat(id);
 		if (roomUser !== null
 			&& roomUser !== undefined
 			&& roomUser.parsedRoles !== null
 			&& roomUser.parsedRoles !== undefined) {
 			isPeerSupporter = roomUser.parsedRoles.indexOf('Peer Supporter') > -1;
 		}
-		return isPeerSupporter 
-			? (
-				roomUser.customFields.VideoUrl ?<View style={{
-					width: 240,
-					height: 240
-				}}
-				>
-					<Avatar 
-					borderBottomRightRadius={80}
-			        borderRadius={20}
-					text={room.name || roomUser.username}
-					size={200}
-					style={styles.avatar}
-					type={this.t}
-					baseUrl={baseUrl}
-					userId={user.id}
-					token={user.token}
-				>
-					{this.t === 'd' && roomUser._id ? <CustomIcon
-		style={{left:150,position:'absolute',top:150}} name='play-filled' size={60} color='#8FCEA7' onPress={()=>Navigation.navigate('Video',{videoUrl:`${ embedVideoUrl }`})
-						 } />: null}
-				</Avatar>
-				</View>: <View style={{
+		if (isPeerSupporter) {
+			return roomUser.customFields.VideoUrl ? (
+				<View style={{
 					width: 240,
 					height: 240
 				}}
 				>
 					<Avatar
-                    borderRadius={20}
-					text={room.name || roomUser.username}
-					size={200}
-					style={styles.avatar}
-					type={this.t}
-					baseUrl={baseUrl}
-					userId={user.id}
-					token={user.token}
+						borderBottomRightRadius={80}
+						borderRadius={20}
+						text={room.name || roomUser.username}
+						size={200}
+						style={styles.avatar}
+						type={this.t}
+						baseUrl={baseUrl}
+						userId={user.id}
+						token={user.token}
+					>
+						{this.t === 'd' && roomUser._id ? (
+							<CustomIcon
+								style={{ left: 150, position: 'absolute', top: 150 }}
+								name='play-filled'
+								size={60}
+								color='#8FCEA7'
+								onPress={() => Navigation.navigate('Video', { videoUrl: `${ embedVideoUrl }` })
+								}
+							/>
+						) : null}
+					</Avatar>
+				</View>
+			) : (
+				<View style={{
+					width: 240,
+					height: 240
+				}}
 				>
-					
-				</Avatar></View>
-			)
-			: (
+					<Avatar
+						borderRadius={20}
+						text={room.name || roomUser.username}
+						size={200}
+						style={styles.avatar}
+						type={this.t}
+						baseUrl={baseUrl}
+						userId={user.id}
+						token={user.token}
+					/>
+				</View>
+			);
+		} else {
+			return (
 				<Avatar
 					text={room.name || roomUser.username}
 					size={100}
@@ -386,9 +396,11 @@ class RoomInfoView extends React.Component {
 					{this.t === 'd' && roomUser._id ? <Status style={[sharedStyles.status, styles.status]} theme={theme} size={24} id={roomUser._id} /> : null}
 				</Avatar>
 			);
+		}
 	}
+
 	renderStatus = (room, roomUser) => {
-		const { baseUrl, user, theme } = this.props;
+		const { theme } = this.props;
 		let isPeerSupporter = false;
 
 		if (roomUser !== null
@@ -397,14 +409,14 @@ class RoomInfoView extends React.Component {
 			&& roomUser.parsedRoles !== undefined) {
 			isPeerSupporter = roomUser.parsedRoles.indexOf('Peer Supporter') > -1;
 		}
-		return isPeerSupporter 
-			? (
-				roomUser._id ? <Status style={[ styles.status]} theme={theme} size={18} id={roomUser._id} /> : null
-			)
-			: null
-
+		if (isPeerSupporter) {
+			return roomUser._id ? <Status style={[styles.status]} theme={theme} size={18} id={roomUser._id} /> : null;
+		} else {
+			return null;
+		}
 	};
-	renderButton = (onPress, iconName, text) => {
+
+	renderButton = (onPress) => {
 		const { theme } = this.props;
 
 		const onActionPress = async() => {
@@ -415,17 +427,18 @@ class RoomInfoView extends React.Component {
 				EventEmitter.emit(LISTENER, { message: I18n.t('error-action-not-allowed', { action: I18n.t('Create_Direct_Messages') }) });
 			}
 		};
-  
+
 		return (
-			<Button style={{marginTop:10,borderRadius:20,width:'50%'}}
-					title={I18n.t('Connect')}
-					type='primary'
-					onPress={onActionPress}
-					disabled={false}
-					testID='profile-library-view-connect'
-					theme={theme}
-					backgroundColor={themes[theme].connectButtonColor}
-				/>
+			<Button
+				style={{ marginTop: 10, borderRadius: 20, width: '50%' }}
+				title={I18n.t('Connect')}
+				type='primary'
+				onPress={onActionPress}
+				disabled={false}
+				testID='profile-library-view-connect'
+				theme={theme}
+				backgroundColor={themes[theme].connectButtonColor}
+			/>
 		);
 	}
 
@@ -435,7 +448,8 @@ class RoomInfoView extends React.Component {
 
 		return (isPeerSupporter && !isConnected && canConnect)
 			? (
-				<Button style={{marginTop:10,borderRadius:10}}
+				<Button
+					style={{ marginTop: 10, borderRadius: 10 }}
 					title={I18n.t('Connect')}
 					type='primary'
 					onPress={this.connect}
@@ -445,9 +459,9 @@ class RoomInfoView extends React.Component {
 					theme={theme}
 					backgroundColor={themes[theme].connectButtonColor}
 				/>
-			) 
+			)
 			: (
-				
+
 				<View style={styles.roomButtonsContainer}>
 					{this.renderButton(this.goRoom, 'message', I18n.t('Message'))}
 					{jitsiEnabled ? this.renderButton(this.videoCall, 'camera', I18n.t('Video_call')) : null}
@@ -455,7 +469,7 @@ class RoomInfoView extends React.Component {
 			);
 	}
 
-	renderContent = (isAdmin, isPeerSupporter, canConnect, isConnected) => {
+	renderContent = () => {
 		const { room, roomUser } = this.state;
 		const { theme, user } = this.props;
 		if (this.isDirect) {
@@ -465,33 +479,49 @@ class RoomInfoView extends React.Component {
 		}
 		return <Channel room={room} theme={theme} />;
 	}
-	
-	renderPreContent = (isAdmin, isPeerSupporter, canConnect, isConnected) => {
-		const { room, roomUser } = this.state;
-		const { theme, user } = this.props;
+
+	renderPreContent = () => {
+		const { roomUser } = this.state;
+		const { theme } = this.props;
 		if (roomUser?.customFields != null) {
 			return (
-				<View >
-					<View style={{alignContent:'center',alignItems:'center'}} >
-				
-							<View style={styles.locationView}>
-								<CustomIcon  name='pin-map' size={20} color={themes[theme].pinIconColor}/>
-								<Text style={{ color: themes[theme].titleText,fontSize:20}}>{`${ roomUser.customFields.Location }`}</Text>
+				<View>
+					<View style={{ alignContent: 'center', alignItems: 'center' }}>
+
+						<View style={styles.locationView}>
+							<CustomIcon name='pin-map' size={20} color={themes[theme].pinIconColor} />
+							<Text style={{ color: themes[theme].titleText, fontSize: 20 }}>{`${ roomUser.customFields.Location }`}</Text>
+						</View>
+
+					</View>
+					{roomUser.customFields['Glucose Monitoring Method'] && roomUser.customFields['Insulin Delivery Method'] ? (
+						<View style={styles.deviceContainer}>
+							<View style={styles.t1dView}>
+								<Text style={{
+									color: themes[theme].titleText, textAlign: 'center', bottom: 10, fontSize: 20
+								}}
+								>T1D Since
+								</Text>
+								<Text style={{ color: themes[theme].auxiliaryText, textAlign: 'center', fontSize: 18 }}>{roomUser?.customFields['T1D Since']}</Text>
 							</View>
-							
-						</View> 
-						{roomUser.customFields['Glucose Monitoring Method'] && roomUser.customFields['Insulin Delivery Method']?(<View style={styles.deviceContainer}>
-							<View style={styles.t1dView} >
-						    <Text style={{ color: themes[theme].titleText, textAlign:'center',bottom:10,fontSize:20 }}>T1D Since</Text>
-							<Text style={{ color: themes[theme].auxiliaryText,textAlign:'center',fontSize:18}}>{roomUser?.customFields['T1D Since']}</Text>
+							<View style={{ marginRight: '50%' }}>
+								<Text style={{
+									color: themes[theme].titleText, textAlign: 'center', bottom: 10, fontSize: 20
+								}}
+								>Devices
+								</Text>
+								<Text style={{ color: themes[theme].auxiliaryText, textAlign: 'center', fontSize: 18 }}>{roomUser?.customFields['Glucose Monitoring Method']}</Text>
+								<Text style={{ color: themes[theme].auxiliaryText, textAlign: 'center', fontSize: 18 }}>{roomUser?.customFields['Insulin Delivery Method']}</Text>
 							</View>
-							<View style={{marginRight:'50%'}} >
-							<Text style={{ color: themes[theme].titleText,textAlign:'center',bottom:10,fontSize:20}}>Devices</Text>
-							<Text style={{ color: themes[theme].auxiliaryText,textAlign:'center',fontSize:18  }}>{roomUser?.customFields['Glucose Monitoring Method']}</Text>
-							<Text style={{ color: themes[theme].auxiliaryText,textAlign:'center',fontSize:18  }}>{roomUser?.customFields['Insulin Delivery Method']}</Text>
-							</View>
-							</View>): (<Text style={{ color: themes[theme].auxiliaryText,textAlign:'center',fontSize:18 ,marginTop:20}}>{roomUser?.customFields['T1D Since']}</Text>)}
-							
+						</View>
+					) : (
+						<Text style={{
+							color: themes[theme].auxiliaryText, textAlign: 'center', fontSize: 18, marginTop: 20
+						}}
+						>{roomUser?.customFields['T1D Since']}
+						</Text>
+					)}
+
 				</View>
 			);
 		}
@@ -500,7 +530,7 @@ class RoomInfoView extends React.Component {
 	render() {
 		const { room, roomUser } = this.state;
 		const { theme, user, route } = this.props;
-		
+
 		const isPeerSupporter = route.params?.isPeerSupporter;
 		const isAdmin = ['admin', 'livechat-manager'].find(role => user.roles.includes(role)) !== undefined;
 		const peerIds = (user === null
@@ -513,7 +543,7 @@ class RoomInfoView extends React.Component {
 
 		const canConnect = !peerIds.includes(roomUser.username) && peerIds.length < 5 && !isAdmin;
 		const isConnected = peerIds.includes(roomUser.username) && !isAdmin;
-		
+
 		const name = (isConnected) ? `${ roomUser?.name } ✅ ` : roomUser?.name;
 		return (
 			<ScrollView style={[styles.scroll, { backgroundColor: themes[theme].backgroundColor }]}>
@@ -524,11 +554,12 @@ class RoomInfoView extends React.Component {
 				>
 					<View style={[styles.avatarContainer, this.isDirect && styles.avatarContainerDirectRoom, { backgroundColor: themes[theme].auxiliaryBackground }]}>
 						{this.renderAvatar(room, roomUser, isAdmin, isPeerSupporter, canConnect, isConnected)}
-						<View style={{flexDirection:'row'}} ><View style={{marginTop:17}}>{this.renderStatus(room,roomUser)}</View>
-						<View style={styles.roomTitleContainer}>{ getRoomTitle(room, this.t, name, roomUser?.username,roomUser?.customFields?.Age, roomUser?.statusText, theme) }</View></View>
+						<View style={{ flexDirection: 'row' }}><View style={{ marginTop: 17 }}>{this.renderStatus(room, roomUser)}</View>
+							<View style={styles.roomTitleContainer}>{ getRoomTitle(room, this.t, name, roomUser?.username, roomUser?.customFields?.Age, roomUser?.statusText, theme) }</View>
+						</View>
 						{this.isDirect ? this.renderPreContent(isAdmin, isPeerSupporter, canConnect, isConnected) : null}
 						{this.isDirect ? this.renderButtons(isPeerSupporter, canConnect, isConnected) : null}
-						
+
 					</View>
 					{this.renderContent(isAdmin, isPeerSupporter, canConnect, isConnected)}
 				</SafeAreaView>

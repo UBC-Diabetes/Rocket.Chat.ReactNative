@@ -28,7 +28,6 @@ Title.propTypes = {
 const Livechat = ({ room, roomUser, theme }) => {
 	const [department, setDepartment] = useState({});
 
-
 	const getDepartment = async(id) => {
 		if (id) {
 			const result = await RocketChat.getDepartmentInfo(id);
@@ -63,12 +62,14 @@ const Livechat = ({ room, roomUser, theme }) => {
 			/>
 			<Item
 				label={I18n.t('Email')}
-				content={roomUser.visitorEmails?.map(email => email.address).reduce((ret, item) => `${ ret }${ item }\n`)}
+				// eslint-disable-next-line
+				content={roomUser.visitorEmails?.map(email => email.address).reduce((ret, item) => ret + item + '\n')}
 				theme={theme}
 			/>
 			<Item
 				label={I18n.t('Phone')}
-				content={roomUser.phone?.map(phone => phone.phoneNumber).reduce((ret, item) => `${ ret }${ item }\n`)}
+				// eslint-disable-next-line
+				content={roomUser.phone?.map(phone => phone.phoneNumber).reduce((ret, item) => ret + item + '\n')}
 				theme={theme}
 			/>
 			<Item

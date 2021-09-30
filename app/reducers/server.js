@@ -11,7 +11,6 @@ const initialState = {
 	previousServer: null
 };
 
-
 export default function server(state = initialState, action) {
 	switch (action.type) {
 		case SERVER.REQUEST:

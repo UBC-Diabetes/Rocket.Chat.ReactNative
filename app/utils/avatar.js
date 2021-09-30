@@ -15,7 +15,6 @@ export const avatarURL = ({
 		avatarAuthURLFragment = `&rc_token=${ token }&rc_uid=${ userId }`;
 	}
 
-
 	let uri;
 	if (avatar) {
 		uri = avatar.includes('http') ? avatar : formatUrl(avatar, baseUrl, uriSize, avatarAuthURLFragment);

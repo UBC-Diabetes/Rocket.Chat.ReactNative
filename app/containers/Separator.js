@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
 	}
 });
 
-
 const Separator = React.memo(({ style, theme }) => (
 	<View
 		style={[

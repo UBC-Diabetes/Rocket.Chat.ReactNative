@@ -9,7 +9,7 @@ import { avatarURL } from '../utils/avatar';
 import Emoji from './markdown/Emoji';
 
 const Avatar = React.memo(({
-	text, size, baseUrl, borderRadius,borderBottomRightRadius, style, avatar, type, children, userId, token, onPress, theme, emoji, getCustomEmoji
+	text, size, baseUrl, borderRadius, borderBottomRightRadius, style, avatar, type, children, userId, token, onPress, theme, emoji, getCustomEmoji
 }) => {
 	const avatarStyle = {
 		width: size,
@@ -75,7 +75,8 @@ Avatar.propTypes = {
 	token: PropTypes.string,
 	theme: PropTypes.string,
 	onPress: PropTypes.func,
-	getCustomEmoji: PropTypes.func
+	getCustomEmoji: PropTypes.func,
+	borderBottomRightRadius: PropTypes.number
 };
 
 Avatar.defaultProps = {

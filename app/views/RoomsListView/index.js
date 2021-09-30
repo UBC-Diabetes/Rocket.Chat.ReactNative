@@ -444,7 +444,6 @@ class RoomsListView extends React.Component {
 				.observe();
 		}
 
-
 		this.querySubscription = observable.subscribe((data) => {
 			let tempChats = [];
 			let chats = data;

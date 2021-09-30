@@ -9,7 +9,6 @@ import { CustomIcon } from '../../../lib/Icons';
 import Check from '../../../containers/Check';
 import { themes } from '../../../constants/colors';
 
-
 export const SortItemButton = ({ children, onPress, theme }) => (
 	<Touch
 		style={styles.sortItemButton}

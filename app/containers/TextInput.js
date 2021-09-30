@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
 	}
 });
 
-
 export default class RCTextInput extends React.PureComponent {
 	static propTypes = {
 		label: PropTypes.string,

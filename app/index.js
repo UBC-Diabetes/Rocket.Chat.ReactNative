@@ -37,7 +37,6 @@ import InAppNotification from './containers/InAppNotification';
 import { ActionSheetProvider } from './containers/ActionSheet';
 import debounce from './utils/debounce';
 
-
 RNScreens.enableScreens();
 
 const parseDeepLinking = (url) => {
