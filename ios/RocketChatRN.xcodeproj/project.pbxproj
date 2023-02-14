@@ -37,6 +37,7 @@
 		1EF5FBD1250C109E00614FEA /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5FBD0250C109E00614FEA /* Encryption.swift */; };
 		1EFEB5982493B6640072EDC0 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEB5972493B6640072EDC0 /* NotificationService.swift */; };
 		2C57EC4198178CAB58B9AC3F /* libPods-defaults-NotificationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB13A988BD79B967FFB91807 /* libPods-defaults-NotificationService.a */; };
+		42342164299BDB5B00F40C13 /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42342163299BDB5B00F40C13 /* wmelon.swift */; };
 		7A14FCF4257FEB59005BDCD4 /* Official.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A14FCF3257FEB59005BDCD4 /* Official.xcassets */; };
 		7A610CD327ECE38100B8ABDD /* custom.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A610CD127ECE38100B8ABDD /* custom.ttf */; };
 		7A610CD427ECE38100B8ABDD /* custom.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A610CD127ECE38100B8ABDD /* custom.ttf */; };
@@ -209,6 +210,7 @@
 		1EFEB5992493B6640072EDC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EFEB5A12493B67D0072EDC0 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		391C4F7AA7023CD41EEBD106 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-Rocket.Chat/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		42342163299BDB5B00F40C13 /* wmelon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wmelon.swift; sourceTree = "<group>"; };
 		42BE0DF15E88B752D34148A1 /* Pods-defaults-Rocket.Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-Rocket.Chat.debug.xcconfig"; path = "Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat.debug.xcconfig"; sourceTree = "<group>"; };
 		4433FC4AF6BFF8377C6106BC /* libPods-defaults-Rocket.Chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-Rocket.Chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D5C142B655F8EFD006792C /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-RocketChatRN/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				42342163299BDB5B00F40C13 /* wmelon.swift */,
 				1E76CBC425152A7F0067298C /* Shared */,
 				1E068CFB24FD2DAF00A0FFC1 /* AppGroup */,
 				13B07FAE1A68108700A75B9A /* RocketChatRN */,
@@ -1229,6 +1232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42342164299BDB5B00F40C13 /* wmelon.swift in Sources */,
 				1EC6ACF622CBA01500A41C61 /* ShareRocketChatRN.m in Sources */,
 				1E068CFF24FD2DC700A0FFC1 /* AppGroup.swift in Sources */,
 				1E068D0224FD2E0500A0FFC1 /* AppGroup.m in Sources */,
@@ -1392,7 +1396,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
+					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1462,7 +1466,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
+					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
