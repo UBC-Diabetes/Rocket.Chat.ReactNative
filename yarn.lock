@@ -17216,7 +17216,7 @@ react-native-mime-types@2.3.0:
   dependencies:
     mime-db "~1.37.0"
 
-react-native-mmkv-storage@^0.8.0:
+react-native-mmkv-storage@0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/react-native-mmkv-storage/-/react-native-mmkv-storage-0.8.0.tgz#2ece5f441a6a818224a85315c68e105e0d6446b5"
   integrity sha512-L782Le5IuDYlDLGXF/qimbnzvkbYsSmV5PiDleo1DSS8Kr8Q31UK8YWtUICrDGQ9Fm7Xx4PxP9ffe2XzGeWaHQ==
@@ -17234,10 +17234,13 @@ react-native-navigation-bar-color@2.0.1:
   resolved "https://registry.yarnpkg.com/react-native-navigation-bar-color/-/react-native-navigation-bar-color-2.0.1.tgz#ee2be25cc37105f7da355717b0a9a32c9c059ae6"
   integrity sha512-1kE/oxWt+HYjRxdZdvke9tJ365xaee5n3+euOQA1En8zQuSbOxiE4SYEGM7TeaWnmLJ0l37mRnPHaB2H4mGh0A==
 
-react-native-notifications@^4.3.3:
-  version "4.3.3"
-  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-4.3.3.tgz#5be05cb144127f4db518079dd202415af497dfcb"
-  integrity sha512-t7uPgpC93A4L41Jea2zet3BUqgh45gpN/ATS9gxejNH3r6kWgMdGeeZJhuMpl1gSXw1gcvgzdjzIjN7YZSOP0A==
+react-native-notifications@2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-2.1.7.tgz#ef836f6f8c12bdc5103598035590347811426a70"
+  integrity sha512-m9jfpobP1BpqG2w6pN2kKzKJt2bqrLIRS3QAuH0MU0dpRwib/4ehaAUKOiFj+xVCtuKHALpceb97FHuA0i4dkw==
+  dependencies:
+    core-js "^1.0.0"
+    uuid "^2.0.3"
 
 react-native-notifier@1.6.1:
   version "1.6.1"
@@ -17385,9 +17388,9 @@ react-native-text-size@4.0.0-rc.1:
   resolved "https://registry.yarnpkg.com/react-native-text-size/-/react-native-text-size-4.0.0-rc.1.tgz#1e048d345dd6a5a8e1269e0585c1a5948c478da5"
   integrity sha512-CysqjU2jK6Yc+a+kEI222pUyTY2ywcU2HqbFqf1KHymW6OPTdvBBHqbEJKL0QiLhQaFYDbqicM+h990s9TP00g==
 
-react-native-ui-lib@RocketChat/react-native-ui-lib:
-  version "4.2.0"
-  resolved "https://codeload.github.com/RocketChat/react-native-ui-lib/tar.gz/fd5869e493b5b9cf888cec4a252c9ef292364b02"
+react-native-ui-lib@RocketChat/react-native-ui-lib#minor-improvements:
+  version "4.2.1"
+  resolved "https://codeload.github.com/RocketChat/react-native-ui-lib/tar.gz/a80f38aaa947849736ce8643253991cdcb639414"
   dependencies:
     babel-plugin-transform-inline-environment-variables "^0.0.2"
     color "^3.1.0"
@@ -20365,6 +20368,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
+  integrity sha512-FULf7fayPdpASncVy4DLh3xydlXEJJpvIELjYjNeQWYUZ9pclcpvCZSr2gkmN2FrrGcI7G/cJsIEwk5/8vfXpg==
 
 uuid@^3.0.1, uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
