@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.34.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -72,20 +72,67 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Take photos to share with other users</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to access your contacts</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Unlock the app with FaceID</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This permission stems from a library we use and will never be called anyway. If you see this, deny access</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This permission stems from a library we use and will never be called anyway. If you see this, deny access</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This permission stems from a library we use and will never be called anyway. If you see this, deny access</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Use your microphone to record audio messages</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to access your device's accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give $(PRODUCT_NAME) permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Upload photos to share with other users or to change your avatar</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) to access your reminders</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>custom.ttf</string>
-		<string>Inter.ttf</string>
+		<string>Poppins-Black.ttf</string>
+		<string>Poppins-BlackItalic.ttf</string>
+		<string>Poppins-Bold.ttf</string>
+		<string>Poppins-BoldItalic.ttf</string>
+		<string>Poppins-ExtraBold.ttf</string>
+		<string>Poppins-ExtraBoldItalic.ttf</string>
+		<string>Poppins-ExtraLight.ttf</string>
+		<string>Poppins-ExtraLightItalic.ttf</string>
+		<string>Poppins-Italic.ttf</string>
+		<string>Poppins-Light.ttf</string>
+		<string>Poppins-LightItalic.ttf</string>
+		<string>Poppins-Medium.ttf</string>
+		<string>Poppins-MediumItalic.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
+		<string>Poppins-SemiBoldItalic.ttf</string>
+		<string>Poppins-Thin.ttf</string>
+		<string>Poppins-ThinItalic.ttf</string>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Fontisto.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -94,7 +141,6 @@
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>audio</string>
 		<string>fetch</string>
 		<string>voip</string>
 	</array>

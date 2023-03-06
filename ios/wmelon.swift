@@ -1,8 +1,8 @@
 //
 //  wmelon.swift
-//  ShareRocketChatRN
+//  RocketChatRN
 //
-//  Created by Eric Shin on 2023-02-14.
+//  Created by Eric Shin on 2023-03-06.
 //  Copyright © 2023 Facebook. All rights reserved.
 //
 
