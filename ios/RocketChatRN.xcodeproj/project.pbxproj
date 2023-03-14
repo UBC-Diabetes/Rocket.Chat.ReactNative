@@ -45,6 +45,8 @@
 		42C45E4829B68F9C00540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
 		42C45E4A29B6903D00540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
 		42C45E4B29B6904000540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
+		42FF8CAF29C0217C004BF35A /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6D2B55444D48C3BFA3C86B /* Inter.ttf */; };
+		42FF8CB029C0217D004BF35A /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6D2B55444D48C3BFA3C86B /* Inter.ttf */; };
 		55E724EAD95E79F984DCDF02 /* libPods-defaults-Rocket.Chat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C4C1F52F54F7C628BEC5E1 /* libPods-defaults-Rocket.Chat.a */; };
 		677360B326F139BE00EA410E /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E01C8282511304100FEF824 /* Sender.swift */; };
 		677360B426F139BE00EA410E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E680ED82512990700C9257A /* Request.swift */; };
@@ -97,7 +99,7 @@
 		67EFF89A26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
 		67EFF89B26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
 		67EFF89C26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
-		69E4354C5D935D5EE022A7E5 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		69E4354C5D935D5EE022A7E5 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		76635831C7F548143E7393E5 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE191F22B53E40F1C658A59 /* ExpoModulesProvider.swift */; };
 		7A14FCF4257FEB59005BDCD4 /* Official.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A14FCF3257FEB59005BDCD4 /* Official.xcassets */; };
 		7A3268F724F04FFE0050E241 /* custom.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3268F524F04FFE0050E241 /* custom.ttf */; };
@@ -371,6 +373,7 @@
 		E87BC204E4494C45BC1152FF /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		F98F8484E8B94888B901F3FD /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		F9C4C1F52F54F7C628BEC5E1 /* libPods-defaults-Rocket.Chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-Rocket.Chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB6D2B55444D48C3BFA3C86B /* Inter.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Inter.ttf; path = ../assets/fonts/Inter.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -433,7 +436,7 @@
 				7AAB3E3E257E6A6E00707CF6 /* libz.tbd in Frameworks */,
 				7AAB3E3F257E6A6E00707CF6 /* libWatermelonDB.a in Frameworks */,
 				55E724EAD95E79F984DCDF02 /* libPods-defaults-Rocket.Chat.a in Frameworks */,
-				69E4354C5D935D5EE022A7E5 /* (null) in Frameworks */,
+				69E4354C5D935D5EE022A7E5 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,6 +693,7 @@
 				F98F8484E8B94888B901F3FD /* Octicons.ttf */,
 				A38B960BCFB647E8B0933E78 /* SimpleLineIcons.ttf */,
 				8BB9D53D683645D49B151318 /* Zocial.ttf */,
+				FB6D2B55444D48C3BFA3C86B /* Inter.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -949,6 +953,7 @@
 				9C9073CB2710D34800BCE8A9 /* Poppins-MediumItalic.ttf in Resources */,
 				9C9073CC2710D34800BCE8A9 /* Poppins-Regular.ttf in Resources */,
 				9C9073CD2710D34800BCE8A9 /* Poppins-SemiBold.ttf in Resources */,
+				42FF8CB029C0217D004BF35A /* Inter.ttf in Resources */,
 				9C9073CE2710D34800BCE8A9 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				9C9073CF2710D34800BCE8A9 /* Poppins-Thin.ttf in Resources */,
 				9C9073D02710D34800BCE8A9 /* Poppins-ThinItalic.ttf in Resources */,
@@ -979,6 +984,7 @@
 				9C9073DE2710D4E400BCE8A9 /* Poppins-MediumItalic.ttf in Resources */,
 				9C9073DF2710D4E400BCE8A9 /* Poppins-Regular.ttf in Resources */,
 				9C9073E02710D4E400BCE8A9 /* Poppins-SemiBold.ttf in Resources */,
+				42FF8CAF29C0217C004BF35A /* Inter.ttf in Resources */,
 				9C9073E12710D4E400BCE8A9 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				9C9073E22710D4E400BCE8A9 /* Poppins-Thin.ttf in Resources */,
 				9C9073E32710D4E400BCE8A9 /* Poppins-ThinItalic.ttf in Resources */,
@@ -1707,7 +1713,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
+					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1776,7 +1782,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
+					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
