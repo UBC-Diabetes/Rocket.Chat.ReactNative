@@ -55,8 +55,8 @@ class Sdk {
 		params: void extends OperationParams<'GET', MatchPathPattern<TPath>>
 			? void
 			: Serialized<OperationParams<'GET', MatchPathPattern<TPath>>> = undefined as void extends OperationParams<
-			'GET',
-			MatchPathPattern<TPath>
+		'GET',
+		MatchPathPattern<TPath>
 		>
 			? void
 			: Serialized<OperationParams<'GET', MatchPathPattern<TPath>>>
@@ -69,8 +69,8 @@ class Sdk {
 		params: void extends OperationParams<'POST', MatchPathPattern<TPath>>
 			? void
 			: Serialized<OperationParams<'POST', MatchPathPattern<TPath>>> = undefined as void extends OperationParams<
-			'POST',
-			MatchPathPattern<TPath>
+		'POST',
+		MatchPathPattern<TPath>
 		>
 			? void
 			: Serialized<OperationParams<'POST', MatchPathPattern<TPath>>>

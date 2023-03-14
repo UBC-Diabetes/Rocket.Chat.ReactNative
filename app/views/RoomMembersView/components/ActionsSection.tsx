@@ -15,8 +15,8 @@ import { MasterDetailInsideStackParamList } from '../../../stacks/MasterDetailSt
 import { ChatsStackParamList } from '../../../stacks/types';
 
 type TNavigation = CompositeNavigationProp<
-	StackNavigationProp<ChatsStackParamList, 'RoomActionsView'>,
-	StackNavigationProp<MasterDetailInsideStackParamList>
+StackNavigationProp<ChatsStackParamList, 'RoomActionsView'>,
+StackNavigationProp<MasterDetailInsideStackParamList>
 >;
 
 interface IActionsSection {

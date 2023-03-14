@@ -1194,9 +1194,9 @@ class MessageBox extends Component<IMessageBoxProps, IMessageBoxState> {
 		const isAndroidTablet: Partial<IThemedTextInput> =
 			isTablet && isAndroid
 				? {
-						multiline: false,
-						onSubmitEditing: this.submit,
-						returnKeyType: 'send'
+					multiline: false,
+					onSubmitEditing: this.submit,
+					returnKeyType: 'send'
 				  }
 				: {};
 
@@ -1238,7 +1238,7 @@ class MessageBox extends Component<IMessageBoxProps, IMessageBoxState> {
 					closeEmoji={this.closeEmojiKeyboardAndFocus}
 				/>
 				<TextInput
-					ref={component => (this.component = component)}
+					ref={component => this.component = component}
 					style={[styles.textBoxInput, { color: themes[theme].bodyText }]}
 					returnKeyType='default'
 					keyboardType='twitter'
@@ -1299,7 +1299,7 @@ class MessageBox extends Component<IMessageBoxProps, IMessageBoxState> {
 					onPressNoMatchCanned: this.onPressNoMatchCanned
 				}}>
 				<KeyboardAccessoryView
-					ref={(ref: any) => (this.tracking = ref)}
+					ref={(ref: any) => this.tracking = ref}
 					renderContent={this.renderContent}
 					kbInputRef={this.component}
 					kbComponent={showEmojiKeyboard ? 'EmojiKeyboard' : null}

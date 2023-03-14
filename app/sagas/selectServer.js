@@ -52,11 +52,11 @@ const getServerInfo = function* getServerInfo({ server, raiseError = true }) {
 		yield serversDB.action(async () => {
 			try {
 				const serverRecord = await serversCollection.find(server);
-				await serverRecord.update(record => {
+				await serverRecord.update((record) => {
 					record.version = serverVersion;
 				});
 			} catch (e) {
-				await serversCollection.create(record => {
+				await serversCollection.create((record) => {
 					record._raw = sanitizedRaw({ id: server }, serversCollection.schema);
 					record.version = serverVersion;
 				});
@@ -169,7 +169,7 @@ const handleServerRequest = function* handleServerRequest({ server, username, fr
 				try {
 					const serversHistory = await serversHistoryCollection.query(Q.where('url', server)).fetch();
 					if (!serversHistory?.length) {
-						await serversHistoryCollection.create(s => {
+						await serversHistoryCollection.create((s) => {
 							s.url = server;
 						});
 					}

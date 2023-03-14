@@ -44,7 +44,7 @@ export const createChannel = ({
 		extraData: {
 			broadcast,
 			encrypted,
-			...(teamId && { teamId })
+			...teamId && { teamId }
 		}
 	};
 	return sdk.post(type ? 'groups.create' : 'channels.create', params);
@@ -144,7 +144,7 @@ export const getDiscussions = ({
 		roomId,
 		offset,
 		count,
-		...(text && { text })
+		...text && { text }
 	};
 	// RC 2.4.0
 	return sdk.get('chat.getDiscussions', params);
@@ -195,7 +195,7 @@ export const leaveTeam = ({ teamId, rooms }: { teamId: string; rooms: string[] }
 	sdk.post('teams.leave', {
 		teamId,
 		// RC 4.2.0
-		...(rooms?.length && { rooms })
+		...rooms?.length && { rooms }
 	});
 
 export const removeTeamMember = ({ teamId, userId, rooms }: { teamId: string; userId: string; rooms: string[] }) =>
@@ -204,7 +204,7 @@ export const removeTeamMember = ({ teamId, userId, rooms }: { teamId: string; us
 		teamId,
 		userId,
 		// RC 4.2.0
-		...(rooms?.length && { rooms })
+		...rooms?.length && { rooms }
 	});
 
 export const updateTeamRoom = ({ roomId, isDefault }: { roomId: string; isDefault: boolean }) =>
@@ -223,15 +223,15 @@ export const teamListRoomsOfUser = ({ teamId, userId }: { teamId: string; userId
 
 export const convertChannelToTeam = ({ rid, name, type }: { rid: string; name: string; type: 'c' | 'p' }) => {
 	const params = {
-		...(type === 'c'
+		...type === 'c'
 			? {
-					channelId: rid,
-					channelName: name
+				channelId: rid,
+				channelName: name
 			  }
 			: {
-					roomId: rid,
-					roomName: name
-			  })
+				roomId: rid,
+				roomName: name
+			  }
 	};
 	return sdk.post(type === 'c' ? 'channels.convertToTeam' : 'groups.convertToTeam', params);
 };
@@ -239,7 +239,7 @@ export const convertChannelToTeam = ({ rid, name, type }: { rid: string; name: s
 export const convertTeamToChannel = ({ teamId, selected }: { teamId: string; selected: string[] }) => {
 	const params = {
 		teamId,
-		...(selected.length && { roomsToRemove: selected })
+		...selected.length && { roomsToRemove: selected }
 	};
 	return sdk.post('teams.convertToChannel', params);
 };
@@ -428,9 +428,9 @@ export const getListCannedResponse = ({ scope = '', departmentId = '', offset = 
 	const params = {
 		offset,
 		count,
-		...(departmentId && { departmentId }),
-		...(text && { text }),
-		...(scope && { scope })
+		...departmentId && { departmentId },
+		...text && { text },
+		...scope && { scope }
 	};
 
 	// RC 3.17.0
@@ -695,7 +695,7 @@ export const runSlashCommand = (command: string, roomId: string, params: string,
 		roomId,
 		params,
 		triggerId,
-		...(tmid && { tmid })
+		...tmid && { tmid }
 	});
 
 export const getCommandPreview = (command: string, roomId: string, params: string) =>
@@ -884,8 +884,8 @@ export const getRoomMembers = async ({
 			roomId: rid,
 			offset: skip,
 			count: limit,
-			...(type !== 'all' && { 'status[]': type }),
-			...(filter && { filter })
+			...type !== 'all' && { 'status[]': type },
+			...filter && { filter }
 		};
 		// RC 3.16.0
 		const result = await sdk.get(`${roomTypeToApiType(t)}.members`, params);

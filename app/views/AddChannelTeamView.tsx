@@ -15,8 +15,8 @@ import { IApplicationState } from '../definitions';
 type TRoute = RouteProp<ChatsStackParamList, 'AddChannelTeamView'>;
 
 type TNavigation = CompositeNavigationProp<
-	StackNavigationProp<ChatsStackParamList, 'AddChannelTeamView'>,
-	CompositeNavigationProp<StackNavigationProp<NewMessageStackParamList>, StackNavigationProp<DrawerParamList>>
+StackNavigationProp<ChatsStackParamList, 'AddChannelTeamView'>,
+CompositeNavigationProp<StackNavigationProp<NewMessageStackParamList>, StackNavigationProp<DrawerParamList>>
 >;
 
 const setHeader = ({
@@ -56,11 +56,11 @@ const AddChannelTeamView = () => {
 					onPress={() =>
 						isMasterDetail
 							? navigation.navigate('SelectedUsersViewCreateChannel', {
-									nextAction: () => navigation.navigate('CreateChannelView', { teamId })
+								nextAction: () => navigation.navigate('CreateChannelView', { teamId })
 							  })
 							: navigation.navigate('SelectedUsersView', {
-									nextAction: () =>
-										navigation.navigate('ChatsStackNavigator', { screen: 'CreateChannelView', params: { teamId } })
+								nextAction: () =>
+									navigation.navigate('ChatsStackNavigator', { screen: 'CreateChannelView', params: { teamId } })
 							  })
 					}
 					testID='add-channel-team-view-create-channel'

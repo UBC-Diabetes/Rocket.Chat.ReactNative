@@ -160,7 +160,7 @@ class RoomInfoEditView extends React.Component<IRoomInfoEditViewProps, IRoomInfo
 					unarchiveRoomPermission,
 					deleteCPermission,
 					deletePPermission,
-					...(this.room.teamMain ? [deleteTeamPermission] : [])
+					...this.room.teamMain ? [deleteTeamPermission] : []
 				],
 				rid
 			);
@@ -173,7 +173,7 @@ class RoomInfoEditView extends React.Component<IRoomInfoEditViewProps, IRoomInfo
 					'unarchive-room': result[3],
 					'delete-c': result[4],
 					'delete-p': result[5],
-					...(this.room.teamMain && { 'delete-team': result[6] })
+					...this.room.teamMain && { 'delete-team': result[6] }
 				}
 			});
 		} catch (e) {
@@ -302,7 +302,7 @@ class RoomInfoEditView extends React.Component<IRoomInfoEditViewProps, IRoomInfo
 		}
 		// Room Type
 		if ((room.t === SubscriptionType.GROUP) !== t) {
-			params.roomType = t ? ('p' as SubscriptionType) : ('c' as SubscriptionType);
+			params.roomType = t ? ('p' as SubscriptionType) : 'c' as SubscriptionType;
 		}
 		// Read Only
 		if (room.ro !== ro) {
@@ -700,8 +700,8 @@ class RoomInfoEditView extends React.Component<IRoomInfoEditViewProps, IRoomInfo
 						) : null}
 						{room.broadcast
 							? [
-									<Text style={styles.broadcast}>{I18n.t('Broadcast')}</Text>,
-									<View style={[styles.divider, { borderColor: themes[theme].separatorColor }]} />
+								<Text style={styles.broadcast}>{I18n.t('Broadcast')}</Text>,
+								<View style={[styles.divider, { borderColor: themes[theme].separatorColor }]} />
 							  ]
 							: null}
 						{serverVersion && !compareServerVersion(serverVersion, 'lowerThan', '3.0.0') ? (

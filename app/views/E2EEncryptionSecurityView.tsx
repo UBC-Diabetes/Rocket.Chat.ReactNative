@@ -67,7 +67,7 @@ class E2EEncryptionSecurityView extends React.Component<IE2EEncryptionSecurityVi
 
 	onChangePasswordText = debounce((text: string) => this.setState({ newPassword: text }), 300);
 
-	setNewPasswordRef = (ref: RNTextInput) => (this.newPasswordInputRef = ref);
+	setNewPasswordRef = (ref: RNTextInput) => this.newPasswordInputRef = ref;
 
 	changePassword = () => {
 		const { newPassword } = this.state;

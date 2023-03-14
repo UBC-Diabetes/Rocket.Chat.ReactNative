@@ -122,15 +122,15 @@ const CannedResponseDetail = ({ navigation, route }: ICannedResponseDetailProps)
 					<View style={styles.item}>
 						<Text style={[styles.itemLabel, { color: themes[theme].titleText }]}>{I18n.t('Tags')}</Text>
 						<View style={styles.cannedTagContainer}>
-							{cannedResponse?.tags?.length > 0 ? (
+							{cannedResponse?.tags?.length > 0 ? 
 								cannedResponse.tags.map(t => (
 									<View style={[styles.cannedTagWrap, { backgroundColor: themes[theme].searchboxBackground }]}>
 										<Text style={[styles.cannedTag, { color: themes[theme].auxiliaryTintColor }]}>{t}</Text>
 									</View>
 								))
-							) : (
-								<Text style={[styles.cannedText, { color: themes[theme].auxiliaryTintColor }]}>-</Text>
-							)}
+							 : (
+									<Text style={[styles.cannedText, { color: themes[theme].auxiliaryTintColor }]}>-</Text>
+								)}
 						</View>
 					</View>
 				</View>

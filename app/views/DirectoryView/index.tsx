@@ -6,7 +6,6 @@ import { CompositeNavigationProp } from '@react-navigation/native';
 
 import { ChatsStackParamList } from '../../stacks/types';
 import { MasterDetailInsideStackParamList } from '../../stacks/MasterDetailStack/types';
-import * as List from '../../containers/List';
 import Touch from '../../containers/Touch';
 import DirectoryItem from '../../containers/DirectoryItem';
 import sharedStyles from '../Styles';
@@ -30,8 +29,8 @@ import { Services } from '../../lib/services';
 
 interface IDirectoryViewProps {
 	navigation: CompositeNavigationProp<
-		StackNavigationProp<ChatsStackParamList, 'DirectoryView'>,
-		StackNavigationProp<MasterDetailInsideStackParamList>
+	StackNavigationProp<ChatsStackParamList, 'DirectoryView'>,
+	StackNavigationProp<MasterDetailInsideStackParamList>
 	>;
 	baseUrl: string;
 	isFederationEnabled: boolean;

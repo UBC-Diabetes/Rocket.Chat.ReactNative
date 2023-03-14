@@ -18,7 +18,7 @@ import { TGetCustomEmoji } from '../../definitions/IEmoji';
 import { useTheme } from '../../theme';
 import { formatAttachmentUrl } from '../../lib/methods/helpers/formatAttachmentUrl';
 
-const SUPPORTED_TYPES = ['video/quicktime', 'video/mp4', ...(isIOS ? [] : ['video/3gp', 'video/mkv'])];
+const SUPPORTED_TYPES = ['video/quicktime', 'video/mp4', ...isIOS ? [] : ['video/3gp', 'video/mkv']];
 const isTypeSupported = (type: string) => SUPPORTED_TYPES.indexOf(type) !== -1;
 
 const styles = StyleSheet.create({

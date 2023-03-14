@@ -76,7 +76,7 @@ const handleLoginRequest = function* handleLoginRequest({
 						const serverHistoryRecord = serversHistory[0];
 						// this is updating on every login just to save `updated_at`
 						// keeping this server as the most recent on autocomplete order
-						await serverHistoryRecord.update(s => {
+						await serverHistoryRecord.update((s) => {
 							s.username = result.username;
 						});
 					}
@@ -178,12 +178,12 @@ const handleLoginSuccess = function* handleLoginSuccess({ user }) {
 		yield serversDB.action(async () => {
 			try {
 				const userRecord = await usersCollection.find(user.id);
-				await userRecord.update(record => {
+				await userRecord.update((record) => {
 					record._raw = sanitizedRaw({ id: user.id, ...record._raw }, usersCollection.schema);
 					Object.assign(record, u);
 				});
 			} catch (e) {
-				await usersCollection.create(record => {
+				await usersCollection.create((record) => {
 					record._raw = sanitizedRaw({ id: user.id }, usersCollection.schema);
 					Object.assign(record, u);
 				});

@@ -82,8 +82,8 @@ const renderRoomTitle = ({ room, type, name, username, statusText, theme }: IGet
 
 interface IRoomInfoViewProps {
 	navigation: CompositeNavigationProp<
-		StackNavigationProp<ChatsStackParamList, 'RoomInfoView'>,
-		StackNavigationProp<MasterDetailInsideStackParamList>
+	StackNavigationProp<ChatsStackParamList, 'RoomInfoView'>,
+	StackNavigationProp<MasterDetailInsideStackParamList>
 	>;
 	route: RouteProp<ChatsStackParamList, 'RoomInfoView'>;
 	subscribedRoom: string;
@@ -182,17 +182,17 @@ class RoomInfoView extends React.Component<IRoomInfoViewProps, IRoomInfoViewStat
 			title: t === SubscriptionType.DIRECT ? I18n.t('User_Info') : I18n.t('Room_Info'),
 			headerRight: showEdit
 				? () => (
-						<HeaderButton.Container>
-							<HeaderButton.Item
-								iconName='edit'
-								onPress={() => {
-									const isLivechat = t === SubscriptionType.OMNICHANNEL;
-									logEvent(events[`RI_GO_${isLivechat ? 'LIVECHAT' : 'RI'}_EDIT`]);
-									navigation.navigate(isLivechat ? 'LivechatEditView' : 'RoomInfoEditView', { rid, room, roomUser });
-								}}
-								testID='room-info-view-edit-button'
-							/>
-						</HeaderButton.Container>
+					<HeaderButton.Container>
+						<HeaderButton.Item
+							iconName='edit'
+							onPress={() => {
+								const isLivechat = t === SubscriptionType.OMNICHANNEL;
+								logEvent(events[`RI_GO_${isLivechat ? 'LIVECHAT' : 'RI'}_EDIT`]);
+								navigation.navigate(isLivechat ? 'LivechatEditView' : 'RoomInfoEditView', { rid, room, roomUser });
+							}}
+							testID='room-info-view-edit-button'
+						/>
+					</HeaderButton.Container>
 				  )
 				: undefined
 		});
@@ -446,18 +446,18 @@ class RoomInfoView extends React.Component<IRoomInfoViewProps, IRoomInfoViewStat
 					: null}
 				{isDirectFromSaved && !isFromDm && !isDmWithMyself
 					? this.renderButton(
-							() => handleIgnore(roomUser._id, !isIgnored, roomFromRid.rid),
-							'ignore',
-							I18n.t(isIgnored ? 'Unignore' : 'Ignore'),
-							true
+						() => handleIgnore(roomUser._id, !isIgnored, roomFromRid.rid),
+						'ignore',
+						I18n.t(isIgnored ? 'Unignore' : 'Ignore'),
+						true
 					  )
 					: null}
 				{isDirectFromSaved && isFromDm
 					? this.renderButton(
-							() => this.handleBlockUser(roomFromRid.rid, roomUser._id, !blocker),
-							'ignore',
-							I18n.t(`${blocker ? 'Unblock' : 'Block'}_user`),
-							true
+						() => this.handleBlockUser(roomFromRid.rid, roomUser._id, !blocker),
+						'ignore',
+						I18n.t(`${blocker ? 'Unblock' : 'Block'}_user`),
+						true
 					  )
 					: null}
 			</View>

@@ -286,8 +286,8 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 
 			const twoFactorOptions = params.currentPassword
 				? {
-						twoFactorCode: params.currentPassword,
-						twoFactorMethod: TwoFactorMethods.PASSWORD
+					twoFactorCode: params.currentPassword,
+					twoFactorMethod: TwoFactorMethods.PASSWORD
 				  }
 				: null;
 
@@ -428,7 +428,7 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 
 	renderCustomFields = () => {
 		const { customFields } = this.state;
-		const { Accounts_CustomFields } = this.props;
+		const { Accounts_CustomFields, theme } = this.props;
 
 		if (!Accounts_CustomFields) {
 			return null;
@@ -460,9 +460,9 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 							/>
 						</RNPickerSelect>
 					);
-				} else if (parsedCustomFields[key].type === 'numeric') {
+				} if (parsedCustomFields[key].type === 'numeric') {
 					return (
-						<RCTextInput
+						<FormTextInput
 							inputRef={e => {
 								this[key] = e;
 							}}

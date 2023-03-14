@@ -22,24 +22,24 @@ import { DirectoryEndpoint } from './directory';
 import { AutoTranslateEndpoints } from './autotranslate';
 
 export type Endpoints = ChannelsEndpoints &
-	ChatEndpoints &
-	CustomUserStatusEndpoints &
-	DmEndpoints &
-	EmojiCustomEndpoints &
-	GroupsEndpoints &
-	ImEndpoints &
-	InvitesEndpoints &
-	OmnichannelEndpoints &
-	PermissionsEndpoints &
-	RolesEndpoints &
-	RoomsEndpoints &
-	OauthCustomConfiguration &
-	UsersEndpoints &
-	TeamsEndpoints &
-	E2eEndpoints &
-	SubscriptionsEndpoints &
-	VideoConferenceEndpoints &
-	CommandsEndpoints &
-	PushTokenEndpoints &
-	DirectoryEndpoint &
-	AutoTranslateEndpoints;
+ChatEndpoints &
+CustomUserStatusEndpoints &
+DmEndpoints &
+EmojiCustomEndpoints &
+GroupsEndpoints &
+ImEndpoints &
+InvitesEndpoints &
+OmnichannelEndpoints &
+PermissionsEndpoints &
+RolesEndpoints &
+RoomsEndpoints &
+OauthCustomConfiguration &
+UsersEndpoints &
+TeamsEndpoints &
+E2eEndpoints &
+SubscriptionsEndpoints &
+VideoConferenceEndpoints &
+CommandsEndpoints &
+PushTokenEndpoints &
+DirectoryEndpoint &
+AutoTranslateEndpoints;

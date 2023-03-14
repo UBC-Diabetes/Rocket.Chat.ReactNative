@@ -62,8 +62,8 @@ import { E2E_BANNER_TYPE, DisplayMode, SortBy, MAX_SIDEBAR_WIDTH, themes } from 
 import { Services } from '../../lib/services';
 
 type TNavigation = CompositeNavigationProp<
-	StackNavigationProp<ChatsStackParamList, 'RoomsListView'>,
-	CompositeNavigationProp<StackNavigationProp<ChatsStackParamList>, StackNavigationProp<DrawerParamList>>
+StackNavigationProp<ChatsStackParamList, 'RoomsListView'>,
+CompositeNavigationProp<StackNavigationProp<ChatsStackParamList>, StackNavigationProp<DrawerParamList>>
 >;
 
 interface IRoomsListViewProps {
@@ -474,11 +474,11 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 
 	internalSetState = (
 		state:
-			| ((
-					prevState: Readonly<IRoomsListViewState>,
-					props: Readonly<IRoomsListViewProps>
+		| ((
+			prevState: Readonly<IRoomsListViewState>,
+			props: Readonly<IRoomsListViewProps>
 			  ) => Pick<IRoomsListViewState, keyof IRoomsListViewState> | IRoomsListViewState | null)
-			| (Pick<IRoomsListViewState, keyof IRoomsListViewState> | IRoomsListViewState | null),
+		| (Pick<IRoomsListViewState, keyof IRoomsListViewState> | IRoomsListViewState | null),
 		callback?: () => void
 	) => {
 		if (this.animated) {
@@ -899,7 +899,7 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 		}
 	};
 
-	getScrollRef = (ref: FlatList) => (this.scroll = ref);
+	getScrollRef = (ref: FlatList) => this.scroll = ref;
 
 	renderListHeader = () => {
 		const { searching } = this.state;

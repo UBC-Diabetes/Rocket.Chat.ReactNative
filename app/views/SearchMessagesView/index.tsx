@@ -58,8 +58,8 @@ export interface IRoomInfoParam {
 
 interface INavigationOption {
 	navigation: CompositeNavigationProp<
-		StackNavigationProp<ChatsStackParamList, 'SearchMessagesView'>,
-		StackNavigationProp<InsideStackParamList>
+	StackNavigationProp<ChatsStackParamList, 'SearchMessagesView'>,
+	StackNavigationProp<InsideStackParamList>
 	>;
 	route: RouteProp<ChatsStackParamList, 'SearchMessagesView'>;
 }
@@ -110,7 +110,7 @@ class SearchMessagesView extends React.Component<ISearchMessagesViewProps, ISear
 	}
 
 	async componentDidMount() {
-		this.room = (await getRoomInfo(this.rid)) ?? undefined;
+		this.room = await getRoomInfo(this.rid) ?? undefined;
 	}
 
 	shouldComponentUpdate(nextProps: ISearchMessagesViewProps, nextState: ISearchMessagesViewState) {

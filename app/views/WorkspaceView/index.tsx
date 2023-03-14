@@ -18,8 +18,8 @@ import styles from './styles';
 
 interface IWorkSpaceProp {
 	navigation: CompositeNavigationProp<
-		StackNavigationProp<OutsideParamList, 'WorkspaceView'>,
-		StackNavigationProp<OutsideModalParamList>
+	StackNavigationProp<OutsideParamList, 'WorkspaceView'>,
+	StackNavigationProp<OutsideModalParamList>
 	>;
 	theme: TSupportedThemes;
 	Site_Name: string;
@@ -91,9 +91,9 @@ class WorkspaceView extends React.Component<IWorkSpaceProp, any> {
 							onPress={this.register}
 							testID='workspace-view-register'
 						/>
-					) : (
+					) : 
 						this.renderRegisterDisabled()
-					)}
+					}
 				</FormContainerInner>
 			</FormContainer>
 		);
