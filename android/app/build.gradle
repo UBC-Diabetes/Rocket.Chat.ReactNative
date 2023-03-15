@@ -409,7 +409,9 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
+if (!isFoss) {
+    apply plugin: 'com.google.gms.google-services'
+}
 
 def isNewArchitectureEnabled() {
     // To opt-in for the New Architecture, you can either:
