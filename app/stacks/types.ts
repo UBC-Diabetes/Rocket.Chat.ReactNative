@@ -182,6 +182,36 @@ export type ChatsStackParamList = {
 	};
 };
 
+export type ProfileLibraryStackParamList = {
+	ProfileLibraryView: undefined;
+	RoomView:
+	| {
+		rid: string;
+		t: SubscriptionType;
+		tmid?: string;
+		message?: TMessageModel;
+		name?: string;
+		fname?: string;
+		prid?: string;
+		room?: TSubscriptionModel | { rid: string; t: string; name?: string; fname?: string; prid?: string };
+		jumpToMessageId?: string;
+		jumpToThreadId?: string;
+		roomUserId?: string | null;
+		usedCannedResponse?: string;
+		status?: string;
+		replyInDM?: TAnyMessageModel;
+		  }
+	| undefined; // Navigates back to RoomView already on stack
+	RoomInfoView: {
+		room?: ISubscription;
+		member?: any;
+		rid: string;
+		t: SubscriptionType;
+		showCloseModal?: boolean;
+		fromRid?: string;
+	};
+};
+
 export type ProfileStackParamList = {
 	ProfileView: undefined;
 	UserPreferencesView: undefined;
@@ -219,6 +249,7 @@ export type DisplayPrefStackParamList = {
 export type DrawerParamList = {
 	ChatsStackNavigator: NavigatorScreenParams<ChatsStackParamList>;
 	ProfileStackNavigator: NavigatorScreenParams<ProfileStackParamList>;
+	ProfileLibraryNavigator:  NavigatorScreenParams<ProfileLibraryStackParamList>;
 	SettingsStackNavigator: NavigatorScreenParams<SettingsStackParamList>;
 	AdminPanelStackNavigator: NavigatorScreenParams<AdminPanelStackParamList>;
 	DisplayPrefStackNavigator: NavigatorScreenParams<DisplayPrefStackParamList>;

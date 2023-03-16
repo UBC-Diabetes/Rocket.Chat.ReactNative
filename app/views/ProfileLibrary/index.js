@@ -10,7 +10,7 @@ import SearchBox from '../../containers/SearchBox';
 import StatusBar from '../../containers/StatusBar';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import * as HeaderButton from '../../containers/HeaderButton';
-import debounce from '../../lib/methods/helpers/debounce';
+import { debounce } from '../../lib/methods/helpers/debounce';
 import log, { logEvent, events } from '../../lib/methods/helpers/log';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { withTheme } from '../../theme';
@@ -75,7 +75,7 @@ class ProfileLibraryView extends React.Component {
 		this.setState({ text });
 	}
 
-	load = debounce(async({ newSearch = false }) => {
+	load = debounce(async ({ newSearch = false }) => {
 		if (newSearch) {
 			this.setState({ data: [], total: -1, loading: false });
 		}
@@ -249,6 +249,7 @@ class ProfileLibraryView extends React.Component {
 					ListHeaderComponent={this.renderHeader}
 					renderItem={this.renderItem}
 					keyboardShouldPersistTaps='always'
+					showsVerticalScrollIndicator={false}
 					ListFooterComponent={loading ? <ActivityIndicator theme={theme} /> : null}
 					onEndReached={() => this.load({})}
 					refreshControl={(

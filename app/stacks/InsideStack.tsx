@@ -80,6 +80,8 @@ import {
 	ProfileStackParamList,
 	SettingsStackParamList
 } from './types';
+// Profile Library Stack
+import ProfileLibraryView from '../views/ProfileLibrary';
 import { isIOS } from '../lib/methods/helpers';
 
 // ChatsStackNavigator
@@ -211,6 +213,31 @@ const DisplayPrefStackNavigator = () => {
 		</DisplayPrefStack.Navigator>
 	);
 };
+// ProfileStackNavigator
+const ProfileLibraryStack = createStackNavigator();
+const ProfileLibraryStackNavigator = () => {
+	const { theme } = React.useContext(ThemeContext);
+	return (
+
+		<ProfileLibraryStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation }}>
+			<ProfileLibraryStack.Screen
+				name='ProfileLibraryView'
+				component={ProfileLibraryView}
+				options={ProfileLibraryView.navigationOptions}
+			/>
+			<ProfileLibraryStack.Screen
+				name='RoomInfoView'
+				component={RoomInfoView}
+				options={RoomInfoView.navigationOptions}
+			/>
+			<ProfileLibraryStack.Screen
+				name='RoomView'
+				component={RoomView}
+				options={RoomView.navigationOptions}
+			/>
+		</ProfileLibraryStack.Navigator>
+	);
+};
 
 // DrawerNavigator
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -230,6 +257,7 @@ const DrawerNavigator = () => {
 				overlayColor: `rgba(0,0,0,${themes[theme].backdropOpacity})`
 			}}>
 			<Drawer.Screen name='ChatsStackNavigator' component={ChatsStackNavigator} />
+			<Drawer.Screen name='ProfileLibraryNavigator' component={ProfileLibraryStackNavigator} />
 			<Drawer.Screen name='ProfileStackNavigator' component={ProfileStackNavigator} />
 			<Drawer.Screen name='SettingsStackNavigator' component={SettingsStackNavigator} />
 			<Drawer.Screen name='AdminPanelStackNavigator' component={AdminPanelStackNavigator} />
