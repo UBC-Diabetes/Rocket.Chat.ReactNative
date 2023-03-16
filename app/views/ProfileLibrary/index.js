@@ -2,25 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
-import RocketChat from '../../lib/rocketchat';
-import DirectoryItem from '../../presentation/DirectoryItem';
+import { Services as RocketChat } from '../../lib/services';
+import DirectoryItem from '../../containers/DirectoryItem';
 import sharedStyles from '../Styles';
 import I18n from '../../i18n';
 import SearchBox from '../../containers/SearchBox';
 import StatusBar from '../../containers/StatusBar';
 import ActivityIndicator from '../../containers/ActivityIndicator';
 import * as HeaderButton from '../../containers/HeaderButton';
-import debounce from '../../utils/debounce';
-import log, { logEvent, events } from '../../utils/log';
-import Options from './Options';
-import { CustomIcon } from '../../lib/Icons';
+import { debounce } from '../../lib/methods/helpers/debounce';
+import log, { logEvent, events } from '../../lib/methods/helpers/log';
+import { CustomIcon } from '../../containers/CustomIcon';
 import { withTheme } from '../../theme';
-import { themes } from '../../constants/colors';
-import styles from './styles';
+import { themes } from '../../lib/constants';
 import { getUserSelector } from '../../selectors/login';
 import SafeAreaView from '../../containers/SafeAreaView';
-import { goRoom } from '../../utils/goRoom';
+import { goRoom } from '../../lib/methods/helpers/goRoom';
 import RoomTypeIcon from '../../containers/RoomTypeIcon';
+import styles from './styles';
+import Options from './Options';
 
 class ProfileLibraryView extends React.Component {
 	static navigationOptions = ({ navigation, isMasterDetail }) => {
@@ -75,7 +75,7 @@ class ProfileLibraryView extends React.Component {
 		this.setState({ text });
 	}
 
-	load = debounce(async({ newSearch = false }) => {
+	load = debounce(async ({ newSearch = false }) => {
 		if (newSearch) {
 			this.setState({ data: [], total: -1, loading: false });
 		}
@@ -92,7 +92,7 @@ class ProfileLibraryView extends React.Component {
 			const { data, type, globalUsers } = this.state;
 			const query = { text, type, workspace: globalUsers ? 'all' : 'local' };
 
-			const directories = await RocketChat.getProfileLibrary({
+			const directories = await RocketChat.getDirectory({
 				query,
 				offset: data.length,
 				count: 50,
@@ -249,6 +249,7 @@ class ProfileLibraryView extends React.Component {
 					ListHeaderComponent={this.renderHeader}
 					renderItem={this.renderItem}
 					keyboardShouldPersistTaps='always'
+					showsVerticalScrollIndicator={false}
 					ListFooterComponent={loading ? <ActivityIndicator theme={theme} /> : null}
 					onEndReached={() => this.load({})}
 					refreshControl={(

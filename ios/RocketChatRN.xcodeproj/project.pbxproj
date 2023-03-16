@@ -40,6 +40,13 @@
 		1EF5FBD1250C109E00614FEA /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5FBD0250C109E00614FEA /* Encryption.swift */; };
 		1EFEB5982493B6640072EDC0 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEB5972493B6640072EDC0 /* NotificationService.swift */; };
 		2679F9CED21558B832479812 /* libPods-defaults-NotificationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57180C08D6D33D18496DA93B /* libPods-defaults-NotificationService.a */; };
+		3CD0C8A56B1517D154543481 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD7D33AC64B6C4CE3536BDC /* ExpoModulesProvider.swift */; };
+		4289399429A709B100788C2B /* libWatermelonDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAA749B23043AD300F1ADE9 /* libWatermelonDB.a */; };
+		42C45E4829B68F9C00540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
+		42C45E4A29B6903D00540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
+		42C45E4B29B6904000540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
+		42FF8CAF29C0217C004BF35A /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6D2B55444D48C3BFA3C86B /* Inter.ttf */; };
+		42FF8CB029C0217D004BF35A /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6D2B55444D48C3BFA3C86B /* Inter.ttf */; };
 		55E724EAD95E79F984DCDF02 /* libPods-defaults-Rocket.Chat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C4C1F52F54F7C628BEC5E1 /* libPods-defaults-Rocket.Chat.a */; };
 		677360B326F139BE00EA410E /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E01C8282511304100FEF824 /* Sender.swift */; };
 		677360B426F139BE00EA410E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E680ED82512990700C9257A /* Request.swift */; };
@@ -93,6 +100,7 @@
 		67EFF89B26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
 		67EFF89C26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
 		69E4354C5D935D5EE022A7E5 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		76635831C7F548143E7393E5 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE191F22B53E40F1C658A59 /* ExpoModulesProvider.swift */; };
 		7A14FCF4257FEB59005BDCD4 /* Official.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A14FCF3257FEB59005BDCD4 /* Official.xcassets */; };
 		7A3268F724F04FFE0050E241 /* custom.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3268F524F04FFE0050E241 /* custom.ttf */; };
 		7AAB3E15257E6A6E00707CF6 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E01C8282511304100FEF824 /* Sender.swift */; };
@@ -177,7 +185,9 @@
 		9C9073E12710D4E400BCE8A9 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B12D24E1383D4D8A8D816A4C /* Poppins-SemiBoldItalic.ttf */; };
 		9C9073E22710D4E400BCE8A9 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B1B2DFC0384668B8A229F9 /* Poppins-Thin.ttf */; };
 		9C9073E32710D4E400BCE8A9 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4914FF2000914889AA6D43B8 /* Poppins-ThinItalic.ttf */; };
+		AC8A234414E8385C977F4EE2 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E565363334A1B2466CB65135 /* ExpoModulesProvider.swift */; };
 		D7992F0C06C0C7F4AB788904 /* libPods-defaults-ShareRocketChatRN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD3DA8924E6E08252483D2B /* libPods-defaults-ShareRocketChatRN.a */; };
+		EBA44BA952675DF99ECA9D86 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0F9646DC09EE12908BB8D /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,8 +321,10 @@
 		3B08CB3A28984199896F1B71 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		3CD3DA8924E6E08252483D2B /* libPods-defaults-ShareRocketChatRN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-ShareRocketChatRN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		408AFC1479FB49F6A3E27819 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		42C45E4529B68F9500540AAB /* wmelon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wmelon.swift; sourceTree = "<group>"; };
 		476D344934B34A4098C57D08 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		4914FF2000914889AA6D43B8 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.ttf"; path = "../assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		4CC0F9646DC09EE12908BB8D /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-Rocket.Chat/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		53CF8674729048A5BEA0F5DF /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		5638EFB36F91F276D825D3D3 /* Pods-defaults-Rocket.Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-Rocket.Chat.debug.xcconfig"; path = "Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat.debug.xcconfig"; sourceTree = "<group>"; };
 		57180C08D6D33D18496DA93B /* libPods-defaults-NotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-NotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,6 +354,8 @@
 		96BEE5DD184BAAE3089B2645 /* Pods-defaults-RocketChatRN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-RocketChatRN.release.xcconfig"; path = "Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN.release.xcconfig"; sourceTree = "<group>"; };
 		97606876A2D54332AAD23976 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		9CC07D90715A42209549C892 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		9CD7D33AC64B6C4CE3536BDC /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-NotificationService/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		9EE191F22B53E40F1C658A59 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-ShareRocketChatRN/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		A38B960BCFB647E8B0933E78 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		A49D5E671B9D4FFF9BD27CA8 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		AF8669FAF7963378045B9CE9 /* Pods-defaults-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
@@ -355,9 +369,11 @@
 		C5A5664BE55E4114ADA038B2 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		C6A1B49B90624F9B96BC83DF /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		D3EA5F79D7592D989B1C74CC /* Pods-defaults-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
+		E565363334A1B2466CB65135 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-RocketChatRN/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		E87BC204E4494C45BC1152FF /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		F98F8484E8B94888B901F3FD /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		F9C4C1F52F54F7C628BEC5E1 /* libPods-defaults-Rocket.Chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-Rocket.Chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB6D2B55444D48C3BFA3C86B /* Inter.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Inter.ttf; path = ../assets/fonts/Inter.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +384,7 @@
 				1E55FDB32320675C0048D2F9 /* libWatermelonDB.a in Frameworks */,
 				1E25743422CBA2CF005A877F /* JavaScriptCore.framework in Frameworks */,
 				D7992F0C06C0C7F4AB788904 /* libPods-defaults-ShareRocketChatRN.a in Frameworks */,
+				4289399429A709B100788C2B /* libWatermelonDB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +579,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		7A7D3CD10AF669D88F9B7D85 /* Rocket.Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4CC0F9646DC09EE12908BB8D /* ExpoModulesProvider.swift */,
+			);
+			name = Rocket.Chat;
+			sourceTree = "<group>";
+		};
 		7AAA749723043AD300F1ADE9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,6 +606,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				42C45E4529B68F9500540AAB /* wmelon.swift */,
 				1E76CBC425152A7F0067298C /* Shared */,
 				1E068CFB24FD2DAF00A0FFC1 /* AppGroup */,
 				13B07FAE1A68108700A75B9A /* RocketChatRN */,
@@ -593,6 +619,7 @@
 				B8E79A681F3CCC69005B464F /* Recovered References */,
 				677360F026F139BF00EA410E /* Rocket.Chat copy-Info.plist */,
 				2231584AAF9856F54351C7A6 /* Pods */,
+				88EE2E7C7D6E9C86CA6354D6 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -607,6 +634,25 @@
 				677360EF26F139BE00EA410E /* RocketChatRN.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		88EE2E7C7D6E9C86CA6354D6 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				DCD5160F0ED409298865D0C0 /* NotificationService */,
+				7A7D3CD10AF669D88F9B7D85 /* Rocket.Chat */,
+				AC1879EFB6A986C55511279C /* RocketChatRN */,
+				ED46E6BC00A66132347A8E2C /* ShareRocketChatRN */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
+		AC1879EFB6A986C55511279C /* RocketChatRN */ = {
+			isa = PBXGroup;
+			children = (
+				E565363334A1B2466CB65135 /* ExpoModulesProvider.swift */,
+			);
+			name = RocketChatRN;
 			sourceTree = "<group>";
 		};
 		AF5E16F0398347E6A80C8CBE /* Resources */ = {
@@ -647,6 +693,7 @@
 				F98F8484E8B94888B901F3FD /* Octicons.ttf */,
 				A38B960BCFB647E8B0933E78 /* SimpleLineIcons.ttf */,
 				8BB9D53D683645D49B151318 /* Zocial.ttf */,
+				FB6D2B55444D48C3BFA3C86B /* Inter.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -680,6 +727,22 @@
 				3CD3DA8924E6E08252483D2B /* libPods-defaults-ShareRocketChatRN.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DCD5160F0ED409298865D0C0 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				9CD7D33AC64B6C4CE3536BDC /* ExpoModulesProvider.swift */,
+			);
+			name = NotificationService;
+			sourceTree = "<group>";
+		};
+		ED46E6BC00A66132347A8E2C /* ShareRocketChatRN */ = {
+			isa = PBXGroup;
+			children = (
+				9EE191F22B53E40F1C658A59 /* ExpoModulesProvider.swift */,
+			);
+			name = ShareRocketChatRN;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -890,6 +953,7 @@
 				9C9073CB2710D34800BCE8A9 /* Poppins-MediumItalic.ttf in Resources */,
 				9C9073CC2710D34800BCE8A9 /* Poppins-Regular.ttf in Resources */,
 				9C9073CD2710D34800BCE8A9 /* Poppins-SemiBold.ttf in Resources */,
+				42FF8CB029C0217D004BF35A /* Inter.ttf in Resources */,
 				9C9073CE2710D34800BCE8A9 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				9C9073CF2710D34800BCE8A9 /* Poppins-Thin.ttf in Resources */,
 				9C9073D02710D34800BCE8A9 /* Poppins-ThinItalic.ttf in Resources */,
@@ -920,6 +984,7 @@
 				9C9073DE2710D4E400BCE8A9 /* Poppins-MediumItalic.ttf in Resources */,
 				9C9073DF2710D4E400BCE8A9 /* Poppins-Regular.ttf in Resources */,
 				9C9073E02710D4E400BCE8A9 /* Poppins-SemiBold.ttf in Resources */,
+				42FF8CAF29C0217C004BF35A /* Inter.ttf in Resources */,
 				9C9073E12710D4E400BCE8A9 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				9C9073E22710D4E400BCE8A9 /* Poppins-Thin.ttf in Resources */,
 				9C9073E32710D4E400BCE8A9 /* Poppins-ThinItalic.ttf in Resources */,
@@ -960,6 +1025,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/iosMath/mathFonts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -982,6 +1048,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOCropViewControllerBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mathFonts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1014,6 +1081,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/iosMath/mathFonts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1036,6 +1104,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOCropViewControllerBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mathFonts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1200,17 +1269,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-frameworks.sh",
-				"${PODS_ROOT}/hermes-engine/destroot/Library/Frameworks/iphoneos/hermes.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework/JitsiMeetSDK",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC/WebRTC.framework/WebRTC",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/WebRTC.framework/WebRTC",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/hermes.framework/hermes",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeetSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1243,6 +1312,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/iosMath/mathFonts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1265,6 +1335,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOCropViewControllerBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mathFonts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1345,17 +1416,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh",
-				"${PODS_ROOT}/hermes-engine/destroot/Library/Frameworks/iphoneos/hermes.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework/JitsiMeetSDK",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/WebRTC/WebRTC.framework/WebRTC",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/WebRTC.framework/WebRTC",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/hermes.framework/hermes",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeetSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1410,6 +1481,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/iosMath/mathFonts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1432,6 +1504,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOCropViewControllerBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/mathFonts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1448,6 +1521,7 @@
 				1EC6ACF622CBA01500A41C61 /* ShareRocketChatRN.m in Sources */,
 				1E068CFF24FD2DC700A0FFC1 /* AppGroup.swift in Sources */,
 				1E068D0224FD2E0500A0FFC1 /* AppGroup.m in Sources */,
+				76635831C7F548143E7393E5 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1475,10 +1549,12 @@
 				1E598AE925151A63002BDFBD /* SendMessage.swift in Sources */,
 				1E2F61662512958900871711 /* Push.swift in Sources */,
 				1EFEB5982493B6640072EDC0 /* NotificationService.swift in Sources */,
+				42C45E4B29B6904000540AAB /* wmelon.swift in Sources */,
 				1EB8EF722510F1EE00F352B7 /* Storage.swift in Sources */,
 				1E598AE725150660002BDFBD /* Data+Extensions.swift in Sources */,
 				1E2F615B25128F9A00871711 /* API.swift in Sources */,
 				1E01C8272511303900FEF824 /* Payload.swift in Sources */,
+				3CD0C8A56B1517D154543481 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1502,6 +1578,7 @@
 				677360C026F139BE00EA410E /* Data+Extensions.swift in Sources */,
 				677360C126F139BE00EA410E /* Date+Extensions.swift in Sources */,
 				677360C226F139BE00EA410E /* Database.swift in Sources */,
+				42C45E4A29B6903D00540AAB /* wmelon.swift in Sources */,
 				677360C326F139BE00EA410E /* String+Extensions.swift in Sources */,
 				677360C426F139BE00EA410E /* Notification.swift in Sources */,
 				677360C526F139BE00EA410E /* API.swift in Sources */,
@@ -1514,6 +1591,7 @@
 				677360CC26F139BE00EA410E /* Message.swift in Sources */,
 				677360CD26F139BE00EA410E /* NotificationType.swift in Sources */,
 				677360CE26F139BE00EA410E /* SendMessage.swift in Sources */,
+				AC8A234414E8385C977F4EE2 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1537,6 +1615,7 @@
 				7AAB3E23257E6A6E00707CF6 /* Data+Extensions.swift in Sources */,
 				7AAB3E24257E6A6E00707CF6 /* Date+Extensions.swift in Sources */,
 				7AAB3E25257E6A6E00707CF6 /* Database.swift in Sources */,
+				42C45E4829B68F9C00540AAB /* wmelon.swift in Sources */,
 				7AAB3E26257E6A6E00707CF6 /* String+Extensions.swift in Sources */,
 				7AAB3E27257E6A6E00707CF6 /* Notification.swift in Sources */,
 				7AAB3E28257E6A6E00707CF6 /* API.swift in Sources */,
@@ -1549,6 +1628,7 @@
 				7AAB3E2F257E6A6E00707CF6 /* Message.swift in Sources */,
 				7AAB3E30257E6A6E00707CF6 /* NotificationType.swift in Sources */,
 				7AAB3E31257E6A6E00707CF6 /* SendMessage.swift in Sources */,
+				EBA44BA952675DF99ECA9D86 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1649,6 +1729,7 @@
 					"$(inherited)",
 					"-DFB_SONARKIT_ENABLED=1",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1716,6 +1797,7 @@
 					"$(inherited)",
 					"-DFB_SONARKIT_ENABLED=1",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1751,6 +1833,7 @@
 				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1788,6 +1871,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0.0;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1827,7 +1911,7 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = "Rocket.Chat copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
@@ -1843,6 +1927,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1882,7 +1967,7 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = "Rocket.Chat copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
@@ -1898,6 +1983,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1937,7 +2023,7 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = RocketChatRN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
@@ -1953,6 +2039,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1992,7 +2079,7 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = RocketChatRN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
@@ -2008,6 +2095,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.t1dreachout.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

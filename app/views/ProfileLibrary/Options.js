@@ -4,12 +4,12 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import styles from './styles';
-import Touch from '../../utils/touch';
-import { CustomIcon } from '../../lib/Icons';
+import Touch from '../../containers/Touch';
+import { CustomIcon } from '../../containers/CustomIcon';
 import Check from '../../containers/Check';
 import I18n from '../../i18n';
-import { SWITCH_TRACK_COLOR, themes } from '../../constants/colors';
+import { SWITCH_TRACK_COLOR, themes } from '../../lib/constants';
+import styles from './styles';
 
 const ANIMATION_DURATION = 200;
 const ANIMATION_PROPS = {

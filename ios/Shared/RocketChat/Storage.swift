@@ -25,15 +25,13 @@ class Storage {
 
     // get mmkv instance password from keychain
     var key: Data?
-    secureStorage.getSecureKey(instanceID.toHex()) { (response) -> () in
-      if let password = response?[1] as? String {
-        key = password.data(using: .utf8)
-      }
-    }
-    
-    guard let cryptKey = key else {
-      return
-    }
+    if let password: String = secureStorage.getSecureKey(instanceID.toHex()) {
+          key = password.data(using: .utf8)
+        }
+
+        guard let cryptKey = key else {
+          return
+        }
     
     // Get App Group directory
     let suiteName = Bundle.main.object(forInfoDictionaryKey: "AppGroup") as! String
