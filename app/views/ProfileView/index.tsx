@@ -66,6 +66,7 @@ interface IProfileViewState {
 	username: string;
 	email: string | null;
 	newPassword: string | null;
+	confirmPassword: string | null;
 	currentPassword: string | null;
 	avatarUrl: string | null;
 	avatar: IAvatar;
@@ -85,6 +86,7 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 	private email?: TextInput;
 	private avatarUrl?: TextInput;
 	private newPassword?: TextInput;
+	private confirmPassword?: TextInput;
 
 	setHeader = () => {
 		const { navigation, isMasterDetail } = this.props;
@@ -112,6 +114,7 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 		username: '',
 		email: '',
 		newPassword: '',
+		confirmPassword: '',
 		currentPassword: '',
 		avatarUrl: '',
 		avatar: {
@@ -166,6 +169,7 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 			username,
 			email: emails ? emails[0].address : null,
 			newPassword: null,
+			confirmPassword: null,
 			currentPassword: null,
 			avatarUrl: null,
 			avatar: {
@@ -220,7 +224,7 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 
 		this.setState({ saving: true });
 
-		const { name, username, email, newPassword, currentPassword, avatar, customFields, twoFactorCode } = this.state;
+		const { name, username, email, newPassword, confirmPassword, currentPassword, avatar, customFields, twoFactorCode } = this.state;
 		const { user, dispatch } = this.props;
 		const params = {} as IProfileParams;
 
@@ -247,6 +251,11 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 		// currentPassword
 		if (currentPassword) {
 			params.currentPassword = sha256(currentPassword);
+		}
+
+		if (confirmPassword !== newPassword) {
+			this.setState({ saving: false });
+			return showErrorAlert(I18n.t('Password_does_not_match'));
 		}
 
 		const requirePassword = !!params.email || newPassword;
@@ -543,7 +552,7 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 	};
 
 	render() {
-		const { name, username, email, newPassword, avatarUrl, customFields, avatar, saving } = this.state;
+		const { name, username, email, newPassword, confirmPassword, avatarUrl, customFields, avatar, saving } = this.state;
 		const {
 			user,
 			theme,
@@ -627,6 +636,24 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 							value={newPassword || undefined}
 							onChangeText={value => this.setState({ newPassword: value })}
 							onSubmitEditing={() => {
+								this.confirmPassword?.focus();
+							}}
+							secureTextEntry
+							testID='profile-view-new-password'
+						/>
+						<FormTextInput
+							editable={Accounts_AllowPasswordChange}
+							inputStyle={[!Accounts_AllowPasswordChange && styles.disabled]}
+							inputRef={e => {
+								if (e) {
+									this.confirmPassword = e;
+								}
+							}}
+							label={I18n.t('Confirm_password')}
+							placeholder={I18n.t('Confirm_password')}
+							value={confirmPassword || undefined}
+							onChangeText={value => this.setState({ confirmPassword: value })}
+							onSubmitEditing={() => {
 								if (Accounts_CustomFields && Object.keys(customFields).length) {
 									// @ts-ignore
 									return this[Object.keys(customFields)[0]].focus();
@@ -634,7 +661,7 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 								this.avatarUrl?.focus();
 							}}
 							secureTextEntry
-							testID='profile-view-new-password'
+							testID='profile-view-confirm-password'
 						/>
 						{this.renderCustomFields()}
 						<FormTextInput

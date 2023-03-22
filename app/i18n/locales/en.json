@@ -394,6 +394,8 @@
   "OS": "OS",
   "Overwrites_the_server_configuration_and_use_room_config": "Overwrites the server configuration and use room config",
   "Password": "Password",
+  "Confirm_password": "Confirm Password",
+  "Password_does_not_match": "Confirmed Password does not match New Password",
   "Parent_channel_or_group": "Parent channel or group",
   "Permalink_copied_to_clipboard": "Permalink copied to clipboard!",
   "Phone": "Phone",

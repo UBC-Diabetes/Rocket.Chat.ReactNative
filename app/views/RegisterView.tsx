@@ -93,6 +93,7 @@ class RegisterView extends React.Component<IProps, any> {
 			name: '',
 			email: '',
 			password: '',
+			confirmPassword: '',
 			username: '',
 			saving: false,
 			customFields
@@ -105,8 +106,11 @@ class RegisterView extends React.Component<IProps, any> {
 	};
 
 	valid = () => {
-		const { name, email, password, username, customFields } = this.state;
+		const { name, email, password, confirmPassword, username, customFields } = this.state;
 		let requiredCheck = true;
+		if (confirmPassword !== password) {
+			return false;
+		}
 		Object.keys(this.parsedCustomFields).forEach((key: string) => {
 			if (this.parsedCustomFields[key].required) {
 				requiredCheck = requiredCheck && customFields[key] && Boolean(customFields[key].trim());
@@ -122,7 +126,6 @@ class RegisterView extends React.Component<IProps, any> {
 		}
 		this.setState({ saving: true });
 		Keyboard.dismiss();
-
 		const { name, email, password, username, customFields } = this.state;
 		const { dispatch, Accounts_EmailVerification, navigation, Accounts_ManuallyApproveNewUsers } = this.props;
 
@@ -163,7 +166,7 @@ class RegisterView extends React.Component<IProps, any> {
 		}
 		openLink(`${server}/${route}`, theme);
 	};
-
+	
 	renderCustomFields = () => {
 		const { customFields } = this.state;
 		const { Accounts_CustomFields } = this.props;
@@ -300,6 +303,20 @@ class RegisterView extends React.Component<IProps, any> {
 						testID='register-view-password'
 						textContentType='newPassword'
 						autoComplete='password-new'
+					/>
+					<FormTextInput
+						label={I18n.t('Confirm_password')}
+						containerStyle={styles.inputContainer}
+						inputRef={e => {
+							this.passwordInput = e;
+						}}
+						placeholder={I18n.t('Confirm_password')}
+						returnKeyType='send'
+						secureTextEntry
+						onChangeText={(value: string) => this.setState({ confirmPassword: value })}
+						onSubmitEditing={this.submit}
+						testID='register-view-confirm-password'
+						textContentType='password'
 					/>
 
 					{this.renderCustomFields()}
