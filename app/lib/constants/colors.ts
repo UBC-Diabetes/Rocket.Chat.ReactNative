@@ -19,6 +19,14 @@ const mentions = {
 	mentionOtherColor: '#F3BE08'
 };
 
+const themeColors = {
+	magenta: '#CB007B',
+	mossGreen: '#799A79',
+	dreamBlue: '#9ABAF3',
+	creamsicleYellow: '#FDCA7D',
+	pink: '#F283BF'
+};
+
 export const colors = {
 	light: {
 		backgroundColor: '#ffffff',
@@ -87,7 +95,8 @@ export const colors = {
 		conferenceCallEnabledIconBackground: '#156FF5',
 		conferenceCallPhotoBackground: '#E4E7EA',
 		textInputSecondaryBackground: '#E4E7EA',
-		...mentions
+		...mentions,
+		...themeColors
 	},
 	dark: {
 		backgroundColor: '#030b1b',
@@ -156,7 +165,8 @@ export const colors = {
 		conferenceCallEnabledIconBackground: '#156FF5',
 		conferenceCallPhotoBackground: '#E4E7EA',
 		textInputSecondaryBackground: '#030b1b', // backgroundColor
-		...mentions
+		...mentions,
+		...themeColors
 	},
 	black: {
 		backgroundColor: '#000000',
@@ -225,7 +235,8 @@ export const colors = {
 		conferenceCallEnabledIconBackground: '#156FF5',
 		conferenceCallPhotoBackground: '#E4E7EA',
 		textInputSecondaryBackground: '#000000', // backgroundColor
-		...mentions
+		...mentions,
+		...themeColors
 	}
 };
 

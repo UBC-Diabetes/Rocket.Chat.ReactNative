@@ -153,6 +153,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		if (isMasterDetail) {
 			return;
 		}
+		this.sidebarNavigate('HomeStackNavigator');
 		navigation?.closeDrawer();
 	};
 

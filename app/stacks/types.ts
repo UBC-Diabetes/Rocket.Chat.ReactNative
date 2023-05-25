@@ -247,6 +247,7 @@ export type DisplayPrefStackParamList = {
 };
 
 export type DrawerParamList = {
+	HomeStackNavigator: NavigatorScreenParams<any>;
 	ChatsStackNavigator: NavigatorScreenParams<ChatsStackParamList>;
 	ProfileStackNavigator: NavigatorScreenParams<ProfileStackParamList>;
 	ProfileLibraryNavigator:  NavigatorScreenParams<ProfileLibraryStackParamList>;
@@ -342,3 +343,7 @@ export type OutsideModalParamList = {
 		ssoToken?: string;
 	};
 };
+
+export type HomeStackParamList = {
+	HomeView: undefined;
+}
