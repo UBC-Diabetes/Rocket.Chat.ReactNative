@@ -1,70 +1,98 @@
 import React, { useEffect } from 'react';
 import { ScrollView, Text, View, Image } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Touchable from 'react-native-platform-touchable';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-import { TColors, useTheme, withTheme } from '../../theme';
-import { IApplicationState, IUser } from '../../definitions';
 import { getUserSelector } from '../../selectors/login';
 import { LISTENER } from '../../containers/Toast';
-import EventEmitter from '../../lib/methods/helpers/events';
 import StatusBar from '../../containers/StatusBar';
 import * as HeaderButton from '../../containers/HeaderButton';
-import { useAppSelector } from '../../lib/hooks';
-import { tiles } from './data';
-import { styles, createStyles } from './styles';
-// import { events, logEvent } from 'lib/methods/helpers/log';
+import EventEmitter from '../../lib/methods/helpers/events';
+import { TGoRoomItem, goRoom } from '../../lib/methods/helpers/goRoom';
+import { themes } from '../../lib/constants';
+import { useTheme, withTheme } from '../../theme';
+import { IApplicationState } from '../../definitions';
+import * as tileData from './data';
+import * as allStyles from './styles';
+import { Tileprops } from './interfaces';
+import { get247Chat } from './helpers';
 
-interface Props {
-	user: IUser | undefined;
-	navigation: StackNavigationProp<any>;
-}
+const imageUrl =
+	'https://marketplace.canva.com/EAFEits4-uw/1/0/800w/canva-boy-cartoon-gamer-animated-twitch-profile-photo-r0bPCSjUqg0.jpg';
 
-const HomeView: React.FC<Props> = ({ user}) => {
+const HomeView: React.FC = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
-	const { isMasterDetail } = useAppSelector(state => state.app);
+	const user = useSelector((state: IApplicationState) => getUserSelector(state));
+	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
 	const userName = user?.name || '';
-	const { colors } = useTheme();
+	const { theme } = useTheme();
+	let chat247Room: TGoRoomItem | undefined;
+	const { largeTiles, smallTiles } = tileData;
+	const { styles, createTileStyles } = allStyles;
 
-	useEffect(()=>{
-		navigation.setOptions ({
-			title: ''
-		});
+	useEffect(() => {
+		navigation.setOptions({ title: '' });
 		if (!isMasterDetail) {
 			navigation.setOptions({
 				headerLeft: () => <HeaderButton.Drawer navigation={navigation} testID='display-view-drawer' />,
-				// headerRight: () => <HeaderButton.Message navigation={navigation} />
-			
+				headerRight: () => (
+					<HeaderButton.Container>
+						<HeaderButton.Item
+							iconName='search'
+							onPress={() => {
+								EventEmitter.emit(LISTENER, { message: `Open search` });
+							}}
+						/>
+						<Touchable style={styles.profileImageContainer} onPress={() => navigation.navigate('ProfileStackNavigator')}>
+							<Image source={{ uri: imageUrl }} style={styles.profileImage} />
+						</Touchable>
+					</HeaderButton.Container>
+				)
 			});
 		}
-	},[navigation]);
+	});
 
-	interface Tileprops {
-		icon: any;
-		title: string;
-		size: 'small' | 'large';
-		screen: string;
-		color: TColors;
-		disabled?: boolean;
-	}
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				chat247Room = await get247Chat();
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		};
+
+		fetchData();
+	}, []);
+
+	const navigateTo247Chat = () => {
+		if (chat247Room) {
+			try {
+				goRoom({ item: chat247Room, isMasterDetail });
+			} catch (error) {
+				console.error('error', error);
+			}
+		}
+	};
 
 	const homeViewTile = ({ icon, title, size, screen, color, disabled = false }: Tileprops, index: number) => {
-		let imageStyle = { width: 45, height: 45 };
-		if (size === 'large') {
-			imageStyle = { width: 75, height: 75 };
-		}
-		const tileStyles = createStyles({ size, themeColors: colors, color });
+		const tileStyles = createTileStyles({
+			size,
+			color: themes[theme][color]
+		});
+		const imageStyle = size === 'large' ? tileStyles.largeImage : tileStyles.smallImage;
 
 		return (
 			<Touchable
 				onPress={() => {
-					// logEvent(events[`SIDEBAR_GO_${route.replace('StackNavigator', '').replace('View', '').toUpperCase()}`]);
 					if (screen) {
+						if (screen === '24Chat') {
+							navigation.navigate('RoomsListView');
+							navigateTo247Chat();
+							return;
+						}
 						navigation.navigate(screen);
-					} else {
-						EventEmitter.emit(LISTENER, { message: `navigate to ${screen}` });
 					}
 				}}
 				style={{ opacity: disabled ? 0.4 : 1, ...tileStyles.tile }}
@@ -84,17 +112,14 @@ const HomeView: React.FC<Props> = ({ user}) => {
 
 	return (
 		<View style={styles.mainContainer} testID='home-view'>
-      <StatusBar/>
+			<StatusBar />
 			<ScrollView>
 				<Text style={styles.title}>{`Welcome ${userName},`}</Text>
-				<View style={styles.tileContainer}>{tiles.map((item, index) => homeViewTile(item, index))}</View>
+				<View style={styles.tileContainer}>{largeTiles.map((item, index) => homeViewTile(item, index))}</View>
+				<View style={styles.tileContainer}>{smallTiles.map((item, index) => homeViewTile(item, index))}</View>
 			</ScrollView>
 		</View>
 	);
 };
 
-const mapStateToProps = (state: IApplicationState) => ({
-	user: getUserSelector(state)
-});
-
-export default connect(mapStateToProps)(withTheme(HomeView));
+export default withTheme(HomeView);

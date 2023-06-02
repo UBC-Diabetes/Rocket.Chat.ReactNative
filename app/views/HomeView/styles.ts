@@ -1,12 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import { TColors } from '../../theme';
-
 export const styles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
-		paddingVertical: 35,
-		paddingHorizontal: 20
+		padding: 20
 	},
 	title: {
 		fontSize: 24,
@@ -17,10 +14,19 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		flexWrap: 'wrap'
+	},
+	profileImageContainer: {
+		marginRight: 20
+	},
+	profileImage: {
+		width: 24,
+		height: 24,
+		borderRadius: 12,
+		backgroundColor: 'red'
 	}
 });
 
-export const createStyles = ({ size, themeColors, color }: { size?: 'small' | 'large'; themeColors: TColors; color?: TColors }) =>
+export const createTileStyles = ({ size, color }: { size?: 'small' | 'large'; color: string }) =>
 	StyleSheet.create({
 		tile: {
 			width: size === 'small' ? 96 : 130,
@@ -36,7 +42,7 @@ export const createStyles = ({ size, themeColors, color }: { size?: 'small' | 'l
 			width: size === 'small' ? 80 : 130,
 			height: size === 'small' ? 80 : 130,
 			borderRadius: size === 'small' ? 10 : 65,
-			backgroundColor: themeColors[color]
+			backgroundColor: color
 		},
 		text: {
 			fontSize: 16,
@@ -44,5 +50,13 @@ export const createStyles = ({ size, themeColors, color }: { size?: 'small' | 'l
 			textAlign: 'center',
 			fontWeight: '500',
 			marginTop: size === 'small' ? 14 : 16
+		},
+		smallImage: {
+			width: 45,
+			height: 45
+		},
+		largeImage: {
+			width: 75,
+			height: 75
 		}
 	});
