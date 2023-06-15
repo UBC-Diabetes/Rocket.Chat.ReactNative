@@ -85,6 +85,8 @@ import {
 import ProfileLibraryView from '../views/ProfileLibrary';
 import { isIOS } from '../lib/methods/helpers';
 import HomeView from '../views/HomeView';
+// Discussion Stack
+import DiscussionView from '../views/DiscussionView';
 
 // ChatsStackNavigator
 const ChatsStack = createStackNavigator<ChatsStackParamList>();
@@ -240,6 +242,21 @@ const ProfileLibraryStackNavigator = () => {
 	);
 };
 
+// DiscussionStackNavigator
+const DiscussionStack = createStackNavigator();
+const DiscussionStackNavigator = () => {
+const { theme } = React.useContext(ThemeContext);
+	return (
+		<DiscussionStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation }}>
+			<DiscussionStack.Screen	
+				name='DiscussionView'
+				component={DiscussionView}
+				options={DiscussionView.navigationOptions}
+			/>
+		</DiscussionStack.Navigator>
+	)
+};
+
 // DrawerNavigator
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerNavigator = () => {
@@ -264,6 +281,7 @@ const DrawerNavigator = () => {
 			<Drawer.Screen name='SettingsStackNavigator' component={SettingsStackNavigator} />
 			<Drawer.Screen name='AdminPanelStackNavigator' component={AdminPanelStackNavigator} />
 			<Drawer.Screen name='DisplayPrefStackNavigator' component={DisplayPrefStackNavigator} />
+			<Drawer.Screen name='DiscussionStackNavigator' component={DiscussionStackNavigator} />
 		</Drawer.Navigator>
 	);
 };

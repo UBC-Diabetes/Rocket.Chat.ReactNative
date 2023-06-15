@@ -246,6 +246,8 @@ export type DisplayPrefStackParamList = {
 	DisplayPrefsView: undefined;
 };
 
+export type DiscussionStackParamList = {}
+
 export type DrawerParamList = {
 	HomeStackNavigator: NavigatorScreenParams<any>;
 	ChatsStackNavigator: NavigatorScreenParams<ChatsStackParamList>;
@@ -254,6 +256,7 @@ export type DrawerParamList = {
 	SettingsStackNavigator: NavigatorScreenParams<SettingsStackParamList>;
 	AdminPanelStackNavigator: NavigatorScreenParams<AdminPanelStackParamList>;
 	DisplayPrefStackNavigator: NavigatorScreenParams<DisplayPrefStackParamList>;
+	DiscussionStackNavigator: NavigatorScreenParams<DiscussionStackParamList>;
 };
 
 export type NewMessageStackParamList = {

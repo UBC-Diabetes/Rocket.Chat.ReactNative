@@ -22,11 +22,11 @@ export const largeTiles = [
 export const smallTiles = [
 	{
 		title: 'Discussion Board',
-		screen: 'DiscussionBoard',
+		screen: 'DiscussionStackNavigator',
 		size: SizeTypes.SMALL,
 		color: 'dreamBlue',
 		icon: require('../../static/images/discussion-solid.png'),
-		disabled: true
+		disabled: false
 	},
 	{
 		title: 'Virtual Happy Hour',
