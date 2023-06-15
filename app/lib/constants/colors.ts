@@ -24,7 +24,8 @@ const themeColors = {
 	mossGreen: '#799A79',
 	dreamBlue: '#9ABAF3',
 	creamsicleYellow: '#FDCA7D',
-	pink: '#F283BF'
+	pink: '#F283BF',
+	superGray: '#494949'
 };
 
 export const colors = {

@@ -33,7 +33,7 @@ const HomeView: React.FC = () => {
 	const { styles, createTileStyles } = allStyles;
 
 	useEffect(() => {
-		navigation.setOptions({ title: '' });
+		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		if (!isMasterDetail) {
 			navigation.setOptions({
 				headerLeft: () => <HeaderButton.Drawer navigation={navigation} testID='display-view-drawer' />,

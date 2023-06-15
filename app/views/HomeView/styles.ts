@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
 
+import { colors } from '../../lib/constants';
+
 export const styles = StyleSheet.create({
 	mainContainer: {
+		backgroundColor: colors.light.backgroundColor,
 		flex: 1,
 		padding: 20
 	},
