@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -10,11 +10,17 @@ import EventEmitter from '../../../lib/methods/helpers/events';
 import { themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
 import { IApplicationState } from '../../../definitions';
-import DiscussionCard from './Components/DiscussionCard';
+import DiscussionBoardCard from '../Components/DiscussionCardBoard';
+import DiscussionPostCard from '../Components/DiscussionPostCard';
+import Header from '../Components/Header';
+import { DiscussionTabs } from './interaces';
+import styles from './styles';
+import { discussionBoardData, posts } from '../data';
 
 const DiscussionHomeView: React.FC = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
+	const [selectedTab, setSelectedTab] = useState(DiscussionTabs.DISCUSSION_BOARDS);
 	const { theme } = useTheme();
 
 	useEffect(() => {
@@ -22,31 +28,56 @@ const DiscussionHomeView: React.FC = () => {
 		if (!isMasterDetail) {
 			navigation.setOptions({
 				headerLeft: () => (
-					<HeaderButton.Drawer navigation={navigation} testID='display-view-drawer' color={themes[theme].superGray} />
+					<View style={{ marginLeft: 8 }}>
+						<HeaderButton.Drawer navigation={navigation} testID='display-view-drawer' color={themes[theme].superGray} />
+					</View>
 				),
 				headerRight: () => (
-					<HeaderButton.Container>
-						<HeaderButton.Item
-							iconName='search'
-							color={themes[theme].superGray}
-							onPress={() => {
-								EventEmitter.emit(LISTENER, { message: `Open search` });
-							}}
-						/>
-					</HeaderButton.Container>
+					<View style={{ marginRight: 8 }}>
+						<HeaderButton.Container>
+							<HeaderButton.Item
+								iconName='search'
+								color={themes[theme].superGray}
+								onPress={() => {
+									EventEmitter.emit(LISTENER, { message: `Open search` });
+								}}
+							/>
+						</HeaderButton.Container>
+					</View>
 				)
 			});
 		}
 	});
 
+	const content = () => (
+		<View style={{ width: '100%' }}>
+			{selectedTab === DiscussionTabs.DISCUSSION_BOARDS && (
+				<FlatList
+					data={discussionBoardData}
+					renderItem={({ item }) => <DiscussionBoardCard {...item} onPress={() => navigation.navigate('DiscussionBoardView')} />}
+					keyExtractor={(item, id) => item.title + id}
+					ItemSeparatorComponent={() => <View style={styles.discussionBoardsSeparator} />}
+					style={{ padding: 20 }}
+					ListFooterComponent={<View style={styles.footer} />}
+				/>
+			)}
+			{selectedTab === DiscussionTabs.SAVED_POSTS && (
+				<FlatList
+					data={posts}
+					renderItem={({ item }) => <DiscussionPostCard {...item} />}
+					keyExtractor={(item, id) => item.title + id}
+					ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
+					style={{ padding: 20 }}
+					ListFooterComponent={<View style={styles.footer} />}
+				/>
+			)}
+		</View>
+	);
+
 	return (
-		<View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white', paddingHorizontal: 20 }}>
-			<Text style={{ marginTop: 40 }}>Discussion Card</Text>
-			<View style={{ height: 1, width: '100%', backgroundColor: 'gray', marginVertical:10 }} />
-			<DiscussionCard />
-			<Text style={{ marginTop: 40 }}>Saved Post Card</Text>
-			<View style={{ height: 1, width: '100%', backgroundColor: 'gray', marginVertical:10 }} />
-			<DiscussionCard />
+		<View style={styles.mainContainer}>
+			<Header onTabChange={(tab: DiscussionTabs) => setSelectedTab(tab)} />
+			{content()}
 		</View>
 	);
 };

@@ -25,7 +25,8 @@ const themeColors = {
 	dreamBlue: '#9ABAF3',
 	creamsicleYellow: '#FDCA7D',
 	pink: '#F283BF',
-	superGray: '#494949'
+	superGray: '#494949',
+	forestGreen: '#567156'
 };
 
 export const colors = {

@@ -86,7 +86,8 @@ import ProfileLibraryView from '../views/ProfileLibrary';
 import { isIOS } from '../lib/methods/helpers';
 import HomeView from '../views/HomeView';
 // Discussion Stack
-import DiscussionView from '../views/DiscussionBoard/DiscussionView';
+import DiscussionBoardView from '../views/DiscussionBoard/DiscussionBoardView';
+import DiscussionPostView from '../views/DiscussionBoard/PostView';
 import DiscussionHomeView from '../views/DiscussionBoard/DiscussionHomeView';
 
 // ChatsStackNavigator
@@ -253,10 +254,16 @@ const { theme } = React.useContext(ThemeContext);
 				name='DiscussionHomeView'
 				component={DiscussionHomeView}
 				options={DiscussionHomeView.navigationOptions}
-			/><DiscussionStack.Screen	
-				name='DiscussionView'
-				component={DiscussionView}
-				options={DiscussionView.navigationOptions}
+			/>
+			<DiscussionStack.Screen	
+				name='DiscussionBoardView'
+				component={DiscussionBoardView}
+				options={DiscussionBoardView.navigationOptions}
+			/>
+			<DiscussionStack.Screen	
+				name='DiscussionPostView'
+				component={DiscussionPostView}
+				options={DiscussionPostView.navigationOptions}
 			/>
 		</DiscussionStack.Navigator>
 	)
