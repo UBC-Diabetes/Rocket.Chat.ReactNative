@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		marginRight: 24
 	},
-	commentsContainer: {
-		marginTop: 36
+	postContainer: {
+		marginBottom: 36
 	},
 	commentsTitle: {
 		fontSize: 14,
@@ -155,10 +155,40 @@ const styles = StyleSheet.create({
 	},
 	addCommentContainer: {
 		position: 'absolute',
-		bottom: 0,
+		bottom: 10,
+		// elevation: 10,
 		left: 0,
 		right: 0,
-		backgroundColor: '#ff3f'
+		backgroundColor: '#fff',
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 0 },
+		shadowOpacity: 0.15,
+		shadowRadius: 100,
+		borderTopLeftRadius: 25,
+		borderTopRightRadius: 25,
+		paddingTop: 33,
+		paddingHorizontal: 20
+	},
+	textInputContainer: {
+		width: '100%',
+		backgroundColor: '#efefef80',
+		borderRadius: 8,
+		minHeight: 48,
+		flexDirection: 'row',
+		alignItems: 'flex-end',
+		paddingVertical: 14,
+		paddingHorizontal: 12,
+		maxHeight: 160
+	},
+	textInput: {
+		flex: 1,
+		marginRight: 8,
+		fontSize: 14,
+		lineHeight: 20
+	},
+	sendIcon: {
+		height: 20,
+		width: 20
 	}
 });
 

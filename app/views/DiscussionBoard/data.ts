@@ -81,6 +81,70 @@ export const posts = [
 			'I wanted to start a discussion thread for us to share traveling tips fro T1D. Here’s a few I came up with of the top of my head.',
 		likes: 3,
 		comments: 2,
-        saved: true
+		saved: true
+	}
+];
+
+export const comments = [
+	{
+		user: {
+			name: 'Jane Doe',
+			profile_image:
+				'https://marketplace.canva.com/EAFEits4-uw/1/0/800w/canva-boy-cartoon-gamer-animated-twitch-profile-photo-r0bPCSjUqg0.jpg'
+		},
+		date: '6/8/2023, 9:23:11 PM',
+		description: 'This is a comment',
+		likes: 3,
+		liked: false
+	},
+	{
+		user: {
+			name: 'John Smith',
+			profile_image: 'https://images.pexels.com/photos/4926674/pexels-photo-4926674.jpeg?auto=compress&cs=tinysrgb&w=1600'
+		},
+		date: '4/12/2022, 7:50:29 AM',
+		description: 'I love this comment!',
+		likes: 10,
+		liked: true
+	},
+	{
+		user: {
+			name: 'Emily Johnson',
+			profile_image: 'https://images.pexels.com/photos/2743754/pexels-photo-2743754.jpeg?auto=compress&cs=tinysrgb&w=1600'
+		},
+		date: '3/19/2023, 2:15:57 PM',
+		description: 'Nice work!',
+		likes: 5,
+		liked: false
+	},
+	{
+		user: {
+			name: 'Michael Brown',
+			profile_image: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1600'
+		},
+		date: '1/27/2023, 10:33:02 PM',
+		description: 'I have a question...',
+		likes: 2,
+		liked: false
+	},
+	{
+		user: {
+			name: 'Michael Brown',
+			profile_image: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1600'
+		},
+		date: '1/27/2023, 10:33:02 PM',
+		description: 'I have a question...',
+		likes: 2,
+		liked: false
+	},
+	{
+		user: {
+			name: 'Michael Brown',
+			profile_image: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1600'
+		},
+		date: '1/27/2023, 10:33:02 PM',
+		description: 'I have a question...',
+		likes: 2,
+		liked: false
 	}
 ];
