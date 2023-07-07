@@ -6,15 +6,22 @@ type Props = {
 	close: () => void;
 	children?: React.ReactNode;
 	customStyles?: ViewProps['style'];
+	darkBackground?: boolean;
 };
 
 const PopUpModal: React.FC<Props> = props => {
-	const { show, close, children, customStyles } = props;
+	const { show, close, children, customStyles, darkBackground } = props;
 	return (
-		<Modal visible={show} style={styles.modal} animationType='slide' onRequestClose={close} transparent={true}>
+		<Modal
+			visible={show}
+			style={styles.modal}
+			animationType={darkBackground ? 'fade' : 'slide'}
+			onRequestClose={close}
+			transparent={true}
+		>
 			<View style={styles.flexContainer}>
 				<TouchableWithoutFeedback onPress={close}>
-					<View style={styles.flexContainer} />
+					<View style={[styles.flexContainer, darkBackground && styles.darkBackground]} />
 				</TouchableWithoutFeedback>
 				<View style={[styles.content, customStyles]}>{children && children}</View>
 			</View>
@@ -31,6 +38,9 @@ const styles = StyleSheet.create({
 	},
 	flexContainer: {
 		flex: 1
+	},
+	darkBackground: {
+		backgroundColor: '#00000080'
 	},
 	content: {
 		position: 'absolute',

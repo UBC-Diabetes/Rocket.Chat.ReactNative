@@ -39,6 +39,49 @@ export const discussionBoardData = [
 	}
 ];
 
+export const boards = [
+	{
+		icon: 'insulin',
+		color: '#FFC107',
+		title: 'Insulin Pump Users'
+	},
+	{
+		title: 'Insulin Pump Users',
+		icon: 'insulin',
+		color: 'creamsicleYellow'
+	},
+	{
+		title: 'MDI Users',
+		icon: 'mdi_users',
+		color: 'pink'
+	},
+	{
+		title: 'Exercising',
+		icon: 'exercising',
+		color: 'dreamBlue'
+	},
+	{
+		title: 'Covid Help',
+		icon: 'covid',
+		color: 'mossGreen'
+	},
+	{
+		title: 'CGMS',
+		icon: 'syringe',
+		color: 'creamsicleYellow'
+	},
+	{
+		title: 'Low Card Diet',
+		icon: 'diet',
+		color: 'forestGreen'
+	},
+	{
+		title: 'Low Card Diet',
+		icon: 'diet',
+		color: 'sejkthrws'
+	}
+];
+
 export const posts = [
 	{
 		user: {

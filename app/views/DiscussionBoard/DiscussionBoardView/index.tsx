@@ -5,14 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import * as HeaderButton from '../../../containers/HeaderButton';
-import EventEmitter from '../../../lib/methods/helpers/events';
-import { LISTENER } from '../../../containers/Toast';
 import { themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
 import styles from './styles';
 import { IApplicationState } from '../../../definitions';
 import PostCard from '../Components/DiscussionPostCard';
 import { posts } from '../data';
+import { getIcon } from '../helpers';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -34,11 +33,7 @@ const DiscussionView: React.FC = () => {
 						}}
 						hitSlop={hitSlop}
 					>
-						<Image
-							source={require('../../../static/images/discussionboard/arrow_left.png')}
-							style={{ width: 11, height: 19 }}
-							resizeMode='contain'
-						/>
+						<Image source={getIcon('arrowLeft')} style={{ width: 11, height: 19 }} resizeMode='contain' />
 					</TouchableOpacity>
 				),
 				headerRight: () => (
@@ -47,9 +42,7 @@ const DiscussionView: React.FC = () => {
 							<HeaderButton.Item
 								iconName='search'
 								color={themes[theme].superGray}
-								onPress={() => {
-									EventEmitter.emit(LISTENER, { message: `Open search` });
-								}}
+								onPress={() => navigation.navigate('DiscussionSearchView')}
 							/>
 						</HeaderButton.Container>
 					</View>
@@ -71,7 +64,12 @@ const DiscussionView: React.FC = () => {
 				style={{ paddingHorizontal: 20, paddingTop: 10 }}
 				ListFooterComponent={<View style={styles.footer} />}
 			/>
-			<TouchableOpacity style={[styles.buttonContainer, { backgroundColor: themes[theme].mossGreen }]}>
+			<TouchableOpacity
+				style={[styles.buttonContainer, { backgroundColor: themes[theme].mossGreen }]}
+				onPress={() => {
+					navigation.navigate('DiscussionNewPostView');
+				}}
+			>
 				<Text style={styles.buttonText}>Create a post</Text>
 			</TouchableOpacity>
 		</View>

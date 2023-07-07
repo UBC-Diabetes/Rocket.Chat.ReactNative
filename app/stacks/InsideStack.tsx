@@ -89,6 +89,8 @@ import HomeView from '../views/HomeView';
 import DiscussionBoardView from '../views/DiscussionBoard/DiscussionBoardView';
 import DiscussionPostView from '../views/DiscussionBoard/PostView';
 import DiscussionHomeView from '../views/DiscussionBoard/DiscussionHomeView';
+import DiscussionNewPostView from '../views/DiscussionBoard/NewPostView';
+import DiscussionSearchView from '../views/DiscussionBoard/SearchView';
 
 // ChatsStackNavigator
 const ChatsStack = createStackNavigator<ChatsStackParamList>();
@@ -247,7 +249,7 @@ const ProfileLibraryStackNavigator = () => {
 // DiscussionStackNavigator
 const DiscussionStack = createStackNavigator();
 const DiscussionStackNavigator = () => {
-const { theme } = React.useContext(ThemeContext);
+	const { theme } = React.useContext(ThemeContext);
 	return (
 		<DiscussionStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation }}>
 			<DiscussionStack.Screen	
@@ -264,6 +266,16 @@ const { theme } = React.useContext(ThemeContext);
 				name='DiscussionPostView'
 				component={DiscussionPostView}
 				options={DiscussionPostView.navigationOptions}
+			/>
+			<DiscussionStack.Screen	
+				name='DiscussionNewPostView'
+				component={DiscussionNewPostView}
+				options={DiscussionNewPostView.navigationOptions}
+			/>
+			<DiscussionStack.Screen	
+				name='DiscussionSearchView'
+				component={DiscussionSearchView}
+				options={DiscussionSearchView.navigationOptions}
 			/>
 		</DiscussionStack.Navigator>
 	)

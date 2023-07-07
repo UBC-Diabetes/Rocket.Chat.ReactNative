@@ -5,8 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import * as HeaderButton from '../../../containers/HeaderButton';
-import { LISTENER } from '../../../containers/Toast';
-import EventEmitter from '../../../lib/methods/helpers/events';
 import { themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
 import { IApplicationState } from '../../../definitions';
@@ -38,9 +36,7 @@ const DiscussionHomeView: React.FC = () => {
 							<HeaderButton.Item
 								iconName='search'
 								color={themes[theme].superGray}
-								onPress={() => {
-									EventEmitter.emit(LISTENER, { message: `Open search` });
-								}}
+								onPress={() => navigation.navigate('DiscussionSearchView')}
 							/>
 						</HeaderButton.Container>
 					</View>

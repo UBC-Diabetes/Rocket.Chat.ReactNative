@@ -3,12 +3,7 @@ import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { withTheme } from '../../../theme';
 import { SavedPostCardProps } from '../DiscussionHomeView/interaces';
-
-const solidSave = require('../../../static/images/discussionboard/save_solid.png');
-const outlineSave = require('../../../static/images/discussionboard/save.png');
-const like = require('../../../static/images/discussionboard/like.png');
-const comment = require('../../../static/images/discussionboard/comment.png');
-const arrowRight = require('../../../static/images/discussionboard/arrow_right.png');
+import { getIcon } from '../helpers';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -43,7 +38,7 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = props => {
 					}}
 					hitSlop={hitSlop}
 				>
-					<Image source={isSaved ? solidSave : outlineSave} style={styles.saveIcon} resizeMode='contain' />
+					<Image source={isSaved ? getIcon('solidSave') : getIcon('outlineSave')} style={styles.saveIcon} resizeMode='contain' />
 				</TouchableOpacity>
 			</View>
 			{image && <Image source={{ uri: image }} style={styles.bannerImage} resizeMode='cover' />}
@@ -53,14 +48,14 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = props => {
 			</View>
 			<View style={styles.actionContainer}>
 				<View style={styles.buttonContainer}>
-					<Image source={like} style={styles.postReaction} />
+					<Image source={getIcon('like')} style={styles.postReaction} />
 					<Text style={styles.postReactionText}>{likes}</Text>
 					<View style={{ width: 24 }} />
-					<Image source={comment} style={styles.postReaction} />
+					<Image source={getIcon('comment')} style={styles.postReaction} />
 					<Text style={styles.postReactionText}>{comments}</Text>
 				</View>
 				<TouchableOpacity hitSlop={hitSlop}>
-					<Image source={arrowRight} style={styles.arrow} resizeMode='contain' />
+					<Image source={getIcon('arrowRight')} style={styles.arrow} resizeMode='contain' />
 				</TouchableOpacity>
 			</View>
 		</TouchableOpacity>
@@ -89,7 +84,6 @@ const styles = StyleSheet.create({
 	profileImage: {
 		width: 34,
 		height: 34,
-		backgroundColor: '#FDCA7D',
 		borderRadius: 17,
 		justifyContent: 'center',
 		alignItems: 'center'

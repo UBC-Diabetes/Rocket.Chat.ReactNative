@@ -19,7 +19,7 @@ const mentions = {
 	mentionOtherColor: '#F3BE08'
 };
 
-const themeColors = {
+export const themeColors = {
 	magenta: '#CB007B',
 	mossGreen: '#799A79',
 	dreamBlue: '#9ABAF3',

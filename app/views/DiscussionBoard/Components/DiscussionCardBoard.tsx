@@ -4,6 +4,7 @@ import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
 import { DiscussionBoardCardProps } from '../DiscussionHomeView/interaces';
+import { getIcon } from '../helpers';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -19,42 +20,15 @@ const DiscussionBoardCard: React.FC<DiscussionBoardCardProps> = ({
 	const [savedDiscussion, setSavedDiscussion] = React.useState(saved);
 	const { theme } = useTheme();
 
-	const getIcon = () => {
-		let imagePath;
-		switch (icon) {
-			case 'covid':
-				imagePath = require('../../../static/images/discussionboard/covid.png');
-				break;
-			case 'diet':
-				imagePath = require('../../../static/images/discussionboard/diet.png');
-				break;
-			case 'exercising':
-				imagePath = require('../../../static/images/discussionboard/exercising.png');
-				break;
-			case 'insulin':
-				imagePath = require('../../../static/images/discussionboard/insulin.png');
-				break;
-			case 'mdi_users':
-				imagePath = require('../../../static/images/discussionboard/mdi_users.png');
-				break;
-			case 'syringe':
-				imagePath = require('../../../static/images/discussionboard/syringe.png');
-				break;
-		}
-		return <Image source={imagePath} style={styles.icon} resizeMode='contain' />;
-	};
-
-	const solidStar = require(`../../../static/images/discussionboard/star_solid.png`);
-	const outlineStar = require(`../../../static/images/discussionboard/star_outline.png`);
-
 	return (
 		<TouchableOpacity style={styles.mainContainer} onPress={() => onPress && onPress()}>
-			<View style={[styles.iconContainer, color && { backgroundColor: themes[theme][color] }]}>{icon && getIcon()}</View>
+			<View style={[styles.iconContainer, color && { backgroundColor: themes[theme][color] }]}>
+				{icon && <Image source={getIcon(icon)} style={styles.icon} resizeMode='contain' />}
+			</View>
 			<View style={styles.textContainer}>
 				<Text style={styles.title}>{title}</Text>
 				<Text style={styles.description}>{description}</Text>
 			</View>
-
 			<TouchableOpacity
 				style={styles.savedContainer}
 				onPress={() => {
@@ -63,7 +37,7 @@ const DiscussionBoardCard: React.FC<DiscussionBoardCardProps> = ({
 				}}
 				hitSlop={hitSlop}
 			>
-				<Image source={savedDiscussion ? solidStar : outlineStar} style={styles.saveIcon} />
+				<Image source={savedDiscussion ? getIcon('solidStar') : getIcon('outlineStar')} style={styles.saveIcon} />
 			</TouchableOpacity>
 		</TouchableOpacity>
 	);
@@ -78,7 +52,6 @@ const styles = StyleSheet.create({
 	},
 	iconContainer: {
 		borderRadius: 10,
-		backgroundColor: '#FDCA7D',
 		height: 80,
 		width: 80,
 		justifyContent: 'center',
