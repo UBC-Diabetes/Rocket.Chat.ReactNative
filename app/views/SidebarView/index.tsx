@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { DrawerNavigationState } from '@react-navigation/native';
-import { ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { ScrollView, Text, TouchableWithoutFeedback, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { dequal } from 'dequal';
 
@@ -21,6 +21,16 @@ import styles from './styles';
 import { DrawerParamList } from '../../stacks/types';
 import { IApplicationState, IUser } from '../../definitions';
 import * as List from '../../containers/List';
+
+const settingsIcon = require('../../static/images/sidepanel/settings.png');
+const techSupportIcon = require('../../static/images/support-solid.png');
+const calendarIcon = require('../../static/images/calendar-solid.png');
+const discussionIcon = require('../../static/images/discussion-solid.png');
+const peerSupportIcon = require('../../static/images/peer-supporter-solid.png');
+const editIcon = require('../../static/images/sidepanel/edit.png');
+const message247Icon = require('../../static/images/sidepanel/247.png');
+const messagingIcon = require('../../static/images/sidepanel/messaging.png');
+const happyHourIcon = require('../../static/images/happy-hour-solid.png');
 
 interface ISidebarState {
 	showStatus: boolean;
@@ -180,42 +190,94 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 
 	renderNavigation = () => {
 		const { theme } = this.props;
+		const iconStyles = { height: 20, width: 20, tintColor: themes[theme!].titleText };
 		return (
 			<>
 				<SidebarItem
 					text={I18n.t('Chats')}
-					left={<CustomIcon name='message' size={20} color={themes[theme!].titleText} />}
+					// left={<CustomIcon name='message' size={20} color={themes[theme!].titleText} />}
+					left={<Image source={messagingIcon} style={iconStyles} />}
 					onPress={() => this.sidebarNavigate('ChatsStackNavigator')}
 					testID='sidebar-chats'
 					theme={theme!}
 					current={this.currentItemKey === 'ChatsStackNavigator'}
 				/>
 				<SidebarItem
+					text={I18n.t('DiscussionBoards')}
+					left={<Image source={discussionIcon} style={iconStyles} />}
+					onPress={() => this.sidebarNavigate('DiscussionStackNavigator')}
+					testID='sidebar-discussion'
+					theme={theme!}
+					current={this.currentItemKey === 'DiscussionStackNavigator'}
+				/>
+				<SidebarItem
 					text={I18n.t('PeerSupporterLibrary')}
-					left={<CustomIcon name='contacts' size={20} color={themes[theme].titleText} />}
+					// left={<CustomIcon name='contacts' size={20} color={themes[theme].titleText} />}
+					left={<Image source={peerSupportIcon} style={iconStyles} />}
 					onPress={() => this.sidebarNavigate('ProfileLibraryNavigator')}
 					testID='sidebar-profile-library'
 					current={this.currentItemKey === 'ProfileLibraryNavigator'}
 				/>
 				<SidebarItem
+					text={I18n.t('247ChatRoom')}
+					left={<Image source={message247Icon} style={iconStyles} resizeMode='contain' />}
+					onPress={() => {
+						// this.sidebarNavigate('DisplayPrefStackNavigator')
+					}}
+					testID='sidebar-247chat'
+					theme={theme!}
+					current={this.currentItemKey === 'todo 247 chat'}
+				/>
+				<SidebarItem
+					text={I18n.t('VirtualHappyHour')}
+					left={<Image source={happyHourIcon} style={iconStyles} />}
+					onPress={() => {
+						// this.sidebarNavigate('DisplayPrefStackNavigator')
+					}}
+					testID='sidebar-happy-hour'
+					theme={theme!}
+					current={this.currentItemKey === 'todo happy hour'}
+				/>
+				<SidebarItem
+					text={I18n.t('Calendar')}
+					left={<Image source={calendarIcon} style={iconStyles} />}
+					onPress={() => {
+						// this.sidebarNavigate('DisplayPrefStackNavigator')
+					}}
+					testID='sidebar-calendar'
+					theme={theme!}
+					current={this.currentItemKey === 'todo calendar'}
+				/>
+				<SidebarItem
+					text={I18n.t('TechSupport')}
+					left={<Image source={techSupportIcon} style={iconStyles} />}
+					onPress={() => {
+						// this.sidebarNavigate('DisplayPrefStackNavigator')
+					}}
+					testID='sidebar-tech-support'
+					theme={theme!}
+					current={this.currentItemKey === 'todo tech support'}
+				/>
+				{/* <SidebarItem
 					text={I18n.t('Profile')}
 					left={<CustomIcon name='user' size={20} color={themes[theme!].titleText} />}
 					onPress={() => this.sidebarNavigate('ProfileStackNavigator')}
 					testID='sidebar-profile'
 					theme={theme!}
 					current={this.currentItemKey === 'ProfileStackNavigator'}
-				/>
-				<SidebarItem
+				/> */}
+				{/* <SidebarItem
 					text={I18n.t('Display')}
 					left={<CustomIcon name='sort' size={20} color={themes[theme!].titleText} />}
 					onPress={() => this.sidebarNavigate('DisplayPrefStackNavigator')}
 					testID='sidebar-display'
 					theme={theme!}
 					current={this.currentItemKey === 'DisplayPrefStackNavigator'}
-				/>
+				/> */}
+
 				<SidebarItem
 					text={I18n.t('Settings')}
-					left={<CustomIcon name='administration' size={20} color={themes[theme!].titleText} />}
+					left={<Image source={settingsIcon} style={iconStyles} />}
 					onPress={() => this.sidebarNavigate('SettingsStackNavigator')}
 					testID='sidebar-settings'
 					theme={theme!}
@@ -228,12 +290,16 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 
 	renderCustomStatus = () => {
 		const { user, theme } = this.props;
+		const iconStyles = { height: 20, width: 20, tintColor: themes[theme!].titleText };
 		return (
 			<SidebarItem
 				text={user.statusText || I18n.t('Edit_Status')}
 				left={<Status size={24} status={user?.status} />}
 				theme={theme!}
-				right={<CustomIcon name='edit' size={20} color={themes[theme!].titleText} />}
+				right={
+					<Image source={editIcon} style={iconStyles} />
+					// <CustomIcon name='pencil' size={20} color={themes[theme!].titleText} />
+				}
 				onPress={() => this.sidebarNavigate('StatusView')}
 				testID={`sidebar-custom-status-${user.status}`}
 			/>
@@ -255,7 +321,8 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 							backgroundColor: isMasterDetail ? themes[theme!].backgroundColor : themes[theme!].focusedBackground
 						}
 					]}
-					{...scrollPersistTaps}>
+					{...scrollPersistTaps}
+				>
 					<TouchableWithoutFeedback onPress={this.onPressUser} testID='sidebar-close-drawer'>
 						<View style={styles.header}>
 							<Avatar text={user.username} style={styles.avatar} size={30} />
@@ -268,7 +335,8 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 								<Text
 									style={[styles.currentServerText, { color: themes[theme!].titleText }]}
 									numberOfLines={1}
-									accessibilityLabel={`Connected to ${baseUrl}`}>
+									accessibilityLabel={`Connected to ${baseUrl}`}
+								>
 									{Site_Name}
 								</Text>
 							</View>
