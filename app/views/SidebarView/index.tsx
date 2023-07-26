@@ -21,6 +21,8 @@ import styles from './styles';
 import { DrawerParamList } from '../../stacks/types';
 import { IApplicationState, IUser } from '../../definitions';
 import * as List from '../../containers/List';
+import { get247Chat } from '../../views/HomeView/helpers';
+import { goRoom } from '../../lib/methods/helpers/goRoom';
 
 const settingsIcon = require('../../static/images/sidepanel/settings.png');
 const techSupportIcon = require('../../static/images/support-solid.png');
@@ -34,6 +36,7 @@ const happyHourIcon = require('../../static/images/happy-hour-solid.png');
 
 interface ISidebarState {
 	showStatus: boolean;
+	chat247Room: any;
 }
 
 interface ISidebarProps {
@@ -57,7 +60,8 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 	constructor(props: ISidebarProps) {
 		super(props);
 		this.state = {
-			showStatus: false
+			showStatus: false,
+			chat247Room: null
 		};
 	}
 
@@ -117,6 +121,11 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 			return true;
 		}
 		return false;
+	}
+
+	async componentDidMount() {
+		let chat247Room = await get247Chat();
+		this.setState({ chat247Room: chat247Room?._raw });
 	}
 
 	getIsAdmin() {
@@ -223,6 +232,13 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					left={<Image source={message247Icon} style={iconStyles} resizeMode='contain' />}
 					onPress={() => {
 						// this.sidebarNavigate('DisplayPrefStackNavigator')
+						if (this.state.chat247Room) {
+							try {
+								goRoom({ item: this.state.chat247Room, isMasterDetail: this.props.isMasterDetail });
+							} catch (error) {
+								console.error('error', error);
+							}
+						}
 					}}
 					testID='sidebar-247chat'
 					theme={theme!}
