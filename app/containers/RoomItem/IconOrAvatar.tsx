@@ -18,11 +18,21 @@ const IconOrAvatar = ({
 	teamMain,
 	showLastMessage,
 	displayMode,
-	sourceType
+	sourceType,
+	containerStyles,
+	iconSize,
+	borderRadius
 }: IIconOrAvatar): React.ReactElement | null => {
 	if (showAvatar) {
 		return (
-			<Avatar text={avatar} size={displayMode === DisplayMode.Condensed ? 36 : 48} type={type} style={styles.avatar} rid={rid} />
+			<Avatar
+				text={avatar}
+				size={iconSize ? iconSize : displayMode === DisplayMode.Condensed ? 36 : 48}
+				type={type}
+				style={containerStyles ? containerStyles : styles.avatar}
+				rid={rid}
+				borderRadius={borderRadius}
+			/>
 		);
 	}
 
@@ -35,8 +45,8 @@ const IconOrAvatar = ({
 					status={status}
 					isGroupChat={isGroupChat}
 					teamMain={teamMain}
-					size={24}
-					style={{ marginRight: 12 }}
+					size={iconSize || 24}
+					style={containerStyles || { marginRight: 12 }}
 					sourceType={sourceType}
 				/>
 			</View>

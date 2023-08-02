@@ -1,34 +1,66 @@
 import React, { useState } from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import moment from 'moment';
+import FastImage from 'react-native-fast-image';
+import { createImageProgress } from 'react-native-image-progress';
+import * as Progress from 'react-native-progress';
 
-import { withTheme } from '../../../theme';
+import { useTheme, withTheme } from '../../../theme';
 import { SavedPostCardProps } from '../DiscussionHomeView/interaces';
 import { getIcon } from '../helpers';
+import { formatAttachmentUrl } from '../../../lib/methods/helpers';
+import { useSelector } from 'react-redux';
+import { IApplicationState } from '../../../definitions';
+import { getUserSelector } from '../../../selectors/login';
+import { themes } from '../../../lib/constants';
+import Markdown from '../../../containers/markdown';
+import Avatar from '../../../containers/Avatar/Avatar';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
-const DiscussionPostCard: React.FC<SavedPostCardProps> = props => {
-	const {
-		user: { name, profile_image },
-		date,
-		title,
-		description,
-		image,
-		likes,
-		comments,
-		saved = false,
-		onSaveClick,
-		onPress
-	} = props;
+const baseUrl = 'https://app.t1dreachout.com';
 
-	const [isSaved, setIsSaved] = useState(saved);
+const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
+	const user = useSelector((state: IApplicationState) => getUserSelector(state));
+	const customEmojis = useSelector((state: IApplicationState) => state.customEmojis);
+	const server = useSelector((state: IApplicationState) => state.server.server);
+
+	const { theme } = useTheme();
+
+	const { title, saved = false, onSaveClick, _raw, onPress } = item;
+	const { msg, id, ts, u: userObject, urls, attachments, replies, reactions } = _raw;
+
+	const [isSaved, setIsSaved] = useState(false);
+	const date = moment(ts).format('MMMM D, YYYY');
+	// const userObject = u.length > 0 ? JSON.parse(u) : {};
+	// const userObject = u;
+	// const attachments = JSON.parse(_raw.attachments);
+	// const attachments = attachments;
+	let bannerImage;
+	let description = msg?.length ? msg.slice(0, 300) : '';
+	let userName = userObject?.username;
+
+	if (attachments?.length > 0) {
+		bannerImage = formatAttachmentUrl(attachments[0].image_url, user.id, user.token, baseUrl);
+		description = attachments[0].description;
+	}
+
+	const ImageProgress = createImageProgress(FastImage);
+
+	const getCustomEmoji = name => {
+		const emoji = customEmojis[name];
+		if (emoji) {
+			return emoji;
+		}
+		return null;
+	};
 
 	return (
-		<TouchableOpacity style={styles.container} onPress={() => onPress && onPress()}>
+		<TouchableOpacity style={styles.container} onPress={() => onPress && onPress({ item })} key={id}>
 			<View style={styles.header}>
-				<Image source={{ uri: profile_image }} style={styles.profileImage} />
+				{userName && <Avatar text={userName} style={styles.profileImage} size={34} server={server} borderRadius={17} />}
 				<View style={styles.headerTextContainer}>
-					<Text style={styles.nameText}>{name}</Text>
+					<Text style={styles.nameText}>{userObject?.name}</Text>
 					<Text style={styles.dateText}>{date}</Text>
 				</View>
 				<TouchableOpacity
@@ -41,20 +73,42 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = props => {
 					<Image source={isSaved ? getIcon('solidSave') : getIcon('outlineSave')} style={styles.saveIcon} resizeMode='contain' />
 				</TouchableOpacity>
 			</View>
-			{image && <Image source={{ uri: image }} style={styles.bannerImage} resizeMode='cover' />}
+			{typeof attachments !== 'string' && attachments?.length > 0 && (
+				<ImageProgress
+					style={[styles.bannerImage]}
+					source={{ uri: encodeURI(bannerImage) }}
+					resizeMode={FastImage.resizeMode.cover}
+					indicator={Progress.Pie}
+					indicatorProps={{
+						color: themes[theme].actionTintColor
+					}}
+				/>
+			)}
+
 			<View style={styles.textContainer}>
-				<Text style={styles.title}>{title}</Text>
-				<Text style={styles.description}>{description}</Text>
+				{title ? <Text style={styles.title}>{title}</Text> : <></>}
+				{description && (
+					<Markdown
+						msg={`${description?.slice(0, 300)}${description?.length > 300 ? '...' : ''}`}
+						// style={[isReply && style]}
+						// style={[styles.description]}
+						username={user.username}
+						getCustomEmoji={getCustomEmoji}
+						theme={theme}
+					/>
+				)}
 			</View>
 			<View style={styles.actionContainer}>
 				<View style={styles.buttonContainer}>
 					<Image source={getIcon('like')} style={styles.postReaction} />
-					<Text style={styles.postReactionText}>{likes}</Text>
+					<Text style={styles.postReactionText}>
+						{typeof reactions !== 'string' && reactions?.length ? reactions.length : '0'}
+					</Text>
 					<View style={{ width: 24 }} />
 					<Image source={getIcon('comment')} style={styles.postReaction} />
-					<Text style={styles.postReactionText}>{comments}</Text>
+					<Text style={styles.postReactionText}>{typeof replies !== 'string' && replies?.length ? replies.length : '0'}</Text>
 				</View>
-				<TouchableOpacity hitSlop={hitSlop}>
+				<TouchableOpacity hitSlop={hitSlop} onPress={() => onPress && onPress({ item })}>
 					<Image source={getIcon('arrowRight')} style={styles.arrow} resizeMode='contain' />
 				</TouchableOpacity>
 			</View>
@@ -122,7 +176,7 @@ const styles = StyleSheet.create({
 		height: 160,
 		width: '100%',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	arrow: {
 		height: 15,

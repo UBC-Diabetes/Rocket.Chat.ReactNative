@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import database from '../../lib/database';
 import { TSubscriptionModel } from '../../definitions';
 
-const CHAT247ROOMID = 'srBEKoGm88TpofpDc';
+const CHAT247ROOMID = '24-7-chatroom';
 const QUERY_SIZE = 20;
 
 let querySubscription: Subscription;
@@ -35,7 +35,7 @@ export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
 	const subscriptionPromise = new Promise<void>((resolve, reject) => {
 		querySubscription = observable.subscribe(
 			data => {
-				chatRoom = data.find(chat => chat._id === CHAT247ROOMID);
+				chatRoom = data.find(chat => chat.name === CHAT247ROOMID);
 				resolve();
 			},
 			error => {

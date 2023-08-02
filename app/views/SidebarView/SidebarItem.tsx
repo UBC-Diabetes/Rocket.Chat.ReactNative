@@ -14,14 +14,16 @@ interface SidebarItemProps {
 	onPress(): void;
 	testID: string;
 	theme: TSupportedThemes;
+	disabled?: boolean;
 }
 
-const Item = React.memo(({ left, right, text, onPress, testID, current, theme }: SidebarItemProps) => (
+const Item = React.memo(({ left, right, text, onPress, testID, current, theme, disabled }: SidebarItemProps) => (
 	<Touch
 		key={testID}
 		testID={testID}
 		onPress={onPress}
-		style={[styles.item, current && { backgroundColor: themes[theme].borderColor }]}>
+		style={[styles.item, current && { backgroundColor: themes[theme].borderColor }]}
+		disabled={disabled}>
 		<View style={styles.itemHorizontal}>{left}</View>
 		<View style={styles.itemCenter}>
 			<Text style={[styles.itemText, { color: themes[theme].titleText }]} numberOfLines={1} accessibilityLabel={text}>

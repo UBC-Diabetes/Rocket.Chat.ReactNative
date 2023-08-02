@@ -242,7 +242,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					}}
 					testID='sidebar-247chat'
 					theme={theme!}
-					current={this.currentItemKey === 'todo 247 chat'}
+					current={this.currentItemKey === 'todo'}
 				/>
 				<SidebarItem
 					text={I18n.t('VirtualHappyHour')}
@@ -252,7 +252,8 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					}}
 					testID='sidebar-happy-hour'
 					theme={theme!}
-					current={this.currentItemKey === 'todo happy hour'}
+					current={this.currentItemKey === 'todo'}
+					disabled={true}
 				/>
 				<SidebarItem
 					text={I18n.t('Calendar')}
@@ -262,7 +263,8 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					}}
 					testID='sidebar-calendar'
 					theme={theme!}
-					current={this.currentItemKey === 'todo calendar'}
+					current={this.currentItemKey === 'todo'}
+					disabled={true}
 				/>
 				<SidebarItem
 					text={I18n.t('TechSupport')}
@@ -272,7 +274,8 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					}}
 					testID='sidebar-tech-support'
 					theme={theme!}
-					current={this.currentItemKey === 'todo tech support'}
+					current={this.currentItemKey === 'todo'}
+					disabled={true}
 				/>
 				{/* <SidebarItem
 					text={I18n.t('Profile')}
