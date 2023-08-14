@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
 import { settings as RocketChatSettings } from '@rocket.chat/sdk';

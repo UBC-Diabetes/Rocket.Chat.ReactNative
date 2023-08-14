@@ -14,6 +14,7 @@ export type PostOptionsModalProps = {
 	close: () => void;
 	onDelete: () => void;
 	onReport: () => void;
+	// onText: () => void;
 };
 
 export enum ReportType {
@@ -26,6 +27,7 @@ export type PostReportModalProps = {
 	type: ReportType;
 	close: () => void;
 	report: () => void;
+	onText: (e: any) => void;
 };
 
 export enum DeleteType {

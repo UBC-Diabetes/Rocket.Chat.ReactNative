@@ -7,17 +7,22 @@ import { Q } from '@nozbe/watermelondb';
 
 import database from '../../../lib/database';
 import * as HeaderButton from '../../../containers/HeaderButton';
-import { SortBy, themes } from '../../../lib/constants';
+import { MESSAGE_TYPE_ANY_LOAD, SortBy, themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
-import { IApplicationState } from '../../../definitions';
-import DiscussionBoardCard from '../Components/DiscussionCardBoard';
+import { IApplicationState, TAnyMessageModel } from '../../../definitions';
+import DiscussionBoardCard from '../Components/DiscussionBoardCard';
 import DiscussionPostCard from '../Components/DiscussionPostCard';
 import Header from '../Components/Header';
 import { DiscussionTabs } from './interaces';
 import styles from './styles';
-import { discussionBoardData, posts } from '../data';
+import { discussionBoardData, messageTypesToRemove, posts } from '../data';
 import { getUserSelector } from '../../../selectors/login';
 import { getRoomAvatar, isGroupChat } from '../../../lib/methods/helpers';
+import { sanitizedRaw } from '@nozbe/watermelondb/RawRecord';
+import { loadMissedMessages } from '../../../lib/methods';
+import moment from 'moment';
+import { Services } from '../../../lib/services';
+import { handleStar } from '../helpers';
 
 // const INITIAL_NUM_TO_RENDER = isTablet ? 20 : 12;
 const CHATS_HEADER = 'Chats';
@@ -37,12 +42,22 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 	const { sortBy, showUnread, showFavorites, groupByType } = useSelector((state: IApplicationState) => state.sortPreferences);
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const useRealName = useSelector((state: IApplicationState) => state.settings.UI_Use_Real_Name);
+	const { id, token } = useSelector((state: IApplicationState) => ({
+		id: getUserSelector(state).id,
+		token: getUserSelector(state).token
+	}));
+
+	const server = useSelector((state: IApplicationState) => state.server.server);
+	const fullState = useSelector((state: IApplicationState) => state);
 
 	const [selectedTab, setSelectedTab] = useState(DiscussionTabs.DISCUSSION_BOARDS);
 	const [loading, setLoading] = useState(true);
 	const [searchCount, setSearchCount] = useState(0);
 	const [boards, setBoards] = useState([]);
-	const { theme } = useTheme();
+	const [starredPosts, setStarredPosts] = useState([]);
+	const db = database.active;
+	// const { theme } = useTheme();
+	const theme = 'light';
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -70,9 +85,10 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 
 	useEffect(() => {
 		const getSubscriptions = async () => {
-			const db = database.active;
+			// await loadMissedMessages({ rid, lastOpen: moment().subtract(7, 'days').toDate() });
 			const isGrouping = showUnread || showFavorites || groupByType;
 			let observable;
+			// let results: any[] = [];
 
 			const defaultWhereClause = [Q.where('archived', false), Q.where('open', true)];
 
@@ -97,96 +113,77 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 					.observeWithColumns(['on_hold']);
 			}
 
+			// const subsCollection = db.get('subscriptions');
+			// const roomsCollection = db.get('rooms');
+
 			observable.subscribe(data => {
-				console.log('data', data);
 				const formattedData = data.map(d => {
-					return {
+					const jsonObject = {
 						...d,
 						title: d.fname,
 						description: d.topic,
-						// icon: 'exercising',
-						color: 'dreamBlue',
-						avatar: getRoomAvatar(d),
-						saved: d.f,
-						isGroupChat: isGroupChat(d)
+						_raw: { ...d._raw, uids: JSON.parse(d._raw.uids), usernames: JSON.parse(d._raw.usernames) },
+						...d._raw,
+						uids: JSON.parse(d._raw.uids),
+						usernames: JSON.parse(d._raw.usernames)
+					};
+
+					return {
+						...jsonObject,
+						avatar: getRoomAvatar(jsonObject),
+						isGrouChat: isGroupChat(jsonObject)
 					};
 				});
 
 				console.log('data formatted', formattedData);
 
-				// 		title: 'Exercising',
-				// description: 'description here',
-				// icon: 'exercising',
-				// color: 'dreamBlue',
-				// saved: true
 				setBoards(formattedData);
-				// let tempChats = [];
-				// let chats = data;
 			});
-
-			// const querySubscription = observable.subscribe(data => {
-			// 	console.log('data', data);
-			// 	let tempChats = [];
-			// 	let chats = data;
-
-			// 	let omnichannelsUpdate = [];
-			// 	const isOmnichannelAgent = user?.roles?.includes('livechat-agent');
-			// 	if (isOmnichannelAgent) {
-			// 		const omnichannel = chats.filter(s => filterIsOmnichannel(s));
-			// 		const omnichannelInProgress = omnichannel.filter(s => !s.onHold);
-			// 		const omnichannelOnHold = omnichannel.filter(s => s.onHold);
-			// 		chats = chats.filter(s => !filterIsOmnichannel(s));
-			// 		omnichannelsUpdate = omnichannelInProgress.map(s => s.rid);
-			// 		tempChats = this.addRoomsGroup(omnichannelInProgress, OMNICHANNEL_HEADER_IN_PROGRESS, tempChats);
-			// 		tempChats = this.addRoomsGroup(omnichannelOnHold, OMNICHANNEL_HEADER_ON_HOLD, tempChats);
-			// 	}
-
-			// 	// unread
-			// 	if (showUnread) {
-			// 		const unread = chats.filter(s => filterIsUnread(s));
-			// 		chats = chats.filter(s => !filterIsUnread(s));
-			// 		tempChats = this.addRoomsGroup(unread, UNREAD_HEADER, tempChats);
-			// 	}
-
-			// 	// favorites
-			// 	if (showFavorites) {
-			// 		const favorites = chats.filter(s => filterIsFavorite(s));
-			// 		chats = chats.filter(s => !filterIsFavorite(s));
-			// 		tempChats = this.addRoomsGroup(favorites, FAVORITES_HEADER, tempChats);
-			// 	}
-
-			// 	// type
-			// 	if (groupByType) {
-			// 		const teams = chats.filter(s => filterIsTeam(s));
-			// 		const discussions = chats.filter(s => filterIsDiscussion(s));
-			// 		const channels = chats.filter(s => (s.t === 'c' || s.t === 'p') && !filterIsDiscussion(s) && !filterIsTeam(s));
-			// 		const direct = chats.filter(s => s.t === 'd' && !filterIsDiscussion(s) && !filterIsTeam(s));
-			// 		tempChats = this.addRoomsGroup(teams, TEAMS_HEADER, tempChats);
-			// 		tempChats = this.addRoomsGroup(discussions, DISCUSSIONS_HEADER, tempChats);
-			// 		tempChats = this.addRoomsGroup(channels, CHANNELS_HEADER, tempChats);
-			// 		tempChats = this.addRoomsGroup(direct, DM_HEADER, tempChats);
-			// 	} else if (showUnread || showFavorites || isOmnichannelAgent) {
-			// 		tempChats = this.addRoomsGroup(chats, CHATS_HEADER, tempChats);
-			// 	} else {
-			// 		tempChats = chats;
-			// 	}
-
-			// 	const chatsUpdate = tempChats.map(item => item.rid);
-
-			// 	setChats(tempChats);
-			// 	setChatsUpdate(chatsUpdate);
-			// 	setOmnichannelsUpdate(omnichannelsUpdate);
-			// 	setLoading(false);
-			// });
 		};
 
 		getSubscriptions();
-
-		// Clean up the subscription when component unmounts
-		return () => {
-			// unsubscribeQuery();
-		};
 	}, []);
+
+	const getSavedChat = async () => {
+		const messagesObservable = db
+			.get('messages')
+			.query(Q.where('starred', true), Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0))
+			.observe();
+
+		messagesObservable?.subscribe(messages => {
+			// filter out messages
+			messages = messages.filter(m => {
+				return !(MESSAGE_TYPE_ANY_LOAD.includes(m.t) || messageTypesToRemove.includes(m.t));
+			});
+
+			const formattedData = messages.map(m => {
+				let object = { ...m };
+				try {
+					if (m?._raw?.u?.length && m._raw.u.length > 0 && m._raw.u !== '[]') {
+						object._raw.u = JSON.parse(m._raw.u);
+					}
+					if (m?._raw?.attachments?.length && m._raw.attachments.length > 0) {
+						object._raw.attachments = JSON.parse(m._raw.attachments);
+					}
+					if (m?._raw?.replies?.length && m._raw.replies.length > 0 && m._raw.replies !== '[]') {
+						object._raw.replies = JSON.parse(m._raw.replies);
+					}
+					if (m?._raw?.reactions?.length && m._raw.reactions.length > 0 && m._raw.reactions !== '[]') {
+						object._raw.reactions = JSON.parse(m._raw.reactions);
+					}
+				} catch (error) {}
+
+				return object;
+			});
+
+			setStarredPosts(formattedData);
+			console.log('starred messages ----------- ', messages);
+		});
+	};
+	// get starred posts
+	useEffect(() => {
+		getSavedChat();
+	}, [selectedTab]);
 
 	const content = () => (
 		<View style={{ width: '100%' }}>
@@ -194,7 +191,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 				<FlatList
 					data={boards}
 					renderItem={({ item }) => (
-						<DiscussionBoardCard {...item} onPress={() => navigation.navigate('DiscussionBoardView', { item })} />
+						<DiscussionBoardCard item={item} onPress={() => navigation.navigate('DiscussionBoardView', { item, boards })} />
 					)}
 					keyExtractor={(item, id) => item.title + id}
 					ItemSeparatorComponent={() => <View style={styles.discussionBoardsSeparator} />}
@@ -204,8 +201,19 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 			)}
 			{selectedTab === DiscussionTabs.SAVED_POSTS && (
 				<FlatList
-					data={posts}
-					renderItem={({ item }) => <DiscussionPostCard {...item} />}
+					data={starredPosts}
+					renderItem={({ item }) => (
+						<DiscussionPostCard
+							{...item}
+							onPress={(params: any) => navigation.navigate('DiscussionPostView', params)}
+							starPost={(message: any) =>
+								handleStar(message, async () => {
+									await loadMissedMessages({ rid: message.rid, lastOpen: moment().subtract(7, 'days').toDate() });
+									getSavedChat();
+								})
+							}
+						/>
+					)}
 					keyExtractor={(item, id) => item.title + id}
 					ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
 					style={{ padding: 20 }}

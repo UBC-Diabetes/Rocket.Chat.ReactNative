@@ -62,8 +62,8 @@ import { E2E_BANNER_TYPE, DisplayMode, SortBy, MAX_SIDEBAR_WIDTH, themes } from 
 import { Services } from '../../lib/services';
 
 type TNavigation = CompositeNavigationProp<
-StackNavigationProp<ChatsStackParamList, 'RoomsListView'>,
-CompositeNavigationProp<StackNavigationProp<ChatsStackParamList>, StackNavigationProp<DrawerParamList>>
+	StackNavigationProp<ChatsStackParamList, 'RoomsListView'>,
+	CompositeNavigationProp<StackNavigationProp<ChatsStackParamList>, StackNavigationProp<DrawerParamList>>
 >;
 
 interface IRoomsListViewProps {
@@ -204,9 +204,12 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 	}
 
 	componentDidMount() {
-		const { navigation, dispatch } = this.props;
+		const { navigation, dispatch, route } = this.props;
 		this.handleHasPermission();
 		this.mounted = true;
+
+		console.log("navigation", navigation);
+		console.log("navigation params", route);
 
 		if (isTablet) {
 			EventEmitter.addEventListener(KEY_COMMAND, this.handleCommands);
@@ -561,12 +564,12 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 			// type
 			if (groupByType) {
 				const teams = chats.filter(s => filterIsTeam(s));
-				const discussions = chats.filter(s => filterIsDiscussion(s));
-				const channels = chats.filter(s => (s.t === 'c' || s.t === 'p') && !filterIsDiscussion(s) && !filterIsTeam(s));
+				// const discussions = chats.filter(s => filterIsDiscussion(s));
+				// const channels = chats.filter(s => (s.t === 'c' || s.t === 'p') && !filterIsDiscussion(s) && !filterIsTeam(s));
 				const direct = chats.filter(s => s.t === 'd' && !filterIsDiscussion(s) && !filterIsTeam(s));
 				tempChats = this.addRoomsGroup(teams, TEAMS_HEADER, tempChats);
-				tempChats = this.addRoomsGroup(discussions, DISCUSSIONS_HEADER, tempChats);
-				tempChats = this.addRoomsGroup(channels, CHANNELS_HEADER, tempChats);
+				// tempChats = this.addRoomsGroup(discussions, DISCUSSIONS_HEADER, tempChats);
+				// tempChats = this.addRoomsGroup(channels, CHANNELS_HEADER, tempChats);
 				tempChats = this.addRoomsGroup(direct, DM_HEADER, tempChats);
 			} else if (showUnread || showFavorites || isOmnichannelAgent) {
 				tempChats = this.addRoomsGroup(chats, CHATS_HEADER, tempChats);
@@ -899,7 +902,7 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 		}
 	};
 
-	getScrollRef = (ref: FlatList) => this.scroll = ref;
+	getScrollRef = (ref: FlatList) => (this.scroll = ref);
 
 	renderListHeader = () => {
 		const { searching } = this.state;

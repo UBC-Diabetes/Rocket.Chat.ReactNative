@@ -25,17 +25,16 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
 	const customEmojis = useSelector((state: IApplicationState) => state.customEmojis);
 	const server = useSelector((state: IApplicationState) => state.server.server);
 
-	const { theme } = useTheme();
+	// const { theme } = useTheme();
+	const theme = 'light';
 
-	const { title, saved = false, onSaveClick, _raw, onPress } = item;
-	const { msg, id, ts, u: userObject, urls, attachments, replies, reactions } = _raw;
+	const { title, saved = false, starPost, _raw, onPress } = item;
+	const { msg, id, ts, u: userObject, urls, attachments, replies, reactions, starred } = _raw;
 
-	const [isSaved, setIsSaved] = useState(false);
+	// console.log(`item ---------------------------------- ${userObject.username}`, item);
+
+	const [isSaved, setIsSaved] = useState(starred);
 	const date = moment(ts).format('MMMM D, YYYY');
-	// const userObject = u.length > 0 ? JSON.parse(u) : {};
-	// const userObject = u;
-	// const attachments = JSON.parse(_raw.attachments);
-	// const attachments = attachments;
 	let bannerImage;
 	let description = msg?.length ? msg.slice(0, 300) : '';
 	let userName = userObject?.username;
@@ -65,8 +64,10 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
 				</View>
 				<TouchableOpacity
 					onPress={() => {
-						setIsSaved(!isSaved);
-						onSaveClick && onSaveClick();
+						if (starPost) {
+							starPost(_raw);
+							setIsSaved(!isSaved);
+						}
 					}}
 					hitSlop={hitSlop}
 				>
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
 		height: 160,
 		width: '100%',
 		justifyContent: 'center',
-		alignItems: 'center',
+		alignItems: 'center'
 	},
 	arrow: {
 		height: 15,

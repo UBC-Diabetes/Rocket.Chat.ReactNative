@@ -17,6 +17,13 @@ export type ChatEndpoints = {
 	'chat.starMessage': {
 		POST: (params: { messageId: IMessage['_id'] }) => void;
 	};
+	'chat.getStarredMessages': {
+		GET: (params: { roomId: IServerRoom['_id'] }) => {
+			messages: IMessageFromServer[];
+			total: number;
+			count: number;
+		};
+	};
 	'chat.unfollowMessage': {
 		POST: (params: { mid: IMessage['_id'] }) => void;
 	};

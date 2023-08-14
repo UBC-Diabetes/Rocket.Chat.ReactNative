@@ -8,12 +8,7 @@ export type DiscussionHeaderProps = {
 };
 
 export type DiscussionBoardCardProps = {
-	title: string;
-	description: string;
-	saved?: boolean;
-	icon?: string;
-	color?: string;
-	onSaveClick?: Function;
+	item: any;
 	onPress?: Function;
 };
 
@@ -29,6 +24,6 @@ export type SavedPostCardProps = {
 	likes?: number;
 	comments?: number;
 	saved?: boolean;
-	onSaveClick?: Function;
+	starPost?: Function;
 	onPress?: Function;
 };

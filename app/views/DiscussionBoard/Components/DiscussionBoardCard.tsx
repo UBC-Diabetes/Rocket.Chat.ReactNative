@@ -27,7 +27,8 @@ const DiscussionBoardCard: React.FC<DiscussionBoardCardProps> = ({ item, onPress
 	const status = item.t === 'l' ? item.visitor?.status || item.v?.status : userStatus;
 	const randomColor = cardColors[Math.floor(Math.random() * cardColors.length)];
 
-	const { theme } = useTheme();
+	// const { theme } = useTheme();
+	const theme = 'light';
 
 	return (
 		<TouchableOpacity style={styles.mainContainer} onPress={() => onPress && onPress()}>

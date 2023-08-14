@@ -174,18 +174,18 @@ interface IRoomViewState {
 	[key: string]: any;
 	joined: boolean;
 	room:
-	| TSubscriptionModel
-	| {
-		rid: string;
-		t: string;
-		name?: string;
-		fname?: string;
-		prid?: string;
-		joinCodeRequired?: boolean;
-		status?: string;
-		lastMessage?: ILastMessage;
-		sysMes?: boolean;
-		onHold?: boolean;
+		| TSubscriptionModel
+		| {
+				rid: string;
+				t: string;
+				name?: string;
+				fname?: string;
+				prid?: string;
+				joinCodeRequired?: boolean;
+				status?: string;
+				lastMessage?: ILastMessage;
+				sysMes?: boolean;
+				onHold?: boolean;
 		  };
 	roomUpdate: {
 		[K in TRoomUpdate]?: any;
@@ -1419,7 +1419,8 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					<Touch
 						onPress={this.resumeRoom}
 						style={[styles.joinRoomButton, { backgroundColor: themes[theme].actionTintColor }]}
-						enabled={!loading}>
+						enabled={!loading}
+					>
 						<Text style={[styles.joinRoomText, { color: themes[theme].buttonText }]} testID='room-view-chat-on-hold-button'>
 							{I18n.t('Resume')}
 						</Text>
@@ -1432,13 +1433,15 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 				<View style={styles.joinRoomContainer} key='room-view-join' testID='room-view-join'>
 					<Text
 						accessibilityLabel={I18n.t('You_are_in_preview_mode')}
-						style={[styles.previewMode, { color: themes[theme].titleText }]}>
+						style={[styles.previewMode, { color: themes[theme].titleText }]}
+					>
 						{I18n.t('You_are_in_preview_mode')}
 					</Text>
 					<Touch
 						onPress={this.joinRoom}
 						style={[styles.joinRoomButton, { backgroundColor: themes[theme].actionTintColor }]}
-						enabled={!loading}>
+						enabled={!loading}
+					>
 						<Text style={[styles.joinRoomText, { color: themes[theme].buttonText }]} testID='room-view-join-button'>
 							{I18n.t(this.isOmnichannel ? 'Take_it' : 'Join')}
 						</Text>
@@ -1451,7 +1454,8 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 				<View style={styles.readOnly}>
 					<Text
 						style={[styles.previewMode, { color: themes[theme].titleText }]}
-						accessibilityLabel={I18n.t('This_room_is_read_only')}>
+						accessibilityLabel={I18n.t('This_room_is_read_only')}
+					>
 						{I18n.t('This_room_is_read_only')}
 					</Text>
 				</View>
@@ -1498,7 +1502,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 		return (
 			<>
 				<MessageActions
-					ref={ref => this.messageActions = ref}
+					ref={ref => (this.messageActions = ref)}
 					tmid={this.tmid}
 					room={room}
 					user={user}
@@ -1508,7 +1512,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					onReactionPress={this.onReactionPress}
 					isReadOnly={readOnly}
 				/>
-				<MessageErrorActions ref={ref => this.messageErrorActions = ref} tmid={this.tmid} />
+				<MessageErrorActions ref={ref => (this.messageErrorActions = ref)} tmid={this.tmid} />
 			</>
 		);
 	};

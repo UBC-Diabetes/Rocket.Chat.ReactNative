@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		lineHeight: 20,
 		fontWeight: '400',
-		color: '#000',
-		marginBottom: 8
+		color: '#000'
+		// marginBottom: 8
 	},
 	postDate: {
+		marginTop: 8,
 		color: '#00000080',
 		fontSize: 10,
 		fontWeight: '400',

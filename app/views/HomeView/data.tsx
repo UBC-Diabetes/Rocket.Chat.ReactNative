@@ -21,7 +21,7 @@ export const largeTiles = [
 
 export const smallTiles = [
 	{
-		title: 'Discussion Board',
+		title: 'Discussion Boards',
 		screen: 'DiscussionStackNavigator',
 		size: SizeTypes.SMALL,
 		color: 'dreamBlue',

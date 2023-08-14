@@ -22,10 +22,10 @@ export const styles = StyleSheet.create({
 		marginRight: 20
 	},
 	profileImage: {
-		width: 24,
-		height: 24,
+		// width: 24,
+		// height: 24,
 		borderRadius: 12,
-		backgroundColor: 'red'
+		// backgroundColor: 'red'
 	}
 });
 

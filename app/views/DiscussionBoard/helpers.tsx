@@ -1,3 +1,6 @@
+import { sendFileMessage, sendMessage } from '../../lib/methods';
+import { Services } from '../../lib/services';
+import { TAnyMessageModel } from '../../definitions';
 import { themeColors } from '../../lib/constants';
 
 export const getColor = (color: string) => {
@@ -16,24 +19,24 @@ export const getColor = (color: string) => {
 export const getIcon = (icon: string) => {
 	let imagePath;
 	switch (icon) {
-		case 'covid':
-			imagePath = require('../../static/images/discussionboard/covid.png');
-			break;
-		case 'diet':
-			imagePath = require('../../static/images/discussionboard/diet.png');
-			break;
-		case 'exercising':
-			imagePath = require('../../static/images/discussionboard/exercising.png');
-			break;
-		case 'insulin':
-			imagePath = require('../../static/images/discussionboard/insulin.png');
-			break;
-		case 'mdi_users':
-			imagePath = require('../../static/images/discussionboard/mdi_users.png');
-			break;
-		case 'syringe':
-			imagePath = require('../../static/images/discussionboard/syringe.png');
-			break;
+		// case 'covid':
+		// 	imagePath = require('../../static/images/discussionboard/covid.png');
+		// 	break;
+		// case 'diet':
+		// 	imagePath = require('../../static/images/discussionboard/diet.png');
+		// 	break;
+		// case 'exercising':
+		// 	imagePath = require('../../static/images/discussionboard/exercising.png');
+		// 	break;
+		// case 'insulin':
+		// 	imagePath = require('../../static/images/discussionboard/insulin.png');
+		// 	break;
+		// case 'mdi_users':
+		// 	imagePath = require('../../static/images/discussionboard/mdi_users.png');
+		// 	break;
+		// case 'syringe':
+		// 	imagePath = require('../../static/images/discussionboard/syringe.png');
+		// 	break;
 		case 'solidStar':
 			imagePath = require(`../../static/images/discussionboard/star_solid.png`);
 			break;
@@ -79,4 +82,48 @@ export const getIcon = (icon: string) => {
 			break;
 	}
 	return imagePath;
+};
+
+export const handleStar = async (message: TAnyMessageModel, callback?: () => void) => {
+	try {
+		await Services.toggleStarMessage(message.id, message.starred as boolean); // TODO: reevaluate `message.starred` type on IMessage
+		if (callback) {
+			callback();
+		}
+	} catch (e) {
+		console.log('e', e);
+	}
+};
+
+export const handleSendMessage = async ({
+	message,
+	tshow,
+	rid,
+	callBack,
+	hasAttachment,
+	fileInfo,
+	server,
+	user
+}: {
+	message: string;
+	tshow?: boolean;
+	rid: string;
+	callBack: () => void;
+	hasAttachment?: boolean;
+	fileInfo?: any;
+	server?: string;
+	user?: any;
+}) => {
+	if (hasAttachment) {
+		await sendFileMessage(rid, fileInfo, undefined, server, user);
+		if (callBack) {
+			callBack();
+		}
+	} else {
+		sendMessage(rid, message, undefined, user, tshow).then(() => {
+			if (callBack) {
+				callBack();
+			}
+		});
+	}
 };

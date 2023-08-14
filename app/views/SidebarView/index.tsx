@@ -232,13 +232,13 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					left={<Image source={message247Icon} style={iconStyles} resizeMode='contain' />}
 					onPress={() => {
 						// this.sidebarNavigate('DisplayPrefStackNavigator')
-						if (this.state.chat247Room) {
-							try {
-								goRoom({ item: this.state.chat247Room, isMasterDetail: this.props.isMasterDetail });
-							} catch (error) {
-								console.error('error', error);
-							}
-						}
+						// if (this.state.chat247Room) {
+						// 	try {
+						// 		goRoom({ item: this.state.chat247Room, isMasterDetail: this.props.isMasterDetail });
+						// 	} catch (error) {
+						// 		console.error('error', error);
+						// 	}
+						// }
 					}}
 					testID='sidebar-247chat'
 					theme={theme!}
@@ -344,7 +344,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 				>
 					<TouchableWithoutFeedback onPress={this.onPressUser} testID='sidebar-close-drawer'>
 						<View style={styles.header}>
-							<Avatar text={user.username} style={styles.avatar} size={30} />
+							<Avatar text={user.username} style={styles.avatar} size={30} borderRadius={15}/>
 							<View style={styles.headerTextContainer}>
 								<View style={styles.headerUsername}>
 									<Text numberOfLines={1} style={[styles.username, { color: themes[theme!].titleText }]}>

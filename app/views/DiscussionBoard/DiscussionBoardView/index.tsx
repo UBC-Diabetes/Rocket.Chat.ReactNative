@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Image, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -7,19 +7,23 @@ import { Q } from '@nozbe/watermelondb';
 // import { sanitizedRaw } from '@nozbe/watermelondb/RawRecord';
 
 import * as HeaderButton from '../../../containers/HeaderButton';
-import { themes } from '../../../lib/constants';
+import { MESSAGE_TYPE_ANY_LOAD, themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
 import styles from './styles';
-import { IApplicationState, TMessageModel, TThreadModel } from '../../../definitions';
+import { IApplicationState, TAnyMessageModel, TMessageModel, TThreadModel } from '../../../definitions';
 import PostCard from '../Components/DiscussionPostCard';
-import { posts } from '../data';
-import { getIcon } from '../helpers';
+import { messageTypesToRemove, posts } from '../data';
+import { getIcon, handleStar } from '../helpers';
 import { getRoom } from '../../../lib/methods/getRoom';
-import { loadMessagesForRoom, readMessages } from '../../../lib/methods';
+import { loadMessagesForRoom, loadMissedMessages, readMessages } from '../../../lib/methods';
 import RoomServices from './../../RoomView/services';
 import database from '../../../lib/database';
 import { compareServerVersion } from '../../../lib/methods/helpers';
 import { getUserSelector } from '../../../selectors/login';
+import { sanitizedRaw } from '@nozbe/watermelondb/RawRecord';
+import moment from 'moment';
+import { Services } from '../../../lib/services';
+import getMessages from '../../RoomView/services/getMessages';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 const QUERY_SIZE = 50;
@@ -35,61 +39,36 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 	const serverVersion = useSelector((state: IApplicationState) => state.server.version);
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const Hide_System_Messages = useSelector((state: IApplicationState) => state.settings.Hide_System_Messages as string[]);
-	const { theme } = useTheme();
-	const [messages, setMessages] = useState<TMessageModel | []>([]);
+	// const { theme } = useTheme();
+	const theme = 'light';
+	const [discussions, setDiscussions] = useState<TMessageModel | []>([]);
+	const [title, setTitle] = useState('');
+	const [loading, setLoading] = useState(true);
+	const [queryCount, setQueryCount] = useState(0);
 
-	useEffect(async () => {
-		const item = route.params?.item;
-		if (item) {
-			const rid = item._raw.rid;
-			// console.log('item ---------------------------- ', item);
-			// await loadMessagesForRoom({
-			// 	rid: rid,
-			// 	t: item._raw.t
-			// 	// latest: loaderItem.ts as Date,
-			// 	// loaderItem
+	useEffect(() => {
+		// const loadMessagesForRoom = async (room: any) => {
+		// 	try {
+		// 		const res = await RoomServices.getMessages(room);
+		// 		console.log('Messages for room:', res);
+		// 		// Process the response and update your state as needed
+		// 	} catch (error) {
+		// 		console.error('Error loading messages:', error);
+		// 	}
+		// };
+
+		const room = route.params?.item;
+		if (room) {
+			setTitle(room.title);
+			// const { rid, t } = room;
+			// Load messages for the room
+			// loadMessagesForRoom(room);
+
+			console.log('firing then', new Date());
+			// getMessages(room).then(() => {
+			// 	console.log('firing then', new Date());
 			// });
-
-			// const messages = await RoomServices.getMessages({
-			// 	rid: rid
-			// 	// t,
-			// 	// latest,
-			// 	// lastOpen,
-			// 	// loaderItem
-			// });
-
-			// console.log('messages -------------- ', messages);
-
-			// const db = database.active;
-			// const subCollection = await db.get('subscriptions');
-			// const room = await subCollection.find(rid);
-			// console.log('room --------------', room);
-
-			// // this.setState({ room });
-			// if (!this.tmid) {
-			// 	this.setHeader();
-			// }
-
-			// if (!this.rid) {
-			// 	return;
-			// }
-			// if (this.tmid) {
-			// 	await loadThreadMessages({ tmid: this.tmid, rid: this.rid });
-			// } else {
-			// const newLastOpen = new Date();
-			// 	await RoomServices.getMessages(room);
-
-			// 	// if room is joined
-			// 	if (joined && 'id' in room) {
-			// 		if (room.alert || room.unread || room.userMentions) {
-			// 			this.setLastOpen(room.ls);
-			// 		} else {
-			// 			this.setLastOpen(null);
-			// 		}
-			// readMessages(item._raw.rid, newLastOpen, true).catch(e => console.log(e));
-			// 	}
-			// }
-			loadMessages(item._raw);
+			loadMessages();
 		}
 	}, [route.params]);
 
@@ -123,18 +102,15 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 		}
 	});
 
-	const loadMessages = async (item: any) => {
-		console.log('Loading messages');
+	const loadMessages = async () => {
+		const room = route.params?.item;
+		await loadMissedMessages({ rid: room.rid, lastOpen: moment().subtract(7, 'days').toDate() });
+		setLoading(true);
+
 		let count = QUERY_SIZE;
 		let thread: TThreadModel | null = null;
 		let messagesObservable;
-		// const { rid, tmid, showMessageInMainThread, serverVersion } = this.props;
-		const {
-			rid,
-			sys_mes,
-			// TODO pass tmid
-			tmid
-		} = item;
+		const { rid, sys_mes, tmid } = room;
 		const showMessageInMainThread = user.showMessageInMainThread ?? false;
 		const db = database.active;
 
@@ -144,18 +120,17 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 			hideSystemMessages = [];
 		}
 
-		// if (tmid) {
-		// 	try {
-		// 		thread = await db.get('threads').find(tmid);
-		// 	} catch (e) {
-		// 		console.log(e);
-		// 	}
-		// 	messagesObservable = db
-		// 		.get('thread_messages')
-		// 		.query(Q.where('rid', tmid), Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0), Q.experimentalTake(count))
-		// 		.observe();
-		// } else
-		if (rid) {
+		if (tmid) {
+			try {
+				thread = await db.get('threads').find(tmid);
+			} catch (e) {
+				// console.log(e);
+			}
+			messagesObservable = db
+				.get('thread_messages')
+				.query(Q.where('rid', tmid), Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0), Q.experimentalTake(count))
+				.observe();
+		} else if (rid) {
 			const whereClause = [
 				Q.where('rid', rid),
 				Q.experimentalSortBy('ts', Q.desc),
@@ -185,38 +160,94 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 					messages = messages.filter(m => !m.t || !hideSystemMessages?.includes(m.t));
 				}
 
-				// if (this.mounted) {
-				// this.setState({ messages }, () => this.update());
-				// } else {
-				// @ts-ignore
-				// this.state.messages = messages;
-				console.log('messages 000000', messages);
-				setMessages(messages);
+				// filter out messages
+				messages = messages.filter(m => {
+					return !(MESSAGE_TYPE_ANY_LOAD.includes(m.t) || messageTypesToRemove.includes(m.t));
+				});
+
+				const formattedMessages = messages.map(m => {
+					let object = { ...m };
+					try {
+						if (m?._raw?.u?.length && m._raw.u.length > 0 && m._raw.u !== '[]') {
+							object._raw.u = JSON.parse(m._raw.u);
+						}
+						if (m?._raw?.attachments?.length && m._raw.attachments.length > 0) {
+							object._raw.attachments = JSON.parse(m._raw.attachments);
+						}
+						if (m?._raw?.replies?.length && m._raw.replies.length > 0 && m._raw.replies !== '[]') {
+							object._raw.replies = JSON.parse(m._raw.replies);
+						}
+						if (m?._raw?.reactions?.length && m._raw.reactions.length > 0 && m._raw.reactions !== '[]') {
+							object._raw.reactions = JSON.parse(m._raw.reactions);
+						}
+					} catch (error) {}
+
+					return object;
+				});
+				console.log('messages reversed', formattedMessages);
+				// setMessages(formattedMessages);
+				setDiscussions(formattedMessages);
+				setLoading(false);
 				// }
 				// TODO: move it away from here
 				// this.readThreads();
 			});
 		}
+		setLoading(false);
+		// }, 3000);
 	};
 
+	const handleUpdate = () => {
+		// run api to sync the messages
+		// load the messages
+		loadMessages();
+	};
 	return (
 		<View style={styles.mainContainer}>
 			<View style={styles.headerContainer}>
-				<Text style={styles.headerText}>Exercising</Text>
+				<Text style={styles.headerText}>{title}</Text>
 			</View>
-			<FlatList
-				// data={messages || posts}
-				data={messages}
-				renderItem={({ item }) => <PostCard {...item} onPress={() => navigation.navigate('DiscussionPostView')} />}
-				keyExtractor={(item, id) => item.title + id}
-				ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
-				style={{ paddingHorizontal: 20, paddingTop: 10 }}
-				ListFooterComponent={<View style={styles.footer} />}
-			/>
+			{loading && <ActivityIndicator size='large' color={themes[theme].auxiliaryText} />}
+			{discussions && (
+				<FlatList
+					data={discussions}
+					renderItem={({ item }) => (
+						<PostCard
+							{...item}
+							onPress={(params: any) => navigation.navigate('DiscussionPostView', params)}
+							starPost={(message: any) => handleStar(message, loadMessages)}
+						/>
+					)}
+					keyExtractor={(item, id) => item?.title + id}
+					ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
+					style={{ paddingHorizontal: 20, paddingTop: 10 }}
+					// ListFooterComponent={
+					// 	<View>
+					// 		{!loading && (
+					// 			<TouchableOpacity
+					// 				style={{
+					// 					backgroundColor: 'white',
+					// 					marginTop: 15,
+					// 					alignSelf: 'center',
+					// 					padding: 5,
+					// 					borderRadius: 10,
+					// 					elevation: 5
+					// 				}}
+					// 			>
+					// 				<Text>Load More</Text>
+					// 			</TouchableOpacity>
+					// 		)}
+					// 		<View style={styles.footer} />
+					// 	</View>
+					// }
+					onEndReached={() => {}}
+					showsVerticalScrollIndicator={false}
+				/>
+			)}
 			<TouchableOpacity
 				style={[styles.buttonContainer, { backgroundColor: themes[theme].mossGreen }]}
 				onPress={() => {
-					navigation.navigate('DiscussionNewPostView');
+					navigation.navigate('DiscussionNewPostView', { selectedBoard: route.params?.item, boards: route.params?.boards });
 				}}
 			>
 				<Text style={styles.buttonText}>Create a post</Text>

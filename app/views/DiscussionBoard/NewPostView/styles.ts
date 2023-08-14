@@ -19,17 +19,14 @@ const styles = StyleSheet.create({
 	discussionBoard: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-
 		height: 54,
 		alignItems: 'center'
 	},
 	boardIconContainer: {
 		height: 40,
 		width: 40,
-		borderRadius: 20,
 		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: themeColors.dreamBlue
+		alignItems: 'center'
 	},
 	discussionIcon: {
 		height: 20,

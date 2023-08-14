@@ -10,7 +10,9 @@ const trash = require('../../../static/images/discussionboard/trash.png');
 
 const PostDeleteModal: React.FC<PostDeleteModalProps> = props => {
 	const { show, type = DeleteType.COMMENT, close, delete: deleteAction } = props;
-	const { theme } = useTheme();
+	// const { theme } = useTheme();
+	const theme = 'light';
+
 	const [disableButton, setDisableButton] = React.useState(false);
 
 	const isComment = type === DeleteType.COMMENT;

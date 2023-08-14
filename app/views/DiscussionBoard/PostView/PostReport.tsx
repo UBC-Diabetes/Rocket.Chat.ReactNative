@@ -9,8 +9,10 @@ import { PostReportModalProps, ReportType } from './interfaces';
 const alert = require('../../../static/images/discussionboard/alert_circle.png');
 
 const PostReportModal: React.FC<PostReportModalProps> = props => {
-	const { show, type = ReportType.COMMENT, close, report } = props;
-	const { theme } = useTheme();
+	const { show, type = ReportType.COMMENT, close, report, onText } = props;
+	// const { theme } = useTheme();
+	const theme = 'light';
+
 	const [disableButton, setDisableButton] = React.useState(false);
 	const [value, onChangeText] = React.useState('');
 
@@ -27,12 +29,15 @@ const PostReportModal: React.FC<PostReportModalProps> = props => {
 			<View style={styles.textContainer}>
 				<TextInput
 					style={styles.text}
-					placeholder='Enter reason for reporting'
+					placeholder='Reason'
 					placeholderTextColor='#000000b3'
 					multiline
 					underlineColorAndroid='transparent'
 					value={value}
 					onChangeText={text => {
+						if (onText) {
+							onText(text);
+						}
 						onChangeText(text);
 					}}
 					maxLength={2000}

@@ -19,24 +19,40 @@ import I18n from 'i18n-js';
 import { IApplicationState } from '../../../definitions';
 import { useTheme, withTheme } from '../../../theme';
 import { themes } from '../../../lib/constants';
-import { getColor, getIcon } from '../helpers';
+import { getIcon, handleSendMessage } from '../helpers';
 import BoardDropdownModal from './BoardDropdown';
 import styles from './styles';
-import { boards } from '../data';
 import ReadyToPost from './ReadyToPost';
+import IconOrAvatar from '../../../containers/RoomItem/IconOrAvatar';
+import { useAppSelector } from '../../../lib/hooks';
+import { getUidDirectMessage } from '../../../lib/methods/helpers';
+import { getUserSelector } from '../../../selectors/login';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
-const NewPostView: React.FC = () => {
+type ScreenProps = {
+	route: any;
+};
+
+const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
-	const { theme } = useTheme();
+	const { displayMode, showAvatar } = useSelector((state: IApplicationState) => state.sortPreferences);
+	const server = useSelector((state: IApplicationState) => state.share.server.server || state.server.server);
+	const user = useSelector((state: IApplicationState) => getUserSelector(state));
+	// const { theme } = useTheme();
+	const theme = 'light';
+
 	const [title, setTitle] = useState('');
 	const [image, setImage] = useState(null);
 	const [description, setDescription] = useState('');
 	const [showBoardsModal, setShowBoardsModal] = useState(false);
-	const [selectedBoard, setSelectedBoard] = useState(null);
+	const [selectedBoard, setSelectedBoard] = useState(route.params?.selectedBoard ?? undefined);
 	const [showReadyToPost, setShowReadyToPost] = useState(false);
+	const [boards, setBoards] = useState(route.params?.boards ?? []);
+
+	const id = getUidDirectMessage(selectedBoard);
+	const userStatus = useAppSelector(state => state.activeUsers[id || '']?.status);
 
 	useEffect(() => {
 		navigation.setOptions({ title: 'Create a post', headerStyle: { shadowColor: 'transparent' } });
@@ -81,7 +97,38 @@ const NewPostView: React.FC = () => {
 		}
 	};
 
-	// console.warn(selectedBoard);
+	const getSelectedBoardIcon = () => {
+		if (!selectedBoard) {
+			return <Image source={getIcon('discussionBoardIcon')} style={styles.discussionIcon} resizeMode='contain' />;
+		}
+
+		const status = selectedBoard?.t === 'l' ? selectedBoard?.visitor?.status || selectedBoard?.v?.status : userStatus;
+		return (
+			<IconOrAvatar
+				displayMode={displayMode}
+				avatar={selectedBoard?.avatar}
+				type={selectedBoard?.t}
+				rid={selectedBoard?.rid}
+				showAvatar={showAvatar}
+				prid={selectedBoard?.prid}
+				status={status}
+				isGroupChat={selectedBoard?.isGrouChat}
+				teamMain={selectedBoard?.teamMain}
+				showLastMessage={false}
+				displayMode={displayMode}
+				sourceType={selectedBoard?.source}
+				iconSize={40}
+				borderRadius={10}
+			/>
+		);
+	};
+
+	const isButtonDisabled = () => {
+		if (title.trim() == '' && description.trim() == '') {
+			return true;
+		}
+		return false;
+	};
 
 	return (
 		<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
@@ -89,18 +136,7 @@ const NewPostView: React.FC = () => {
 				<View style={styles.boardContainer}>
 					<Text style={styles.titleText}>Select Board</Text>
 					<TouchableOpacity style={styles.discussionBoard} onPress={() => setShowBoardsModal(true)} hitSlop={hitSlop}>
-						<View
-							style={{
-								...styles.boardIconContainer,
-								backgroundColor: getColor(selectedBoard?.color ? selectedBoard.color : 'dreamBlue')
-							}}
-						>
-							<Image
-								source={getIcon(selectedBoard?.icon ? selectedBoard.icon : 'discussionBoardIcon')}
-								style={styles.discussionIcon}
-								resizeMode='contain'
-							/>
-						</View>
+						<View style={styles.boardIconContainer}>{getSelectedBoardIcon()}</View>
 						<View style={styles.dropdown}>
 							<Text style={styles.dropdownText}>{selectedBoard?.title ? selectedBoard.title : 'Select'}</Text>
 							<Image source={getIcon('arrowDown')} style={styles.dropdownIcon} resizeMode='contain' />
@@ -138,20 +174,61 @@ const NewPostView: React.FC = () => {
 				<View style={styles.footer} />
 			</ScrollView>
 			<View style={styles.buttonContainer}>
-				<TouchableOpacity style={styles.button} onPress={() => setShowReadyToPost(true)}>
+				<TouchableOpacity
+					style={{ ...styles.button, ...(isButtonDisabled() && { opacity: 0.5 }) }}
+					onPress={() => setShowReadyToPost(true)}
+					disabled={isButtonDisabled()}
+				>
 					<Text style={styles.buttonText}>Publish</Text>
 				</TouchableOpacity>
 			</View>
 			<BoardDropdownModal
 				show={showBoardsModal}
-				close={() => setShowBoardsModal(!false)}
+				close={() => setShowBoardsModal(false)}
 				data={boards}
-				onSelect={(board) => {
+				onSelect={board => {
 					setSelectedBoard(board);
 					setShowBoardsModal(false);
 				}}
 			/>
-			<ReadyToPost show={showReadyToPost} close={() => setShowReadyToPost(false)} onPost={() => {}} />
+			<ReadyToPost
+				show={showReadyToPost}
+				close={() => setShowReadyToPost(false)}
+				onPost={() => {
+					const { rid } = selectedBoard;
+					const hasAttachment = image ? true : false;
+					let finalDescrition = description;
+
+					if (title) {
+						finalDescrition = `${title} \n\n ${description}`;
+					}
+
+					let fileInfo = {};
+					if (hasAttachment) {
+						fileInfo = {
+							name: image.filename,
+							description: finalDescrition,
+							size: image.size,
+							type: image.mime,
+							path: image.path,
+							store: 'Uploads'
+						};
+					}
+
+					handleSendMessage({
+						message: finalDescrition,
+						rid,
+						callBack: () => {
+							setShowReadyToPost(false);
+							navigation.goBack();
+						},
+						hasAttachment,
+						fileInfo,
+						server,
+						user: { id: user.id, token: user.token }
+					});
+				}}
+			/>
 		</KeyboardAvoidingView>
 	);
 };

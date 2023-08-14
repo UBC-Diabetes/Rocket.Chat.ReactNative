@@ -1,3 +1,20 @@
+export const messageTypesToRemove = [
+	'jitsi_call_started',
+	'uj',
+	'ul',
+	'ru',
+	'au',
+	'mute_unmute',
+	'r',
+	'ut',
+	'wm',
+	'rm',
+	'subscription_role_added',
+	'subscription_role_removed',
+	'room_archived',
+	'room_unarchived'
+];
+
 export const discussionBoardData = [
 	{
 		title: 'Insulin Pump Users',
@@ -135,7 +152,7 @@ export const comments = [
 			profile_image:
 				'https://marketplace.canva.com/EAFEits4-uw/1/0/800w/canva-boy-cartoon-gamer-animated-twitch-profile-photo-r0bPCSjUqg0.jpg'
 		},
-		date: '6/8/2023, 9:23:11 PM',
+		date: '2023-06-08T21:23:11.000Z',
 		description: 'This is a comment',
 		likes: 3,
 		liked: false
@@ -145,7 +162,7 @@ export const comments = [
 			name: 'John Smith',
 			profile_image: 'https://images.pexels.com/photos/4926674/pexels-photo-4926674.jpeg?auto=compress&cs=tinysrgb&w=1600'
 		},
-		date: '4/12/2022, 7:50:29 AM',
+		date: '2022-04-12T07:50:29.000Z',
 		description: 'I love this comment!',
 		likes: 10,
 		liked: true
@@ -155,7 +172,7 @@ export const comments = [
 			name: 'Emily Johnson',
 			profile_image: 'https://images.pexels.com/photos/2743754/pexels-photo-2743754.jpeg?auto=compress&cs=tinysrgb&w=1600'
 		},
-		date: '3/19/2023, 2:15:57 PM',
+		date: '2023-03-19T14:15:57.000Z',
 		description: 'Nice work!',
 		likes: 5,
 		liked: false
@@ -165,7 +182,7 @@ export const comments = [
 			name: 'Michael Brown',
 			profile_image: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1600'
 		},
-		date: '1/27/2023, 10:33:02 PM',
+		date: '2023-01-27T22:33:02.000Z',
 		description: 'I have a question...',
 		likes: 2,
 		liked: false
@@ -175,7 +192,7 @@ export const comments = [
 			name: 'Michael Brown',
 			profile_image: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1600'
 		},
-		date: '1/27/2023, 10:33:02 PM',
+		date: '2023-01-27T22:33:02.000Z',
 		description: 'I have a question...',
 		likes: 2,
 		liked: false
@@ -185,7 +202,7 @@ export const comments = [
 			name: 'Michael Brown',
 			profile_image: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1600'
 		},
-		date: '1/27/2023, 10:33:02 PM',
+		date: '2023-01-27T22:33:02.000Z',
 		description: 'I have a question...',
 		likes: 2,
 		liked: false
