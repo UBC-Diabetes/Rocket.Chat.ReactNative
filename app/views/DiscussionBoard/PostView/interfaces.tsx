@@ -5,16 +5,20 @@ export type CommentProps = {
 	};
 	date: string;
 	description: string;
-	likes: number;
+	reactions: any[];
+	_id: string,
+	rid: string,
+	tmid: string
 };
 
-export type PostOptionsModalProps = {
+export type CommentOptionsModalProps = {
 	show: boolean;
 	comment: CommentProps;
 	close: () => void;
 	onDelete: () => void;
 	onReport: () => void;
-	// onText: () => void;
+	showDelete: boolean;
+	showMessage: boolean;
 };
 
 export enum ReportType {

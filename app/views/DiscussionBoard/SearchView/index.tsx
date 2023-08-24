@@ -8,7 +8,10 @@ import { useDebounce } from 'use-debounce';
 
 import database from '../../../lib/database';
 import * as HeaderButton from '../../../containers/HeaderButton';
-import { useTheme, withTheme } from '../../../theme';
+import {
+	// useTheme,
+	withTheme
+} from '../../../theme';
 import { IApplicationState } from '../../../definitions';
 import { themes } from '../../../lib/constants';
 import styles from './styles';
@@ -16,26 +19,6 @@ import { searchItemProps } from './interfaces';
 
 const leftArrow = require('../../../static/images/discussionboard/arrow_left.png');
 const rightArrow = require('../../../static/images/discussionboard/arrow_right.png');
-
-const searchData = [
-	{
-		title: 'Exercising with a watch?',
-		description: 'Anyone have experience with exercising with a watch on a daily basis to track your levels?'
-	},
-	{
-		title: 'Thoughts on Exercising with TD1?'
-	},
-	{
-		title: 'Exercising on an empty stomach?'
-	},
-	{
-		title: 'Travelling advice',
-		description: 'I exercise a lot during travel andwonder if anyone has any tips'
-	},
-	{
-		title: 'My terrible experience with exercising while on a specific diet.'
-	}
-];
 
 const SearchView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -80,12 +63,14 @@ const SearchView = () => {
 			if (item?._raw?.reactions?.length && item._raw.reactions.length > 0 && item._raw.reactions !== '[]') {
 				formattedItem._raw.reactions = JSON.parse(item._raw.reactions);
 			}
-		} catch (error) {}
+		} catch (e) {
+			console.log('err', e);
+		}
 
-		let title = null;
-		let description = item?._raw?.msg || null;
+		const title = null;
+		const description = item?._raw?.msg || null;
 
-		console.log('formattedItem', formattedItem);
+		// console.log('formattedItem', formattedItem);
 
 		return (
 			<TouchableOpacity
@@ -103,42 +88,27 @@ const SearchView = () => {
 	};
 
 	const search = () => {
-		console.log('Searching ');
-
 		const db = database.active;
 
 		setIsLoading(true);
 		try {
 			const messagesObservable = db
 				.get('messages')
-				.query(
-					// Q.or(Q.where('starred', true), Q.where('anotherField', 'someValue')),
-					Q.where('msg', Q.like(`%${searchText}%`)),
-					Q.experimentalSortBy('ts', Q.desc),
-					Q.experimentalSkip(0)
-				)
+				.query(Q.where('msg', Q.like(`%${searchText}%`)), Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0))
 				.observe();
-
-			console.log('messagesObservable', messagesObservable);
-
 			messagesObservable.subscribe((data: any) => {
-				console.log('posts ----------', data);
 				setFilteredData(data);
 			});
-		} catch {}
+		} catch (e) {
+			console.error('err', e);
+		}
 		setIsLoading(false);
 	};
 
 	useEffect(() => {
-		if (searchText.length === 0 || searchText === '') {
-			setFilteredData([]);
-		} else {
-			search();
-		}
+		setFilteredData([]);
+		search();
 	}, [debounceValue]);
-
-	console.log('searchText =======> ', searchText);
-	console.log('isloading =======> ', isLoading);
 
 	return (
 		<View style={styles.mainContainer}>

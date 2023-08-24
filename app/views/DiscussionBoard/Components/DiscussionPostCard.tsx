@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
@@ -15,12 +15,11 @@ import { getUserSelector } from '../../../selectors/login';
 import { themes } from '../../../lib/constants';
 import Markdown from '../../../containers/markdown';
 import Avatar from '../../../containers/Avatar/Avatar';
+import { loadThreadMessages } from '../../../lib/methods';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
-const baseUrl = 'https://app.t1dreachout.com';
-
-const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
+const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const customEmojis = useSelector((state: IApplicationState) => state.customEmojis);
 	const server = useSelector((state: IApplicationState) => state.server.server);
@@ -29,20 +28,16 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
 	const theme = 'light';
 
 	const { title, saved = false, starPost, _raw, onPress } = item;
-	const { msg, id, ts, u: userObject, urls, attachments, replies, reactions, starred } = _raw;
-
-	// console.log(`item ---------------------------------- ${userObject.username}`, item);
+	const { msg, id, ts, u: userObject, urls, attachments, replies, reactions, starred, rid } = _raw;
 
 	const [isSaved, setIsSaved] = useState(starred);
+	const [replyList, setReplyList] = useState(replies);
 	const date = moment(ts).format('MMMM D, YYYY');
 	let bannerImage;
 	let description = msg?.length ? msg.slice(0, 300) : '';
 	let userName = userObject?.username;
-
-	if (attachments?.length > 0) {
-		bannerImage = formatAttachmentUrl(attachments[0].image_url, user.id, user.token, baseUrl);
-		description = attachments[0].description;
-	}
+	let likeCount = 0;
+	let hasLiked = false;
 
 	const ImageProgress = createImageProgress(FastImage);
 
@@ -53,6 +48,31 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
 		}
 		return null;
 	};
+
+	const getReplies = async () => {
+		const repliesList = await loadThreadMessages({ tmid: id, rid: rid });
+		if (repliesList) {
+			setReplyList(repliesList);
+		}
+	};
+
+	useEffect(() => {
+		if (attachments?.length > 0) {
+			bannerImage = formatAttachmentUrl(attachments[0].image_url, user.id, user.token, server);
+			description = attachments[0].description;
+		}
+		if (reactions && typeof reactions !== 'string') {
+			const likes = reactions?.filter(reaction => reaction?.emoji === ':thumbsup:') || [];
+			const likedReaction = likes?.find(reaction => {
+				const hasReacted = reaction?.usernames?.find(name => name === user.username);
+				return hasReacted ? true : false;
+			});
+			likeCount = likes[0]?.usernames?.length || 0;
+			hasLiked = likedReaction ? true : false;
+		}
+
+		getReplies();
+	}, [item]);
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={() => onPress && onPress({ item })} key={id}>
@@ -101,13 +121,11 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
 			</View>
 			<View style={styles.actionContainer}>
 				<View style={styles.buttonContainer}>
-					<Image source={getIcon('like')} style={styles.postReaction} />
-					<Text style={styles.postReactionText}>
-						{typeof reactions !== 'string' && reactions?.length ? reactions.length : '0'}
-					</Text>
+					<Image source={getIcon('like')} style={{ ...styles.postReaction, ...(hasLiked && { tintColor: 'blue' }) }} />
+					<Text style={styles.postReactionText}>{likeCount ?? '0'}</Text>
 					<View style={{ width: 24 }} />
 					<Image source={getIcon('comment')} style={styles.postReaction} />
-					<Text style={styles.postReactionText}>{typeof replies !== 'string' && replies?.length ? replies.length : '0'}</Text>
+					<Text style={styles.postReactionText}>{replyList?.length ?? '0'}</Text>
 				</View>
 				<TouchableOpacity hitSlop={hitSlop} onPress={() => onPress && onPress({ item })}>
 					<Image source={getIcon('arrowRight')} style={styles.arrow} resizeMode='contain' />
@@ -115,7 +133,7 @@ const DiscussionPostCard: React.FC<SavedPostCardProps> = item => {
 			</View>
 		</TouchableOpacity>
 	);
-};
+});
 
 export default withTheme(DiscussionPostCard);
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, FlatList, Image, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Q } from '@nozbe/watermelondb';
 // import { sanitizedRaw } from '@nozbe/watermelondb/RawRecord';
@@ -10,20 +10,14 @@ import * as HeaderButton from '../../../containers/HeaderButton';
 import { MESSAGE_TYPE_ANY_LOAD, themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
 import styles from './styles';
-import { IApplicationState, TAnyMessageModel, TMessageModel, TThreadModel } from '../../../definitions';
+import { IApplicationState,  TMessageModel, TThreadModel } from '../../../definitions';
 import PostCard from '../Components/DiscussionPostCard';
-import { messageTypesToRemove, posts } from '../data';
+import { messageTypesToRemove } from '../data';
 import { getIcon, handleStar } from '../helpers';
-import { getRoom } from '../../../lib/methods/getRoom';
-import { loadMessagesForRoom, loadMissedMessages, readMessages } from '../../../lib/methods';
 import RoomServices from './../../RoomView/services';
 import database from '../../../lib/database';
 import { compareServerVersion } from '../../../lib/methods/helpers';
 import { getUserSelector } from '../../../selectors/login';
-import { sanitizedRaw } from '@nozbe/watermelondb/RawRecord';
-import moment from 'moment';
-import { Services } from '../../../lib/services';
-import getMessages from '../../RoomView/services/getMessages';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 const QUERY_SIZE = 50;
@@ -45,32 +39,19 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 	const [title, setTitle] = useState('');
 	const [loading, setLoading] = useState(true);
 	const [queryCount, setQueryCount] = useState(0);
+	const isFocused = useIsFocused();
 
 	useEffect(() => {
-		// const loadMessagesForRoom = async (room: any) => {
-		// 	try {
-		// 		const res = await RoomServices.getMessages(room);
-		// 		console.log('Messages for room:', res);
-		// 		// Process the response and update your state as needed
-		// 	} catch (error) {
-		// 		console.error('Error loading messages:', error);
-		// 	}
-		// };
-
 		const room = route.params?.item;
 		if (room) {
 			setTitle(room.title);
-			// const { rid, t } = room;
-			// Load messages for the room
-			// loadMessagesForRoom(room);
-
-			console.log('firing then', new Date());
-			// getMessages(room).then(() => {
-			// 	console.log('firing then', new Date());
-			// });
 			loadMessages();
 		}
 	}, [route.params]);
+
+	useEffect(() => {
+		isFocused && loadMessages();
+	}, [isFocused]);
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -104,7 +85,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 
 	const loadMessages = async () => {
 		const room = route.params?.item;
-		await loadMissedMessages({ rid: room.rid, lastOpen: moment().subtract(7, 'days').toDate() });
+		await RoomServices.getMessages(room);
 		setLoading(true);
 
 		let count = QUERY_SIZE;
@@ -184,64 +165,40 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 
 					return object;
 				});
-				console.log('messages reversed', formattedMessages);
-				// setMessages(formattedMessages);
 				setDiscussions(formattedMessages);
 				setLoading(false);
-				// }
-				// TODO: move it away from here
-				// this.readThreads();
 			});
 		}
 		setLoading(false);
-		// }, 3000);
 	};
 
 	const handleUpdate = () => {
-		// run api to sync the messages
-		// load the messages
 		loadMessages();
 	};
+
 	return (
 		<View style={styles.mainContainer}>
 			<View style={styles.headerContainer}>
 				<Text style={styles.headerText}>{title}</Text>
 			</View>
-			{loading && <ActivityIndicator size='large' color={themes[theme].auxiliaryText} />}
+			{/* {loading && <ActivityIndicator size='large' color={themes[theme].auxiliaryText} />} */}
 			{discussions && (
 				<FlatList
 					data={discussions}
 					renderItem={({ item }) => (
 						<PostCard
 							{...item}
-							onPress={(params: any) => navigation.navigate('DiscussionPostView', params)}
+							onPress={(params: any) => navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })}
 							starPost={(message: any) => handleStar(message, loadMessages)}
 						/>
 					)}
 					keyExtractor={(item, id) => item?.title + id}
 					ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
 					style={{ paddingHorizontal: 20, paddingTop: 10 }}
-					// ListFooterComponent={
-					// 	<View>
-					// 		{!loading && (
-					// 			<TouchableOpacity
-					// 				style={{
-					// 					backgroundColor: 'white',
-					// 					marginTop: 15,
-					// 					alignSelf: 'center',
-					// 					padding: 5,
-					// 					borderRadius: 10,
-					// 					elevation: 5
-					// 				}}
-					// 			>
-					// 				<Text>Load More</Text>
-					// 			</TouchableOpacity>
-					// 		)}
-					// 		<View style={styles.footer} />
-					// 	</View>
-					// }
 					onEndReached={() => {}}
 					showsVerticalScrollIndicator={false}
+					onRefresh={() => handleUpdate()}
+					refreshing={loading}
 				/>
 			)}
 			<TouchableOpacity

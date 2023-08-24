@@ -21,28 +21,26 @@ import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 
 import * as HeaderButton from '../../../containers/HeaderButton';
-import { useTheme, withTheme } from '../../../theme';
-import { IApplicationState, TAnyMessageModel, TThreadMessageModel, TThreadModel } from '../../../definitions';
+import {
+	//  useTheme,
+	withTheme
+} from '../../../theme';
+import { IApplicationState } from '../../../definitions';
 import { themes } from '../../../lib/constants';
 import styles from './styles';
-import { comments } from '../data';
-import PostOptionsModal from './PostOptions';
+import CommentOptionsModal from './PostOptions';
 import PostDeleteModal from './PostDelete';
 import PostReportModal from './PostReport';
 import { DeleteType, ReportType, CommentProps } from './interfaces';
 import { getIcon } from '../helpers';
 import Markdown from '../../../containers/markdown';
 import Avatar from '../../../containers/Avatar/Avatar';
-import { formatAttachmentUrl } from '../../../lib/methods/helpers';
+import { formatAttachmentUrl, hasPermission } from '../../../lib/methods/helpers';
 import { getUserSelector } from '../../../selectors/login';
-import database from '../../../lib/database';
-import { readThreads } from '../../../lib/services/restApi';
-import { getThreadMessageById } from '../../../lib/database/services/ThreadMessage';
 import { Services } from '../../../lib/services';
-import { showToast } from '../../../lib/methods/helpers/showToast';
+import { loadThreadMessages, sendMessage } from '../../../lib/methods';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
-const baseUrl = 'https://app.t1dreachout.com';
 
 const PostView: React.FC = ({ route }) => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -67,6 +65,9 @@ const PostView: React.FC = ({ route }) => {
 	const customEmojis = useSelector((state: IApplicationState) => state.customEmojis);
 	const server = useSelector((state: IApplicationState) => state.server.server);
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
+	const deleteMessagePermission = useSelector((state: IApplicationState) => state.permissions['delete-message']);
+	const messagePermission = useSelector((state: IApplicationState) => state.permissions['create-d']);
+
 	// const { theme } = useTheme();
 	const theme = 'light';
 
@@ -76,18 +77,23 @@ const PostView: React.FC = ({ route }) => {
 	const [description, setDescription] = useState(null);
 	const [bannerHeight, setBannerHeight] = useState(100);
 	const [reportReason, setReportReason] = useState(null);
+	const [replies, setReplies] = useState([]);
+	const [postLiked, setPostLiked] = useState(false);
+	const [postLikes, setPostLikes] = useState(false);
+	const [showDelete, setShowDelete] = useState(true);
+	const [showCreateChat, setShowCreateChat] = useState(false);
 
 	const ImageProgress = createImageProgress(FastImage);
-	useEffect(async () => {
+
+	useEffect(() => {
 		const post = route.params?.item;
 		if (post) {
-			console.log('post ---------------------------- ', post, user);
 			setPostUser(post._raw.u);
 			setPost(post._raw);
 			setDescription(post?._raw?.msg);
 			const attachments = post?._raw?.attachments;
 			if (typeof attachments !== 'string' && attachments?.length > 0) {
-				const banner = formatAttachmentUrl(attachments[0].image_url, user.id, user.token, baseUrl);
+				const banner = formatAttachmentUrl(attachments[0].image_url, user.id, user.token, server);
 				setBannerImage(banner);
 				setDescription(attachments[0].description);
 				Image.getSize(banner, (width, height) => {
@@ -100,10 +106,23 @@ const PostView: React.FC = ({ route }) => {
 				setOwnPost(true);
 			}
 			loadComments();
+			checkPermission(post?._raw?.u?._id === user.id);
+
+			const reactions = post?._raw?.reactions;
+			if (reactions && typeof reactions !== 'string') {
+				const likes = reactions?.filter(reaction => reaction?.emoji === ':thumbsup:') || [];
+				const likedReaction = likes?.find(reaction => {
+					const hasReacted = reaction?.usernames?.find(name => name === user.username);
+					return hasReacted;
+				});
+				const likeCount = likes[0]?.usernames?.length || 0;
+				setPostLikes(likeCount);
+				setPostLiked(likedReaction);
+			}
 		}
 	}, [route.params]);
 
-	const getCustomEmoji = name => {
+	const getCustomEmoji = (name: string) => {
 		const emoji = customEmojis[name];
 		if (emoji) {
 			return emoji;
@@ -112,75 +131,27 @@ const PostView: React.FC = ({ route }) => {
 	};
 
 	const loadComments = async () => {
-		console.log('comments ------------');
-
 		const post = route.params?.item._raw;
+		const repliesList = await loadThreadMessages({ tmid: post.id, rid: post.rid });
+		if (repliesList?.length > 0) {
+			let formattedReplies = repliesList?.map(item => {
+				return {
+					user: item.u,
+					date: item.ts,
+					description: item.msg,
+					reactions: item.reactions,
+					_id: item._id,
+					rid: item.rid,
+					tmid: item.tmid
+				};
+			});
 
-		const replyArray = post.replies;
-		console.log('replyArray ------------', replyArray);
-
-		// // Array to store the responses
-		const comments: (TThreadMessageModel | null)[] = [];
-		const db = database.active;
-
-		// Loop through the array and make API calls with each id
-		const apiCalls = replyArray.map(async id => {
-			try {
-				// const response = await getThreadMessageById(id);
-				// console.log(`API call with ${id} succeeded:`, response);
-				// comments.push(response); // Collect the response in the array
-				// let thread = await db.get('threads').find(id);
-				let thread = await db.get('threads');
-				let messages = await db.get('messages').find(post.id);
-				let messagesx = await db.get('messages').find(id);
-
-				console.log('thread', thread);
-				console.log('messages', messages);
-				console.log('messagesx', messagesx);
-
-				// const res = await Services.readThreads(id)
-				// console.log(`API call with ${id} succeeded:2`, res);
-			} catch (error) {
-				console.error(`API call with ${id} failed:`, error);
-				throw error; // You can rethrow the error or handle it differently
+			formattedReplies = [...formattedReplies];
+			if (formattedReplies.length > 1) {
+				formattedReplies = formattedReplies.reverse();
 			}
-		});
-
-		// Wait for all API calls to finish using Promise.all
-		await Promise.all(apiCalls);
-
-		console.log('All API calls completed.');
-		console.log('Responses Array:', comments); // Array of all responses
-
-		// // return comments; // If you want to use the comments array outside of this function
-		// const room = route.params?.item;
-		// await loadMissedMessages({ rid: room.rid, lastOpen: moment().subtract(7, 'days').toDate() });
-		// setLoading(true);
-
-		// let count = QUERY_SIZE;
-		// let thread: TThreadModel | null = null;
-		// let messagesObservable;
-		// // const { rid, sys_mes, tmid } = room;
-		// // const showMessageInMainThread = user.showMessageInMainThread ?? false;
-		// const db = database.active;
-
-		// // handle servers with version < 3.0.0
-		// // let hideSystemMessages = Array.isArray(sys_mes) ? sys_mes : Hide_System_Messages || [];
-		// // if (!Array.isArray(hideSystemMessages)) {
-		// // 	hideSystemMessages = [];
-		// // }
-
-		// if (tmid) {
-		// 	try {
-		// 		thread = await db.get('threads').find(tmid);
-		// 	} catch (e) {
-		// 		// console.log(e);
-		// 	}
-		// 	messagesObservable = db
-		// 		.get('thread_messages')
-		// 		.query(Q.where('rid', tmid), Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0), Q.experimentalTake(count))
-		// 		.observe();
-		// }
+			setReplies(formattedReplies);
+		}
 	};
 
 	useEffect(() => {
@@ -230,25 +201,64 @@ const PostView: React.FC = ({ route }) => {
 		return moment(date) ? formattedDate : '';
 	};
 
-	const likeComment = (item: CommentProps) => {
-		console.log('like comment by ', item?.user?.name);
+	const likeComment = async (id: string) => {
+		await like(id);
+		loadComments();
+	};
+
+	const likePost = async () => {
+		try {
+			await like(post?.id);
+			if (!postLiked) {
+				setPostLikes(postLikes + 1);
+			} else {
+				setPostLikes(postLikes - 1);
+			}
+			setPostLiked(!postLiked);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const like = async (id: string) => {
+		try {
+			await Services.setReaction('thumbsup', id);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const comment = (item: CommentProps, key: number) => {
 		const {
-			user: { name, profile_image },
+			_id,
+			user: { name, username },
 			date,
 			description,
-			likes
+			reactions
 		} = item;
+
+		const likes = reactions?.filter(reaction => reaction?.emoji === ':thumbsup:') || [];
+		const likedReaction = likes?.find(reaction => {
+			const hasReacted = reaction?.usernames?.find(name => name === user.username);
+			return hasReacted;
+		});
+		const likeCount = likes[0]?.usernames?.length || 0;
+		const hasLiked = likedReaction;
 
 		return (
 			<View style={styles.comment} key={key}>
 				<View style={styles.commentHeader}>
-					<Image source={{ uri: profile_image }} style={styles.commentProfileImage} />
-					<View style={styles.commentUsernameContainer}>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('ConnectView', { user: item.user, fromRid: post?.rid, room: route.params?.room })}
+					>
+						<Avatar text={username} style={styles.profileImage} size={24} server={server} borderRadius={12} />
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.commentUsernameContainer}
+						onPress={() => navigation.navigate('ConnectView', { user: item.user, fromRid: post?.rid, room: route.params?.room })}
+					>
 						<Text style={styles.commentUsername}>{name}</Text>
-					</View>
+					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.commentOptions}
 						onPress={() => {
@@ -262,7 +272,6 @@ const PostView: React.FC = ({ route }) => {
 				{description ? (
 					<Markdown
 						msg={description}
-						// style={[isReply && style]}
 						style={[styles.description]}
 						username={postUser?.username}
 						getCustomEmoji={getCustomEmoji}
@@ -271,9 +280,13 @@ const PostView: React.FC = ({ route }) => {
 				) : null}
 				<View style={styles.commentFooter}>
 					<Text style={styles.commentDate}>{getDate(date)}</Text>
-					<TouchableOpacity style={styles.commentReactions} onPress={() => likeComment(item)} hitSlop={hitSlop}>
-						<Image style={styles.commentReactionIcon} source={getIcon('like')} resizeMode='contain' />
-						<Text style={styles.commentReactionText}>{likes}</Text>
+					<TouchableOpacity style={styles.commentReactions} onPress={() => likeComment(_id)} hitSlop={hitSlop}>
+						<Image
+							style={[styles.commentReactionIcon, hasLiked && { tintColor: 'blue' }]}
+							source={getIcon('like')}
+							resizeMode='contain'
+						/>
+						<Text style={styles.commentReactionText}>{likeCount}</Text>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -283,7 +296,7 @@ const PostView: React.FC = ({ route }) => {
 	const commentSection = () => (
 		<View ref={commentsRef}>
 			<Text style={styles.commentsTitle}>Comments</Text>
-			{comments.map((item, key) => comment(item, key))}
+			{replies.map((item, key) => comment(item, key))}
 		</View>
 	);
 
@@ -303,9 +316,9 @@ const PostView: React.FC = ({ route }) => {
 
 	const handleReport = async () => {
 		try {
-			if (post?.id) {
-				console.log('message', post);
-				await Services.reportMessage(post.id, reportReason);
+			const id = reportType === ReportType.POST ? post?.id : selectedComment?._id;
+			if (id) {
+				await Services.reportMessage(id, reportReason);
 				Alert.alert('Post Reported');
 			}
 		} catch (e) {
@@ -314,19 +327,44 @@ const PostView: React.FC = ({ route }) => {
 	};
 
 	const handleDelete = async () => {
-		const message = post;
+		const message = deleteType === DeleteType.COMMENT ? selectedComment : post;
 		try {
-			// logEvent(events.ROOM_MSG_ACTION_DELETE);
 			if (message) {
-				console.log('message', message);
-
-				await Services.deleteMessage(message.id, message.rid);
+				await Services.deleteMessage(DeleteType.COMMENT ? message._id : message.id, message.rid);
+				if (DeleteType.COMMENT) {
+					loadComments();
+				} else {
+					navigation.goBack();
+				}
 			}
 		} catch (e) {
-			// logEvent(events.ROOM_MSG_ACTION_DELETE_F);
-
 			console.error(e);
 		}
+	};
+
+	const checkPermission = async (ownPost: boolean) => {
+		let show = true;
+		let chat = false;
+		if (ownPost) {
+			const deletePermissions = await hasPermission([deleteMessagePermission], post?.rid);
+			if (!deletePermissions[0]) {
+				show = false;
+			}
+		}
+		setShowDelete(show);
+
+		const createDirectPermissions = await hasPermission([messagePermission]);
+		if (createDirectPermissions[0]) {
+			chat = true;
+		}
+		setShowCreateChat(chat);
+	};
+
+	const sendReply = (message: string) => {
+		sendMessage(post?.rid, message, post?.id, user).then(() => {
+			loadComments();
+			setNewComment('');
+		});
 	};
 
 	return (
@@ -336,30 +374,42 @@ const PostView: React.FC = ({ route }) => {
 					<View onLayout={onPostLayout} style={styles.postContainer}>
 						<View style={styles.header}>
 							{postUser?.username ? (
-								<Avatar text={postUser?.username} style={styles.profileImage} size={24} server={server} borderRadius={12} />
+								<TouchableOpacity
+									onPress={() =>
+										navigation.navigate('ConnectView', { user: postUser, fromRid: post?.rid, room: route.params?.room })
+									}
+								>
+									<Avatar text={postUser?.username} style={styles.profileImage} size={24} server={server} borderRadius={12} />
+								</TouchableOpacity>
 							) : (
 								<></>
 							)}
-							<View style={styles.profileNameContainer}>
-								<Text style={styles.profileName}>{post?.u?.name ?? ''}</Text>
-							</View>
 							<TouchableOpacity
-								onPress={() => {
-									if (ownPost) {
-										setDeleteType(DeleteType.POST);
-										setShowDeleteModal(true);
-									} else {
-										setReportType(ReportType.POST);
-										setShowReportModal(true);
-									}
-								}}
-								hitSlop={hitSlop}
+								style={styles.profileNameContainer}
+								onPress={() =>
+									navigation.navigate('ConnectView', { user: postUser, fromRid: post?.rid, room: route.params?.room })
+								}
 							>
-								<Image source={getIcon('more')} style={styles.moreMenuIcon} resizeMode='contain' />
+								<Text style={styles.profileName}>{post?.u?.name ?? ''}</Text>
 							</TouchableOpacity>
+							{showDelete && (
+								<TouchableOpacity
+									onPress={() => {
+										if (ownPost) {
+											setDeleteType(DeleteType.POST);
+											setShowDeleteModal(true);
+										} else {
+											setReportType(ReportType.POST);
+											setShowReportModal(true);
+										}
+									}}
+									hitSlop={hitSlop}
+								>
+									<Image source={getIcon('more')} style={styles.moreMenuIcon} resizeMode='contain' />
+								</TouchableOpacity>
+							)}
 						</View>
 						<View style={styles.content}>
-							{/* <Image source={{ uri: bannerImage }} style={styles.banner} /> */}
 							{bannerImage && (
 								<ImageProgress
 									style={[styles.banner, { height: bannerHeight }]}
@@ -371,7 +421,6 @@ const PostView: React.FC = ({ route }) => {
 									}}
 								/>
 							)}
-							{/* <Text style={styles.title}>Thoughts on Exercising with TDI?</Text> */}
 							{description ? (
 								<Markdown
 									msg={description}
@@ -387,11 +436,19 @@ const PostView: React.FC = ({ route }) => {
 							<Text style={styles.postDate}>{getDate(post?.ts)}</Text>
 						</View>
 						<View style={styles.reactions}>
-							<TouchableOpacity onPress={() => {}} style={{ flexDirection: 'row', alignItems: 'center' }} hitSlop={hitSlop}>
-								<Image style={styles.icon} source={getIcon('like')} resizeMode='contain' />
-								<Text style={styles.reactionText}>
-									{typeof post?.reactions !== 'string' && post?.reactions?.length > 0 ? post.reactions.length : '0'}
-								</Text>
+							<TouchableOpacity
+								onPress={() => {
+									likePost();
+								}}
+								style={{ flexDirection: 'row', alignItems: 'center' }}
+								hitSlop={hitSlop}
+							>
+								<Image
+									style={{ ...styles.icon, ...(postLiked && { tintColor: 'blue' }) }}
+									source={getIcon('like')}
+									resizeMode='contain'
+								/>
+								<Text style={styles.reactionText}>{postLikes ?? '0'}</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => scrollCommentsToTop()}
@@ -399,13 +456,11 @@ const PostView: React.FC = ({ route }) => {
 								hitSlop={hitSlop}
 							>
 								<Image style={styles.icon} source={getIcon('comment')} resizeMode='contain' />
-								<Text style={styles.reactionText}>
-									{typeof post?.replies !== 'string' && post?.replies?.length > 0 ? post.replies.length : '0'}
-								</Text>
+								<Text style={styles.reactionText}>{replies?.length ?? '0'}</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
-					{/* {commentSection()} */}
+					{commentSection()}
 					<View style={{ height: textinputHeight }} />
 				</ScrollView>
 			</View>
@@ -419,7 +474,6 @@ const PostView: React.FC = ({ route }) => {
 							placeholder={'Add a comment ...'}
 							placeholderTextColor='#000000b3'
 							onChangeText={text => {
-								console.log(text);
 								setNewComment(text);
 							}}
 							multiline
@@ -429,6 +483,7 @@ const PostView: React.FC = ({ route }) => {
 						<TouchableOpacity
 							onPress={() => {
 								// send api request to post comment
+								sendReply(newComment);
 								Keyboard.dismiss();
 							}}
 						>
@@ -437,7 +492,7 @@ const PostView: React.FC = ({ route }) => {
 					</View>
 				</View>
 			)}
-			<PostOptionsModal
+			<CommentOptionsModal
 				show={showCommentOptionsModal}
 				comment={selectedComment}
 				close={() => setShowCommentOptionsModal(false)}
@@ -451,6 +506,9 @@ const PostView: React.FC = ({ route }) => {
 					setShowReportModal(true);
 					setShowCommentOptionsModal(false);
 				}}
+				showDelete={showDelete}
+				// showDelete={true}
+				showMessage={showCreateChat}
 			/>
 			<PostDeleteModal
 				show={showDeleteModal}

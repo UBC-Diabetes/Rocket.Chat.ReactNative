@@ -12,16 +12,21 @@ import * as HeaderButton from '../../containers/HeaderButton';
 import EventEmitter from '../../lib/methods/helpers/events';
 import { TGoRoomItem, goRoom } from '../../lib/methods/helpers/goRoom';
 import { themes } from '../../lib/constants';
-import { useTheme, withTheme } from '../../theme';
-import { IApplicationState, SubscriptionType } from '../../definitions';
+import {
+	//  useTheme,
+	withTheme
+} from '../../theme';
+import {
+	IApplicationState
+	//  SubscriptionType
+} from '../../definitions';
 import * as tileData from './data';
 import * as allStyles from './styles';
 import { Tileprops } from './interfaces';
 import { get247Chat } from './helpers';
 import Avatar from '../../containers/Avatar/Avatar';
-import { getRoomTitle, getUidDirectMessage } from '../../lib/methods/helpers';
+// import { getRoomTitle, getUidDirectMessage } from '../../lib/methods/helpers';
 import Navigation from '../../lib/navigation/appNavigation';
-import { Services } from '../../lib/services';
 
 const HomeView: React.FC = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -94,23 +99,22 @@ const HomeView: React.FC = () => {
 					if (screen) {
 						if (screen === '24Chat') {
 							// console.log('chat247Room', chat247Room);
-							const room = { ...chat247Room._raw, uids: JSON.parse(chat247Room._raw.uids) };
+							// const room = { ...chat247Room._raw, uids: JSON.parse(chat247Room._raw.uids) };
 
 							// const result = await Services.createDirectMessage(room.username as string);
 							// if (result.success) {
 							// this.goRoom({ rid: result.room._id, name: item.username, t: SubscriptionType.DIRECT });
-							// console.log('room ---------------------', room);
 
-							const params = {
-								// rid: result.room._id,
-								rid: room._id,
-								name: getRoomTitle(room),
-								t: SubscriptionType.DIRECT,
-								prid: room.prid,
-								room: room,
-								visitor: room.visitor,
-								roomUserId: getUidDirectMessage(room)
-							};
+							// const params = {
+							// 	// rid: result.room._id,
+							// 	rid: room._id,
+							// 	name: getRoomTitle(room),
+							// 	t: SubscriptionType.DIRECT,
+							// 	prid: room.prid,
+							// 	room: room,
+							// 	visitor: room.visitor,
+							// 	roomUserId: getUidDirectMessage(room)
+							// };
 
 							// console.log('chat247Room params', params);
 							// Navigation.navigate('RoomListView' );

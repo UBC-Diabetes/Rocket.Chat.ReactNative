@@ -3,7 +3,6 @@ import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { themes } from '../../../lib/constants';
-import { useTheme, withTheme } from '../../../theme';
 import { DiscussionBoardCardProps } from '../DiscussionHomeView/interaces';
 import { getIcon } from '../helpers';
 import IconOrAvatar from '../../../containers/RoomItem/IconOrAvatar';
@@ -14,12 +13,14 @@ import { useAppSelector } from '../../../lib/hooks';
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 const cardColors = ['magenta', 'mossGreen', 'dreamBlue', 'creamsicleYellow', 'pink', 'superGray', 'forestGreen'];
 
-const DiscussionBoardCard: React.FC<DiscussionBoardCardProps> = ({ item, onPress }) => {
+const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardProps) => {
 	const { title, description, saved = false, icon, color, onSaveClick, avatar, f } = item;
-	const [savedDiscussion, setSavedDiscussion] = React.useState(saved);
-	const { sortBy, showUnread, showFavorites, groupByType, displayMode, showAvatar } = useSelector(
-		(state: IApplicationState) => state.sortPreferences
-	);
+	// const [savedDiscussion, setSavedDiscussion] = React.useState(saved);
+	const {
+		// sortBy, showUnread, showFavorites, groupByType,
+		displayMode,
+		showAvatar
+	} = useSelector((state: IApplicationState) => state.sortPreferences);
 	const StoreLastMessage = useSelector((state: IApplicationState) => state.settings.Store_Last_Message);
 
 	const id = getUidDirectMessage(item);
@@ -73,9 +74,9 @@ const DiscussionBoardCard: React.FC<DiscussionBoardCardProps> = ({ item, onPress
 			</TouchableOpacity>
 		</TouchableOpacity>
 	);
-};
+});
 
-export default withTheme(DiscussionBoardCard);
+export default DiscussionBoardCard;
 
 const styles = StyleSheet.create({
 	mainContainer: {

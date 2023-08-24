@@ -9,49 +9,37 @@ import database from '../../../lib/database';
 import * as HeaderButton from '../../../containers/HeaderButton';
 import { MESSAGE_TYPE_ANY_LOAD, SortBy, themes } from '../../../lib/constants';
 import { useTheme, withTheme } from '../../../theme';
-import { IApplicationState, TAnyMessageModel } from '../../../definitions';
+import { IApplicationState } from '../../../definitions';
 import DiscussionBoardCard from '../Components/DiscussionBoardCard';
 import DiscussionPostCard from '../Components/DiscussionPostCard';
 import Header from '../Components/Header';
 import { DiscussionTabs } from './interaces';
 import styles from './styles';
-import { discussionBoardData, messageTypesToRemove, posts } from '../data';
-import { getUserSelector } from '../../../selectors/login';
+import { messageTypesToRemove } from '../data';
 import { getRoomAvatar, isGroupChat } from '../../../lib/methods/helpers';
-import { sanitizedRaw } from '@nozbe/watermelondb/RawRecord';
 import { loadMissedMessages } from '../../../lib/methods';
 import moment from 'moment';
-import { Services } from '../../../lib/services';
 import { handleStar } from '../helpers';
 
 // const INITIAL_NUM_TO_RENDER = isTablet ? 20 : 12;
-const CHATS_HEADER = 'Chats';
-const UNREAD_HEADER = 'Unread';
-const FAVORITES_HEADER = 'Favorites';
-const DISCUSSIONS_HEADER = 'Discussions';
-const TEAMS_HEADER = 'Teams';
-const CHANNELS_HEADER = 'Channels';
-const DM_HEADER = 'Direct_Messages';
-const OMNICHANNEL_HEADER_IN_PROGRESS = 'Open_Livechats';
-const OMNICHANNEL_HEADER_ON_HOLD = 'On_hold_Livechats';
+// const CHATS_HEADER = 'Chats';
+// const UNREAD_HEADER = 'Unread';
+// const FAVORITES_HEADER = 'Favorites';
+// const DISCUSSIONS_HEADER = 'Discussions';
+// const TEAMS_HEADER = 'Teams';
+// const CHANNELS_HEADER = 'Channels';
+// const DM_HEADER = 'Direct_Messages';
+// const OMNICHANNEL_HEADER_IN_PROGRESS = 'Open_Livechats';
+// const OMNICHANNEL_HEADER_ON_HOLD = 'On_hold_Livechats';
 const QUERY_SIZE = 20;
 
 const DiscussionHomeView: React.FC = ({ route }) => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
 	const { sortBy, showUnread, showFavorites, groupByType } = useSelector((state: IApplicationState) => state.sortPreferences);
-	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const useRealName = useSelector((state: IApplicationState) => state.settings.UI_Use_Real_Name);
-	const { id, token } = useSelector((state: IApplicationState) => ({
-		id: getUserSelector(state).id,
-		token: getUserSelector(state).token
-	}));
-
-	const server = useSelector((state: IApplicationState) => state.server.server);
-	const fullState = useSelector((state: IApplicationState) => state);
 
 	const [selectedTab, setSelectedTab] = useState(DiscussionTabs.DISCUSSION_BOARDS);
-	const [loading, setLoading] = useState(true);
 	const [searchCount, setSearchCount] = useState(0);
 	const [boards, setBoards] = useState([]);
 	const [starredPosts, setStarredPosts] = useState([]);
@@ -85,10 +73,8 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 
 	useEffect(() => {
 		const getSubscriptions = async () => {
-			// await loadMissedMessages({ rid, lastOpen: moment().subtract(7, 'days').toDate() });
 			const isGrouping = showUnread || showFavorites || groupByType;
 			let observable;
-			// let results: any[] = [];
 
 			const defaultWhereClause = [Q.where('archived', false), Q.where('open', true)];
 
@@ -113,9 +99,6 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 					.observeWithColumns(['on_hold']);
 			}
 
-			// const subsCollection = db.get('subscriptions');
-			// const roomsCollection = db.get('rooms');
-
 			observable.subscribe(data => {
 				const formattedData = data.map(d => {
 					const jsonObject = {
@@ -135,9 +118,13 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 					};
 				});
 
-				console.log('data formatted', formattedData);
+				const boards = formattedData.filter(d => {
+					// removing direct messages
+					// return d.t !== 'd' && d.id !== 'GENERAL';
+					return true
+				});
 
-				setBoards(formattedData);
+				setBoards(boards);
 			});
 		};
 
