@@ -208,9 +208,6 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 		this.handleHasPermission();
 		this.mounted = true;
 
-		console.log("navigation", navigation);
-		console.log("navigation params", route);
-
 		if (isTablet) {
 			EventEmitter.addEventListener(KEY_COMMAND, this.handleCommands);
 		}

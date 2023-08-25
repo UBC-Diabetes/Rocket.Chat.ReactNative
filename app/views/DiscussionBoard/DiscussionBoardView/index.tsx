@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, FlatList, Image, ActivityIndicator } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Q } from '@nozbe/watermelondb';
-// import { sanitizedRaw } from '@nozbe/watermelondb/RawRecord';
 
 import * as HeaderButton from '../../../containers/HeaderButton';
 import { MESSAGE_TYPE_ANY_LOAD, themes } from '../../../lib/constants';
-import { useTheme, withTheme } from '../../../theme';
+import {
+	// useTheme,
+	withTheme
+} from '../../../theme';
 import styles from './styles';
-import { IApplicationState,  TMessageModel, TThreadModel } from '../../../definitions';
+import { IApplicationState, TMessageModel, TThreadModel } from '../../../definitions';
 import PostCard from '../Components/DiscussionPostCard';
 import { messageTypesToRemove } from '../data';
 import { getIcon, handleStar } from '../helpers';
@@ -20,7 +22,8 @@ import { compareServerVersion } from '../../../lib/methods/helpers';
 import { getUserSelector } from '../../../selectors/login';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
-const QUERY_SIZE = 50;
+// const QUERY_SIZE = 50;
+const QUERY_SIZE = 2;
 
 type ScreenProps = {
 	route: any;
@@ -33,12 +36,13 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 	const serverVersion = useSelector((state: IApplicationState) => state.server.version);
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const Hide_System_Messages = useSelector((state: IApplicationState) => state.settings.Hide_System_Messages as string[]);
+
 	// const { theme } = useTheme();
 	const theme = 'light';
 	const [discussions, setDiscussions] = useState<TMessageModel | []>([]);
 	const [title, setTitle] = useState('');
 	const [loading, setLoading] = useState(true);
-	const [queryCount, setQueryCount] = useState(0);
+	const [queryCount, setQueryCount] = useState(QUERY_SIZE);
 	const isFocused = useIsFocused();
 
 	useEffect(() => {
@@ -88,7 +92,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 		await RoomServices.getMessages(room);
 		setLoading(true);
 
-		let count = QUERY_SIZE;
+		const count = queryCount;
 		let thread: TThreadModel | null = null;
 		let messagesObservable;
 		const { rid, sys_mes, tmid } = room;
@@ -176,31 +180,37 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 		loadMessages();
 	};
 
+	const renderBoards = () => {
+		return (
+			<FlatList
+				data={discussions}
+				renderItem={({ item }) => (
+					<PostCard
+						{...item}
+						onPress={(params: any) => navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })}
+						starPost={(message: any) => handleStar(message, loadMessages)}
+					/>
+				)}
+				keyExtractor={(item, id) => item?._id + id}
+				ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
+				style={{ paddingHorizontal: 20, paddingTop: 10 }}
+				onEndReached={() => {
+					// setQueryCount(queryCount + QUERY_SIZE);
+					// loadMessages();
+				}}
+				showsVerticalScrollIndicator={false}
+				onRefresh={() => handleUpdate()}
+				refreshing={loading}
+			/>
+		);
+	};
+
 	return (
 		<View style={styles.mainContainer}>
 			<View style={styles.headerContainer}>
 				<Text style={styles.headerText}>{title}</Text>
 			</View>
-			{/* {loading && <ActivityIndicator size='large' color={themes[theme].auxiliaryText} />} */}
-			{discussions && (
-				<FlatList
-					data={discussions}
-					renderItem={({ item }) => (
-						<PostCard
-							{...item}
-							onPress={(params: any) => navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })}
-							starPost={(message: any) => handleStar(message, loadMessages)}
-						/>
-					)}
-					keyExtractor={(item, id) => item?.title + id}
-					ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
-					style={{ paddingHorizontal: 20, paddingTop: 10 }}
-					onEndReached={() => {}}
-					showsVerticalScrollIndicator={false}
-					onRefresh={() => handleUpdate()}
-					refreshing={loading}
-				/>
-			)}
+			{discussions && renderBoards()}
 			<TouchableOpacity
 				style={[styles.buttonContainer, { backgroundColor: themes[theme].mossGreen }]}
 				onPress={() => {

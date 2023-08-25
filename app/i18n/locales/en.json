@@ -886,5 +886,7 @@
   "Call": "Call",
   "Reply_in_direct_message": "Reply in Direct Message",
   "room_archived": "archived room",
-  "room_unarchived": "unarchived room"
+  "room_unarchived": "unarchived room",
+  "PostModeration": "Post Moderation",
+  "Assignment": "Assignment"
 }

@@ -3,12 +3,11 @@ import { Subscription } from 'rxjs';
 
 import database from '../../lib/database';
 import { TSubscriptionModel } from '../../definitions';
+import { goRoom } from '../../lib/methods/helpers/goRoom';
 
 const CHAT247ROOMID = '24-7-chatroom';
-const QUERY_SIZE = 20;
 
 let querySubscription: Subscription;
-let count = 0;
 
 const unsubscribeQuery = () => {
 	if (querySubscription && querySubscription.unsubscribe) {
@@ -26,10 +25,9 @@ export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
 	const defaultWhereClause = [Q.where('archived', false), Q.where('open', true)] as (Q.WhereDescription | Q.SortBy)[];
 	defaultWhereClause.push(Q.experimentalSortBy('room_updated_at', Q.desc));
 
-	count += QUERY_SIZE;
 	const observable = await db
 		.get('subscriptions')
-		.query(...defaultWhereClause, Q.experimentalSkip(0), Q.experimentalTake(count))
+		.query(...defaultWhereClause)
 		.observeWithColumns(['on_hold']);
 
 	const subscriptionPromise = new Promise<void>((resolve, reject) => {
@@ -46,4 +44,18 @@ export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
 
 	await subscriptionPromise;
 	return chatRoom;
+};
+
+export const navigateTo247Chat = async (Navigation: any, isMasterDetail: boolean) => {
+	if (Navigation) {
+		try {
+			const chatRoom = await get247Chat();
+			await Navigation.navigate('ChatsStackNavigator', {
+				screen: 'RoomListView'
+			});
+			goRoom({ item: chatRoom, isMasterDetail });
+		} catch (error) {
+			console.error('error', error);
+		}
+	}
 };

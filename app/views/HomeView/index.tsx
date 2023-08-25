@@ -10,22 +10,17 @@ import { LISTENER } from '../../containers/Toast';
 import StatusBar from '../../containers/StatusBar';
 import * as HeaderButton from '../../containers/HeaderButton';
 import EventEmitter from '../../lib/methods/helpers/events';
-import { TGoRoomItem, goRoom } from '../../lib/methods/helpers/goRoom';
 import { themes } from '../../lib/constants';
 import {
 	//  useTheme,
 	withTheme
 } from '../../theme';
-import {
-	IApplicationState
-	//  SubscriptionType
-} from '../../definitions';
+import { IApplicationState } from '../../definitions';
 import * as tileData from './data';
 import * as allStyles from './styles';
 import { Tileprops } from './interfaces';
-import { get247Chat } from './helpers';
+import { navigateTo247Chat } from './helpers';
 import Avatar from '../../containers/Avatar/Avatar';
-// import { getRoomTitle, getUidDirectMessage } from '../../lib/methods/helpers';
 import Navigation from '../../lib/navigation/appNavigation';
 
 const HomeView: React.FC = () => {
@@ -39,7 +34,6 @@ const HomeView: React.FC = () => {
 
 	const { largeTiles, smallTiles } = tileData;
 	const { styles, createTileStyles } = allStyles;
-	const [chat247Room, setChat247Room] = React.useState<TGoRoomItem | undefined>(undefined);
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -63,29 +57,6 @@ const HomeView: React.FC = () => {
 		}
 	});
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const chatRoom = await get247Chat();
-				setChat247Room(chatRoom);
-			} catch (error) {
-				console.error('Error:', error);
-			}
-		};
-
-		fetchData();
-	}, []);
-
-	const navigateTo247Chat = () => {
-		if (chat247Room) {
-			try {
-				goRoom({ item: chat247Room._raw, isMasterDetail });
-			} catch (error) {
-				console.error('error', error);
-			}
-		}
-	};
-
 	const homeViewTile = ({ icon, title, size, screen, color, disabled = false }: Tileprops, index: number) => {
 		const tileStyles = createTileStyles({
 			size,
@@ -98,56 +69,7 @@ const HomeView: React.FC = () => {
 				onPress={() => {
 					if (screen) {
 						if (screen === '24Chat') {
-							// console.log('chat247Room', chat247Room);
-							// const room = { ...chat247Room._raw, uids: JSON.parse(chat247Room._raw.uids) };
-
-							// const result = await Services.createDirectMessage(room.username as string);
-							// if (result.success) {
-							// this.goRoom({ rid: result.room._id, name: item.username, t: SubscriptionType.DIRECT });
-
-							// const params = {
-							// 	// rid: result.room._id,
-							// 	rid: room._id,
-							// 	name: getRoomTitle(room),
-							// 	t: SubscriptionType.DIRECT,
-							// 	prid: room.prid,
-							// 	room: room,
-							// 	visitor: room.visitor,
-							// 	roomUserId: getUidDirectMessage(room)
-							// };
-
-							// console.log('chat247Room params', params);
-							// Navigation.navigate('RoomListView' );
-
-							// navigation.reset({
-							// 	screen: 'RoomListView'
-							// 	// 	params: params
-							// });
-							Navigation.navigate('ChatsStackNavigator', {
-								screen: 'RoomListView'
-								// 	params: params
-							});
-							// }
-							navigateTo247Chat();
-
-							// Navigation.dispatch((state: any) => {
-
-							// 	const routesRoomsListView = state.routes.filter((r: any) => r.name === 'RoomsListView');
-							// 	console.log('routesRoomsListView', routesRoomsListView, state.routes);
-							// 	// console.log('routeParams', routeParams);
-
-							// 	// return CommonActions.reset({
-							// 	// 	...state,
-							// 	// 	routes: [
-							// 	// 		...routesRoomsListView,
-							// 	// 		{
-							// 	// 			name: 'RoomView',
-							// 	// 			params: routeParams
-							// 	// 		}
-							// 	// 	],
-							// 	// 	index: routesRoomsListView.length
-							// 	// });
-							// });
+							navigateTo247Chat(Navigation, isMasterDetail);
 							return;
 						}
 						navigation.navigate(screen);

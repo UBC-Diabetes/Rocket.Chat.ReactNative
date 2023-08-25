@@ -62,6 +62,8 @@ const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardPr
 					<></>
 				)}
 			</View>
+			{/* 
+			Starring a chat room is not supported yet.
 			<TouchableOpacity
 				style={styles.savedContainer}
 				onPress={() => {
@@ -71,7 +73,7 @@ const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardPr
 				hitSlop={hitSlop}
 			>
 				<Image source={f ? getIcon('solidStar') : getIcon('outlineStar')} style={styles.saveIcon} />
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 		</TouchableOpacity>
 	);
 });

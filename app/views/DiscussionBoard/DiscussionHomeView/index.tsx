@@ -120,8 +120,8 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 
 				const boards = formattedData.filter(d => {
 					// removing direct messages
-					// return d.t !== 'd' && d.id !== 'GENERAL';
-					return true
+					return d.t !== 'd' && d.id !== 'GENERAL';
+					// return true
 				});
 
 				setBoards(boards);
@@ -164,7 +164,6 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 			});
 
 			setStarredPosts(formattedData);
-			console.log('starred messages ----------- ', messages);
 		});
 	};
 	// get starred posts

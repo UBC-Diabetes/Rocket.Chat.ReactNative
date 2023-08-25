@@ -21,8 +21,7 @@ import styles from './styles';
 import { DrawerParamList } from '../../stacks/types';
 import { IApplicationState, IUser } from '../../definitions';
 import * as List from '../../containers/List';
-import { get247Chat } from '../../views/HomeView/helpers';
-import { goRoom } from '../../lib/methods/helpers/goRoom';
+import { navigateTo247Chat } from '../HomeView/helpers';
 
 const settingsIcon = require('../../static/images/sidepanel/settings.png');
 const techSupportIcon = require('../../static/images/support-solid.png');
@@ -36,7 +35,6 @@ const happyHourIcon = require('../../static/images/happy-hour-solid.png');
 
 interface ISidebarState {
 	showStatus: boolean;
-	chat247Room: any;
 }
 
 interface ISidebarProps {
@@ -60,8 +58,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 	constructor(props: ISidebarProps) {
 		super(props);
 		this.state = {
-			showStatus: false,
-			chat247Room: null
+			showStatus: false
 		};
 	}
 
@@ -123,10 +120,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		return false;
 	}
 
-	async componentDidMount() {
-		let chat247Room = await get247Chat();
-		this.setState({ chat247Room: chat247Room?._raw });
-	}
+	async componentDidMount() {}
 
 	getIsAdmin() {
 		const {
@@ -197,11 +191,61 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		);
 	};
 
-	renderNavigation = () => {
-		const { theme } = this.props;
-		const iconStyles = { height: 20, width: 20, tintColor: themes[theme!].titleText };
+	additionalPanels = (theme, iconStyle) => {
+		const iconStyles = { ...iconStyle, backgroundColor: 'black' };
+		const isPeerSupporter = this.props.user?.roles?.includes('peer-supporter');
+		const admin = this.getIsAdmin();
+
+		if (!isPeerSupporter && !admin) {
+			return null;
+		}
+
 		return (
 			<>
+				{isPeerSupporter && (
+					<SidebarItem
+						text={I18n.t('PostModeration')}
+						left={<View style={iconStyles} />}
+						onPress={() => this.sidebarNavigate('ChatsStackNavigator')}
+						testID='sidebar-chats'
+						theme={theme!}
+						disabled={true}
+						// current={this.currentItemKey === 'ChatsStackNavigator'}
+					/>
+				)}
+				{admin && (
+					<>
+						<SidebarItem
+							text={I18n.t('Assignment')}
+							left={<View style={iconStyles} />}
+							onPress={() => this.sidebarNavigate('ChatsStackNavigator')}
+							testID='sidebar-chats'
+							theme={theme!}
+							disabled={true}
+							// current={this.currentItemKey === 'ChatsStackNavigator'}
+						/>
+						<SidebarItem
+							text={I18n.t('Notifications')}
+							left={<View style={iconStyles} />}
+							onPress={() => this.sidebarNavigate('ChatsStackNavigator')}
+							testID='sidebar-chats'
+							theme={theme!}
+							disabled={true}
+							// current={this.currentItemKey === 'ChatsStackNavigator'}
+						/>
+					</>
+				)}
+				<List.Separator />
+			</>
+		);
+	};
+
+	renderNavigation = () => {
+		const { theme } = this.props;
+		const iconStyles = { height: 20, width: 20, tintColor: themes[theme!].titleText, borderRadius: 10 };
+		return (
+			<>
+				{this.additionalPanels(theme, iconStyles)}
 				<SidebarItem
 					text={I18n.t('Chats')}
 					// left={<CustomIcon name='message' size={20} color={themes[theme!].titleText} />}
@@ -231,14 +275,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					text={I18n.t('247ChatRoom')}
 					left={<Image source={message247Icon} style={iconStyles} resizeMode='contain' />}
 					onPress={() => {
-						// this.sidebarNavigate('DisplayPrefStackNavigator')
-						// if (this.state.chat247Room) {
-						// 	try {
-						// 		goRoom({ item: this.state.chat247Room, isMasterDetail: this.props.isMasterDetail });
-						// 	} catch (error) {
-						// 		console.error('error', error);
-						// 	}
-						// }
+						navigateTo247Chat(Navigation, this.props.isMasterDetail);
 					}}
 					testID='sidebar-247chat'
 					theme={theme!}
@@ -344,7 +381,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 				>
 					<TouchableWithoutFeedback onPress={this.onPressUser} testID='sidebar-close-drawer'>
 						<View style={styles.header}>
-							<Avatar text={user.username} style={styles.avatar} size={30} borderRadius={15}/>
+							<Avatar text={user.username} style={styles.avatar} size={30} borderRadius={15} />
 							<View style={styles.headerTextContainer}>
 								<View style={styles.headerUsername}>
 									<Text numberOfLines={1} style={[styles.username, { color: themes[theme!].titleText }]}>
