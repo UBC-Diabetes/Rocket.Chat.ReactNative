@@ -108,7 +108,7 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 
 			<View style={styles.textContainer}>
 				{title ? <Text style={styles.title}>{title}</Text> : <></>}
-				{description && (
+				{description ? (
 					<Markdown
 						msg={`${description?.slice(0, 300)}${description?.length > 300 ? '...' : ''}`}
 						// style={[isReply && style]}
@@ -117,6 +117,8 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 						getCustomEmoji={getCustomEmoji}
 						theme={theme}
 					/>
+				) : (
+					<></>
 				)}
 			</View>
 			<View style={styles.actionContainer}>
