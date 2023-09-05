@@ -500,6 +500,7 @@ const PostView: React.FC = ({ route }) => {
 					setDeleteType(DeleteType.COMMENT);
 					setShowCommentOptionsModal(false);
 					setShowDeleteModal(true);
+					loadComments();
 				}}
 				onReport={() => {
 					setReportType(ReportType.COMMENT);

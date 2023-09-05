@@ -32,9 +32,9 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 
 	const [isSaved, setIsSaved] = useState(starred);
 	const [replyList, setReplyList] = useState(replies);
+	const [description, setDescription] = useState(msg);
+	const [bannerImage, setBannerImage] = useState(null);
 	const date = moment(ts).format('MMMM D, YYYY');
-	let bannerImage;
-	let description = msg?.length ? msg.slice(0, 300) : '';
 	let userName = userObject?.username;
 	let likeCount = 0;
 	let hasLiked = false;
@@ -58,8 +58,8 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 
 	useEffect(() => {
 		if (attachments?.length > 0) {
-			bannerImage = formatAttachmentUrl(attachments[0].image_url, user.id, user.token, server);
-			description = attachments[0].description;
+			setBannerImage(formatAttachmentUrl(attachments[0].image_url, user.id, user.token, server));
+			setDescription(attachments[0].description);
 		}
 		if (reactions && typeof reactions !== 'string') {
 			const likes = reactions?.filter(reaction => reaction?.emoji === ':thumbsup:') || [];
@@ -70,9 +70,8 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 			likeCount = likes[0]?.usernames?.length || 0;
 			hasLiked = likedReaction ? true : false;
 		}
-
 		getReplies();
-	}, [item]);
+	}, []);
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={() => onPress && onPress({ item })} key={id}>

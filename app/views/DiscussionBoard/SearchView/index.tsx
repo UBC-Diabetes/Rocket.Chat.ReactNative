@@ -46,8 +46,6 @@ const SearchView = () => {
 	});
 
 	const searchItem = ({ item, index }: searchItemProps) => {
-		console.log('item', item);
-		console.log('item?._raw?.msg', item?._raw?.msg);
 		const formattedItem = { ...item };
 
 		try {
@@ -64,13 +62,11 @@ const SearchView = () => {
 				formattedItem._raw.reactions = JSON.parse(item._raw.reactions);
 			}
 		} catch (e) {
-			console.log('err', e);
+			// console.log('err', e);
 		}
 
 		const title = null;
 		const description = item?._raw?.msg || null;
-
-		// console.log('formattedItem', formattedItem);
 
 		return (
 			<TouchableOpacity

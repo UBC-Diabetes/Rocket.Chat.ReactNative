@@ -79,7 +79,6 @@ const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 			includeBase64: true
 		};
 		ImagePicker.openPicker(options).then(image => {
-			console.log(image);
 			setImage({ ...image, data: `data:image/jpeg;base64,${image.data}` });
 		});
 	};

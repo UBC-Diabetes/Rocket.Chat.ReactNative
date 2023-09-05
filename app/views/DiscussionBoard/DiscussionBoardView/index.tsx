@@ -23,7 +23,7 @@ import { getUserSelector } from '../../../selectors/login';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 // const QUERY_SIZE = 50;
-const QUERY_SIZE = 2;
+const QUERY_SIZE = 10;
 
 type ScreenProps = {
 	route: any;
@@ -195,8 +195,10 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 				ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
 				style={{ paddingHorizontal: 20, paddingTop: 10 }}
 				onEndReached={() => {
-					// setQueryCount(queryCount + QUERY_SIZE);
-					// loadMessages();
+					if (discussions?.length > 9) {
+						setQueryCount(queryCount + QUERY_SIZE);
+						loadMessages();
+					}
 				}}
 				showsVerticalScrollIndicator={false}
 				onRefresh={() => handleUpdate()}
