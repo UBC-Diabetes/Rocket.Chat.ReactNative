@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 		textAlign:'center'
 	},
 	connectButton: {
-		backgroundColor: '#2F80ED',
+		backgroundColor: '#799A79',
 		padding: 15,
 		width: '85%',
 		alignSelf: 'center',

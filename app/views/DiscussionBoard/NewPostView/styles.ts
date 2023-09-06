@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 		fontWeight: '400'
 	},
 	descriptionContainer: {
-		marginTop: 24
+		marginTop: 12
 	},
 	selectImageContainer: {},
 	bannerImage: {

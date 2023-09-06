@@ -102,8 +102,12 @@ const SearchView = () => {
 	};
 
 	useEffect(() => {
+		// ignoring the search quries that are empty
+		const stringWithoutSpaces = debounceValue.replace(/\s+/g, '');
 		setFilteredData([]);
-		search();
+		if (debounceValue && debounceValue !== '' && stringWithoutSpaces !== '') {
+			search();
+		}
 	}, [debounceValue]);
 
 	return (
