@@ -366,7 +366,6 @@ const PostView: React.FC = ({ route }) => {
 			setNewComment('');
 		});
 	};
-
 	return (
 		<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
 			<View style={styles.mainContainer}>
@@ -448,7 +447,7 @@ const PostView: React.FC = ({ route }) => {
 									source={getIcon('like')}
 									resizeMode='contain'
 								/>
-								<Text style={styles.reactionText}>{postLikes ?? '0'}</Text>
+								<Text style={styles.reactionText}>{postLikes ? `${postLikes}`: '0'}</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => scrollCommentsToTop()}

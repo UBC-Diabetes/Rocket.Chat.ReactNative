@@ -16,6 +16,7 @@ import { themes } from '../../../lib/constants';
 import Markdown from '../../../containers/markdown';
 import Avatar from '../../../containers/Avatar/Avatar';
 import { loadThreadMessages } from '../../../lib/methods';
+import { Services } from '../../../lib/services';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -34,12 +35,34 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 	const [replyList, setReplyList] = useState(replies);
 	const [description, setDescription] = useState(msg);
 	const [bannerImage, setBannerImage] = useState(null);
+	const [likeCount, setLikeCount] = useState(0);
+	const [hasLiked, setHasLiked] = useState(false);
 	const date = moment(ts).format('MMMM D, YYYY');
 	let userName = userObject?.username;
-	let likeCount = 0;
-	let hasLiked = false;
 
 	const ImageProgress = createImageProgress(FastImage);
+
+	const likePost = async () => {
+		try {
+			await like(id);
+			if (!hasLiked) {
+				setLikeCount(likeCount + 1);
+			} else {
+				setLikeCount(likeCount - 1);
+			}
+			setHasLiked(!hasLiked);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const like = async (id: string) => {
+		try {
+			await Services.setReaction('thumbsup', id);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const getCustomEmoji = name => {
 		const emoji = customEmojis[name];
@@ -57,6 +80,7 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 	};
 
 	useEffect(() => {
+		console.log("HERE")
 		if (attachments?.length > 0) {
 			setBannerImage(formatAttachmentUrl(attachments[0].image_url, user.id, user.token, server));
 			setDescription(attachments[0].description);
@@ -65,13 +89,13 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 			const likes = reactions?.filter(reaction => reaction?.emoji === ':thumbsup:') || [];
 			const likedReaction = likes?.find(reaction => {
 				const hasReacted = reaction?.usernames?.find(name => name === user.username);
-				return hasReacted ? true : false;
+				return hasReacted;
 			});
-			likeCount = likes[0]?.usernames?.length || 0;
-			hasLiked = likedReaction ? true : false;
+			setLikeCount(likes[0]?.usernames?.length || 0);
+			setHasLiked(likedReaction ? true : false);
 		}
 		getReplies();
-	}, []);
+	}, [reactions]);
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={() => onPress && onPress({ item })} key={id}>
@@ -122,8 +146,10 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 			</View>
 			<View style={styles.actionContainer}>
 				<View style={styles.buttonContainer}>
-					<Image source={getIcon('like')} style={{ ...styles.postReaction, ...(hasLiked && { tintColor: 'blue' }) }} />
-					<Text style={styles.postReactionText}>{likeCount ?? '0'}</Text>
+					<TouchableOpacity onPress={likePost} style={styles.buttonContainer}>
+						<Image source={getIcon('like')} style={{ ...styles.postReaction, ...(hasLiked && { tintColor: 'blue' }) }} />
+						<Text style={styles.postReactionText}>{likeCount ? `${likeCount}` : '0'}</Text>
+					</TouchableOpacity>
 					<View style={{ width: 24 }} />
 					<Image source={getIcon('comment')} style={styles.postReaction} />
 					<Text style={styles.postReactionText}>{replyList?.length ?? '0'}</Text>
