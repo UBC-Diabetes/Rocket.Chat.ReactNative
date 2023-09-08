@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
 		shadowRadius: 100,
 		borderTopLeftRadius: 25,
 		borderTopRightRadius: 25,
-		minHeight: 100
+		minHeight: 100,
+		elevation: 5,
 	}
 });
