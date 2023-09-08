@@ -175,6 +175,7 @@ class ProfileLibraryView extends React.Component {
 		<SearchBox
 			onChangeText={this.onSearchChangeText}
 			onSubmitEditing={this.search}
+			clearText={this.search}
 			testID='federation-view-search'
 		/>
 	)

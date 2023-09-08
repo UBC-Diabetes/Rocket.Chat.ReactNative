@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-const SearchBox = ({ onChangeText, onSubmitEditing, testID }: TextInputProps): JSX.Element => {
+const SearchBox = ({ onChangeText, onSubmitEditing, testID, clearText }: TextInputProps & {clearText?: () => {}}): JSX.Element => {
 	const [text, setText] = useState('');
 
 	const { colors } = useTheme();
@@ -36,7 +36,14 @@ const SearchBox = ({ onChangeText, onSubmitEditing, testID }: TextInputProps): J
 				onSubmitEditing={onSubmitEditing}
 				value={text}
 				testID={testID}
-				onClearInput={() => internalOnChangeText('')}
+				onClearInput={() => {
+					if (clearText) {
+						internalOnChangeText('')
+						clearText();
+					} else {
+						internalOnChangeText('')
+					}
+				}}
 				iconRight={'search'}
 			/>
 		</View>
