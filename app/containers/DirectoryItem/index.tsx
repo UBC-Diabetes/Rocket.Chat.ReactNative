@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ViewStyle } from 'react-native';
+import { Text, View, ViewStyle, Platform } from 'react-native';
 
 import Touch from '../Touch';
 import Avatar from '../Avatar';
@@ -67,7 +67,7 @@ const DirectoryItem = ({
 					) : null}
 				</View>
 				<DirectoryItemLabel text={rightLabel} theme={theme} />
-				<CustomIcon name='chevron-right' size={36} color='#38b000' />
+				<CustomIcon name={Platform.OS === 'ios' ? 'chevron-right' : 'clock'} size={36} color='#38b000' />
 			</View>
 		</Touch>
 	);
