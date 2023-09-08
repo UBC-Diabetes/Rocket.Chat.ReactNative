@@ -26,4 +26,5 @@ export type SavedPostCardProps = {
 	saved?: boolean;
 	starPost?: Function;
 	onPress?: Function;
+	roomId?: string;
 };

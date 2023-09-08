@@ -22,7 +22,6 @@ import { compareServerVersion } from '../../../lib/methods/helpers';
 import { getUserSelector } from '../../../selectors/login';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
-// const QUERY_SIZE = 50;
 const QUERY_SIZE = 10;
 
 type ScreenProps = {
@@ -191,6 +190,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 						{...item}
 						onPress={(params: any) => navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })}
 						starPost={(message: any) => handleStar(message, loadMessages)}
+						roomId={route.params?.item}
 					/>
 				)}
 				keyExtractor={(item, id) => item?._id + id}

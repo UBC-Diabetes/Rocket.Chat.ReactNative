@@ -168,7 +168,8 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: 25,
 		borderTopRightRadius: 25,
 		paddingTop: 33,
-		paddingHorizontal: 20
+		paddingHorizontal: 20,
+		elevation: 5
 	},
 	textInputContainer: {
 		width: '100%',

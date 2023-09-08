@@ -127,7 +127,6 @@ const SearchView = () => {
 			<FlatList
 				data={filteredData}
 				renderItem={searchItem}
-				style={{ marginHorizontal: 20 }}
 				ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
 				ListFooterComponent={() => <View style={{ height: 40 }} />}
 			/>

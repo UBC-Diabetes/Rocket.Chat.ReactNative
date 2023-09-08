@@ -17,6 +17,7 @@ import Markdown from '../../../containers/markdown';
 import Avatar from '../../../containers/Avatar/Avatar';
 import { loadThreadMessages } from '../../../lib/methods';
 import { Services } from '../../../lib/services';
+import RoomServices from './../../RoomView/services';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -28,7 +29,7 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 	// const { theme } = useTheme();
 	const theme = 'light';
 
-	const { title, starPost, _raw, onPress } = item;
+	const { title, starPost, _raw, onPress, roomId } = item;
 	const { msg, id, ts, u: userObject, urls, attachments, replies, reactions, starred, rid } = _raw;
 
 	const [isSaved, setIsSaved] = useState(false);
@@ -44,6 +45,9 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 	const likePost = async () => {
 		try {
 			await like(id);
+			if (roomId) {
+				await RoomServices.getMessages(roomId);
+			}
 			if (!hasLiked) {
 				setLikeCount(likeCount + 1);
 			} else {
@@ -180,7 +184,8 @@ const styles = StyleSheet.create({
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 0 },
 		shadowOpacity: 0.05,
-		shadowRadius: 30
+		shadowRadius: 30,
+		elevation: 5
 	},
 	header: {
 		flexDirection: 'row',

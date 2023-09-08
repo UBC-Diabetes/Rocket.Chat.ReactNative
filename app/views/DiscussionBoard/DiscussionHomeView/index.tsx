@@ -128,7 +128,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 				const boards = formattedData.filter(d => {
 					// removing direct messages
 					return d.t !== 'd' && d.id !== 'GENERAL';
-					// return true
+					// return true;
 				});
 
 				setBoards(boards);
