@@ -157,7 +157,7 @@ const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 				<View style={styles.descriptionContainer}>
 					<Text style={styles.titleText}>Description</Text>
 					<TextInput
-						style={{ ...styles.textInput, ...styles.largeTextInput }}
+						style={{ ...styles.textInput, ...styles.largeTextInput, textAlignVertical: 'top' }}
 						placeholder='Description'
 						placeholderTextColor={themes[theme].auxiliaryText}
 						underlineColorAndroid='transparent'

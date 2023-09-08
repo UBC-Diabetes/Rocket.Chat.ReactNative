@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { sendFileMessage, sendMessage } from '../../lib/methods';
 import { Services } from '../../lib/services';
 import { TAnyMessageModel } from '../../definitions';
@@ -126,4 +128,9 @@ export const handleSendMessage = async ({
 			}
 		});
 	}
+};
+
+export const getDate = (date: string, format?: string) => {
+	const formattedDate = moment(date).format(format ?? 'MMMM D, YYYY - h:MMa');
+	return moment(date) ? formattedDate : '';
 };

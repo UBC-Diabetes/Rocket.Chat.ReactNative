@@ -49,7 +49,11 @@ const HomeView: React.FC = () => {
 							}}
 						/>
 						<Touchable style={styles.profileImageContainer} onPress={() => navigation.navigate('ProfileStackNavigator')}>
-							{userName && <Avatar text={userName} style={styles.profileImage} size={24} server={server} borderRadius={12} />}
+							{userName ? (
+								<Avatar text={userName} style={styles.profileImage} size={24} server={server} borderRadius={12} />
+							) : (
+								<></>
+							)}
 						</Touchable>
 					</HeaderButton.Container>
 				)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Q } from '@nozbe/watermelondb';
 
@@ -43,6 +43,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 	const [searchCount, setSearchCount] = useState(0);
 	const [boards, setBoards] = useState([]);
 	const [starredPosts, setStarredPosts] = useState([]);
+	const isFocused = useIsFocused();
 	const db = database.active;
 	// const { theme } = useTheme();
 	const theme = 'light';
@@ -70,6 +71,12 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 			});
 		}
 	});
+
+	useEffect(() => {
+		if (isFocused && selectedTab === DiscussionTabs.SAVED_POSTS) {
+			getSavedChat();
+		}
+	}, [isFocused]);
 
 	useEffect(() => {
 		const getSubscriptions = async () => {
@@ -129,7 +136,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 		};
 
 		getSubscriptions();
-	}, []);
+	}, [isFocused]);
 
 	const getSavedChat = async () => {
 		const messagesObservable = db
@@ -166,9 +173,12 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 			setStarredPosts(formattedData);
 		});
 	};
+
 	// get starred posts
 	useEffect(() => {
-		getSavedChat();
+		if (selectedTab === DiscussionTabs.SAVED_POSTS) {
+			getSavedChat();
+		}
 	}, [selectedTab]);
 
 	const content = () => (

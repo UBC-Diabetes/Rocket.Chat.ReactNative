@@ -61,7 +61,7 @@ const SettingsView = (): React.ReactElement => {
 		const usersCollection = db.get('users');
 		try {
 			const userRecord = await usersCollection.find(userId);
-			if (userRecord.isFromWebView) {
+			if (userRecord?._raw?.is_from_webview) {
 				showConfirmationAlert({
 					title: I18n.t('Clear_cookies_alert'),
 					message: I18n.t('Clear_cookies_desc'),

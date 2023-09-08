@@ -54,7 +54,9 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 	}, [route.params]);
 
 	useEffect(() => {
-		isFocused && loadMessages();
+		if (isFocused) {
+			loadMessages();
+		}
 	}, [isFocused]);
 
 	useEffect(() => {
@@ -193,7 +195,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 				)}
 				keyExtractor={(item, id) => item?._id + id}
 				ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
-				style={{ paddingHorizontal: 20, paddingTop: 10 }}
+				style={{ paddingHorizontal: 20, paddingTop: 10, marginBottom: 80 }}
 				onEndReached={() => {
 					if (discussions?.length > 9) {
 						setQueryCount(queryCount + QUERY_SIZE);

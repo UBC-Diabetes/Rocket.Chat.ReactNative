@@ -15,7 +15,6 @@ import {
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
@@ -32,13 +31,14 @@ import CommentOptionsModal from './PostOptions';
 import PostDeleteModal from './PostDelete';
 import PostReportModal from './PostReport';
 import { DeleteType, ReportType, CommentProps } from './interfaces';
-import { getIcon } from '../helpers';
+import { getDate, getIcon } from '../helpers';
 import Markdown from '../../../containers/markdown';
 import Avatar from '../../../containers/Avatar/Avatar';
 import { formatAttachmentUrl, hasPermission } from '../../../lib/methods/helpers';
 import { getUserSelector } from '../../../selectors/login';
 import { Services } from '../../../lib/services';
 import { loadThreadMessages, sendMessage } from '../../../lib/methods';
+import RoomServices from './../../RoomView/services';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -196,11 +196,6 @@ const PostView: React.FC = ({ route }) => {
 		};
 	}, []);
 
-	const getDate = (date: string, format?: string) => {
-		const formattedDate = moment(date).format(format ?? 'MMMM D, YYYY - h:MMa');
-		return moment(date) ? formattedDate : '';
-	};
-
 	const likeComment = async (id: string) => {
 		await like(id);
 		loadComments();
@@ -215,6 +210,8 @@ const PostView: React.FC = ({ route }) => {
 				setPostLikes(postLikes - 1);
 			}
 			setPostLiked(!postLiked);
+			// sync room chats
+			await RoomServices.getMessages(post.rid);
 		} catch (error) {
 			console.log(error);
 		}
@@ -330,11 +327,15 @@ const PostView: React.FC = ({ route }) => {
 		const message = deleteType === DeleteType.COMMENT ? selectedComment : post;
 		try {
 			if (message) {
-				await Services.deleteMessage(DeleteType.COMMENT ? message._id : message.id, message.rid);
-				if (DeleteType.COMMENT) {
-					loadComments();
-				} else {
-					navigation.goBack();
+				const response = await Services.deleteMessage(DeleteType.COMMENT ? message._id : message.id, message.rid);
+				if (response.success) {
+					if (DeleteType.COMMENT) {
+						setTimeout(() => {
+							loadComments();
+						}, 500);
+					} else {
+						navigation.goBack();
+					}
 				}
 			}
 		} catch (e) {
@@ -447,7 +448,7 @@ const PostView: React.FC = ({ route }) => {
 									source={getIcon('like')}
 									resizeMode='contain'
 								/>
-								<Text style={styles.reactionText}>{postLikes ? `${postLikes}`: '0'}</Text>
+								<Text style={styles.reactionText}>{postLikes > 0 ? postLikes : '0'}</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => scrollCommentsToTop()}
@@ -499,7 +500,7 @@ const PostView: React.FC = ({ route }) => {
 					setDeleteType(DeleteType.COMMENT);
 					setShowCommentOptionsModal(false);
 					setShowDeleteModal(true);
-					loadComments();
+					// loadComments();
 				}}
 				onReport={() => {
 					setReportType(ReportType.COMMENT);
@@ -507,7 +508,6 @@ const PostView: React.FC = ({ route }) => {
 					setShowCommentOptionsModal(false);
 				}}
 				showDelete={showDelete}
-				// showDelete={true}
 				showMessage={showCreateChat}
 			/>
 			<PostDeleteModal
