@@ -16,8 +16,7 @@ export default StyleSheet.create({
 			height: 2
 		},
 		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		backgroundColor: 'white'
+		shadowRadius: 3.84
 	},
 	directoryItemContainer: {
 		flex: 1,
