@@ -229,7 +229,7 @@ const DisplayPrefStackNavigator = () => {
 	);
 };
 // ProfileStackNavigator
-const ProfileLibraryStack = createStackNavigator();
+const ProfileLibraryStack = createStackNavigator(); // causes a cyclic bug in navigation by adding ProfileLibraryStackNavigator (added for now)
 const ProfileLibraryStackNavigator = () => {
 	const { theme } = React.useContext(ThemeContext);
 	return (
@@ -240,6 +240,7 @@ const ProfileLibraryStackNavigator = () => {
 				options={ProfileLibraryView.navigationOptions}
 			/>
 			<ProfileLibraryStack.Screen name='RoomInfoView' component={RoomInfoView} options={RoomInfoView.navigationOptions} />
+			<ProfileLibraryStack.Screen name='RoomsListView' component={RoomsListView} options={RoomsListView.navigationOptions} /> 
 			<ProfileLibraryStack.Screen name='RoomView' component={RoomView} options={RoomView.navigationOptions} />
 		</ProfileLibraryStack.Navigator>
 	);
