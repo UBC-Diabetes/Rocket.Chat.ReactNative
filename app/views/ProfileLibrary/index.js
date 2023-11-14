@@ -102,13 +102,15 @@ class ProfileLibraryView extends React.Component {
 				const combinedResults = [];
 				const results = directories.result;
 
-				await Promise.all(results.map(async(item, index) => {
+				await Promise.all(results.map(async (item, index) => {
 					const user = await RocketChat.getUserInfo(item._id);
-					combinedResults[index] = { ...item, customFields: user.user.customFields };
+					if (user.user.roles.includes("Peer Supporter")) {
+					  combinedResults.push({ ...item, customFields: user.user.customFields });
+					}
 				}));
 
 				this.setState({
-					data: [...data, ...combinedResults],
+					data: [...combinedResults],
 					loading: false,
 					refreshing: false,
 					total: results.length
@@ -193,10 +195,10 @@ class ProfileLibraryView extends React.Component {
 			};
 		}
 		const commonProps = {
-			title: item.name,
+			title: item?.name,
 			onPress: () => this.onPressItem(item),
 			baseUrl,
-			testID: `federation-view-item-${ item.name }`,
+			testID: `federation-view-item-${ item?.name }`,
 			style,
 			user,
 			theme
@@ -205,12 +207,12 @@ class ProfileLibraryView extends React.Component {
 		if (type === 'users') {
 			return (
 				<DirectoryItem
-					avatar={item.username}
-					description={item.customFields?.Location ?? ''}
-					rightLabel={item.federation && item.federation.peer}
+					avatar={item?.username}
+					description={item?.customFields?.Location ?? ''}
+					rightLabel={item?.federation && item?.federation.peer}
 					type='d'
 					icon={<CustomIcon name='pin-map' size={15} color='#161a1d' />}
-					age={`${ item.customFields?.Age ?? '?' } years old`}
+					age={`${ item?.customFields?.Age ?? '?' } years old`}
 					{...commonProps}
 				/>
 			);
@@ -246,7 +248,7 @@ class ProfileLibraryView extends React.Component {
 					style={styles.list}
 					contentContainerStyle={styles.listContainer}
 					extraData={this.state}
-					keyExtractor={item => item._id}
+					keyExtractor={item => (item && item._id ? item._id : String(Math.random()))}
 					ListHeaderComponent={this.renderHeader}
 					renderItem={this.renderItem}
 					keyboardShouldPersistTaps='always'
