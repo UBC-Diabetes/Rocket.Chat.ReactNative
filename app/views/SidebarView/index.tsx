@@ -213,28 +213,6 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 						// current={this.currentItemKey === 'ChatsStackNavigator'}
 					/>
 				)}
-				{admin && (
-					<>
-						<SidebarItem
-							text={I18n.t('Assignment')}
-							left={<View style={iconStyles} />}
-							onPress={() => this.sidebarNavigate('ChatsStackNavigator')}
-							testID='sidebar-chats'
-							theme={theme!}
-							disabled={true}
-							// current={this.currentItemKey === 'ChatsStackNavigator'}
-						/>
-						<SidebarItem
-							text={I18n.t('Notifications')}
-							left={<View style={iconStyles} />}
-							onPress={() => this.sidebarNavigate('ChatsStackNavigator')}
-							testID='sidebar-chats'
-							theme={theme!}
-							disabled={true}
-							// current={this.currentItemKey === 'ChatsStackNavigator'}
-						/>
-					</>
-				)}
 				<List.Separator />
 			</>
 		);
@@ -246,6 +224,14 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		return (
 			<>
 				{this.additionalPanels(theme, iconStyles)}
+				<SidebarItem
+					text={I18n.t('Home')}
+					left={<CustomIcon name='home' size={24} color={iconStyles.tintColor}/>}
+					onPress={() => this.sidebarNavigate('HomeStackNavigator')}
+					testID='sidebar-chats'
+					theme={theme!}
+					current={this.currentItemKey === 'ChatsStackNavigator'}
+				/>
 				<SidebarItem
 					text={I18n.t('Chats')}
 					// left={<CustomIcon name='message' size={20} color={themes[theme!].titleText} />}
