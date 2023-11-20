@@ -21,7 +21,7 @@ import styles from './styles';
 import { DrawerParamList } from '../../stacks/types';
 import { IApplicationState, IUser } from '../../definitions';
 import * as List from '../../containers/List';
-import { navigateTo247Chat } from '../HomeView/helpers';
+import { navigateTo247Chat, navToTechSupport, navigateToVirtualHappyHour } from '../HomeView/helpers';
 
 const settingsIcon = require('../../static/images/sidepanel/settings.png');
 const techSupportIcon = require('../../static/images/support-solid.png');
@@ -285,12 +285,11 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					text={I18n.t('VirtualHappyHour')}
 					left={<Image source={happyHourIcon} style={iconStyles} />}
 					onPress={() => {
-						// this.sidebarNavigate('DisplayPrefStackNavigator')
+						navigateToVirtualHappyHour(Navigation, this.props.isMasterDetail)
 					}}
 					testID='sidebar-happy-hour'
 					theme={theme!}
 					current={this.currentItemKey === 'todo'}
-					disabled={true}
 				/>
 				<SidebarItem
 					text={I18n.t('Calendar')}
@@ -307,12 +306,11 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					text={I18n.t('TechSupport')}
 					left={<Image source={techSupportIcon} style={iconStyles} />}
 					onPress={() => {
-						// this.sidebarNavigate('DisplayPrefStackNavigator')
+						navToTechSupport(this.props.isMasterDetail)
 					}}
 					testID='sidebar-tech-support'
 					theme={theme!}
 					current={this.currentItemKey === 'todo'}
-					disabled={true}
 				/>
 				{/* <SidebarItem
 					text={I18n.t('Profile')}
