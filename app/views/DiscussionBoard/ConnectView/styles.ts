@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
 	},
 	profileName: {
 		marginLeft: 10,
-		fontSize: 18
+		fontSize: 18,
+		fontWeight: 'bold'
 	},
 	locationContainer: {
 		marginTop: 20,
