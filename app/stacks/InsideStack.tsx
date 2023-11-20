@@ -239,7 +239,7 @@ const ProfileLibraryStackNavigator = () => {
 				component={ProfileLibraryView}
 				options={ProfileLibraryView.navigationOptions}
 			/>
-			<ProfileLibraryStack.Screen name='RoomInfoView' component={RoomInfoView} options={RoomInfoView.navigationOptions} />
+			<ProfileLibraryStack.Screen name='ConnectView' component={ConnectView} options={{...RoomInfoView.navigationOptions, ...{title: "Profile"}}} />
 			<ProfileLibraryStack.Screen name='RoomView' component={RoomView} options={RoomView.navigationOptions} />
 		</ProfileLibraryStack.Navigator>
 	);
