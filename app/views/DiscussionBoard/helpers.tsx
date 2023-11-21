@@ -70,7 +70,7 @@ export const getIcon = (icon: string) => {
 			imagePath = require('../../static/images/discussionboard/arrow_down.png');
 			break;
 		case 'selectImage':
-			imagePath = require('../../static/images/discussionboard/image_picker.png');
+			imagePath = require('../../static/images/discussionboard/save_image.png');
 			break;
 		case 'more':
 			imagePath = require('../../static/images/discussionboard/more.png');
