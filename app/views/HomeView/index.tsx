@@ -19,7 +19,7 @@ import { IApplicationState } from '../../definitions';
 import * as tileData from './data';
 import * as allStyles from './styles';
 import { Tileprops } from './interfaces';
-import { navigateTo247Chat } from './helpers';
+import { navToTechSupport, navigateTo247Chat, navigateToVirtualHappyHour } from './helpers';
 import Avatar from '../../containers/Avatar/Avatar';
 import Navigation from '../../lib/navigation/appNavigation';
 
@@ -74,6 +74,14 @@ const HomeView: React.FC = () => {
 					if (screen) {
 						if (screen === '24Chat') {
 							navigateTo247Chat(Navigation, isMasterDetail);
+							return;
+						}
+						if (screen === 'VirtualHappyHour') {
+							navigateToVirtualHappyHour(Navigation, isMasterDetail);
+							return;
+						}
+						if (screen === 'TechSupport') {
+							navToTechSupport(isMasterDetail);
 							return;
 						}
 						navigation.navigate(screen);
