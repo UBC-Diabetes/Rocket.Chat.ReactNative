@@ -13,6 +13,7 @@ import { goRoom } from '../../../lib/methods/helpers/goRoom';
 import styles from './styles';
 import { themes } from '../../../lib/constants';
 import { useTheme } from '../../../theme';
+import log from '../../../lib/methods/helpers/log';
 
 const playIcon = require('../../../static/images/discussionboard/play_icon.png');
 
@@ -62,7 +63,7 @@ const ConnectView: React.FC = ({ route }: { route: any }) => {
 				}
 			}
 		} catch (e) {
-			console.error(e);
+			log(e);
 		}
 	};
 
@@ -83,7 +84,7 @@ const ConnectView: React.FC = ({ route }: { route: any }) => {
 				});
 				goRoom({ item: params, isMasterDetail, popToRoot: true });
 			} catch (e) {
-				console.error(e);
+				log(e);
 			}
 		}
 	};

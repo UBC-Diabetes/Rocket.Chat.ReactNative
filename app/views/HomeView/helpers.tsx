@@ -14,24 +14,14 @@ const TECH_SUPPORT_USERNAME = 'tech_support';
 
 export const getVirtualHappyHourChat = async (): Promise<TSubscriptionModel | undefined> => {
    let chatRoom: TSubscriptionModel | undefined;
-
-
    unsubscribeQuery();
-
-
    const db = database.active;
-
-
    const defaultWhereClause = [Q.where('archived', false), Q.where('open', true)] as (Q.WhereDescription | Q.SortBy)[];
    defaultWhereClause.push(Q.experimentalSortBy('room_updated_at', Q.desc));
-
-
    const observable = await db
        .get('subscriptions')
        .query(...defaultWhereClause)
        .observeWithColumns(['on_hold']);
-
-
    const subscriptionPromise = new Promise<void>((resolve, reject) => {
        querySubscription = observable.subscribe(
            data => {
@@ -43,8 +33,6 @@ export const getVirtualHappyHourChat = async (): Promise<TSubscriptionModel | un
            }
        );
    });
-
-
    await subscriptionPromise;
    return chatRoom;
 };
