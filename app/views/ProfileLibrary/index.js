@@ -160,12 +160,12 @@ class ProfileLibraryView extends React.Component {
 		const { type } = this.state;
 		const { navigation } = this.props;
 		if (type === 'users') {
-			const navParam = {
-				rid: item._id,
-				t: 'd',
-				isPeerSupporter: true
+			const postUser = {
+				_id: item._id,
+				username: item.username,
+				name: item.name
 			};
-			navigation.navigate('RoomInfoView', navParam);
+			navigation.navigate('ConnectView', { user: postUser, fromRid: item._id });
 		} else {
 			this.goRoom({
 				rid: item._id, name: item.name, t: 'c', search: true
