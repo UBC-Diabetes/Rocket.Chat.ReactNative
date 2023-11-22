@@ -248,9 +248,9 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					text={I18n.t('Home')}
 					left={<CustomIcon name='home' size={24} color={iconStyles.tintColor}/>}
 					onPress={() => this.sidebarNavigate('HomeStackNavigator')}
-					testID='sidebar-chats'
+					testID='home-screen'
 					theme={theme!}
-					current={this.currentItemKey === 'ChatsStackNavigator'}
+					current={this.currentItemKey === 'HomeStackNavigator'}
 				/>
 				<SidebarItem
 					text={I18n.t('Chats')}
