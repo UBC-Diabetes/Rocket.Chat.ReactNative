@@ -2,14 +2,13 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 
 import PopUpModal from '../Components/PopUpModal';
-import { useTheme } from '../../../theme';
 import { themes } from '../../../lib/constants';
 import { PostReportModalProps, ReportType } from './interfaces';
 
 const alert = require('../../../static/images/discussionboard/alert_circle.png');
 
 const PostReportModal: React.FC<PostReportModalProps> = props => {
-	const { show, type = ReportType.COMMENT, close, report, onText } = props;
+	const { show, type = ReportType.COMMENT, cancel, report, onText } = props;
 	// const { theme } = useTheme();
 	const theme = 'light';
 
@@ -19,7 +18,7 @@ const PostReportModal: React.FC<PostReportModalProps> = props => {
 	const isComment = type === ReportType.COMMENT;
 
 	return (
-		<PopUpModal show={show} close={close} customStyles={styles.container}>
+		<PopUpModal show={show} close={() => !show} customStyles={styles.container}>
 			<View style={styles.header}>
 				<Image source={alert} style={styles.trashIcon} />
 				<Text style={styles.headerText}>{`Report ${isComment ? 'Comment' : 'Post'}`}</Text>
@@ -53,7 +52,7 @@ const PostReportModal: React.FC<PostReportModalProps> = props => {
 					setDisableButton(true);
 					setTimeout(() => {
 						setDisableButton(false);
-						close();
+						cancel();
 					}, 500);
 				}}
 				disabled={disableButton}
