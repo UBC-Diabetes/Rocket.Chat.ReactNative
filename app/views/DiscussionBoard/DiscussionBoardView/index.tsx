@@ -79,7 +79,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 							<HeaderButton.Item
 								iconName='search'
 								color={themes[theme].superGray}
-								onPress={() => navigation.navigate('DiscussionSearchView')}
+								onPress={() => navigation.navigate('DiscussionSearchView', { roomIDs: route?.params?.item ? [route.params.item.id] : undefined })}
 							/>
 						</HeaderButton.Container>
 					</View>

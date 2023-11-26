@@ -327,7 +327,7 @@ const PostView: React.FC = ({ route }) => {
 		const message = deleteType === DeleteType.COMMENT ? selectedComment : post;
 		try {
 			if (message) {
-				const response = await Services.deleteMessage(DeleteType.COMMENT ? message._id : message.id, message.rid);
+				const response = await Services.deleteMessage(deleteType === DeleteType.COMMENT ? message._id : message.id, message.rid);
 				if (response.success) {
 					if (DeleteType.COMMENT) {
 						setTimeout(() => {
