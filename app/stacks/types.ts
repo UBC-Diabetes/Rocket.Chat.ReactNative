@@ -298,6 +298,9 @@ export type InsideStackParamList = {
 	AttachmentView: {
 		attachment: IAttachment;
 	};
+	VideoPlayerView: {
+		videoURL: string;
+	}
 	StatusView: undefined;
 	ShareView: {
 		attachments: IAttachment[];
