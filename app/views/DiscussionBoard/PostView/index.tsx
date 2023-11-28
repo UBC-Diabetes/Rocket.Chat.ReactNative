@@ -522,7 +522,7 @@ const PostView: React.FC = ({ route }) => {
 			<PostReportModal
 				type={reportType}
 				show={showReportModal}
-				close={() => setShowReportModal(false)}
+				cancel={() => setShowReportModal(false)}
 				report={() => {
 					handleReport();
 					setShowReportModal(false);
