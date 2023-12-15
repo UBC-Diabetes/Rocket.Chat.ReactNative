@@ -63,8 +63,17 @@ class ProfileLibraryView extends React.Component {
 			globalUsers: true,
 			type: props.directoryDefaultView
 		};
+		this.loadingMore = false;
+    	this.threshold = 5;
 	}
 
+	onEndReached = () => {
+		const { loading, data, total, searching } = this.state;
+	
+		if (!searching && data.length < total && !loading) {
+			this.load({});
+		}
+	};
 
 	componentDidMount() {
 		this.load({});
@@ -109,11 +118,13 @@ class ProfileLibraryView extends React.Component {
 					}
 				}));
 
+				const newLength = data.length + combinedResults.length;
+
 				this.setState({
 					data: [...combinedResults],
 					loading: false,
 					refreshing: false,
-					total: results.length
+					total: newLength
 				});
 			} else {
 				this.setState({ loading: false, refreshing: false });
@@ -235,7 +246,6 @@ class ProfileLibraryView extends React.Component {
 			data, loading, refreshing, showOptionsDropdown, type, globalUsers
 		} = this.state;
 		const { isFederationEnabled, theme } = this.props;
-
 		return (
 			<SafeAreaView
 				style={{ backgroundColor: themes[theme].backgroundColor }}
@@ -254,7 +264,8 @@ class ProfileLibraryView extends React.Component {
 					keyboardShouldPersistTaps='always'
 					showsVerticalScrollIndicator={false}
 					ListFooterComponent={loading ? <ActivityIndicator theme={theme} /> : null}
-					onEndReached={() => this.load({})}
+					// onEndReached={() => this.load({})}
+					onEndReached={this.onEndReached}
 					refreshControl={(
 						<RefreshControl
 							refreshing={refreshing}
