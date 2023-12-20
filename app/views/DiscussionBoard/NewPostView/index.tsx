@@ -155,6 +155,15 @@ const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 				</View>
 				{showBanner()}
 				<View style={styles.descriptionContainer}>
+					<Text style={styles.titleText}>Media</Text>
+					<View style={styles.mediaContainer}>
+						<TouchableOpacity style={styles.selectImageContainer} onPress={onImagePicker} hitSlop={hitSlop}>
+							<Image source={getIcon('saveMedia')} style={styles.selectImage} resizeMode='contain' />
+						</TouchableOpacity>
+						<Text style={styles.mediaText}>Add Photos/Videos</Text>
+        			</View>
+				</View>
+				<View style={styles.descriptionContainer}>
 					<Text style={styles.titleText}>Description</Text>
 					<TextInput
 						style={{ ...styles.textInput, ...styles.largeTextInput, textAlignVertical: 'top' }}
@@ -167,9 +176,9 @@ const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 						maxLength={4000}
 					/>
 				</View>
-				<TouchableOpacity style={styles.selectImageContainer} onPress={onImagePicker} hitSlop={hitSlop}>
+				{/* <TouchableOpacity style={styles.selectImageContainer} onPress={onImagePicker} hitSlop={hitSlop}>
 					<Image source={getIcon('selectImage')} style={styles.selectImage} resizeMode='contain' />
-				</TouchableOpacity>
+				</TouchableOpacity> */}
 				<View style={styles.footer} />
 			</ScrollView>
 			<View style={styles.buttonContainer}>
