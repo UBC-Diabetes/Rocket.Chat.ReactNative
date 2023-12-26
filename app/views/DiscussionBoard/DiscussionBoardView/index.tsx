@@ -43,6 +43,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 	const [loading, setLoading] = useState(true);
 	const [queryCount, setQueryCount] = useState(QUERY_SIZE);
 	const isFocused = useIsFocused();
+	const [lastOpened, setLastOpened] = useState<Date | string>('');
 
 	useEffect(() => {
 		const room = route.params?.item;
@@ -89,7 +90,11 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 	});
 
 	const loadMessages = async () => {
-		const room = route.params?.item;
+		let room = route.params?.item;
+		
+		if (lastOpened !== '') {
+			room = {...room, lastOpen: lastOpened}
+		}
 		await RoomServices.getMessages(room);
 		setLoading(true);
 
@@ -188,7 +193,10 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 				renderItem={({ item }) => (
 					<PostCard
 						{...item}
-						onPress={(params: any) => navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })}
+						onPress={(params: any) => {
+							setLastOpened(new Date())
+							navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })
+						}}
 						starPost={(message: any) => handleStar(message, loadMessages)}
 						roomId={route.params?.item}
 					/>

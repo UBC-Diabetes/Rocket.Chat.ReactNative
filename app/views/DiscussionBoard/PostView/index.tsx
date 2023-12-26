@@ -329,7 +329,7 @@ const PostView: React.FC = ({ route }) => {
 			if (message) {
 				const response = await Services.deleteMessage(deleteType === DeleteType.COMMENT ? message._id : message.id, message.rid);
 				if (response.success) {
-					if (DeleteType.COMMENT) {
+					if (deleteType === DeleteType.COMMENT) {
 						setTimeout(() => {
 							loadComments();
 						}, 500);
@@ -460,7 +460,7 @@ const PostView: React.FC = ({ route }) => {
 							</TouchableOpacity>
 						</View>
 					</View>
-					{commentSection()}
+					{replies && commentSection()}
 					<View style={{ height: textinputHeight }} />
 				</ScrollView>
 			</View>
