@@ -68,6 +68,7 @@ import AddChannelTeamView from '../views/AddChannelTeamView';
 import AddExistingChannelView from '../views/AddExistingChannelView';
 import SelectListView from '../views/SelectListView';
 import DiscussionsView from '../views/DiscussionsView';
+import VideoPlayerView from '../views/VideoPlayerView';
 import {
 	AdminPanelStackParamList,
 	ChatsStackParamList,
@@ -377,6 +378,11 @@ const InsideStackNavigator = () => {
 				name='E2EEnterYourPasswordStackNavigator'
 				component={E2EEnterYourPasswordStackNavigator}
 				options={{ headerShown: false }}
+			/>
+			<InsideStack.Screen
+				name='VideoPlayerView'
+				component={VideoPlayerView}
+				options={{headerShown: false}}
 			/>
 			<InsideStack.Screen name='AttachmentView' component={AttachmentView} />
 			<InsideStack.Screen name='StatusView' component={StatusView} />
