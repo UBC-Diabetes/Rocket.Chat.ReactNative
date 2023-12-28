@@ -52,7 +52,7 @@ post_install do |installer|
       config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
       case target.name
       when 'RCT-Folly'
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '17.0'
       else
         config.build_settings.delete('IPHONEOS_DEPLOYMENT_TARGET')
       end

@@ -17,7 +17,6 @@
 		1E0426E7251A54B4008F022C /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0426E5251A5467008F022C /* RoomType.swift */; };
 		1E068CFF24FD2DC700A0FFC1 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E068CFD24FD2DC700A0FFC1 /* AppGroup.swift */; };
 		1E068D0224FD2E0500A0FFC1 /* AppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E068D0024FD2E0500A0FFC1 /* AppGroup.m */; };
-		1E1C2F7E250FACB5005DCE7D /* libWatermelonDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAA749B23043AD300F1ADE9 /* libWatermelonDB.a */; };
 		1E1C2F80250FCB69005DCE7D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C2F7F250FCB69005DCE7D /* Database.swift */; };
 		1E25743422CBA2CF005A877F /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ACD4853222860DE00442C55 /* JavaScriptCore.framework */; };
 		1E2F615B25128F9A00871711 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F615A25128F9A00871711 /* API.swift */; };
@@ -27,7 +26,6 @@
 		1E470E832513A71E00E3DD1D /* RocketChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E470E822513A71E00E3DD1D /* RocketChat.swift */; };
 		1E51D962251263CD00DC95DE /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E51D961251263CD00DC95DE /* MessageType.swift */; };
 		1E51D965251263D600DC95DE /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E51D964251263D600DC95DE /* NotificationType.swift */; };
-		1E55FDB32320675C0048D2F9 /* libWatermelonDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAA749B23043AD300F1ADE9 /* libWatermelonDB.a */; };
 		1E598AE42515057D002BDFBD /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E598AE32515057D002BDFBD /* Date+Extensions.swift */; };
 		1E598AE725150660002BDFBD /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E598AE625150660002BDFBD /* Data+Extensions.swift */; };
 		1E598AE925151A63002BDFBD /* SendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E598AE825151A63002BDFBD /* SendMessage.swift */; };
@@ -41,7 +39,6 @@
 		1EFEB5982493B6640072EDC0 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEB5972493B6640072EDC0 /* NotificationService.swift */; };
 		2679F9CED21558B832479812 /* libPods-defaults-NotificationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57180C08D6D33D18496DA93B /* libPods-defaults-NotificationService.a */; };
 		3CD0C8A56B1517D154543481 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD7D33AC64B6C4CE3536BDC /* ExpoModulesProvider.swift */; };
-		4289399429A709B100788C2B /* libWatermelonDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAA749B23043AD300F1ADE9 /* libWatermelonDB.a */; };
 		42C45E4829B68F9C00540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
 		42C45E4A29B6903D00540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
 		42C45E4B29B6904000540AAB /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C45E4529B68F9500540AAB /* wmelon.swift */; };
@@ -99,7 +96,7 @@
 		67EFF89A26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
 		67EFF89B26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
 		67EFF89C26E0420300265A72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF89726E0420200265A72 /* GoogleService-Info.plist */; };
-		69E4354C5D935D5EE022A7E5 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		69E4354C5D935D5EE022A7E5 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		76635831C7F548143E7393E5 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE191F22B53E40F1C658A59 /* ExpoModulesProvider.swift */; };
 		7A14FCF4257FEB59005BDCD4 /* Official.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A14FCF3257FEB59005BDCD4 /* Official.xcassets */; };
 		7A3268F724F04FFE0050E241 /* custom.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3268F524F04FFE0050E241 /* custom.ttf */; };
@@ -205,13 +202,6 @@
 			remoteGlobalIDString = 1EFEB5942493B6640072EDC0;
 			remoteInfo = NotificationService;
 		};
-		7AAA749A23043AD300F1ADE9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 290E43E48AD8418287FA99D6 /* WatermelonDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6E660D5E213BCCD300189354;
-			remoteInfo = WatermelonDB;
-		};
 		7AAB3E0F257E6A6E00707CF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -313,7 +303,6 @@
 		1EFEB5972493B6640072EDC0 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		1EFEB5992493B6640072EDC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EFEB5A12493B67D0072EDC0 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
-		290E43E48AD8418287FA99D6 /* WatermelonDB.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = WatermelonDB.xcodeproj; path = "../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB.xcodeproj"; sourceTree = "<group>"; };
 		2CE6A62B76B34B53A7B5D57E /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		3220C32E0D264783AEEC9954 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.ttf"; path = "../assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
 		32EB835C4F184A30A640B73A /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
@@ -381,10 +370,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E55FDB32320675C0048D2F9 /* libWatermelonDB.a in Frameworks */,
 				1E25743422CBA2CF005A877F /* JavaScriptCore.framework in Frameworks */,
 				D7992F0C06C0C7F4AB788904 /* libPods-defaults-ShareRocketChatRN.a in Frameworks */,
-				4289399429A709B100788C2B /* libWatermelonDB.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +379,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E1C2F7E250FACB5005DCE7D /* libWatermelonDB.a in Frameworks */,
 				2679F9CED21558B832479812 /* libPods-defaults-NotificationService.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,7 +422,7 @@
 				7AAB3E3E257E6A6E00707CF6 /* libz.tbd in Frameworks */,
 				7AAB3E3F257E6A6E00707CF6 /* libWatermelonDB.a in Frameworks */,
 				55E724EAD95E79F984DCDF02 /* libPods-defaults-Rocket.Chat.a in Frameworks */,
-				69E4354C5D935D5EE022A7E5 /* BuildFile in Frameworks */,
+				69E4354C5D935D5EE022A7E5 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,18 +573,9 @@
 			name = Rocket.Chat;
 			sourceTree = "<group>";
 		};
-		7AAA749723043AD300F1ADE9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7AAA749B23043AD300F1ADE9 /* libWatermelonDB.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				290E43E48AD8418287FA99D6 /* WatermelonDB.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -889,12 +866,6 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7AAA749723043AD300F1ADE9 /* Products */;
-					ProjectRef = 290E43E48AD8418287FA99D6 /* WatermelonDB.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1EC6ACAF22CB9FC300A41C61 /* ShareRocketChatRN */,
@@ -904,16 +875,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7AAA749B23043AD300F1ADE9 /* libWatermelonDB.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libWatermelonDB.a;
-			remoteRef = 7AAA749A23043AD300F1ADE9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1EC6ACAE22CB9FC300A41C61 /* Resources */ = {
@@ -1713,10 +1674,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
+					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
@@ -1782,10 +1743,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
+					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
@@ -1828,7 +1789,7 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NotificationService/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1867,7 +1828,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NotificationService/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0.0;
 				MTL_FAST_MATH = YES;
@@ -1896,7 +1857,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 8Y24TAV93W;
 				ENABLE_BITCODE = NO;
@@ -1911,13 +1872,13 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = "Rocket.Chat copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.26;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-DFB_SONARKIT_ENABLED=1",
@@ -1953,7 +1914,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 8Y24TAV93W;
 				ENABLE_BITCODE = NO;
@@ -1967,13 +1928,13 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = "Rocket.Chat copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.26;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-DFB_SONARKIT_ENABLED=1",
@@ -2008,7 +1969,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 8Y24TAV93W;
 				ENABLE_BITCODE = NO;
@@ -2023,13 +1984,13 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = RocketChatRN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.26;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-DFB_SONARKIT_ENABLED=1",
@@ -2065,7 +2026,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 37;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 8Y24TAV93W;
 				ENABLE_BITCODE = NO;
@@ -2079,13 +2040,13 @@
 					"$(SRCROOT)/../node_modules/@nozbe/watermelondb/native/ios/WatermelonDB/SupportingFiles/**",
 				);
 				INFOPLIST_FILE = RocketChatRN/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.26;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-DFB_SONARKIT_ENABLED=1",
@@ -2156,7 +2117,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.26;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2205,7 +2167,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.26;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

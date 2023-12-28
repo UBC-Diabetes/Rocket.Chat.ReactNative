@@ -25,6 +25,7 @@ interface IDirectoryItem {
 	style?: ViewStyle;
 	rightLabel?: string;
 	rid?: string;
+	age?: string;
 	teamMain?: boolean;
 }
 
@@ -45,13 +46,14 @@ const DirectoryItem = ({
 	rightLabel,
 	type,
 	rid,
+	age,
 	teamMain
 }: IDirectoryItem): React.ReactElement => {
 	const { theme } = useTheme();
 
 	return (
 		<Touch onPress={onPress} style={{ backgroundColor: themes[theme].backgroundColor }} testID={testID}>
-			<View style={[styles.directoryItemContainer, styles.directoryItemButton, style]}>
+			<View style={[styles.directoryItemContainer, styles.directoryItemButton, style, {backgroundColor: themes[theme].peerSupporterBackground}]}>
 				<Avatar text={avatar} size={70} type={type} rid={rid} style={styles.directoryItemAvatar} />
 				<View style={styles.directoryItemTextContainer}>
 					<View style={styles.directoryItemTextTitle}>
@@ -63,6 +65,11 @@ const DirectoryItem = ({
 					{description ? (
 						<Text style={[styles.directoryItemUsername, { color: themes[theme].auxiliaryText }]} numberOfLines={1}>
 							{description}
+						</Text>
+					) : null}
+					{age ? (
+						<Text style={[styles.directoryItemUsername, { color: themes[theme].auxiliaryText }]} numberOfLines={1}>
+							{age}
 						</Text>
 					) : null}
 				</View>
