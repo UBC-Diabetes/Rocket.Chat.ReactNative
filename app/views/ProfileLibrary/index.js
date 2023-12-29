@@ -254,7 +254,7 @@ class ProfileLibraryView extends React.Component {
 			>
 				<StatusBar theme={theme} />
 				<FlatList
-					data={data}
+					data={data.sort((a,b) => a.name.localeCompare(b.name, 'en'))}
 					style={styles.list}
 					contentContainerStyle={styles.listContainer}
 					extraData={this.state}
