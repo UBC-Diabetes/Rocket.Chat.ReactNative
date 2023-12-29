@@ -53,10 +53,10 @@ const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardPr
 				/>
 			</View>
 			<View style={styles.textContainer}>
-				<Text style={styles.title}>{title}</Text>
+				<Text style={[styles.title, {color: themes[theme].bodyText}]}>{title}</Text>
 				{description ? (
 					<View>
-						<Text style={styles.description}>{`${description?.slice(0, 100)}${description?.length > 100 ? '...' : ''}`}</Text>
+						<Text style={[styles.description, {color: themes[theme].bodyText}]}>{`${description?.slice(0, 100)}${description?.length > 100 ? '...' : ''}`}</Text>
 					</View>
 				) : (
 					<></>
