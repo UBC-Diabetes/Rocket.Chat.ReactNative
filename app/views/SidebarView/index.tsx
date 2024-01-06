@@ -312,7 +312,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					text={I18n.t('TechSupport')}
 					left={<Image source={techSupportIcon} style={iconStyles} />}
 					onPress={() => {
-						navToTechSupport(this.props.isMasterDetail)
+						navToTechSupport(Navigation, this.props.isMasterDetail)
 					}}
 					testID='sidebar-tech-support'
 					theme={theme!}
