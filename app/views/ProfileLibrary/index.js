@@ -59,6 +59,7 @@ class ProfileLibraryView extends React.Component {
 			refreshing: false,
 			text: '',
 			total: -1,
+			numUsersFetched: 0,
 			showOptionsDropdown: false,
 			globalUsers: true,
 			type: props.directoryDefaultView
@@ -68,9 +69,9 @@ class ProfileLibraryView extends React.Component {
 	}
 
 	onEndReached = () => {
-		const { loading, data, total, searching } = this.state;
+		const { loading, total, searching, numUsersFetched } = this.state;
 	
-		if (!searching && data.length < total && !loading) {
+		if (!searching && numUsersFetched < total && !loading) {
 			this.load({});
 		}
 	};
@@ -86,26 +87,27 @@ class ProfileLibraryView extends React.Component {
 
 	load = debounce(async ({ newSearch = false }) => {
 		if (newSearch) {
-			this.setState({ data: [], total: -1, loading: false });
+			this.setState({ data: [], total: -1, numUsersFetched: 0, loading: false });
 		}
 		const {
-			loading, text, total, data: { length }
+			loading, text, total, numUsersFetched, data: { length }
 		} = this.state;
-		if (loading || length === total) {
+		if (loading || (numUsersFetched >= total && total !== -1)) {
 			return;
 		}
 
 		this.setState({ loading: true });
 
 		try {
-			const { data, type, globalUsers } = this.state;
+			const { data, type, globalUsers, numUsersFetched } = this.state;
 			const query = { text, type, workspace: globalUsers ? 'all' : 'local' };
 
+			//Returns 50 users based on offset, sorted by name from the directory of ALL users
 			const directories = await RocketChat.getDirectory({
 				query,
-				offset: data.length,
+				offset: numUsersFetched,
 				count: 50,
-				sort: (type === 'users') ? { username: 1 } : { usersCount: -1 }
+				sort: { name: 1 }
 			});
 			if (directories.success) {
 				const combinedResults = [];
@@ -113,18 +115,19 @@ class ProfileLibraryView extends React.Component {
 
 				await Promise.all(results.map(async (item, index) => {
 					const user = await RocketChat.getUserInfo(item._id);
+					//Only keep users that are Peer Supporters
 					if (user.user.roles.includes("Peer Supporter")) {
 					  combinedResults.push({ ...item, customFields: user.user.customFields });
 					}
 				}));
 
-				const newLength = data.length + combinedResults.length;
-
+				// Update total number of users in directory, and number fetched (including filtered out users)
 				this.setState({
-					data: [...combinedResults],
+					data: [...data, ...combinedResults],
 					loading: false,
 					refreshing: false,
-					total: newLength
+					numUsersFetched: numUsersFetched + directories.count,
+					total: directories.total
 				});
 			} else {
 				this.setState({ loading: false, refreshing: false });
@@ -264,7 +267,6 @@ class ProfileLibraryView extends React.Component {
 					keyboardShouldPersistTaps='always'
 					showsVerticalScrollIndicator={false}
 					ListFooterComponent={loading ? <ActivityIndicator theme={theme} /> : null}
-					// onEndReached={() => this.load({})}
 					onEndReached={this.onEndReached}
 					refreshControl={(
 						<RefreshControl
