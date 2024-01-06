@@ -52,17 +52,23 @@ export const navigateToVirtualHappyHour = async (Navigation: any, isMasterDetail
    }
 };
 
- export const navToTechSupport= async (isMasterDetail: boolean): Promise<void> => {
+ export const navToTechSupport= async (Navigation: any, isMasterDetail: boolean): Promise<void> => {
 	try {
 		const db = database.active;
 		const subsCollection = db.get('subscriptions');
 		const query = await subsCollection.query(Q.where('name', TECH_SUPPORT_USERNAME)).fetch();
-		if (query.length) {
-			const [room] = query;
+		if (query.length > 0) {
+			const room = query[0]
+			await Navigation.navigate('ChatsStackNavigator', {
+				screen: 'RoomListView'
+			});
 			handleGoRoom(room, isMasterDetail);
 		} else {
 			const result = await Services.createDirectMessage(TECH_SUPPORT_USERNAME);
 			if (result.success) {
+				await Navigation.navigate('ChatsStackNavigator', {
+					screen: 'RoomListView'
+				});
 				handleGoRoom({ rid: result.room?._id as string, name: TECH_SUPPORT_USERNAME, t: SubscriptionType.DIRECT }, isMasterDetail);
 			}
 		}
