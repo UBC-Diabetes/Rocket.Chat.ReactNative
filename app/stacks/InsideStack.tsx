@@ -382,7 +382,7 @@ const InsideStackNavigator = () => {
 			<InsideStack.Screen
 				name='VideoPlayerView'
 				component={VideoPlayerView}
-				options={{headerShown: false}}
+				options={{ title: 'Peer Supporter Video', headerShown: true}}
 			/>
 			<InsideStack.Screen name='AttachmentView' component={AttachmentView} />
 			<InsideStack.Screen name='StatusView' component={StatusView} />
