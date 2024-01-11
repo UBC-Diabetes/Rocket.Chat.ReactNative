@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 
 import PopUpModal from '../Components/PopUpModal';
@@ -16,6 +16,7 @@ const PostReportModal: React.FC<PostReportModalProps> = props => {
 	const [value, onChangeText] = React.useState('');
 
 	const isComment = type === ReportType.COMMENT;
+	const textInputRef = useRef(null);
 
 	return (
 		<PopUpModal show={show} close={() => !show} customStyles={styles.container}>
@@ -27,8 +28,9 @@ const PostReportModal: React.FC<PostReportModalProps> = props => {
 			<Text style={styles.text}>Reason for reporting</Text>
 			<View style={styles.textContainer}>
 				<TextInput
+					ref={textInputRef}
 					style={styles.text}
-					placeholder='Reason'
+					placeholder={'Reason'}
 					placeholderTextColor='#000000b3'
 					multiline
 					underlineColorAndroid='transparent'
@@ -94,10 +96,10 @@ const styles = StyleSheet.create({
 		marginTop: 8
 	},
 	text: {
+		flex: 1,
 		fontSize: 14,
 		lineHeight: 20,
 		fontWeight: '400',
-		alignSelf: 'flex-start'
 	},
 	submit: {
 		borderRadius: 30,

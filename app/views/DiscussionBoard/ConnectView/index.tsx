@@ -150,7 +150,7 @@ const ConnectView: React.FC = ({ route }: { route: any }) => {
 				<View style={styles.userInfoContainer}>
 					<View style={styles.userInfoTextContainerLeft}>
 						<Text style={[styles.userInfoText, {color: themes[theme].titleText}]}>T1D Since</Text>
-						<Text style={[styles.userInfoTextGrey, {color: themes[theme].bodyText}]}>{t1dSince !== '' ? t1dSince : '-'}{age? ` (${age})` : ''}</Text>
+						<Text style={[styles.userInfoTextGrey, {color: themes[theme].bodyText}]}>{t1dSince !== '' ? t1dSince : '-'}</Text>
 					</View>
 					<View style={styles.userInfoTextContainerRight}>
 						<Text style={[styles.userInfoText, {color: themes[theme].titleText}]}>Devices</Text>
