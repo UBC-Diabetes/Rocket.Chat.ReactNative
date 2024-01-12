@@ -57,7 +57,7 @@ const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardPr
 				{description ? (
 					<View>
 						<Text style={styles.description}>{`${description?.slice(0, 100)}${description?.length > 100 ? '...' : ''}`}</Text>
-						<Text style={styles.description}>{`Members: ${item.subscribers === undefined? 0: item.subscribers}`}</Text>
+						<Text style={styles.description}>{`Members:  ${item.subscribers === undefined? 0: item.subscribers}`}</Text>
 					</View>
 				) : (
 					<></>
