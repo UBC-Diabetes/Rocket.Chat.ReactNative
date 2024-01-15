@@ -1,4 +1,4 @@
-package chat.rocket.reactnative;
+package chat.rocket.reachout;
 
 import android.app.Application;
 
@@ -20,8 +20,8 @@ import expo.modules.ReactNativeHostWrapper;
 import java.util.Arrays;
 import java.util.List;
 
-import chat.rocket.reactnative.newarchitecture.MainApplicationReactNativeHost;
-import chat.rocket.reactnative.networking.SSLPinningPackage;
+import chat.rocket.reachout.newarchitecture.MainApplicationReactNativeHost;
+import chat.rocket.reachout.networking.SSLPinningPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
