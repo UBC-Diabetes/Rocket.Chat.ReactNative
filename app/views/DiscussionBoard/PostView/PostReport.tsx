@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 
-import PopUpModal from '../Components/PopUpModal';
 import { themes } from '../../../lib/constants';
 import { PostReportModalProps, ReportType } from './interfaces';
+import ReportModal from '../Components/ReportModel';
 
 const alert = require('../../../static/images/discussionboard/alert_circle.png');
 
@@ -17,8 +17,17 @@ const PostReportModal: React.FC<PostReportModalProps> = props => {
 
 	const isComment = type === ReportType.COMMENT;
 
+	const handleClose = () => {
+		// Add additional conditions here if needed
+		setDisableButton(true);
+		setTimeout(() => {
+			setDisableButton(false);
+			cancel();
+		}, 500);
+	};
+
 	return (
-		<PopUpModal show={show} close={() => !show} customStyles={styles.container}>
+		<ReportModal show={show} close={handleClose} customStyles={styles.container}>
 			<View style={styles.header}>
 				<Image source={alert} style={styles.trashIcon} />
 				<Text style={styles.headerText}>{`Report ${isComment ? 'Comment' : 'Post'}`}</Text>
@@ -59,7 +68,7 @@ const PostReportModal: React.FC<PostReportModalProps> = props => {
 			>
 				<Text style={styles.cancelText}>Cancel</Text>
 			</TouchableOpacity>
-		</PopUpModal>
+		</ReportModal>
 	);
 };
 
