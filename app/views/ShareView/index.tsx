@@ -137,7 +137,7 @@ class ShareView extends Component<IShareViewProps, IShareViewState> {
 		// if is share extension show default back button
 		if (!this.isShareExtension) {
 			options.headerLeft = () => (
-				<HeaderButton.CloseModal navigation={navigation} color={themes[theme].fontDefault} testID='share-view-close' />
+				<HeaderButton.CloseModal navigation={navigation} color={themes[theme].previewTintColor} testID='share-view-close' />
 			);
 		}
 

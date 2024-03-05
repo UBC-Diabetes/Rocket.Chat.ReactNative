@@ -7,8 +7,8 @@ import FastImage from 'react-native-fast-image';
 import { useDispatch } from 'react-redux';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { appStart } from '../../actions/app';
 import { logout } from '../../actions/login';
+import { appStart, appInit } from '../../actions/app';
 import { selectServerRequest } from '../../actions/server';
 import * as HeaderButton from '../../containers/HeaderButton';
 import NewWindowIcon from '../../containers/NewWindowIcon';
@@ -78,6 +78,7 @@ const SettingsView = (): React.ReactElement => {
 				});
 			} else {
 				dispatch(logout());
+				dispatch(appInit());
 			}
 		} catch {
 			// Do nothing: user not found

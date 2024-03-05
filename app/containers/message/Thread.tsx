@@ -14,9 +14,13 @@ const Thread = React.memo(
 		const { theme } = useTheme();
 		const { threadBadgeColor, toggleFollowThread, user, replies } = useContext(MessageContext);
 
-		if (!tlm || isThreadRoom || tcount === null) {
-			return null;
-		}
+		// Commenting this out results in the blue Reply button always being visible
+		// Otherwise, it is visible only if someone has replied as a thread already
+		// We want it to be visible so people make more threads, organizing the discussion
+
+		// if (!tlm || isThreadRoom || tcount === null) {
+		// 	return null;
+		// }
 
 		return (
 			<View style={styles.buttonContainer}>

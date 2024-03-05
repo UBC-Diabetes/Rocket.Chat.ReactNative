@@ -31,6 +31,7 @@ import log from '../../../lib/methods/helpers/log';
 import { useAppSelector, usePrevious } from '../../../lib/hooks';
 import { ChatsStackParamList } from '../../../stacks/types';
 import { loadDraftMessage } from '../../../lib/methods/draftMessage';
+import { themes } from '../../../lib/constants';
 
 const defaultSelection: IInputSelection = { start: 0, end: 0 };
 
@@ -346,9 +347,9 @@ export const ComposerInput = memo(
 
 		return (
 			<TextInput
-				style={[styles.textInput, { color: colors.fontDefault }]}
+				style={[styles.textInput, { color: themes[theme].bodyText }]}
 				placeholder={placeholder}
-				placeholderTextColor={colors.fontAnnotation}
+				placeholderTextColor={colors.auxiliaryText}
 				ref={component => (inputRef.current = component)}
 				blurOnSubmit={false}
 				onChangeText={onChangeText}

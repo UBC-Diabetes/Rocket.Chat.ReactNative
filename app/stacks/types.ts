@@ -169,12 +169,6 @@ export type ChatsStackParamList = {
 		cannedResponse: ICannedResponse;
 		room: ISubscription;
 	};
-	JitsiMeetView: {
-		rid: string;
-		url: string;
-		onlyAudio?: boolean;
-		videoConf?: boolean;
-	};
 	ChangeAvatarView: {
 		context: TChangeAvatarViewContext;
 		titleHeader?: string;
@@ -268,6 +262,9 @@ export type E2EEnterYourPasswordStackParamList = {
 
 export type InsideStackParamList = {
 	DrawerNavigator: NavigatorScreenParams<DrawerParamList>;
+	VideoPlayerView: {
+		videoURL: string;
+	};
 	NewMessageStackNavigator: NavigatorScreenParams<NewMessageStackParamList>;
 	E2ESaveYourPasswordStackNavigator: NavigatorScreenParams<E2ESaveYourPasswordStackParamList>;
 	E2EEnterYourPasswordStackNavigator: NavigatorScreenParams<E2EEnterYourPasswordStackParamList>;
@@ -290,7 +287,6 @@ export type InsideStackParamList = {
 };
 
 export type OutsideParamList = {
-	NewServerView: undefined;
 	WorkspaceView: undefined;
 	LoginView: {
 		title: string;
@@ -321,4 +317,8 @@ export type OutsideModalParamList = {
 		url: string;
 		ssoToken?: string;
 	};
+};
+
+export type HomeStackParamList = {
+	HomeView: undefined;
 };

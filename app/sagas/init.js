@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { CURRENT_SERVER, TOKEN_KEY } from '../lib/constants';
 import UserPreferences from '../lib/methods/userPreferences';
-import { selectServerRequest } from '../actions/server';
+import { selectServerRequest, serverRequest } from '../actions/server';
 import { setAllPreferences } from '../actions/sortPreferences';
 import { APP } from '../actions/actionsTypes';
 import log from '../lib/methods/helpers/log';
@@ -16,6 +16,10 @@ import { getSortPreferences } from '../lib/methods';
 import { deepLinkingClickCallPush } from '../actions/deepLinking';
 import { getServerById } from '../lib/database/services/Server';
 
+import appConfig from '../../app.json';
+
+import SERVER_URL from './serverConfig';
+
 export const initLocalSettings = function* initLocalSettings() {
 	const sortPreferences = getSortPreferences();
 	yield put(setAllPreferences(sortPreferences));
@@ -24,8 +28,8 @@ export const initLocalSettings = function* initLocalSettings() {
 const restore = function* restore() {
 	console.log('RESTORE');
 	try {
-		const server = UserPreferences.getString(CURRENT_SERVER);
-		let userId = UserPreferences.getString(`${TOKEN_KEY}-${server}`);
+		const { server } = appConfig;
+		const userId = UserPreferences.getString(`${TOKEN_KEY}-${server}`);
 
 		if (!server) {
 			yield put(appStart({ root: RootEnum.ROOT_OUTSIDE }));

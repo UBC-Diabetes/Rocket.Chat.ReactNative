@@ -3,6 +3,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import I18n from '../../../../i18n';
+import { useTheme } from '../../../../theme';
 import { CustomIcon, TIconsName } from '../../../CustomIcon';
 
 export interface IBaseButton {
@@ -20,13 +21,16 @@ export const hitSlop = {
 	left: 16
 };
 
-export const BaseButton = ({ accessibilityLabel, icon, color, testID, onPress }: IBaseButton) => (
-	<BorderlessButton style={styles.button} onPress={() => onPress()} testID={testID} hitSlop={hitSlop}>
-		<View accessible accessibilityLabel={I18n.t(accessibilityLabel)} accessibilityRole='button'>
-			<CustomIcon name={icon} size={24} color={color} />
-		</View>
-	</BorderlessButton>
-);
+export const BaseButton = ({ accessibilityLabel, icon, color, testID, onPress }: IBaseButton) => {
+	const { colors } = useTheme();
+	return (
+		<BorderlessButton style={styles.button} onPress={() => onPress()} testID={testID} hitSlop={hitSlop}>
+			<View accessible accessibilityLabel={I18n.t(accessibilityLabel)} accessibilityRole='button'>
+				<CustomIcon name={icon} size={24} color={color || colors.messageComposerIcons} />
+			</View>
+		</BorderlessButton>
+	);
+};
 
 const styles = StyleSheet.create({
 	button: {

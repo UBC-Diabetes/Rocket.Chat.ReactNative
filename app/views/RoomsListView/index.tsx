@@ -975,14 +975,6 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 			return <ActivityIndicator />;
 		}
 
-		if (supportedVersionsStatus === 'expired') {
-			return <SupportedVersionsExpired />;
-		}
-
-		if (user.requirePasswordChange) {
-			return <ChangePasswordRequired />;
-		}
-
 		return (
 			<FlatList
 				ref={this.getScrollRef}
