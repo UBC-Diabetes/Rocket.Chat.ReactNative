@@ -9,8 +9,11 @@
 		"lint": "eslint . && tsc",
 		"prettier-lint": "prettier --write . && yarn lint",
 		"ios": "npx react-native run-ios",
-		"android": "npx react-native run-android --mode=experimentalPlayDebug --main-activity chat.rocket.reactnative.MainActivity",
+		"android": "npx react-native run-android --mode=experimentalPlayDebug --main-activity chat.rocket.reachout.MainActivity",
 		"android-whitelabel": "npx react-native run-android --main-activity chat.rocket.reactnative.MainActivity --mode=experimentalPlayDebug --appId",
+		"android-test-release": "cd android && ./gradlew assembleRelease && cd ..",
+		"android-prod-release": "cd android && ./gradlew bundleRelease && cd ..",
+		"clean:all": "cd android && ./gradlew clean && cd .. && rm -rf node_modules/ && rm -rf $TMPDIR/react-* && rm -rf $TMPDIR/haste-* && rm -rf $TMPDIR/metro-* && yarn cache clean",
 		"log-android": "react-native log-android",
 		"snyk-protect": "snyk protect",
 		"postinstall": "patch-package",
@@ -230,13 +233,7 @@
 	},
 	"expo": {
 		"autolinking": {
-			"exclude": [
-				"expo-application",
-				"expo-asset",
-				"expo-constants",
-				"expo-font",
-				"expo-error-recovery"
-			]
+			"exclude": ["expo-application", "expo-asset", "expo-constants", "expo-font", "expo-error-recovery"]
 		}
 	}
 }

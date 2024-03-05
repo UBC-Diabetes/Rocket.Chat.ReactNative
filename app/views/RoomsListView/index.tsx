@@ -465,7 +465,6 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 							  () => navigation.toggleDrawer()
 					}
 					badge={() => getBadge()}
-					disabled={disabled}
 				/>
 			),
 			headerTitle: () => <RoomsListHeaderView />,
@@ -480,20 +479,10 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 						/>
 					) : null}
 					{canCreateRoom ? (
-						<HeaderButton.Item
-							iconName='create'
-							onPress={this.goToNewMessage}
-							testID='rooms-list-view-create-channel'
-							disabled={disabled}
-						/>
+						<HeaderButton.Item iconName='create' onPress={this.goToNewMessage} testID='rooms-list-view-create-channel' />
 					) : null}
-					<HeaderButton.Item iconName='search' onPress={this.initSearching} testID='rooms-list-view-search' disabled={disabled} />
-					<HeaderButton.Item
-						iconName='directory'
-						onPress={this.goDirectory}
-						testID='rooms-list-view-directory'
-						disabled={disabled}
-					/>
+					<HeaderButton.Item iconName='search' onPress={this.initSearching} testID='rooms-list-view-search' />
+					<HeaderButton.Item iconName='directory' onPress={this.goDirectory} testID='rooms-list-view-directory' />
 				</HeaderButton.Container>
 			)
 		};
@@ -961,14 +950,6 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 			return <ActivityIndicator />;
 		}
 
-		if (supportedVersionsStatus === 'expired') {
-			return <SupportedVersionsExpired />;
-		}
-
-		if (user.requirePasswordChange) {
-			return <ChangePasswordRequired />;
-		}
-
 		return (
 			<FlatList
 				ref={this.getScrollRef}
@@ -1002,7 +983,6 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 				<StatusBar />
 				{this.renderHeader()}
 				{this.renderScroll()}
-				{showServerDropdown ? <ServerDropdown /> : null}
 			</SafeAreaView>
 		);
 	};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ViewStyle } from 'react-native';
+import { Text, View, ViewStyle, Platform } from 'react-native';
 
 import Touch from '../Touch';
 import Avatar from '../Avatar';
@@ -7,8 +7,7 @@ import RoomTypeIcon from '../RoomTypeIcon';
 import styles, { ROW_HEIGHT } from './styles';
 import { themes } from '../../lib/constants';
 import { TSupportedThemes, useTheme } from '../../theme';
-import { MarkdownPreview } from '../markdown';
-
+import { CustomIcon } from '../CustomIcon';
 export { ROW_HEIGHT };
 
 interface IDirectoryItemLabel {
@@ -26,6 +25,7 @@ interface IDirectoryItem {
 	style?: ViewStyle;
 	rightLabel?: string;
 	rid?: string;
+	age?: string;
 	teamMain?: boolean;
 }
 
@@ -46,13 +46,15 @@ const DirectoryItem = ({
 	rightLabel,
 	type,
 	rid,
+	age,
 	teamMain
 }: IDirectoryItem): React.ReactElement => {
 	const { theme } = useTheme();
+
 	return (
-		<Touch onPress={onPress} style={{ backgroundColor: themes[theme].surfaceRoom }} testID={testID}>
-			<View style={[styles.directoryItemContainer, styles.directoryItemButton, style]}>
-				<Avatar text={avatar} size={30} type={type} rid={rid} style={styles.directoryItemAvatar} />
+		<Touch onPress={onPress} style={{ backgroundColor: themes[theme].backgroundColor }} testID={testID}>
+			<View style={[styles.directoryItemContainer, styles.directoryItemButton, style, {backgroundColor: themes[theme].peerSupporterBackground}]}>
+				<Avatar text={avatar} size={70} type={type} rid={rid} style={styles.directoryItemAvatar} />
 				<View style={styles.directoryItemTextContainer}>
 					<View style={styles.directoryItemTextTitle}>
 						{type !== 'd' ? <RoomTypeIcon type={type} teamMain={teamMain} /> : null}
@@ -61,14 +63,18 @@ const DirectoryItem = ({
 						</Text>
 					</View>
 					{description ? (
-						<MarkdownPreview
-							msg={description}
-							style={[styles.directoryItemUsername, { color: themes[theme].fontSecondaryInfo }]}
-							numberOfLines={1}
-						/>
+						<Text style={[styles.directoryItemUsername, { color: themes[theme].auxiliaryText }]} numberOfLines={1}>
+							{description}
+						</Text>
+					) : null}
+					{age ? (
+						<Text style={[styles.directoryItemUsername, { color: themes[theme].auxiliaryText }]} numberOfLines={1}>
+							{age}
+						</Text>
 					) : null}
 				</View>
 				<DirectoryItemLabel text={rightLabel} theme={theme} />
+				<CustomIcon name={'chevron-right'} size={36} color='#38b000' />
 			</View>
 		</Touch>
 	);

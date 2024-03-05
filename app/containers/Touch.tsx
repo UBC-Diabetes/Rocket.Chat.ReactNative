@@ -7,19 +7,20 @@ export interface ITouchProps extends RectButtonProps {
 	children: React.ReactNode;
 	accessibilityLabel?: string;
 	testID?: string;
+	disabled?: boolean;
 }
 
-const Touch = React.forwardRef<RectButton, ITouchProps>(({ children, onPress, underlayColor, ...props }, ref) => {
+const Touch = React.forwardRef<RectButton, ITouchProps>(({ children, onPress, underlayColor, disabled, ...props }, ref) => {
 	const { colors } = useTheme();
 
 	return (
 		<RectButton
 			ref={ref}
 			onPress={onPress}
-			activeOpacity={1}
 			underlayColor={underlayColor || colors.surfaceNeutral}
 			rippleColor={colors.surfaceNeutral}
 			{...props}
+			activeOpacity={disabled ? 0.5 : 1}
 		>
 			{children}
 		</RectButton>

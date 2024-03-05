@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, TextInputProps, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { StyleSheet, Text, TextInputProps, TouchableOpacityProps, View } from 'react-native';
 
-import I18n from '../../../i18n';
 import sharedStyles from '../../Styles';
-import { CustomIcon } from '../../../containers/CustomIcon';
 import { useTheme } from '../../../theme';
 import SearchHeader from '../../../containers/SearchHeader';
-import { useAppSelector } from '../../../lib/hooks';
 
 const styles = StyleSheet.create({
 	container: {
@@ -43,63 +40,20 @@ interface IRoomHeader {
 	onPress: TouchableOpacityProps['onPress'];
 }
 
-const Header = React.memo(
-	({
-		connecting,
-		connected,
-		isFetching,
-		serverName = 'Rocket.Chat',
-		server,
-		showServerDropdown,
-		showSearchHeader,
-		onSearchChangeText,
-		onPress
-	}: IRoomHeader) => {
-		const { status: supportedVersionsStatus } = useAppSelector(state => state.supportedVersions);
-		const { colors } = useTheme();
+const Header = React.memo(({ serverName, showSearchHeader, onSearchChangeText, onPress }: IRoomHeader) => {
+	const { colors } = useTheme();
 
-		if (showSearchHeader) {
-			return <SearchHeader onSearchChangeText={onSearchChangeText} testID='rooms-list-view-search-input' />;
-		}
-		let subtitle;
-		if (supportedVersionsStatus === 'expired') {
-			subtitle = 'Cannot connect';
-		} else if (connecting) {
-			subtitle = I18n.t('Connecting');
-		} else if (isFetching) {
-			subtitle = I18n.t('Updating');
-		} else if (!connected) {
-			subtitle = I18n.t('Waiting_for_network');
-		} else {
-			subtitle = server?.replace(/(^\w+:|^)\/\//, '');
-		}
-		return (
-			<View style={styles.container}>
-				<TouchableOpacity onPress={onPress} testID='rooms-list-header-server-dropdown-button'>
-					<View style={styles.button}>
-						<Text style={[styles.title, { color: colors.fontTitlesLabels }]} numberOfLines={1}>
-							{serverName}
-						</Text>
-						<CustomIcon
-							name='chevron-down'
-							color={colors.fontSecondaryInfo}
-							style={[showServerDropdown && styles.upsideDown]}
-							size={18}
-						/>
-					</View>
-					{subtitle ? (
-						<Text
-							testID='rooms-list-header-server-subtitle'
-							style={[styles.subtitle, { color: colors.fontSecondaryInfo }]}
-							numberOfLines={1}
-						>
-							{subtitle}
-						</Text>
-					) : null}
-				</TouchableOpacity>
-			</View>
-		);
+	if (showSearchHeader) {
+		return <SearchHeader onSearchChangeText={onSearchChangeText} testID='rooms-list-view-search-input' />;
 	}
-);
+
+	return (
+		<View style={styles.container}>
+			<Text style={[styles.title, { color: colors.headerTitleColor }]} numberOfLines={1}>
+				{serverName}
+			</Text>
+		</View>
+	);
+});
 
 export default Header;

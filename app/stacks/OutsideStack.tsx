@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { ThemeContext } from '../theme';
 import { ModalAnimation, StackAnimation, defaultHeader, themedHeader } from '../lib/methods/helpers/navigation';
 // Outside Stack
-import NewServerView from '../views/NewServerView';
 import WorkspaceView from '../views/WorkspaceView';
 import LoginView from '../views/LoginView';
 import ForgotPasswordView from '../views/ForgotPasswordView';
@@ -22,8 +21,6 @@ const _OutsideStack = () => {
 
 	return (
 		<Outside.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation } as StackNavigationOptions}>
-			{/* @ts-ignore */}
-			<Outside.Screen name='NewServerView' component={NewServerView} options={NewServerView.navigationOptions} />
 			<Outside.Screen name='WorkspaceView' component={WorkspaceView} />
 			{/* @ts-ignore */}
 			<Outside.Screen name='LoginView' component={LoginView} options={LoginView.navigationOptions} />
@@ -51,7 +48,8 @@ const OutsideStackModal = () => {
 
 	return (
 		<OutsideModal.Navigator
-			screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...ModalAnimation, presentation: 'transparentModal' }}>
+			screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...ModalAnimation, presentation: 'transparentModal' }}
+		>
 			<OutsideModal.Screen name='OutsideStack' component={OutsideStack} options={{ headerShown: false }} />
 			<OutsideModal.Screen name='AuthenticationWebView' component={AuthenticationWebView} />
 		</OutsideModal.Navigator>

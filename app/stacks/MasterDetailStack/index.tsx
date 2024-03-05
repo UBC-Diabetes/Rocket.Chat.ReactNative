@@ -57,7 +57,6 @@ import E2EEncryptionSecurityView from '../../views/E2EEncryptionSecurityView';
 // InsideStackNavigator
 import AttachmentView from '../../views/AttachmentView';
 import ModalBlockView from '../../views/ModalBlockView';
-import JitsiMeetView from '../../views/JitsiMeetView';
 import StatusView from '../../views/StatusView';
 import CreateDiscussionView from '../../views/CreateDiscussionView';
 import E2ESaveYourPasswordView from '../../views/E2ESaveYourPasswordView';
@@ -87,7 +86,8 @@ const ChatsStackNavigator = React.memo(() => {
 
 	return (
 		<ChatsStack.Navigator
-			screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation } as StackNavigationOptions}>
+			screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation } as StackNavigationOptions}
+		>
 			<ChatsStack.Screen name='RoomView' component={RoomView} options={{ headerShown: false }} />
 		</ChatsStack.Navigator>
 	);
@@ -98,7 +98,8 @@ const Drawer = createDrawerNavigator<MasterDetailDrawerParamList>();
 const DrawerNavigator = React.memo(() => (
 	<Drawer.Navigator
 		screenOptions={{ drawerType: 'permanent', headerShown: false, drawerStyle: { ...drawerStyle } }}
-		drawerContent={({ navigation, state }) => <RoomsListView navigation={navigation} state={state} />}>
+		drawerContent={({ navigation, state }) => <RoomsListView navigation={navigation} state={state} />}
+	>
 		<Drawer.Screen name='ChatsStackNavigator' component={ChatsStackNavigator} />
 	</Drawer.Navigator>
 ));
@@ -113,7 +114,8 @@ const ModalStackNavigator = React.memo(({ navigation }: INavigation) => {
 	return (
 		<ModalContainer navigation={navigation} theme={theme}>
 			<ModalStack.Navigator
-				screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation } as StackNavigationOptions}>
+				screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation } as StackNavigationOptions}
+			>
 				<ModalStack.Screen name='RoomActionsView' component={RoomActionsView} options={RoomActionsView.navigationOptions} />
 				{/* @ts-ignore */}
 				<ModalStack.Screen name='RoomInfoView' component={RoomInfoView} />
@@ -204,12 +206,12 @@ const ModalStackNavigator = React.memo(({ navigation }: INavigation) => {
 	);
 });
 
-// InsideStackNavigator
-const InsideStack = createStackNavigator<MasterDetailInsideStackParamList & TNavigation>();
-const InsideStackNavigator = React.memo(() => {
+// MasterDetailStackNavigator
+const MasterDetailStack = createStackNavigator<MasterDetailInsideStackParamList & TNavigation>();
+const MasterDetailStackNavigator = React.memo(() => {
 	const { theme } = React.useContext(ThemeContext);
 	return (
-		<InsideStack.Navigator
+		<MasterDetailStack.Navigator
 			screenOptions={
 				{
 					...defaultHeader,
@@ -217,21 +219,15 @@ const InsideStackNavigator = React.memo(() => {
 					...FadeFromCenterModal,
 					presentation: 'transparentModal'
 				} as StackNavigationOptions
-			}>
-			<InsideStack.Screen name='DrawerNavigator' component={DrawerNavigator} options={{ headerShown: false }} />
-			<InsideStack.Screen name='ModalStackNavigator' component={ModalStackNavigator} options={{ headerShown: false }} />
-			<InsideStack.Screen name='AttachmentView' component={AttachmentView} />
-			{/* @ts-ignore */}
-			<InsideStack.Screen name='ModalBlockView' component={ModalBlockView} options={ModalBlockView.navigationOptions} />
-			<InsideStack.Screen
-				name='JitsiMeetView'
-				component={JitsiMeetView}
-				options={{ headerShown: false, animationEnabled: isIOS }}
-			/>
-			{/* @ts-ignore */}
-			<InsideStack.Screen name='ShareView' component={ShareView} />
-		</InsideStack.Navigator>
+			}
+		>
+			<MasterDetailStack.Screen name='DrawerNavigator' component={DrawerNavigator} options={{ headerShown: false }} />
+			<MasterDetailStack.Screen name='ModalStackNavigator' component={ModalStackNavigator} options={{ headerShown: false }} />
+			<MasterDetailStack.Screen name='AttachmentView' component={AttachmentView} />
+			<MasterDetailStack.Screen name='ModalBlockView' component={ModalBlockView} options={ModalBlockView.navigationOptions} />
+			<MasterDetailStack.Screen name='ShareView' component={ShareView} />
+		</MasterDetailStack.Navigator>
 	);
 });
 
-export default InsideStackNavigator;
+export default MasterDetailStackNavigator;

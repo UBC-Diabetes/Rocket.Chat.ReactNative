@@ -1,6 +1,55 @@
+export const SWITCH_TRACK_COLOR = {
+	false: '#f5455c',
+	true: '#2de0a5'
+};
+
+const mentions = {
+	unreadColor: '#6C727A',
+	tunreadColor: '#1d74f5',
+	mentionMeColor: '#F5455C',
+	mentionGroupColor: '#F38C39',
+	mentionOtherColor: '#F3BE08'
+};
+
+export const themeColors = {
+	magenta: '#CB007B',
+	mossGreen: '#799A79',
+	dreamBlue: '#9ABAF3',
+	creamsicleYellow: '#FDCA7D',
+	pink: '#F283BF',
+	superGray: '#494949',
+	forestGreen: '#567156',
+	surfaceNeutral: '#E4E7EA'
+};
+
 const backdropColor = '#000000';
 
 const light = {
+	actionTintColor: '#1d74f5',
+	auxiliaryBackground: '#efeff4',
+	auxiliaryText: '#9ca2a8',
+	auxiliaryTintColor: '#6C727A',
+	backdropColor: '#000000',
+	backgroundColor: '#FFFFFF',
+	bannerBackground: '#f1f2f4',
+	boardMembersText: '#00000080',
+	bodyText: '#2f343d',
+	borderColor: '#e1e5e8',
+	buttonBackground: '#414852',
+	buttonText: '#ffffff',
+	chatComponentBackground: '#f3f4f5',
+	controlText: '#54585e',
+	focusedBackground: '#FFFFFF',
+	headerBackground: '#EEEFF1',
+	headerTintColor: '#8FCEA7',
+	headerTitleColor: '#0C0D0F',
+	infoText: '#6d6d72',
+	messageComposerIcons: '#6C727A',
+	peerSupporterBackground: '#ffffff',
+	separatorColor: '#cbcbcc',
+	tintColor: '#1d74f5',
+	titleText: '#0d0e12',
+
 	surfaceLight: '#FFFFFF',
 	surfaceTint: '#F7F8FA',
 	surfaceRoom: '#FFFFFF',
@@ -93,6 +142,31 @@ const light = {
 };
 
 const dark = {
+	actionTintColor: '#1d74f5',
+	auxiliaryBackground: '#07101e',
+	auxiliaryText: '#9297a2',
+	auxiliaryTintColor: '#f9f9f9',
+	backdropColor: '#000000',
+	backgroundColor: '#030b1b',
+	bannerBackground: '#0e1f38',
+	boardMembersText: '#00000080',
+	bodyText: '#cbced1',
+	borderColor: '#0f213d',
+	buttonBackground: '#414852',
+	buttonText: '#ffffff',
+	chatComponentBackground: '#192132',
+	controlText: '#dadde6',
+	focusedBackground: '#0b182c',
+	headerBackground: '#0b182c',
+	headerTintColor: '#f9f9f9',
+	headerTitleColor: '#f9f9f9',
+	infoText: '#6D6D72',
+	messageComposerIcons: '#6C727A',
+	peerSupporterBackground: '#0e182b',
+	separatorColor: '#2b2b2d',
+	tintColor: '#1d74f5',
+	titleText: '#f9f9f9',
+
 	surfaceLight: '#262931',
 	surfaceTint: '#1F2329',
 	surfaceRoom: '#1F2329',
@@ -185,6 +259,31 @@ const dark = {
 };
 
 const black = {
+	actionTintColor: '#1d74f5',
+	auxiliaryBackground: '#07101e',
+	auxiliaryText: '#9297a2',
+	auxiliaryTintColor: '#f9f9f9',
+	backdropColor: '#000000',
+	backgroundColor: '#030b1b',
+	bannerBackground: '#0e1f38',
+	boardMembersText: '#00000080',
+	bodyText: '#cbced1',
+	borderColor: '#0f213d',
+	buttonBackground: '#414852',
+	buttonText: '#ffffff',
+	chatComponentBackground: '#192132',
+	controlText: '#dadde6',
+	focusedBackground: '#0d0d0d',
+	headerBackground: '#0b182c',
+	headerTintColor: '#f9f9f9',
+	headerTitleColor: '#f9f9f9',
+	infoText: '#6D6D72',
+	messageComposerIcons: '#FFFFFF',
+	peerSupporterBackground: '#0e182b',
+	separatorColor: '#2b2b2d',
+	tintColor: '#1d74f5',
+	titleText: '#f9f9f9',
+
 	surfaceLight: '#0d0d0d',
 	surfaceTint: '#16181a',
 	surfaceRoom: '#000000',
@@ -281,19 +380,25 @@ export const colors = {
 		...light,
 		backdropColor,
 		backdropOpacity: 0.3,
-		attachmentLoadingOpacity: 0.7
+		attachmentLoadingOpacity: 0.7,
+		...mentions,
+		...themeColors
 	},
 	dark: {
 		...dark,
 		backdropColor,
 		backdropOpacity: 0.9,
-		attachmentLoadingOpacity: 0.3
+		attachmentLoadingOpacity: 0.3,
+		...mentions,
+		...themeColors
 	},
 	black: {
 		...black,
 		backdropColor,
 		backdropOpacity: 0.9,
-		attachmentLoadingOpacity: 0.3
+		attachmentLoadingOpacity: 0.3,
+		...mentions,
+		...themeColors
 	}
 };
 

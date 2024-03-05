@@ -53,7 +53,7 @@ exports[`MessageComposer Audio tap record 1`] = `
         style={
           {
             "backgroundColor": "transparent",
-            "color": "#2F343D",
+            "color": undefined,
             "fontFamily": "Inter",
             "fontSize": 16,
             "fontVariant": [
@@ -155,7 +155,7 @@ exports[`MessageComposer Audio tap record 1`] = `
           style={
             {
               "backgroundColor": "transparent",
-              "color": "#6C727A",
+              "color": undefined,
               "fontFamily": "Inter",
               "fontSize": 14,
               "fontWeight": "400",
@@ -190,7 +190,7 @@ exports[`MessageComposer Audio tap record 1`] = `
         style={
           {
             "alignItems": "center",
-            "backgroundColor": "#156FF5",
+            "backgroundColor": undefined,
             "borderRadius": 16,
             "height": 32,
             "justifyContent": "center",
@@ -347,7 +347,6 @@ exports[`MessageComposer Quote Add quote \`abc\` 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -490,8 +489,8 @@ exports[`MessageComposer Quote Add quote \`abc\` 1`] = `
               {
                 "backgroundColor": "#F7F8FA",
                 "borderBottomRightRadius": 4,
-                "borderColor": "#EBECEF",
-                "borderLeftColor": "#9EA2A8",
+                "borderColor": undefined,
+                "borderLeftColor": undefined,
                 "borderTopRightRadius": 4,
                 "borderWidth": 1,
                 "height": 64,
@@ -525,7 +524,7 @@ exports[`MessageComposer Quote Add quote \`abc\` 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#1F2329",
+                      "color": undefined,
                       "flexShrink": 1,
                       "fontFamily": "Inter",
                       "fontSize": 14,
@@ -540,7 +539,7 @@ exports[`MessageComposer Quote Add quote \`abc\` 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#9EA2A8",
+                      "color": undefined,
                       "fontFamily": "Inter",
                       "fontSize": 12,
                       "fontWeight": "400",
@@ -633,7 +632,7 @@ exports[`MessageComposer Quote Add quote \`abc\` 1`] = `
                   },
                   {
                     "backgroundColor": "transparent",
-                    "color": "#2F343D",
+                    "color": undefined,
                     "fontFamily": "Inter",
                     "fontSize": 14,
                     "fontWeight": "400",
@@ -764,7 +763,6 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -908,8 +906,8 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
               {
                 "backgroundColor": "#F7F8FA",
                 "borderBottomRightRadius": 4,
-                "borderColor": "#EBECEF",
-                "borderLeftColor": "#9EA2A8",
+                "borderColor": undefined,
+                "borderLeftColor": undefined,
                 "borderTopRightRadius": 4,
                 "borderWidth": 1,
                 "height": 64,
@@ -943,7 +941,7 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#1F2329",
+                      "color": undefined,
                       "flexShrink": 1,
                       "fontFamily": "Inter",
                       "fontSize": 14,
@@ -958,7 +956,7 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#9EA2A8",
+                      "color": undefined,
                       "fontFamily": "Inter",
                       "fontSize": 12,
                       "fontWeight": "400",
@@ -1051,7 +1049,7 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
                   },
                   {
                     "backgroundColor": "transparent",
-                    "color": "#2F343D",
+                    "color": undefined,
                     "fontFamily": "Inter",
                     "fontSize": 14,
                     "fontWeight": "400",
@@ -1083,8 +1081,8 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
               {
                 "backgroundColor": "#F7F8FA",
                 "borderBottomRightRadius": 4,
-                "borderColor": "#EBECEF",
-                "borderLeftColor": "#9EA2A8",
+                "borderColor": undefined,
+                "borderLeftColor": undefined,
                 "borderTopRightRadius": 4,
                 "borderWidth": 1,
                 "height": 64,
@@ -1118,7 +1116,7 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#1F2329",
+                      "color": undefined,
                       "flexShrink": 1,
                       "fontFamily": "Inter",
                       "fontSize": 14,
@@ -1133,7 +1131,7 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#9EA2A8",
+                      "color": undefined,
                       "fontFamily": "Inter",
                       "fontSize": 12,
                       "fontWeight": "400",
@@ -1226,7 +1224,7 @@ exports[`MessageComposer Quote Add quote \`def\` 1`] = `
                   },
                   {
                     "backgroundColor": "transparent",
-                    "color": "#2F343D",
+                    "color": undefined,
                     "fontFamily": "Inter",
                     "fontSize": 14,
                     "fontWeight": "400",
@@ -1357,7 +1355,6 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -1501,8 +1498,8 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
               {
                 "backgroundColor": "#F7F8FA",
                 "borderBottomRightRadius": 4,
-                "borderColor": "#EBECEF",
-                "borderLeftColor": "#9EA2A8",
+                "borderColor": undefined,
+                "borderLeftColor": undefined,
                 "borderTopRightRadius": 4,
                 "borderWidth": 1,
                 "height": 64,
@@ -1536,7 +1533,7 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#1F2329",
+                      "color": undefined,
                       "flexShrink": 1,
                       "fontFamily": "Inter",
                       "fontSize": 14,
@@ -1551,7 +1548,7 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#9EA2A8",
+                      "color": undefined,
                       "fontFamily": "Inter",
                       "fontSize": 12,
                       "fontWeight": "400",
@@ -1644,7 +1641,7 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
                   },
                   {
                     "backgroundColor": "transparent",
-                    "color": "#2F343D",
+                    "color": undefined,
                     "fontFamily": "Inter",
                     "fontSize": 14,
                     "fontWeight": "400",
@@ -1676,8 +1673,8 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
               {
                 "backgroundColor": "#F7F8FA",
                 "borderBottomRightRadius": 4,
-                "borderColor": "#EBECEF",
-                "borderLeftColor": "#9EA2A8",
+                "borderColor": undefined,
+                "borderLeftColor": undefined,
                 "borderTopRightRadius": 4,
                 "borderWidth": 1,
                 "height": 64,
@@ -1711,7 +1708,7 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#1F2329",
+                      "color": undefined,
                       "flexShrink": 1,
                       "fontFamily": "Inter",
                       "fontSize": 14,
@@ -1726,7 +1723,7 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
                   style={
                     {
                       "backgroundColor": "transparent",
-                      "color": "#9EA2A8",
+                      "color": undefined,
                       "fontFamily": "Inter",
                       "fontSize": 12,
                       "fontWeight": "400",
@@ -1819,7 +1816,7 @@ exports[`MessageComposer Quote Remove a quote 1`] = `
                   },
                   {
                     "backgroundColor": "transparent",
-                    "color": "#2F343D",
+                    "color": undefined,
                     "fontFamily": "Inter",
                     "fontSize": 14,
                     "fontWeight": "400",
@@ -1875,7 +1872,6 @@ exports[`MessageComposer Toolbar Markdown tap bold 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -2446,7 +2442,6 @@ exports[`MessageComposer Toolbar Markdown tap code 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -3017,7 +3012,6 @@ exports[`MessageComposer Toolbar Markdown tap code-block 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -3588,7 +3582,6 @@ exports[`MessageComposer Toolbar Markdown tap italic 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -4159,7 +4152,6 @@ exports[`MessageComposer Toolbar Markdown tap markdown 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -4730,7 +4722,6 @@ exports[`MessageComposer Toolbar Markdown tap strike 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -5301,7 +5292,6 @@ exports[`MessageComposer Toolbar Markdown type test and tap bold 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -5872,7 +5862,6 @@ exports[`MessageComposer Toolbar Markdown type test and tap code 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -6443,7 +6432,6 @@ exports[`MessageComposer Toolbar Markdown type test and tap code-block 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -7014,7 +7002,6 @@ exports[`MessageComposer Toolbar Markdown type test and tap italic 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -7585,7 +7572,6 @@ exports[`MessageComposer Toolbar Markdown type test and tap strike 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -8156,7 +8142,6 @@ exports[`MessageComposer Toolbar tap actions 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -8583,7 +8568,6 @@ exports[`MessageComposer Toolbar tap emoji 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -8867,7 +8851,6 @@ exports[`MessageComposer Toolbar tap mention 1`] = `
           onFocus={[Function]}
           onSelectionChange={[Function]}
           placeholder=""
-          placeholderTextColor="#9EA2A8"
           style={
             [
               {
@@ -9343,14 +9326,13 @@ exports[`MessageComposer Toolbar tap mention 1`] = `
             onGestureHandlerStateChange={[Function]}
             onHandlerStateChange={[Function]}
             onPress={[Function]}
-            rippleColor={4279259806}
             style={
               {
                 "backgroundColor": "#FFFFFF",
               }
             }
             testID="autocomplete-item-all"
-            underlayColor="#10529E"
+            underlayColor="black"
           >
             <View
               collapsable={false}
@@ -9416,7 +9398,7 @@ exports[`MessageComposer Toolbar tap mention 1`] = `
                       style={
                         {
                           "backgroundColor": "transparent",
-                          "color": "#2F343D",
+                          "color": undefined,
                           "fontFamily": "Inter",
                           "fontSize": 14,
                           "fontWeight": "700",
@@ -9442,7 +9424,7 @@ exports[`MessageComposer Toolbar tap mention 1`] = `
                     style={
                       {
                         "backgroundColor": "transparent",
-                        "color": "#6C727A",
+                        "color": undefined,
                         "flex": 1,
                         "fontFamily": "Inter",
                         "fontSize": 14,
@@ -9475,14 +9457,13 @@ exports[`MessageComposer Toolbar tap mention 1`] = `
             onGestureHandlerStateChange={[Function]}
             onHandlerStateChange={[Function]}
             onPress={[Function]}
-            rippleColor={4279259806}
             style={
               {
                 "backgroundColor": "#FFFFFF",
               }
             }
             testID="autocomplete-item-here"
-            underlayColor="#10529E"
+            underlayColor="black"
           >
             <View
               collapsable={false}
@@ -9548,7 +9529,7 @@ exports[`MessageComposer Toolbar tap mention 1`] = `
                       style={
                         {
                           "backgroundColor": "transparent",
-                          "color": "#2F343D",
+                          "color": undefined,
                           "fontFamily": "Inter",
                           "fontSize": 14,
                           "fontWeight": "700",
@@ -9574,7 +9555,7 @@ exports[`MessageComposer Toolbar tap mention 1`] = `
                     style={
                       {
                         "backgroundColor": "transparent",
-                        "color": "#6C727A",
+                        "color": undefined,
                         "flex": 1,
                         "fontFamily": "Inter",
                         "fontSize": 14,
@@ -9681,7 +9662,6 @@ exports[`MessageComposer renders correctly 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -9872,7 +9852,6 @@ exports[`MessageComposer renders correctly with audio recorder disabled 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -10022,7 +10001,6 @@ exports[`MessageComposer renders correctly with audio recorder disabled and with
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -10172,7 +10150,6 @@ exports[`MessageComposer renders correctly without audio upload permissions 1`] 
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -10247,7 +10224,6 @@ exports[`MessageComposer renders toolbar when focused 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {
@@ -10749,7 +10725,6 @@ exports[`MessageComposer send message 1`] = `
         onFocus={[Function]}
         onSelectionChange={[Function]}
         placeholder=""
-        placeholderTextColor="#9EA2A8"
         style={
           [
             {

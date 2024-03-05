@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { DrawerNavigationState } from '@react-navigation/native';
-import { Alert, ScrollView, Text, TouchableWithoutFeedback, View, Linking } from 'react-native';
+import { Alert, Image, ScrollView, Text, TouchableWithoutFeedback, View, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { dequal } from 'dequal';
 import { Dispatch } from 'redux';
@@ -26,6 +26,18 @@ import * as List from '../../containers/List';
 import { IActionSheetProvider, showActionSheetRef, withActionSheet } from '../../containers/ActionSheet';
 import { setNotificationPresenceCap } from '../../actions/app';
 import { SupportedVersionsWarning } from '../../containers/SupportedVersions';
+
+import { navigateTo247Chat, navToTechSupport, navigateToVirtualHappyHour } from '../HomeView/helpers';
+
+const settingsIcon = require('../../static/images/sidepanel/settings.png');
+const techSupportIcon = require('../../static/images/support-solid.png');
+const calendarIcon = require('../../static/images/calendar-solid.png');
+const discussionIcon = require('../../static/images/discussion-solid.png');
+const peerSupportIcon = require('../../static/images/peer-supporter-solid.png');
+const editIcon = require('../../static/images/sidepanel/edit.png');
+const message247Icon = require('../../static/images/sidepanel/247.png');
+const messagingIcon = require('../../static/images/sidepanel/messaging.png');
+const happyHourIcon = require('../../static/images/happy-hour-solid.png');
 
 interface ISidebarState {
 	showStatus: boolean;
@@ -73,7 +85,6 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 			useRealName,
 			theme,
 			Presence_broadcast_disabled,
-			supportedVersionsStatus,
 			viewStatisticsPermission,
 			viewRoomAdministrationPermission,
 			viewUserAdministrationPermission,
@@ -111,9 +122,6 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 			return true;
 		}
 		if (nextProps.Presence_broadcast_disabled !== Presence_broadcast_disabled) {
-			return true;
-		}
-		if (nextProps.supportedVersionsStatus !== supportedVersionsStatus) {
 			return true;
 		}
 		if (!dequal(nextProps.viewStatisticsPermission, viewStatisticsPermission)) {
@@ -161,7 +169,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 
 	sidebarNavigate = (route: string) => {
 		// @ts-ignore
-		logEvent(events[`SIDEBAR_GO_${route.replace('StackNavigator', '').replace('View', '').toUpperCase()}`]);
+		logEvent(events[`SIDEBAR_GO_${route.replace('View', '').toUpperCase()}`]);
 		Navigation.navigate(route);
 	};
 
@@ -175,6 +183,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		if (isMasterDetail) {
 			return;
 		}
+		this.sidebarNavigate('HomeView');
 		navigation?.closeDrawer();
 	};
 
@@ -205,21 +214,12 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		);
 	};
 
-	onPressSupportedVersionsWarning = () => {
-		const { isMasterDetail } = this.props;
-		if (isMasterDetail) {
-			Navigation.navigate('ModalStackNavigator', { screen: 'SupportedVersionsWarning' });
-		} else {
-			showActionSheetRef({ children: <SupportedVersionsWarning /> });
-		}
-	};
-
 	renderAdmin = () => {
 		const { theme, isMasterDetail } = this.props;
 		if (!this.getIsAdmin()) {
 			return null;
 		}
-		const routeName = isMasterDetail ? 'AdminPanelView' : 'AdminPanelStackNavigator';
+		const routeName = isMasterDetail ? 'AdminPanelView' : 'AdminPanelView';
 		return (
 			<>
 				<List.Separator />
@@ -235,41 +235,118 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		);
 	};
 
-	renderNavigation = () => {
-		const { theme } = this.props;
+	additionalPanels = (theme, iconStyle) => {
+		const iconStyles = { ...iconStyle, backgroundColor: 'black' };
+		const isPeerSupporter = this.props.user?.roles?.includes('peer-supporter');
+		const admin = this.getIsAdmin();
+
+		if (!isPeerSupporter && !admin) {
+			return null;
+		}
+
 		return (
 			<>
+				{isPeerSupporter && (
+					<SidebarItem
+						text={I18n.t('PostModeration')}
+						left={<View style={iconStyles} />}
+						onPress={() => this.sidebarNavigate('ChatsView')}
+						testID='sidebar-chats'
+						theme={theme!}
+						disabled={true}
+					/>
+				)}
+				<List.Separator />
+			</>
+		);
+	};
+
+	renderNavigation = () => {
+		const { theme } = this.props;
+		const iconStyles = { height: 20, width: 20, tintColor: themes[theme!].titleText, borderRadius: 10 };
+		return (
+			<>
+				{this.additionalPanels(theme, iconStyles)}
 				<SidebarItem
-					text={I18n.t('Chats')}
-					left={<CustomIcon name='message' size={20} color={themes[theme!].fontTitlesLabels} />}
-					onPress={() => this.sidebarNavigate('ChatsStackNavigator')}
+					text={I18n.t('Home')}
+					left={<CustomIcon name='home' size={24} color={iconStyles.tintColor} />}
+					onPress={() => this.sidebarNavigate('HomeView')}
+					testID='home-screen'
+					theme={theme!}
+					current={this.currentItemKey === 'HomeView'}
+				/>
+				<SidebarItem
+					text={I18n.t('Direct_messaging')}
+					left={<Image source={messagingIcon} style={iconStyles} />}
+					onPress={() => this.sidebarNavigate('RoomsListView')}
 					testID='sidebar-chats'
 					theme={theme!}
-					current={this.currentItemKey === 'ChatsStackNavigator'}
+					current={this.currentItemKey === 'ChatsView'}
 				/>
 				<SidebarItem
-					text={I18n.t('Profile')}
-					left={<CustomIcon name='user' size={20} color={themes[theme!].fontTitlesLabels} />}
-					onPress={() => this.sidebarNavigate('ProfileStackNavigator')}
-					testID='sidebar-profile'
+					text={I18n.t('DiscussionBoards')}
+					left={<Image source={discussionIcon} style={iconStyles} />}
+					onPress={() => this.sidebarNavigate('DiscussionHomeView')}
+					testID='sidebar-discussion'
 					theme={theme!}
-					current={this.currentItemKey === 'ProfileStackNavigator'}
+					current={this.currentItemKey === 'DiscussionHomeView'}
 				/>
 				<SidebarItem
-					text={I18n.t('Display')}
-					left={<CustomIcon name='sort' size={20} color={themes[theme!].fontTitlesLabels} />}
-					onPress={() => this.sidebarNavigate('DisplayPrefStackNavigator')}
-					testID='sidebar-display'
+					text={I18n.t('PeerSupporterLibrary')}
+					left={<Image source={peerSupportIcon} style={iconStyles} />}
+					onPress={() => this.sidebarNavigate('ProfileLibraryView')}
 					theme={theme!}
-					current={this.currentItemKey === 'DisplayPrefStackNavigator'}
+					testID='sidebar-profile-library'
+					current={this.currentItemKey === 'ProfileLibraryView'}
+				/>
+				<SidebarItem
+					text={I18n.t('247ChatRoom')}
+					left={<Image source={message247Icon} style={iconStyles} resizeMode='contain' />}
+					onPress={() => {
+						navigateTo247Chat(Navigation, this.props.isMasterDetail);
+					}}
+					testID='sidebar-247chat'
+					theme={theme!}
+					current={this.currentItemKey === 'todo'}
+				/>
+				<SidebarItem
+					text={I18n.t('VirtualHappyHour')}
+					left={<Image source={happyHourIcon} style={iconStyles} />}
+					onPress={() => {
+						navigateToVirtualHappyHour(Navigation, this.props.isMasterDetail);
+					}}
+					testID='sidebar-happy-hour'
+					theme={theme!}
+					current={this.currentItemKey === 'todo'}
+				/>
+				<SidebarItem
+					text={I18n.t('Calendar')}
+					left={<Image source={calendarIcon} style={iconStyles} />}
+					onPress={() => {
+						// this.sidebarNavigate('DisplayPrefView')
+					}}
+					testID='sidebar-calendar'
+					theme={theme!}
+					current={this.currentItemKey === 'todo'}
+					disabled={true}
+				/>
+				<SidebarItem
+					text={I18n.t('TechSupport')}
+					left={<Image source={techSupportIcon} style={iconStyles} />}
+					onPress={() => {
+						navToTechSupport(Navigation, this.props.isMasterDetail);
+					}}
+					testID='sidebar-tech-support'
+					theme={theme!}
+					current={this.currentItemKey === 'todo'}
 				/>
 				<SidebarItem
 					text={I18n.t('Settings')}
-					left={<CustomIcon name='administration' size={20} color={themes[theme!].fontTitlesLabels} />}
-					onPress={() => this.sidebarNavigate('SettingsStackNavigator')}
+					left={<CustomIcon name='administration' size={20} color={themes[theme!].titleText} />}
+					onPress={() => this.sidebarNavigate('SettingsView')}
 					testID='sidebar-settings'
 					theme={theme!}
-					current={this.currentItemKey === 'SettingsStackNavigator'}
+					current={this.currentItemKey === 'SettingsView'}
 				/>
 				{this.renderAdmin()}
 			</>
@@ -277,47 +354,18 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 	};
 
 	renderCustomStatus = () => {
-		const { user, theme, Presence_broadcast_disabled, notificationPresenceCap } = this.props;
-
-		let status = user?.status;
-		if (Presence_broadcast_disabled) {
-			status = 'disabled';
-		}
-
-		let right: React.ReactElement | undefined = <CustomIcon name='edit' size={20} color={themes[theme!].fontTitlesLabels} />;
-		if (notificationPresenceCap) {
-			right = <View style={[styles.customStatusDisabled, { backgroundColor: themes[theme!].userPresenceDisabled }]} />;
-		} else if (Presence_broadcast_disabled) {
-			right = undefined;
-		}
-
+		const { user, theme } = this.props;
+		const iconStyles = { height: 20, width: 20, tintColor: themes[theme!].titleText };
 		return (
 			<SidebarItem
 				text={user.statusText || I18n.t('Edit_Status')}
-				left={<Status size={24} status={status} />}
+				left={<Status size={24} status={user?.status} />}
 				theme={theme!}
-				right={right}
-				onPress={() => (Presence_broadcast_disabled ? this.onPressPresenceLearnMore() : this.sidebarNavigate('StatusView'))}
+				right={<Image source={editIcon} style={iconStyles} />}
+				onPress={() => this.sidebarNavigate('StatusView')}
 				testID={`sidebar-custom-status-${user.status}`}
 			/>
 		);
-	};
-
-	renderSupportedVersionsWarn = () => {
-		const { theme, supportedVersionsStatus } = this.props;
-		if (supportedVersionsStatus === 'warn') {
-			return (
-				<SidebarItem
-					text={I18n.t('Supported_versions_warning_update_required')}
-					textColor={themes[theme!].fontDanger}
-					left={<CustomIcon name='warning' size={20} color={themes[theme!].buttonBackgroundDangerDefault} />}
-					theme={theme!}
-					onPress={() => this.onPressSupportedVersionsWarning()}
-					testID={`sidebar-supported-versions-warn`}
-				/>
-			);
-		}
-		return null;
 	};
 
 	render() {
@@ -335,7 +383,8 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 							backgroundColor: isMasterDetail ? themes[theme!].surfaceRoom : themes[theme!].surfaceLight
 						}
 					]}
-					{...scrollPersistTaps}>
+					{...scrollPersistTaps}
+				>
 					<TouchableWithoutFeedback onPress={this.onPressUser} testID='sidebar-close-drawer'>
 						<View style={styles.header}>
 							<Avatar text={user.username} style={styles.avatar} size={30} />
@@ -348,15 +397,13 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 								<Text
 									style={[styles.currentServerText, { color: themes[theme!].fontTitlesLabels }]}
 									numberOfLines={1}
-									accessibilityLabel={`Connected to ${baseUrl}`}>
+									accessibilityLabel={`Connected to ${baseUrl}`}
+								>
 									{Site_Name}
 								</Text>
 							</View>
 						</View>
 					</TouchableWithoutFeedback>
-
-					<List.Separator />
-					{this.renderSupportedVersionsWarn()}
 
 					<List.Separator />
 
@@ -385,7 +432,6 @@ const mapStateToProps = (state: IApplicationState) => ({
 	allowStatusMessage: state.settings.Accounts_AllowUserStatusMessageChange as boolean,
 	Presence_broadcast_disabled: state.settings.Presence_broadcast_disabled as boolean,
 	notificationPresenceCap: state.app.notificationPresenceCap,
-	supportedVersionsStatus: state.supportedVersions.status,
 	isMasterDetail: state.app.isMasterDetail,
 	viewStatisticsPermission: state.permissions['view-statistics'] as string[],
 	viewRoomAdministrationPermission: state.permissions['view-room-administration'] as string[],
