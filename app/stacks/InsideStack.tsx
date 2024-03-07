@@ -172,7 +172,7 @@ const MainStackNavigator = () => {
 			<MainStack.Screen name='UserPreferencesView' component={UserPreferencesView} />
 			<MainStack.Screen name='UserNotificationPrefView' component={UserNotificationPrefView} />
 			<MainStack.Screen name='PushTroubleshootView' component={PushTroubleshootView} />
-			<MainStack.Screen name='ChangePasswordView' component={ChangePasswordView} options={{ title: 'Change Password' }}/>
+			<MainStack.Screen name='ChangePasswordView' component={ChangePasswordView} options={{ title: 'Change Password' }} />
 			{/* SettingsStackNavigator */}
 			<MainStack.Screen name='SettingsView' component={SettingsView} />
 			<MainStack.Screen name='SecurityPrivacyView' component={SecurityPrivacyView} />
@@ -181,16 +181,43 @@ const MainStackNavigator = () => {
 			<MainStack.Screen name='ThemeView' component={ThemeView} />
 			<MainStack.Screen name='DefaultBrowserView' component={DefaultBrowserView} />
 			<MainStack.Screen name='MediaAutoDownloadView' component={MediaAutoDownloadView} />
-			<MainStack.Screen name='ScreenLockConfigView' component={ScreenLockConfigView} options={ScreenLockConfigView.navigationOptions} />
+			<MainStack.Screen
+				name='ScreenLockConfigView'
+				component={ScreenLockConfigView}
+				options={ScreenLockConfigView.navigationOptions}
+			/>
 			{/* DiscussionStackNavigator */}
 			<MainStack.Screen name='DiscussionHomeView' component={DiscussionHomeView} options={DiscussionHomeView.navigationOptions} />
-			<MainStack.Screen name='DiscussionBoardView' component={DiscussionBoardView} options={DiscussionBoardView.navigationOptions} />
+			<MainStack.Screen
+				name='DiscussionBoardView'
+				component={DiscussionBoardView}
+				options={DiscussionBoardView.navigationOptions}
+			/>
 			<MainStack.Screen name='DiscussionPostView' component={DiscussionPostView} options={DiscussionPostView.navigationOptions} />
-			<MainStack.Screen name='DiscussionNewPostView' component={DiscussionNewPostView} options={DiscussionNewPostView.navigationOptions} />
-			<MainStack.Screen name='DiscussionSearchView' component={DiscussionSearchView} options={DiscussionSearchView.navigationOptions} />
+			<MainStack.Screen
+				name='DiscussionNewPostView'
+				component={DiscussionNewPostView}
+				options={DiscussionNewPostView.navigationOptions}
+			/>
+			<MainStack.Screen
+				name='DiscussionSearchView'
+				component={DiscussionSearchView}
+				options={DiscussionSearchView.navigationOptions}
+			/>
 			{/* AdminPanelStackNavigator */}
 			<MainStack.Screen name='AdminPanelView' component={AdminPanelView} />
 		</MainStack.Navigator>
+	);
+};
+
+// CalendarNavigator
+const CalendarStack = createStackNavigator();
+const CalendarStackNavigator = () => {
+	const { theme } = React.useContext(ThemeContext);
+	return (
+		<CalendarStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation }}>
+			<CalendarStack.Screen name='CalendarView' component={CalendarView} options={CalendarView.navigationOptions} />
+		</CalendarStack.Navigator>
 	);
 };
 
@@ -283,7 +310,7 @@ const InsideStackNavigator = () => {
 			<InsideStack.Screen
 				name='VideoPlayerView'
 				component={VideoPlayerView}
-				options={{ title: 'Peer Supporter Video', headerShown: true}}
+				options={{ title: 'Peer Supporter Video', headerShown: true }}
 			/>
 			<InsideStack.Screen name='NewMessageStackNavigator' component={NewMessageStackNavigator} options={{ headerShown: false }} />
 			<InsideStack.Screen
