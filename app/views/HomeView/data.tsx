@@ -38,11 +38,11 @@ export const smallTiles = [
 	},
 	{
 		title: 'Calendar',
-		screen: 'Calendar',
+		screen: 'CalendarStackNavigator',
 		size: SizeTypes.SMALL,
 		color: 'pink',
 		icon: require('../../static/images/calendar-solid.png'),
-		disabled: true
+		disabled: false
 	},
 	{
 		title: 'Direct Messaging',
