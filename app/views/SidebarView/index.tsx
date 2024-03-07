@@ -335,9 +335,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 				<SidebarItem
 					text={I18n.t('Calendar')}
 					left={<Image source={calendarIcon} style={iconStyles} />}
-					onPress={() => {
-						// this.sidebarNavigate('DisplayPrefStackNavigator')
-					}}
+					onPress={() => this.sidebarNavigate('CalendarStackNavigator')}
 					testID='sidebar-calendar'
 					theme={theme!}
 					current={this.currentItemKey === 'todo'}
