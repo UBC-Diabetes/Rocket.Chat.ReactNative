@@ -100,6 +100,9 @@ import DiscussionNewPostView from '../views/DiscussionBoard/NewPostView';
 import DiscussionSearchView from '../views/DiscussionBoard/SearchView';
 import ConnectView from '../views/DiscussionBoard/ConnectView';
 
+// Calendar Stack
+import CalendarView from '../views/CalendarView';
+
 
 // ChatsStackNavigator
 const ChatsStack = createStackNavigator<ChatsStackParamList & TNavigation>();
@@ -292,6 +295,21 @@ const DiscussionStackNavigator = () => {
 	);
 };
 
+// CalendarNavigator
+const CalendarStack = createStackNavigator();
+const CalendarStackNavigator = () => {
+	const { theme } = React.useContext(ThemeContext);
+	return (
+		<CalendarStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), ...StackAnimation }}>
+			<CalendarStack.Screen
+				name='CalendarView'
+				component={CalendarView}
+				options={CalendarView.navigationOptions}
+			/>
+		</CalendarStack.Navigator>
+	);
+};
+
 // DrawerNavigator
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerNavigator = () => {
@@ -314,6 +332,7 @@ const DrawerNavigator = () => {
 			<Drawer.Screen name='ChatsStackNavigator' component={ChatsStackNavigator} />
 			<Drawer.Screen name='ProfileLibraryNavigator' component={ProfileLibraryStackNavigator} />
 			<Drawer.Screen name='ProfileStackNavigator' component={ProfileStackNavigator} />
+			<Drawer.Screen name='CalendarStackNavigator' component={CalendarStackNavigator} />
 			<Drawer.Screen name='SettingsStackNavigator' component={SettingsStackNavigator} />
 			<Drawer.Screen name='AdminPanelStackNavigator' component={AdminPanelStackNavigator} />
 			<Drawer.Screen name='DisplayPrefStackNavigator' component={DisplayPrefStackNavigator} />
