@@ -1,26 +1,25 @@
-import { takeLatest, select } from 'redux-saga/effects';
+import { select, takeLatest } from 'redux-saga/effects';
 
-import RocketChat from '../lib/rocketchat';
-import { setBadgeCount } from '../notifications/push';
-import log from '../utils/log';
-import { localAuthenticate, saveLastLocalAuthenticationSession } from '../utils/localAuthentication';
+import log from '../lib/methods/helpers/log';
+import { localAuthenticate, saveLastLocalAuthenticationSession } from '../lib/methods/helpers/localAuthentication';
 import { APP_STATE } from '../actions/actionsTypes';
-import { ROOT_OUTSIDE } from '../actions/app';
+import { RootEnum } from '../definitions';
+import { Services } from '../lib/services';
 
 const appHasComeBackToForeground = function* appHasComeBackToForeground() {
 	const appRoot = yield select(state => state.app.root);
-	if (appRoot === ROOT_OUTSIDE) {
+	if (appRoot === RootEnum.ROOT_OUTSIDE) {
 		return;
 	}
-	const auth = yield select(state => state.login.isAuthenticated);
-	if (!auth) {
+	const login = yield select(state => state.login);
+	const server = yield select(state => state.server);
+	if (!login.isAuthenticated || login.isFetching || server.connecting || server.loading || server.changingServer) {
 		return;
 	}
 	try {
-		const server = yield select(state => state.server.server);
-		yield localAuthenticate(server);
-		setBadgeCount();
-		return yield RocketChat.setUserPresenceOnline();
+		yield localAuthenticate(server.server);
+		Services.checkAndReopen();
+		return yield Services.setUserPresenceOnline();
 	} catch (e) {
 		log(e);
 	}
@@ -28,22 +27,14 @@ const appHasComeBackToForeground = function* appHasComeBackToForeground() {
 
 const appHasComeBackToBackground = function* appHasComeBackToBackground() {
 	const appRoot = yield select(state => state.app.root);
-	if (appRoot === ROOT_OUTSIDE) {
-		return;
-	}
-	const auth = yield select(state => state.login.isAuthenticated);
-	if (!auth) {
-		return;
-	}
-	const localAuthenticated = yield select(state => state.login.isLocalAuthenticated);
-	if (!localAuthenticated) {
+	if (appRoot === RootEnum.ROOT_OUTSIDE) {
 		return;
 	}
 	try {
 		const server = yield select(state => state.server.server);
 		yield saveLastLocalAuthenticationSession(server);
 
-		yield RocketChat.setUserPresenceAway();
+		yield Services.setUserPresenceAway();
 	} catch (e) {
 		log(e);
 	}

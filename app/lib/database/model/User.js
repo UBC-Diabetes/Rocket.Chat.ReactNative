@@ -3,22 +3,18 @@ import { field, json } from '@nozbe/watermelondb/decorators';
 
 import { sanitizer } from '../utils';
 
+export const USERS_TABLE = 'users';
+
 export default class User extends Model {
-	static table = 'users';
+	static table = USERS_TABLE;
 
-	@field('token') token;
-
-	@field('username') username;
+	@field('_id') _id;
 
 	@field('name') name;
 
-	@field('language') language;
+	@field('username') username;
 
-	@field('status') status;
-
-	@field('statusText') statusText;
-
-	@field('login_email_password') loginEmailPassword;
+	@field('avatar_etag') avatarETag;
 
 	@json('roles', sanitizer) roles;
 }

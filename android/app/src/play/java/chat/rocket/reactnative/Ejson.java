@@ -31,6 +31,10 @@ public class Ejson {
     Sender sender;
     String messageId;
     String notificationType;
+    String senderName;
+    String msg;
+
+    String tmid;
 
     private MMKV mmkv;
 
@@ -38,6 +42,10 @@ public class Ejson {
 
     public Ejson() {
         ReactApplicationContext reactApplicationContext = CustomPushNotification.reactApplicationContext;
+
+        if (reactApplicationContext == null) {
+            return;
+        }
 
         // Start MMKV container
         MMKV.initialize(reactApplicationContext);
@@ -47,16 +55,8 @@ public class Ejson {
         String alias = Utils.toHex("com.MMKV.default");
 
         // Retrieve container password
-        secureKeystore.getSecureKey(alias, new RNCallback() {
-            @Override
-            public void invoke(Object... args) {
-                String error = (String) args[0];
-                if (error == null) {
-                    String password = (String) args[1];
-                    mmkv = MMKV.mmkvWithID("default", MMKV.SINGLE_PROCESS_MODE, password);
-                }
-            }
-        });
+        String password = secureKeystore.getSecureKey(alias);
+        mmkv = MMKV.mmkvWithID("default", MMKV.SINGLE_PROCESS_MODE, password);
     }
 
     public String getAvatarUri() {
@@ -80,6 +80,14 @@ public class Ejson {
             return mmkv.decodeString(TOKEN_KEY.concat(serverURL));
         }
         return "";
+    }
+
+    public String privateKey() {
+        String serverURL = serverURL();
+        if (mmkv != null && serverURL != null) {
+            return mmkv.decodeString(serverURL.concat("-RC_E2E_PRIVATE_KEY"));
+        }
+        return null;
     }
 
     public String serverURL() {

@@ -1,24 +1,28 @@
-import {
-	takeLatest, take, select, put, all, delay
-} from 'redux-saga/effects';
+import { all, call, delay, put, select, take, takeLatest } from 'redux-saga/effects';
 
-import UserPreferences from '../lib/userPreferences';
-import Navigation from '../lib/Navigation';
 import * as types from '../actions/actionsTypes';
+import { appInit, appStart } from '../actions/app';
+import { inviteLinksRequest, inviteLinksSetToken } from '../actions/inviteLinks';
+import { loginRequest } from '../actions/login';
 import { selectServerRequest, serverInitAdd } from '../actions/server';
-import { inviteLinksSetToken, inviteLinksRequest } from '../actions/inviteLinks';
+import { RootEnum } from '../definitions';
+import { CURRENT_SERVER, TOKEN_KEY } from '../lib/constants';
 import database from '../lib/database';
-import RocketChat from '../lib/rocketchat';
-import EventEmitter from '../utils/events';
-import {
-	appStart, ROOT_INSIDE, ROOT_NEW_SERVER, appInit
-} from '../actions/app';
-import { localAuthenticate } from '../utils/localAuthentication';
-import { goRoom } from '../utils/goRoom';
-import callJitsi from '../lib/methods/callJitsi';
+import { canOpenRoom, getServerInfo } from '../lib/methods';
+import { getUidDirectMessage } from '../lib/methods/helpers';
+import EventEmitter from '../lib/methods/helpers/events';
+import { goRoom, navigateToRoom } from '../lib/methods/helpers/goRoom';
+import { localAuthenticate } from '../lib/methods/helpers/localAuthentication';
+import log from '../lib/methods/helpers/log';
+import UserPreferences from '../lib/methods/userPreferences';
+import { videoConfJoin } from '../lib/methods/videoConf';
+import { Services } from '../lib/services';
 
 const roomTypes = {
-	channel: 'c', direct: 'd', group: 'p', channels: 'l'
+	channel: 'c',
+	direct: 'd',
+	group: 'p',
+	channels: 'l'
 };
 
 const handleInviteLink = function* handleInviteLink({ params, requireLogin = false }) {
@@ -33,29 +37,29 @@ const handleInviteLink = function* handleInviteLink({ params, requireLogin = fal
 };
 
 const navigate = function* navigate({ params }) {
-	yield put(appStart({ root: ROOT_INSIDE }));
-	if (params.path) {
-		const [type, name] = params.path.split('/');
-		if (type !== 'invite') {
-			const room = yield RocketChat.canOpenRoom(params);
+	yield put(appStart({ root: RootEnum.ROOT_INSIDE }));
+	if (params.path || params.rid) {
+		let type;
+		let name;
+		let jumpToThreadId;
+		if (params.path) {
+			// Following this pattern: {channelType}/{channelName}/thread/{threadId}
+			[type, name, , jumpToThreadId] = params.path.split('/');
+		}
+		if (type !== 'invite' || params.rid) {
+			const room = yield canOpenRoom(params);
 			if (room) {
-				const isMasterDetail = yield select(state => state.app.isMasterDetail);
-				if (isMasterDetail) {
-					Navigation.navigate('DrawerNavigator');
-				} else {
-					Navigation.navigate('RoomsListView');
-				}
 				const item = {
 					name,
 					t: roomTypes[type],
-					roomUserId: RocketChat.getUidDirectMessage(room),
+					roomUserId: getUidDirectMessage(room),
 					...room
 				};
-				yield goRoom({ item, isMasterDetail });
 
-				if (params.isCall) {
-					callJitsi(item.rid);
-				}
+				const isMasterDetail = yield select(state => state.app.isMasterDetail);
+				const jumpToMessageId = params.messageId;
+
+				yield goRoom({ item, isMasterDetail, jumpToMessageId, jumpToThreadId, popToRoot: true });
 			}
 		} else {
 			yield handleInviteLink({ params });
@@ -71,19 +75,24 @@ const fallbackNavigation = function* fallbackNavigation() {
 	yield put(appInit());
 };
 
+const handleOAuth = function* handleOAuth({ params }) {
+	const { credentialToken, credentialSecret } = params;
+	try {
+		yield Services.loginOAuthOrSso({ oauth: { credentialToken, credentialSecret } }, false);
+	} catch (e) {
+		log(e);
+	}
+};
+
 const handleOpen = function* handleOpen({ params }) {
 	const serversDB = database.servers;
-	const serversCollection = serversDB.collections.get('servers');
+	const serversCollection = serversDB.get('servers');
 
 	let { host } = params;
-	if (params.isCall && !host) {
-		const servers = yield serversCollection.query().fetch();
-		// search from which server is that call
-		servers.forEach(({ uniqueID, id }) => {
-			if (params.path.includes(uniqueID)) {
-				host = id;
-			}
-		});
+
+	if (params.type === 'oauth') {
+		yield handleOAuth({ params });
+		return;
 	}
 
 	// If there's no host on the deep link params and the app is opened, just call appInit()
@@ -94,7 +103,11 @@ const handleOpen = function* handleOpen({ params }) {
 
 	// If there's host, continue
 	if (!/^(http|https)/.test(host)) {
-		host = `https://${ host }`;
+		if (/^localhost(:\d+)?/.test(host)) {
+			host = `http://${host}`;
+		} else {
+			host = `https://${host}`;
+		}
 	} else {
 		// Notification should always come from https
 		host = host.replace('http://', 'https://');
@@ -105,8 +118,8 @@ const handleOpen = function* handleOpen({ params }) {
 	}
 
 	const [server, user] = yield all([
-		UserPreferences.getStringAsync(RocketChat.CURRENT_SERVER),
-		UserPreferences.getStringAsync(`${ RocketChat.TOKEN_KEY }-${ host }`)
+		UserPreferences.getString(CURRENT_SERVER),
+		UserPreferences.getString(`${TOKEN_KEY}-${host}`)
 	]);
 
 	// TODO: needs better test
@@ -122,10 +135,10 @@ const handleOpen = function* handleOpen({ params }) {
 	} else {
 		// search if deep link's server already exists
 		try {
-			const servers = yield serversCollection.find(host);
-			if (servers && user) {
+			const hostServerRecord = yield serversCollection.find(host);
+			if (hostServerRecord && user) {
 				yield localAuthenticate(host);
-				yield put(selectServerRequest(host));
+				yield put(selectServerRequest(host, hostServerRecord.version, true, true));
 				yield take(types.LOGIN.SUCCESS);
 				yield navigate({ params });
 				return;
@@ -134,20 +147,20 @@ const handleOpen = function* handleOpen({ params }) {
 			// do nothing?
 		}
 		// if deep link is from a different server
-		const result = yield RocketChat.getServerInfo(host);
+		const result = yield getServerInfo(host);
 		if (!result.success) {
 			// Fallback to prevent the app from being stuck on splash screen
 			yield fallbackNavigation();
 			return;
 		}
-		yield put(appStart({ root: ROOT_NEW_SERVER }));
+		yield put(appStart({ root: RootEnum.ROOT_OUTSIDE }));
 		yield put(serverInitAdd(server));
 		yield delay(1000);
 		EventEmitter.emit('NewServer', { server: host });
 
 		if (params.token) {
 			yield take(types.SERVER.SELECT_SUCCESS);
-			yield RocketChat.connect({ server: host, user: { token: params.token } });
+			yield put(loginRequest({ resume: params.token }, true));
 			yield take(types.LOGIN.SUCCESS);
 			yield navigate({ params });
 		} else {
@@ -156,7 +169,90 @@ const handleOpen = function* handleOpen({ params }) {
 	}
 };
 
+const handleNavigateCallRoom = function* handleNavigateCallRoom({ params }) {
+	yield put(appStart({ root: RootEnum.ROOT_INSIDE }));
+	const db = database.active;
+	const subsCollection = db.get('subscriptions');
+	const room = yield subsCollection.find(params.rid);
+	if (room) {
+		const isMasterDetail = yield select(state => state.app.isMasterDetail);
+		yield navigateToRoom({ item: room, isMasterDetail, popToRoot: true });
+		const uid = params.caller._id;
+		const { rid, callId, event } = params;
+		if (event === 'accept') {
+			yield call(Services.notifyUser, `${uid}/video-conference`, {
+				action: 'accepted',
+				params: { uid, rid, callId }
+			});
+			yield videoConfJoin(callId, true, false, true);
+		} else if (event === 'decline') {
+			yield call(Services.notifyUser, `${uid}/video-conference`, {
+				action: 'rejected',
+				params: { uid, rid, callId }
+			});
+		}
+	}
+};
+
+const handleClickCallPush = function* handleOpen({ params }) {
+	const serversDB = database.servers;
+	const serversCollection = serversDB.get('servers');
+
+	let { host } = params;
+
+	if (host.slice(-1) === '/') {
+		host = host.slice(0, host.length - 1);
+	}
+
+	const [server, user] = yield all([
+		UserPreferences.getString(CURRENT_SERVER),
+		UserPreferences.getString(`${TOKEN_KEY}-${host}`)
+	]);
+
+	if (server === host && user) {
+		const connected = yield select(state => state.server.connected);
+		if (!connected) {
+			yield localAuthenticate(host);
+			yield put(selectServerRequest(host));
+			yield take(types.LOGIN.SUCCESS);
+		}
+		yield handleNavigateCallRoom({ params });
+	} else {
+		// search if deep link's server already exists
+		try {
+			const hostServerRecord = yield serversCollection.find(host);
+			if (hostServerRecord && user) {
+				yield localAuthenticate(host);
+				yield put(selectServerRequest(host, hostServerRecord.version, true, true));
+				yield take(types.LOGIN.SUCCESS);
+				yield handleNavigateCallRoom({ params });
+				return;
+			}
+		} catch (e) {
+			// do nothing?
+		}
+		// if deep link is from a different server
+		const result = yield Services.getServerInfo(host);
+		if (!result.success) {
+			// Fallback to prevent the app from being stuck on splash screen
+			yield fallbackNavigation();
+			return;
+		}
+		yield put(appStart({ root: RootEnum.ROOT_OUTSIDE }));
+		yield put(serverInitAdd(server));
+		yield delay(1000);
+		EventEmitter.emit('NewServer', { server: host });
+		if (params.token) {
+			yield take(types.SERVER.SELECT_SUCCESS);
+			yield put(loginRequest({ resume: params.token }, true));
+			yield take(types.LOGIN.SUCCESS);
+			yield handleNavigateCallRoom({ params });
+		}
+	}
+};
+
 const root = function* root() {
 	yield takeLatest(types.DEEP_LINKING.OPEN, handleOpen);
+	yield takeLatest(types.DEEP_LINKING.OPEN_VIDEO_CONF, handleClickCallPush);
 };
 export default root;

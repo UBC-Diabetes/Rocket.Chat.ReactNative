@@ -1,18 +1,22 @@
 module.exports = {
 	dependencies: {
-		'react-native-notifications': {
+		'@react-native-firebase/app': {
 			platforms: {
 				android: null
 			}
 		},
-		'react-native-keyboard-input': {
+		'@react-native-firebase/analytics': {
 			platforms: {
 				android: null
 			}
 		},
-		'@nozbe/watermelondb': {
+		'@react-native-firebase/crashlytics': {
 			platforms: {
-				android: null,
+				android: null
+			}
+		},
+		'@react-native-firebase/messaging': {
+			platforms: {
 				ios: null
 			}
 		}

@@ -20,6 +20,7 @@ yarn
 
 Run the app:
 ```sh
+npx pod-install
 yarn ios
 ```
 
@@ -32,6 +33,10 @@ yarn android
 At this point, the app should be running on the simulator or on your device!
 
 *Note: npm won't work on this project*
+
+### How to inspect the app
+
+We use [Reactotron](https://github.com/infinitered/reactotron) to inspect logs, redux state, redux-sagas, HTTP requests, etc.
 
 ## Issues needing help
 
@@ -48,6 +53,18 @@ To check for lint issues on your code, run this on your terminal:
 ```sh
 yarn lint
 ```
+
+## Code formatting
+
+We use [Prettier](https://prettier.io) to format the code style in our project. We have a pre-commit hook enforcing commits to follow our style guides.
+
+To fix your code formatting issues, run this on your terminal:
+
+```sh
+yarn prettier
+```
+
+[Check this link](https://prettier.io/docs/en/editors.html) to see how to integrate Prettier with your preferred code editor, and run Prettier when save your file for example.
 
 ## Tests
 

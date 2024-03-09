@@ -1,62 +1,59 @@
 import EJSON from 'ejson';
-import { takeLatest, select, put } from 'redux-saga/effects';
+import { put, select, takeLatest } from 'redux-saga/effects';
 
 import { ENCRYPTION } from '../actions/actionsTypes';
-import { encryptionSetBanner } from '../actions/encryption';
+import { encryptionSet } from '../actions/encryption';
 import { Encryption } from '../lib/encryption';
-import Navigation from '../lib/Navigation';
-import {
-	E2E_PUBLIC_KEY,
-	E2E_PRIVATE_KEY,
-	E2E_BANNER_TYPE,
-	E2E_RANDOM_PASSWORD_KEY
-} from '../lib/encryption/constants';
+import Navigation from '../lib/navigation/appNavigation';
 import database from '../lib/database';
-import RocketChat from '../lib/rocketchat';
-import UserPreferences from '../lib/userPreferences';
+import UserPreferences from '../lib/methods/userPreferences';
 import { getUserSelector } from '../selectors/login';
-import { showErrorAlert } from '../utils/info';
+import { showErrorAlert } from '../lib/methods/helpers/info';
 import I18n from '../i18n';
-import log from '../utils/log';
+import log from '../lib/methods/helpers/log';
+import { E2E_BANNER_TYPE, E2E_PRIVATE_KEY, E2E_PUBLIC_KEY, E2E_RANDOM_PASSWORD_KEY } from '../lib/constants';
+import { Services } from '../lib/services';
 
-const getServer = state => state.share.server || state.server.server;
+const getServer = state => state.share.server.server || state.server.server;
+const getE2eEnable = state => state.settings.E2E_Enable;
 
 const handleEncryptionInit = function* handleEncryptionInit() {
 	try {
 		const server = yield select(getServer);
 		const user = yield select(getUserSelector);
+		const E2E_Enable = yield select(getE2eEnable);
 
 		// Fetch server info to check E2E enable
 		const serversDB = database.servers;
-		const serversCollection = serversDB.collections.get('servers');
-		const serverInfo = yield serversCollection.find(server);
+		const serversCollection = serversDB.get('servers');
+		let serverInfo;
+		try {
+			serverInfo = yield serversCollection.find(server);
+		} catch {
+			// Server not found
+		}
 
 		// If E2E is disabled on server, skip
-		if (!serverInfo?.E2E_Enable) {
+		if (!serverInfo?.E2E_Enable && !E2E_Enable) {
 			return;
 		}
 
 		// Fetch stored private e2e key for this server
-		const storedPrivateKey = yield UserPreferences.getStringAsync(`${ server }-${ E2E_PRIVATE_KEY }`);
+		const storedPrivateKey = UserPreferences.getString(`${server}-${E2E_PRIVATE_KEY}`);
 
 		// Fetch server stored e2e keys
-		const keys = yield RocketChat.e2eFetchMyKeys();
+		const keys = yield Services.e2eFetchMyKeys();
 
 		// A private key was received from the server, but it's not saved locally yet
 		// Show the banner asking for the password
 		if (!storedPrivateKey && keys?.privateKey) {
-			yield put(encryptionSetBanner(E2E_BANNER_TYPE.REQUEST_PASSWORD));
+			yield put(encryptionSet(false, E2E_BANNER_TYPE.REQUEST_PASSWORD));
 			return;
 		}
 
-		// If the user has a private key stored, but never entered the password
-		const storedRandomPassword = yield UserPreferences.getStringAsync(`${ server }-${ E2E_RANDOM_PASSWORD_KEY }`);
-		if (storedRandomPassword) {
-			yield put(encryptionSetBanner(E2E_BANNER_TYPE.SAVE_PASSWORD));
-		}
-
 		// Fetch stored public e2e key for this server
-		let storedPublicKey = yield UserPreferences.getStringAsync(`${ server }-${ E2E_PUBLIC_KEY }`);
+		let storedPublicKey = UserPreferences.getString(`${server}-${E2E_PUBLIC_KEY}`);
+
 		// Prevent parse undefined
 		if (storedPublicKey) {
 			storedPublicKey = EJSON.parse(storedPublicKey);
@@ -68,11 +65,19 @@ const handleEncryptionInit = function* handleEncryptionInit() {
 		} else {
 			// Create new keys since the user doesn't have any
 			yield Encryption.createKeys(user.id, server);
-			yield put(encryptionSetBanner(E2E_BANNER_TYPE.SAVE_PASSWORD));
+		}
+
+		// If the user has a private key stored, but never entered the password
+		const storedRandomPassword = UserPreferences.getString(`${server}-${E2E_RANDOM_PASSWORD_KEY}`);
+
+		if (storedRandomPassword) {
+			yield put(encryptionSet(true, E2E_BANNER_TYPE.SAVE_PASSWORD));
+		} else {
+			yield put(encryptionSet(true));
 		}
 
 		// Decrypt all pending messages/subscriptions
-		Encryption.initialize();
+		Encryption.initialize(user.id);
 	} catch (e) {
 		log(e);
 	}
@@ -80,7 +85,7 @@ const handleEncryptionInit = function* handleEncryptionInit() {
 
 const handleEncryptionStop = function* handleEncryptionStop() {
 	// Hide encryption banner
-	yield put(encryptionSetBanner());
+	yield put(encryptionSet());
 	// Stop Encryption client
 	Encryption.stop();
 };
@@ -91,7 +96,7 @@ const handleEncryptionDecodeKey = function* handleEncryptionDecodeKey({ password
 		const user = yield select(getUserSelector);
 
 		// Fetch server stored e2e keys
-		const keys = yield RocketChat.e2eFetchMyKeys();
+		const keys = yield Services.e2eFetchMyKeys();
 
 		const publicKey = EJSON.parse(keys?.publicKey);
 
@@ -102,10 +107,10 @@ const handleEncryptionDecodeKey = function* handleEncryptionDecodeKey({ password
 		yield Encryption.persistKeys(server, publicKey, privateKey);
 
 		// Decrypt all pending messages/subscriptions
-		Encryption.initialize();
+		Encryption.initialize(user.id);
 
 		// Hide encryption banner
-		yield put(encryptionSetBanner());
+		yield put(encryptionSet(true));
 
 		Navigation.back();
 	} catch {

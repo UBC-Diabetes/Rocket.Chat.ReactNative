@@ -1,59 +1,83 @@
-import { put, takeLatest, all } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import RNBootSplash from 'react-native-bootsplash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import UserPreferences from '../lib/userPreferences';
-import { selectServerRequest } from '../actions/server';
+import { BIOMETRY_ENABLED_KEY, CURRENT_SERVER, TOKEN_KEY } from '../lib/constants';
+import UserPreferences from '../lib/methods/userPreferences';
+import { selectServerRequest, serverRequest } from '../actions/server';
 import { setAllPreferences } from '../actions/sortPreferences';
-import { toggleCrashReport, toggleAnalyticsEvents } from '../actions/crashReport';
 import { APP } from '../actions/actionsTypes';
-import RocketChat from '../lib/rocketchat';
-import log from '../utils/log';
+import log from '../lib/methods/helpers/log';
 import database from '../lib/database';
-import { localAuthenticate } from '../utils/localAuthentication';
-import { appStart, ROOT_OUTSIDE, appReady } from '../actions/app';
+import { localAuthenticate } from '../lib/methods/helpers/localAuthentication';
+import { appReady, appStart } from '../actions/app';
+import { RootEnum } from '../definitions';
+import { getSortPreferences } from '../lib/methods';
+import { deepLinkingClickCallPush } from '../actions/deepLinking';
+
+import appConfig from '../../app.json';
+
+import SERVER_URL from './serverConfig';
 
 export const initLocalSettings = function* initLocalSettings() {
-	const sortPreferences = yield RocketChat.getSortPreferences();
+	const sortPreferences = getSortPreferences();
 	yield put(setAllPreferences(sortPreferences));
-
-	const allowCrashReport = yield RocketChat.getAllowCrashReport();
-	yield put(toggleCrashReport(allowCrashReport));
-
-	const allowAnalyticsEvents = yield RocketChat.getAllowAnalyticsEvents();
-	yield put(toggleAnalyticsEvents(allowAnalyticsEvents));
 };
+
+const BIOMETRY_MIGRATION_KEY = 'kBiometryMigration';
 
 const restore = function* restore() {
 	try {
-		const { token, server } = yield all({
-			token: UserPreferences.getStringAsync(RocketChat.TOKEN_KEY),
-			server: UserPreferences.getStringAsync(RocketChat.CURRENT_SERVER)
-		});
+		const { server } = appConfig;
+		const userId = UserPreferences.getString(`${TOKEN_KEY}-${server}`);
 
-		if (!token || !server) {
-			yield all([
-				UserPreferences.removeItem(RocketChat.TOKEN_KEY),
-				UserPreferences.removeItem(RocketChat.CURRENT_SERVER)
-			]);
-			yield put(appStart({ root: ROOT_OUTSIDE }));
+		// Migration biometry setting from WatermelonDB to MMKV
+		// TODO: remove it after a few versions
+		const hasMigratedBiometry = UserPreferences.getBool(BIOMETRY_MIGRATION_KEY);
+		if (!hasMigratedBiometry) {
+			const serversDB = database.servers;
+			const serversCollection = serversDB.get('servers');
+			const servers = yield serversCollection.query().fetch();
+			const isBiometryEnabled = servers.some(server => !!server.biometry);
+			UserPreferences.setBool(BIOMETRY_ENABLED_KEY, isBiometryEnabled);
+			UserPreferences.setBool(BIOMETRY_MIGRATION_KEY, true);
+		}
+
+		if (!userId) {
+			const serversDB = database.servers;
+			const serversCollection = serversDB.get('servers');
+			const servers = yield serversCollection.query().fetch();
+
+			yield put(serverRequest(SERVER_URL));
+			yield put(appStart({ root: RootEnum.ROOT_OUTSIDE }));
 		} else {
 			const serversDB = database.servers;
-			const serverCollections = serversDB.collections.get('servers');
+			const serverCollections = serversDB.get('servers');
 
-			yield localAuthenticate(server);
-			const serverObj = yield serverCollections.find(server);
+			let serverObj;
+			try {
+				yield localAuthenticate(server);
+				serverObj = yield serverCollections.find(server);
+			} catch {
+				// Server not found
+			}
 			yield put(selectServerRequest(server, serverObj && serverObj.version));
 		}
 
 		yield put(appReady({}));
+		const pushNotification = yield call(AsyncStorage.getItem, 'pushNotification');
+		if (pushNotification) {
+			const pushNotification = yield call(AsyncStorage.removeItem, 'pushNotification');
+			yield call(deepLinkingClickCallPush, JSON.parse(pushNotification));
+		}
 	} catch (e) {
 		log(e);
-		yield put(appStart({ root: ROOT_OUTSIDE }));
+		yield put(appStart({ root: RootEnum.ROOT_OUTSIDE }));
 	}
 };
 
-const start = function start() {
-	RNBootSplash.hide();
+const start = function* start() {
+	yield RNBootSplash.hide({ fade: true });
 };
 
 const root = function* root() {
