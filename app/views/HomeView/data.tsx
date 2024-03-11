@@ -1,4 +1,4 @@
-import {SizeTypes} from './interfaces'
+import { SizeTypes } from './interfaces';
 
 export const largeTiles = [
 	{

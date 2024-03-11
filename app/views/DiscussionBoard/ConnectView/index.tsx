@@ -13,6 +13,7 @@ import { goRoom } from '../../../lib/methods/helpers/goRoom';
 import styles from './styles';
 
 const playIcon = require('../../../static/images/discussionboard/play_icon.png');
+
 const screenWidth = Dimensions.get('window').width;
 
 const ConnectView: React.FC = ({ route }: { route: any }) => {
@@ -61,7 +62,7 @@ const ConnectView: React.FC = ({ route }: { route: any }) => {
 	};
 
 	const goToRoom = (rid: string) => {
-		const room = { rid: rid, t: 'd' };
+		const room = { rid, t: 'd' };
 
 		const params = {
 			rid: room.rid,
@@ -80,15 +81,15 @@ const ConnectView: React.FC = ({ route }: { route: any }) => {
 		}
 	};
 
-	let age,
-		location,
-		bio,
-		t1dSince,
-		videoUrl = '';
+	let age;
+	let location;
+	let bio;
+	let t1dSince;
+	let videoUrl = '';
 
-	let devices = [];
+	const devices = [];
 	const customFields = userInfo?.customFields;
-	const name = userInfo.name;
+	const { name } = userInfo;
 
 	if (customFields) {
 		age = customFields.Age;
@@ -140,18 +141,19 @@ const ConnectView: React.FC = ({ route }: { route: any }) => {
 				<View style={styles.userInfoContainer}>
 					<View style={styles.userInfoTextContainerLeft}>
 						<Text style={styles.userInfoText}>T1D Since</Text>
-						<Text style={styles.userInfoTextGrey}>{t1dSince !== '' ? t1dSince : '-'}{age? ` (${age})` : ''}</Text>
+						<Text style={styles.userInfoTextGrey}>
+							{t1dSince !== '' ? t1dSince : '-'}
+							{age ? ` (${age})` : ''}
+						</Text>
 					</View>
 					<View style={styles.userInfoTextContainerRight}>
 						<Text style={styles.userInfoText}>Devices</Text>
 						{devices.length > 0 ? (
-							devices.map((device, index) => {
-								return (
-									<Text style={styles.userInfoTextGrey} key={index}>
-										{device}
-									</Text>
-								);
-							})
+							devices.map((device, index) => (
+								<Text style={styles.userInfoTextGrey} key={index}>
+									{device}
+								</Text>
+							))
 						) : (
 							<Text style={styles.userInfoTextGrey}>-</Text>
 						)}

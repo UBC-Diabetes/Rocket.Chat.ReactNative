@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: 25,
 		borderTopRightRadius: 25,
 		minHeight: 100,
-		elevation: 5,
+		elevation: 5
 	}
 });

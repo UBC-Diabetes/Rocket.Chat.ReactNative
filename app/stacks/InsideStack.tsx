@@ -100,7 +100,6 @@ import DiscussionNewPostView from '../views/DiscussionBoard/NewPostView';
 import DiscussionSearchView from '../views/DiscussionBoard/SearchView';
 import ConnectView from '../views/DiscussionBoard/ConnectView';
 
-
 // ChatsStackNavigator
 const ChatsStack = createStackNavigator<ChatsStackParamList & TNavigation>();
 const ChatsStackNavigator = () => {
@@ -250,7 +249,11 @@ const ProfileLibraryStackNavigator = () => {
 				component={ProfileLibraryView}
 				options={ProfileLibraryView.navigationOptions}
 			/>
-			<ProfileLibraryStack.Screen name='ConnectView' component={ConnectView} options={{...RoomInfoView.navigationOptions, ...{title: "Profile"}}} />
+			<ProfileLibraryStack.Screen
+				name='ConnectView'
+				component={ConnectView}
+				options={{ ...RoomInfoView.navigationOptions, ...{ title: 'Profile' } }}
+			/>
 			<ProfileLibraryStack.Screen name='RoomView' component={RoomView} options={RoomView.navigationOptions} />
 			<ProfileLibraryStack.Screen name='RoomInfoView' component={RoomInfoView} />
 		</ProfileLibraryStack.Navigator>

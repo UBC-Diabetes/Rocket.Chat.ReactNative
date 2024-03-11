@@ -224,7 +224,8 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 
 		this.setState({ saving: true });
 
-		const { name, username, email, newPassword, confirmPassword, currentPassword, avatar, customFields, twoFactorCode } = this.state;
+		const { name, username, email, newPassword, confirmPassword, currentPassword, avatar, customFields, twoFactorCode } =
+			this.state;
 		const { user, dispatch } = this.props;
 		const params = {} as IProfileParams;
 
@@ -295,8 +296,8 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 
 			const twoFactorOptions = params.currentPassword
 				? {
-					twoFactorCode: params.currentPassword,
-					twoFactorMethod: TwoFactorMethods.PASSWORD
+						twoFactorCode: params.currentPassword,
+						twoFactorMethod: TwoFactorMethods.PASSWORD
 				  }
 				: null;
 
@@ -388,7 +389,8 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 				testID={key}
 				onPress={onPress}
 				style={[styles.avatarButton, { opacity: disabled ? 0.5 : 1 }, { backgroundColor: themes[theme].borderColor }]}
-				enabled={!disabled}>
+				enabled={!disabled}
+			>
 				{child}
 			</Touch>
 		);
@@ -458,7 +460,8 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 								newValue[key] = value;
 								this.setState({ customFields: { ...customFields, ...newValue } });
 							}}
-							value={customFields[key]}>
+							value={customFields[key]}
+						>
 							<FormTextInput
 								inputRef={e => {
 									// @ts-ignore
@@ -471,7 +474,8 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 							/>
 						</RNPickerSelect>
 					);
-				} if (parsedCustomFields[key].type === 'numeric') {
+				}
+				if (parsedCustomFields[key].type === 'numeric') {
 					return (
 						<FormTextInput
 							inputRef={e => {
@@ -571,7 +575,8 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 			<KeyboardView
 				style={{ backgroundColor: themes[theme].auxiliaryBackground }}
 				contentContainerStyle={sharedStyles.container}
-				keyboardVerticalOffset={128}>
+				keyboardVerticalOffset={128}
+			>
 				<StatusBar />
 				<SafeAreaView testID='profile-view'>
 					<ScrollView contentContainerStyle={sharedStyles.containerScrollView} testID='profile-view-list' {...scrollPersistTaps}>

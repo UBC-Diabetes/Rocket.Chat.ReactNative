@@ -26,7 +26,6 @@ import * as List from '../../containers/List';
 import { IActionSheetProvider, showActionSheetRef, withActionSheet } from '../../containers/ActionSheet';
 import { setNotificationPresenceCap } from '../../actions/app';
 import { SupportedVersionsWarning } from '../../containers/SupportedVersions';
-
 import { navigateTo247Chat, navToTechSupport, navigateToVirtualHappyHour } from '../HomeView/helpers';
 
 const settingsIcon = require('../../static/images/sidepanel/settings.png');
@@ -248,7 +247,6 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		);
 	};
 
-
 	additionalPanels = (theme, iconStyle) => {
 		const iconStyles = { ...iconStyle, backgroundColor: 'black' };
 		const isPeerSupporter = this.props.user?.roles?.includes('peer-supporter');
@@ -283,7 +281,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 				{this.additionalPanels(theme, iconStyles)}
 				<SidebarItem
 					text={I18n.t('Home')}
-					left={<CustomIcon name='home' size={24} color={iconStyles.tintColor}/>}
+					left={<CustomIcon name='home' size={24} color={iconStyles.tintColor} />}
 					onPress={() => this.sidebarNavigate('HomeStackNavigator')}
 					testID='home-screen'
 					theme={theme!}
@@ -326,7 +324,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					text={I18n.t('VirtualHappyHour')}
 					left={<Image source={happyHourIcon} style={iconStyles} />}
 					onPress={() => {
-						navigateToVirtualHappyHour(Navigation, this.props.isMasterDetail)
+						navigateToVirtualHappyHour(Navigation, this.props.isMasterDetail);
 					}}
 					testID='sidebar-happy-hour'
 					theme={theme!}
@@ -347,7 +345,7 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 					text={I18n.t('TechSupport')}
 					left={<Image source={techSupportIcon} style={iconStyles} />}
 					onPress={() => {
-						navToTechSupport(Navigation, this.props.isMasterDetail)
+						navToTechSupport(Navigation, this.props.isMasterDetail);
 					}}
 					testID='sidebar-tech-support'
 					theme={theme!}
@@ -374,15 +372,12 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 				text={user.statusText || I18n.t('Edit_Status')}
 				left={<Status size={24} status={user?.status} />}
 				theme={theme!}
-				right={
-					<Image source={editIcon} style={iconStyles} />
-				}
+				right={<Image source={editIcon} style={iconStyles} />}
 				onPress={() => this.sidebarNavigate('StatusView')}
 				testID={`sidebar-custom-status-${user.status}`}
 			/>
 		);
 	};
-
 
 	renderSupportedVersionsWarn = () => {
 		const { theme, supportedVersionsStatus } = this.props;

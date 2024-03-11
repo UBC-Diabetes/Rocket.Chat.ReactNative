@@ -72,7 +72,7 @@ const HomeView: React.FC = () => {
 						} else if (screen === 'TechSupport') {
 							navToTechSupport(Navigation, isMasterDetail);
 						} else {
-						navigation.navigate(screen);
+							navigation.navigate(screen);
 						}
 					}
 				}}

@@ -16,7 +16,7 @@ import { IApplicationState, TMessageModel, TThreadModel } from '../../../definit
 import PostCard from '../Components/DiscussionPostCard';
 import { messageTypesToRemove } from '../data';
 import { getIcon, handleStar } from '../helpers';
-import RoomServices from './../../RoomView/services';
+import RoomServices from '../../RoomView/services';
 import database from '../../../lib/database';
 import { compareServerVersion } from '../../../lib/methods/helpers';
 import { getUserSelector } from '../../../selectors/login';
@@ -147,12 +147,10 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 				}
 
 				// filter out messages
-				messages = messages.filter(m => {
-					return !(MESSAGE_TYPE_ANY_LOAD.includes(m.t) || messageTypesToRemove.includes(m.t));
-				});
+				messages = messages.filter(m => !(MESSAGE_TYPE_ANY_LOAD.includes(m.t) || messageTypesToRemove.includes(m.t)));
 
 				const formattedMessages = messages.map(m => {
-					let object = { ...m };
+					const object = { ...m };
 					try {
 						if (m?._raw?.u?.length && m._raw.u.length > 0 && m._raw.u !== '[]') {
 							object._raw.u = JSON.parse(m._raw.u);
@@ -181,33 +179,31 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 		loadMessages();
 	};
 
-	const renderBoards = () => {
-		return (
-			<FlatList
-				data={discussions}
-				renderItem={({ item }) => (
-					<PostCard
-						{...item}
-						onPress={(params: any) => navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })}
-						starPost={(message: any) => handleStar(message, loadMessages)}
-						roomId={route.params?.item}
-					/>
-				)}
-				keyExtractor={(item, id) => item?._id + id}
-				ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
-				style={{ paddingHorizontal: 20, paddingTop: 10, marginBottom: 80 }}
-				onEndReached={() => {
-					if (discussions?.length > 9) {
-						setQueryCount(queryCount + QUERY_SIZE);
-						loadMessages();
-					}
-				}}
-				showsVerticalScrollIndicator={false}
-				onRefresh={() => handleUpdate()}
-				refreshing={loading}
-			/>
-		);
-	};
+	const renderBoards = () => (
+		<FlatList
+			data={discussions}
+			renderItem={({ item }) => (
+				<PostCard
+					{...item}
+					onPress={(params: any) => navigation.navigate('DiscussionPostView', { ...params, room: route.params?.item })}
+					starPost={(message: any) => handleStar(message, loadMessages)}
+					roomId={route.params?.item}
+				/>
+			)}
+			keyExtractor={(item, id) => item?._id + id}
+			ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
+			style={{ paddingHorizontal: 20, paddingTop: 10, marginBottom: 80 }}
+			onEndReached={() => {
+				if (discussions?.length > 9) {
+					setQueryCount(queryCount + QUERY_SIZE);
+					loadMessages();
+				}
+			}}
+			showsVerticalScrollIndicator={false}
+			onRefresh={() => handleUpdate()}
+			refreshing={loading}
+		/>
+	);
 
 	return (
 		<View style={styles.mainContainer}>

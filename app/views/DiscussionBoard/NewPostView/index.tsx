@@ -195,7 +195,7 @@ const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 				close={() => setShowReadyToPost(false)}
 				onPost={() => {
 					const { rid } = selectedBoard;
-					const hasAttachment = image ? true : false;
+					const hasAttachment = !!image;
 					let finalDescrition = description;
 
 					if (title) {

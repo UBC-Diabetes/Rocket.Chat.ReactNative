@@ -314,4 +314,4 @@ export type OutsideModalParamList = {
 
 export type HomeStackParamList = {
 	HomeView: undefined;
-}
+};

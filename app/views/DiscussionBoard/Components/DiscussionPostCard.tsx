@@ -4,12 +4,12 @@ import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
+import { useSelector } from 'react-redux';
 
 import { useTheme, withTheme } from '../../../theme';
 import { SavedPostCardProps } from '../DiscussionHomeView/interaces';
 import { getDate, getIcon } from '../helpers';
 import { formatAttachmentUrl } from '../../../lib/methods/helpers';
-import { useSelector } from 'react-redux';
 import { IApplicationState } from '../../../definitions';
 import { getUserSelector } from '../../../selectors/login';
 import { themes } from '../../../lib/constants';
@@ -17,7 +17,7 @@ import Markdown from '../../../containers/markdown';
 import Avatar from '../../../containers/Avatar/Avatar';
 import { loadThreadMessages } from '../../../lib/methods';
 import { Services } from '../../../lib/services';
-import RoomServices from './../../RoomView/services';
+import RoomServices from '../../RoomView/services';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -38,7 +38,7 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 	const [bannerImage, setBannerImage] = useState(null);
 	const [likeCount, setLikeCount] = useState(0);
 	const [hasLiked, setHasLiked] = useState(false);
-	let userName = userObject?.username;
+	const userName = userObject?.username;
 
 	const ImageProgress = createImageProgress(FastImage);
 
@@ -76,7 +76,7 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 	};
 
 	const getReplies = async () => {
-		const repliesList = await loadThreadMessages({ tmid: id, rid: rid });
+		const repliesList = await loadThreadMessages({ tmid: id, rid });
 		if (repliesList) {
 			setReplyList(repliesList);
 		}
@@ -97,11 +97,11 @@ const DiscussionPostCard = React.memo((item: SavedPostCardProps) => {
 				const likes = reactions?.filter((reaction: any) => reaction?.emoji === ':thumbsup:') || [];
 				const likedReaction = likes?.find((reaction: any) => {
 					const hasReacted = reaction?.usernames?.find((name: string) => name === user.username);
-					return hasReacted ? true : false;
+					return !!hasReacted;
 				});
 				const count = likes[0]?.usernames?.length || 0;
 				setLikeCount(count);
-				setHasLiked(likedReaction ? true : false);
+				setHasLiked(!!likedReaction);
 			}
 			getReplies();
 		}

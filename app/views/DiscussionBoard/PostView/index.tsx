@@ -38,7 +38,7 @@ import { formatAttachmentUrl, hasPermission } from '../../../lib/methods/helpers
 import { getUserSelector } from '../../../selectors/login';
 import { Services } from '../../../lib/services';
 import { loadThreadMessages, sendMessage } from '../../../lib/methods';
-import RoomServices from './../../RoomView/services';
+import RoomServices from '../../RoomView/services';
 
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 
@@ -134,17 +134,15 @@ const PostView: React.FC = ({ route }) => {
 		const post = route.params?.item._raw;
 		const repliesList = await loadThreadMessages({ tmid: post.id, rid: post.rid });
 		if (repliesList?.length > 0) {
-			let formattedReplies = repliesList?.map(item => {
-				return {
-					user: item.u,
-					date: item.ts,
-					description: item.msg,
-					reactions: item.reactions,
-					_id: item._id,
-					rid: item.rid,
-					tmid: item.tmid
-				};
-			});
+			let formattedReplies = repliesList?.map(item => ({
+				user: item.u,
+				date: item.ts,
+				description: item.msg,
+				reactions: item.reactions,
+				_id: item._id,
+				rid: item.rid,
+				tmid: item.tmid
+			}));
 
 			formattedReplies = [...formattedReplies];
 			if (formattedReplies.length > 1) {

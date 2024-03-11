@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Q } from '@nozbe/watermelondb';
+import moment from 'moment';
 
 import database from '../../../lib/database';
 import * as HeaderButton from '../../../containers/HeaderButton';
@@ -18,7 +19,6 @@ import styles from './styles';
 import { messageTypesToRemove } from '../data';
 import { getRoomAvatar, isGroupChat } from '../../../lib/methods/helpers';
 import { loadMissedMessages } from '../../../lib/methods';
-import moment from 'moment';
 import { handleStar } from '../helpers';
 
 // const INITIAL_NUM_TO_RENDER = isTablet ? 20 : 12;
@@ -125,11 +125,12 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 					};
 				});
 
-				const boards = formattedData.filter(d => {
-					// removing direct messages
-					return d.t !== 'd' && d.id !== 'GENERAL';
+				const boards = formattedData.filter(
+					d =>
+						// removing direct messages
+						d.t !== 'd' && d.id !== 'GENERAL'
 					// return true;
-				});
+				);
 
 				setBoards(boards);
 			});
@@ -146,12 +147,10 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 
 		messagesObservable?.subscribe(messages => {
 			// filter out messages
-			messages = messages.filter(m => {
-				return !(MESSAGE_TYPE_ANY_LOAD.includes(m.t) || messageTypesToRemove.includes(m.t));
-			});
+			messages = messages.filter(m => !(MESSAGE_TYPE_ANY_LOAD.includes(m.t) || messageTypesToRemove.includes(m.t)));
 
 			const formattedData = messages.map(m => {
-				let object = { ...m };
+				const object = { ...m };
 				try {
 					if (m?._raw?.u?.length && m._raw.u.length > 0 && m._raw.u !== '[]') {
 						object._raw.u = JSON.parse(m._raw.u);

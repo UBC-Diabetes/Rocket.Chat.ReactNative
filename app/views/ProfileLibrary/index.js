@@ -28,15 +28,10 @@ class ProfileLibraryView extends React.Component {
 			title: I18n.t('PeerSupporterLibrary')
 		};
 		if (!isMasterDetail) {
-			options.headerLeft = () => (
-				<HeaderButton.Drawer
-					navigation={navigation}
-					testID='profile-library-view-drawer'
-				/>
-			);
+			options.headerLeft = () => <HeaderButton.Drawer navigation={navigation} testID='profile-library-view-drawer' />;
 		}
 		return options;
-	}
+	};
 
 	static propTypes = {
 		navigation: PropTypes.object,
@@ -65,22 +60,24 @@ class ProfileLibraryView extends React.Component {
 		};
 	}
 
-
 	componentDidMount() {
 		this.load({});
 		logEvent(events.DIRECTORY_SEARCH_USERS);
 	}
 
-	onSearchChangeText = (text) => {
+	onSearchChangeText = text => {
 		this.setState({ text });
-	}
+	};
 
 	load = debounce(async ({ newSearch = false }) => {
 		if (newSearch) {
 			this.setState({ data: [], total: -1, loading: false });
 		}
 		const {
-			loading, text, total, data: { length }
+			loading,
+			text,
+			total,
+			data: { length }
 		} = this.state;
 		if (loading || length === total) {
 			return;
@@ -96,16 +93,18 @@ class ProfileLibraryView extends React.Component {
 				query,
 				offset: data.length,
 				count: 50,
-				sort: (type === 'users') ? { username: 1 } : { usersCount: -1 }
+				sort: type === 'users' ? { username: 1 } : { usersCount: -1 }
 			});
 			if (directories.success) {
 				const combinedResults = [];
 				const results = directories.result;
 
-				await Promise.all(results.map(async(item, index) => {
-					const user = await RocketChat.getUserInfo(item._id);
-					combinedResults[index] = { ...item, customFields: user.user.customFields };
-				}));
+				await Promise.all(
+					results.map(async (item, index) => {
+						const user = await RocketChat.getUserInfo(item._id);
+						combinedResults[index] = { ...item, customFields: user.user.customFields };
+					})
+				);
 
 				this.setState({
 					data: [...data, ...combinedResults],
@@ -120,13 +119,13 @@ class ProfileLibraryView extends React.Component {
 			log(e);
 			this.setState({ loading: false, refreshing: false });
 		}
-	}, 200)
+	}, 200);
 
 	search = () => {
 		this.load({ newSearch: true });
-	}
+	};
 
-	changeType = (type) => {
+	changeType = type => {
 		this.setState({ type, data: [] }, () => this.search());
 
 		if (type === 'users') {
@@ -134,17 +133,20 @@ class ProfileLibraryView extends React.Component {
 		} else if (type === 'channels') {
 			logEvent(events.DIRECTORY_SEARCH_CHANNELS);
 		}
-	}
+	};
 
 	toggleWorkspace = () => {
-		this.setState(({ globalUsers }) => ({ globalUsers: !globalUsers, data: [] }), () => this.search());
-	}
+		this.setState(
+			({ globalUsers }) => ({ globalUsers: !globalUsers, data: [] }),
+			() => this.search()
+		);
+	};
 
 	toggleDropdown = () => {
 		this.setState(({ showOptionsDropdown }) => ({ showOptionsDropdown: !showOptionsDropdown }));
-	}
+	};
 
-	goRoom = (item) => {
+	goRoom = item => {
 		const { navigation, isMasterDetail } = this.props;
 		if (isMasterDetail) {
 			navigation.navigate('DrawerNavigator');
@@ -152,9 +154,9 @@ class ProfileLibraryView extends React.Component {
 			navigation.navigate('RoomsListView');
 		}
 		goRoom({ item, isMasterDetail });
-	}
+	};
 
-	onPressItem = (item) => {
+	onPressItem = item => {
 		const { type } = this.state;
 		const { navigation } = this.props;
 		if (type === 'users') {
@@ -166,10 +168,13 @@ class ProfileLibraryView extends React.Component {
 			navigation.navigate('RoomInfoView', navParam);
 		} else {
 			this.goRoom({
-				rid: item._id, name: item.name, t: 'c', search: true
+				rid: item._id,
+				name: item.name,
+				t: 'c',
+				search: true
 			});
 		}
-	}
+	};
 
 	renderHeader = () => (
 		<SearchBox
@@ -178,12 +183,11 @@ class ProfileLibraryView extends React.Component {
 			clearText={this.search}
 			testID='federation-view-search'
 		/>
-	)
+	);
 
 	renderItem = ({ item, index }) => {
 		const { data, type } = this.state;
 		const { baseUrl, user, theme } = this.props;
-
 
 		let style;
 		if (index === data.length - 1) {
@@ -196,7 +200,7 @@ class ProfileLibraryView extends React.Component {
 			title: item.name,
 			onPress: () => this.onPressItem(item),
 			baseUrl,
-			testID: `federation-view-item-${ item.name }`,
+			testID: `federation-view-item-${item.name}`,
 			style,
 			user,
 			theme
@@ -210,7 +214,7 @@ class ProfileLibraryView extends React.Component {
 					rightLabel={item.federation && item.federation.peer}
 					type='d'
 					icon={<CustomIcon name='pin-map' size={15} color='#161a1d' />}
-					age={`${ item.customFields?.Age ?? '?' } years old`}
+					age={`${item.customFields?.Age ?? '?'} years old`}
 					{...commonProps}
 				/>
 			);
@@ -226,20 +230,14 @@ class ProfileLibraryView extends React.Component {
 				{...commonProps}
 			/>
 		);
-	}
+	};
 
 	render = () => {
-		const {
-			data, loading, refreshing, showOptionsDropdown, type, globalUsers
-		} = this.state;
+		const { data, loading, refreshing, showOptionsDropdown, type, globalUsers } = this.state;
 		const { isFederationEnabled, theme } = this.props;
 
 		return (
-			<SafeAreaView
-				style={{ backgroundColor: themes[theme].backgroundColor }}
-				testID='directory-view'
-				theme={theme}
-			>
+			<SafeAreaView style={{ backgroundColor: themes[theme].backgroundColor }} testID='directory-view' theme={theme}>
 				<StatusBar theme={theme} />
 				<FlatList
 					data={data}
@@ -253,7 +251,7 @@ class ProfileLibraryView extends React.Component {
 					showsVerticalScrollIndicator={false}
 					ListFooterComponent={loading ? <ActivityIndicator theme={theme} /> : null}
 					onEndReached={() => this.load({})}
-					refreshControl={(
+					refreshControl={
 						<RefreshControl
 							refreshing={refreshing}
 							onRefresh={() => {
@@ -264,24 +262,22 @@ class ProfileLibraryView extends React.Component {
 							}}
 							tintColor={themes[theme].auxiliaryText}
 						/>
-					)}
+					}
 				/>
-				{showOptionsDropdown
-					? (
-						<Options
-							theme={theme}
-							type={type}
-							globalUsers={globalUsers}
-							close={this.toggleDropdown}
-							changeType={this.changeType}
-							toggleWorkspace={this.toggleWorkspace}
-							isFederationEnabled={isFederationEnabled}
-						/>
-					)
-					: null}
+				{showOptionsDropdown ? (
+					<Options
+						theme={theme}
+						type={type}
+						globalUsers={globalUsers}
+						close={this.toggleDropdown}
+						changeType={this.changeType}
+						toggleWorkspace={this.toggleWorkspace}
+						isFederationEnabled={isFederationEnabled}
+					/>
+				) : null}
 			</SafeAreaView>
 		);
-	}
+	};
 }
 
 const mapStateToProps = state => ({

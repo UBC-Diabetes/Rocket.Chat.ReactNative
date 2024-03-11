@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		alignSelf: 'center',
 		color: '#424146',
-		flexWrap:'wrap',
-		textAlign:'center'
+		flexWrap: 'wrap',
+		textAlign: 'center'
 	},
 	connectButton: {
 		backgroundColor: '#799A79',

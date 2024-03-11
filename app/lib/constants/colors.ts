@@ -211,7 +211,6 @@ const callButtons = {
 	acceptCallButton: '#158D65'
 };
 
-
 export const themeColors = {
 	magenta: '#CB007B',
 	mossGreen: '#799A79',
