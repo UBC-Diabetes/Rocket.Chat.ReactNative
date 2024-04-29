@@ -68,25 +68,14 @@ import ShareView from '../views/ShareView';
 import CreateDiscussionView from '../views/CreateDiscussionView';
 import ForwardMessageView from '../views/ForwardMessageView';
 import QueueListView from '../ee/omnichannel/views/QueueListView';
-import AddChannelTeamView from '../views/AddChannelTeamView';
-import AddExistingChannelView from '../views/AddExistingChannelView';
-import SelectListView from '../views/SelectListView';
-import DiscussionsView from '../views/DiscussionsView';
-import ChangeAvatarView from '../views/ChangeAvatarView';
 import {
-	AdminPanelStackParamList,
-	ChatsStackParamList,
 	DisplayPrefStackParamList,
 	DrawerParamList,
 	E2EEnterYourPasswordStackParamList,
 	E2ESaveYourPasswordStackParamList,
-	HomeStackParamList,
 	InsideStackParamList,
 	NewMessageStackParamList,
-	ProfileStackParamList,
-	SettingsStackParamList
 } from './types';
-import { isIOS } from '../lib/methods/helpers';
 import { TNavigation } from './stackType';
 
 // Profile Library Stack
@@ -94,6 +83,7 @@ import ProfileLibraryView from '../views/ProfileLibrary';
 import ChangePasswordView from '../views/ChangePasswordView';
 // Home Stack
 import HomeView from '../views/HomeView';
+import CalendarView from '../views/CalendarView';
 // Discussion Stack
 import DiscussionBoardView from '../views/DiscussionBoard/DiscussionBoardView';
 import DiscussionPostView from '../views/DiscussionBoard/PostView';
@@ -137,6 +127,7 @@ const MainStackNavigator = () => {
 			{/* HomeStackNavigator */}
 			<MainStack.Screen name='HomeView' component={HomeView} />
 			<MainStack.Screen name='RoomView' component={RoomView} />
+			<MainStack.Screen name='CalendarView' component={CalendarView} />
 			{/* ChatsStackNavigator */}
 			<MainStack.Screen name='RoomsListView' component={RoomsListView} />
 			<MainStack.Screen name='RoomActionsView' component={RoomActionsView} options={RoomActionsView.navigationOptions} />
