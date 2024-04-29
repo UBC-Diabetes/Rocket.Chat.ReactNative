@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View, Image } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { StyleSheet, ScrollView, Text } from 'react-native';
+import {ExpandableCalendar, AgendaList, CalendarProvider, WeekCalendar} from 'react-native-calendars';
+
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Touchable from 'react-native-platform-touchable';
@@ -14,13 +15,24 @@ import StatusBar from '../../containers/StatusBar';
 import Avatar from '../../containers/Avatar';
 import * as HeaderButton from '../../containers/HeaderButton';
 
-const CalendarView = (): React.ReactElement => {
-    const { colors } = useTheme();
+import { agendaItems } from './agendaItems';
+import AgendaItem from './AgendaItem'
+import testIDs from './testIds';
+import {getMarkedDates} from './mockedDates'
+
+const CalendarView = (props: any): React.ReactElement => {
+    const {weekView} = props;
+    const theme = useTheme();
+    const { colors } = theme;
     const navigation = useNavigation<StackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const userName = user?.username || '';
 
-  const [selected, setSelected] = useState('');
+    const marked = useRef(getMarkedDates());
+
+    const styles = makeStyles(theme)
+    const todayBtnTheme = { current: colors.buttonBackground }
+
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 			navigation.setOptions({
@@ -41,20 +53,74 @@ const CalendarView = (): React.ReactElement => {
 	});
 
 
-  return (
+    const renderItem = useCallback(({item}: any) =>
+        <AgendaItem item={item}/>, []);
 
-      <ScrollView style={{ flex: 1, padding: 20, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
+  return (
+   <ScrollView style={{ flex: 1, padding: 20, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
           <StatusBar />
-    <Calendar
-      onDayPress={day => {
-        setSelected(day.dateString);
-      }}
-      markedDates={{
-        [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
-      }}
-    />
+          <Text style={styles.title}>Calendar</Text>
+
+    <CalendarProvider
+      date={agendaItems[1]?.title}
+      // onDateChanged={onDateChanged}
+      // onMonthChange={onMonthChange}
+      showTodayButton
+      // disabledOpacity={0.6}
+      // theme={todayBtnTheme.current}
+      // todayBottomMargin={16}
+    >
+      {weekView ? (
+        <WeekCalendar testID={testIDs.weekCalendar.CONTAINER} firstDay={1} markedDates={marked.current}/>
+      ) : (
+        <ExpandableCalendar
+          testID={testIDs.expandableCalendar.CONTAINER}
+          // horizontal={false}
+          // hideArrows
+          // disablePan
+          // hideKnob
+          // initialPosition={ExpandableCalendar.positions.OPEN}
+          // calendarStyle={styles.calendar}
+          // headerStyle={styles.header} // for horizontal only
+          // disableWeekScroll
+          // theme={theme.current}
+          // disableAllTouchEventsForDisabledDays
+          firstDay={1}
+          markedDates={marked.current}
+          // leftArrowImageSource={leftArrowIcon}
+          // rightArrowImageSource={rightArrowIcon}
+          // animateScroll
+          // closeOnDayPress={false}
+        />
+      )}
+      <AgendaList
+        sections={agendaItems}
+        renderItem={renderItem}
+        // scrollToNextEvent
+        // sectionStyle={styles.section}
+        // dayFormat={'yyyy-MM-d'}
+      />
+    </CalendarProvider>
           </ScrollView>
   );
 }
+
+const makeStyles = (theme: any) => {
+	return StyleSheet.create({
+	title: {
+        color: theme.colors.titleText,
+        marginBottom: 10,
+		fontSize: 24,
+		lineHeight: 29,
+		fontWeight: '600'
+	},
+	tileContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		flexWrap: 'wrap'
+	},
+    })
+};
+
 
 export default CalendarView;
