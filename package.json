@@ -9,7 +9,7 @@
 		"lint": "eslint . && tsc",
 		"prettier-lint": "prettier --write . && yarn lint",
 		"ios": "npx react-native run-ios",
-		"android": "npx react-native run-android --variant=experimentalPlayDebug",
+		"android": "npx react-native run-android --variant=experimentalPlayRelease",
 		"android-whitelabel": "npx react-native run-android --main-activity chat.rocket.reachout.MainActivity --variant=experimentalPlayDebug --appId",
 		"log-android": "react-native log-android",
 		"snyk-protect": "snyk protect",
@@ -230,13 +230,7 @@
 	},
 	"expo": {
 		"autolinking": {
-			"exclude": [
-				"expo-application",
-				"expo-asset",
-				"expo-constants",
-				"expo-font",
-				"expo-error-recovery"
-			]
+			"exclude": ["expo-application", "expo-asset", "expo-constants", "expo-font", "expo-error-recovery"]
 		}
 	}
 }
