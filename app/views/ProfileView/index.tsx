@@ -348,14 +348,20 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 			return;
 		}
 
-		try {
-			const { user } = this.props;
-			await Services.resetAvatar(user.id);
-			EventEmitter.emit(LISTENER, { message: I18n.t('Avatar_changed_successfully') });
-			this.init();
-		} catch (e) {
-			this.handleError(e, 'resetAvatar', 'changing_avatar');
-		}
+		showConfirmationAlert({
+			message: I18n.t('reset_avatar_message'),
+			confirmationText: I18n.t('reset_avatar_confirmation'),
+			onPress: async () => {
+				try {
+					const { user } = this.props;
+					await Services.resetAvatar(user.id);
+					EventEmitter.emit(LISTENER, { message: I18n.t('Avatar_changed_successfully') });
+					this.init();
+				} catch (e) {
+					this.handleError(e, 'resetAvatar', 'changing_avatar');
+				}
+			}
+		});
 	};
 
 	pickImage = async () => {
