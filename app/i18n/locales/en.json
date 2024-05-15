@@ -827,6 +827,8 @@
   "removing_team": "removing from team",
   "replies": "replies",
   "reply": "reply",
+  "reset_avatar_confirmation": "Reset",
+  "reset_avatar_message": "You will reset your profile picture to the default.",
   "resetting_password": "resetting password",
   "room-name-already-exists": "Room name already exists",
   "room_allowed_reactions": "allowed reactions",
