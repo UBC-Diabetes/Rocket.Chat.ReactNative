@@ -1,86 +1,90 @@
-import React, {useCallback} from 'react';
-import {StyleSheet, Alert, View, Text, TouchableOpacity, Button} from 'react-native';
+import React, { useCallback } from 'react';
+import { StyleSheet, Alert, View, Text, TouchableOpacity, Button } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
+import { format, parseISO } from 'date-fns';
 
 import testIDs from './testIds';
 
-
 interface ItemProps {
-  item: any;
+	item: any;
 }
 
 const AgendaItem = (props: ItemProps) => {
-  const {item} = props;
+	const { item } = props;
 
-  const buttonPressed = useCallback(() => {
-    Alert.alert('Show me more');
-  }, []);
+	const buttonPressed = useCallback(() => {
+		Alert.alert('Show me more');
+	}, []);
 
-  const itemPressed = useCallback(() => {
-    Alert.alert(item.title);
-  }, []);
+	const itemPressed = useCallback(() => {
+		Alert.alert(item.title);
+	}, []);
 
-  if (isEmpty(item)) {
-    return (
-      <View style={styles.emptyItem}>
-        <Text style={styles.emptyItemText}>No Events Planned Today</Text>
-      </View>
-    );
-  }
+	if (isEmpty(item)) {
+		return (
+			<View style={styles.emptyItem}>
+				<Text style={styles.emptyItemText}>No Events Planned Today</Text>
+			</View>
+		);
+	}
 
-  return (
-    <TouchableOpacity onPress={itemPressed} style={styles.item} testID={testIDs.agenda.ITEM}>
-      <View>
-        <Text style={styles.itemHourText}>{item.hour}</Text>
-        <Text style={styles.itemDurationText}>{item.duration}</Text>
-      </View>
-      <Text style={styles.itemTitleText}>{item.title}</Text>
-      <View style={styles.itemButtonContainer}>
-        <Button color={'grey'} title={'Info'} onPress={buttonPressed}/>
-      </View>
-    </TouchableOpacity>
-  );
+	const parsedDate = parseISO(item.date ?? '2023-08-20T16:00:00');
+	const formattedDate = format(parsedDate, "EEEE 'at' h:mm a");
+	const fullTitle = `${item.title}${item.isZoom ? ' (Zoom)' : ''}`;
+
+	return (
+		<View style={styles.itemContainer}>
+			<TouchableOpacity onPress={itemPressed} style={styles.item} testID={testIDs.agenda.ITEM}>
+				<View style={styles.contentContainer}>
+					<Text style={styles.itemTitleText}>{fullTitle}</Text>
+					<Text style={styles.itemDateText}>{formattedDate}</Text>
+				</View>
+				<View style={styles.itemButtonContainer}>
+					<Button color={'grey'} title={'Info'} onPress={buttonPressed} />
+				</View>
+			</TouchableOpacity>
+		</View>
+	);
 };
 
 export default React.memo(AgendaItem);
 
-
 const styles = StyleSheet.create({
-  item: {
-    padding: 20,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgrey',
-    flexDirection: 'row'
-  },
-  itemHourText: {
-    color: 'black'
-  },
-  itemDurationText: {
-    color: 'grey',
-    fontSize: 12,
-    marginTop: 4,
-    marginLeft: 4
-  },
-  itemTitleText: {
-    color: 'black',
-    marginLeft: 16,
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  itemButtonContainer: {
-    flex: 1,
-    alignItems: 'flex-end'
-  },
-  emptyItem: {
-    paddingLeft: 20,
-    height: 52,
-    justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgrey'
-  },
-  emptyItemText: {
-    color: 'lightgrey',
-    fontSize: 14
-  }
+	itemContainer: {
+		paddingBottom: 8,
+		backgroundColor: '#F5F4F2'
+	},
+	item: {
+		padding: 20,
+		backgroundColor: 'white',
+		flexDirection: 'row'
+	},
+	contentContainer: {
+		flex: 1
+	},
+	itemTitleText: {
+		color: 'black',
+		fontWeight: 'bold',
+		fontSize: 16
+	},
+	itemDateText: {
+		color: 'grey',
+		fontSize: 14,
+		marginTop: 4
+	},
+	itemButtonContainer: {
+		flex: 1,
+		alignItems: 'flex-end'
+	},
+	emptyItem: {
+		paddingLeft: 20,
+		height: 52,
+		justifyContent: 'center',
+		borderBottomWidth: 1,
+		borderBottomColor: 'lightgrey'
+	},
+	emptyItemText: {
+		color: 'lightgrey',
+		fontSize: 14
+	}
 });

@@ -48,10 +48,9 @@ const CalendarView = (props: any): React.ReactElement => {
 	const renderItem = useCallback(({ item }: any) => <AgendaItem item={item} />, []);
 
 	return (
-		<ScrollView style={{ flex: 1, padding: 20, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
+		<ScrollView style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
 			<Text style={styles.title}>Calendar</Text>
-
 			<CalendarProvider
 				date={agendaItems[1]?.title}
 				// onDateChanged={onDateChanged}
@@ -74,7 +73,7 @@ const CalendarView = (props: any): React.ReactElement => {
 						// calendarStyle={styles.calendar}
 						// headerStyle={styles.header} // for horizontal only
 						// disableWeekScroll
-						// theme={theme.current}
+						theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
 						// disableAllTouchEventsForDisabledDays
 						firstDay={1}
 						markedDates={marked.current}
@@ -88,7 +87,9 @@ const CalendarView = (props: any): React.ReactElement => {
 					sections={agendaItems}
 					renderItem={renderItem}
 					// scrollToNextEvent
-					// sectionStyle={styles.section}
+					sectionStyle={{
+						backgroundColor: '#F5F4F2'
+					}}
 					// dayFormat={'yyyy-MM-d'}
 				/>
 			</CalendarProvider>
@@ -96,10 +97,11 @@ const CalendarView = (props: any): React.ReactElement => {
 	);
 };
 
-const makeStyles = (theme: any) => {
-	return StyleSheet.create({
+const makeStyles = (theme: any) =>
+	StyleSheet.create({
 		title: {
 			color: theme.colors.titleText,
+			marginLeft: 5,
 			marginBottom: 10,
 			fontSize: 24,
 			lineHeight: 29,
@@ -111,6 +113,5 @@ const makeStyles = (theme: any) => {
 			flexWrap: 'wrap'
 		}
 	});
-};
 
 export default CalendarView;
