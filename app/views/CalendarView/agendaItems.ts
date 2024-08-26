@@ -28,14 +28,19 @@ export const agendaItems = [
 	{
 		title: dates[0],
 		data: [
-			{ title: 'Happy Hour', date: dates[0], isZoom: true },
-			{ title: 'Meet & Greet', date: dates[0], isZoom: true },
-			{ title: 'Happy Hour', date: dates[0], isZoom: true }
+			{ title: 'Happy Hour', date: dates[0], isZoom: true, users: [{ username: 'timq' }, { username: 'abigaildemian' }] },
+			{ title: 'Meet & Greet', date: dates[0], isZoom: true, users: [{ username: 'timq' }] },
+			{
+				title: 'Happy Hour',
+				date: dates[0],
+				isZoom: true,
+				users: [{ username: 'timq' }, { username: 'yipannie' }, { username: 'alaana.s' }]
+			}
 		]
 	},
 	{
 		title: dates[1],
-		data: [{ title: 'Meet & Greet', date: dates[1], isZoom: true }]
+		data: [{ title: 'Meet & Greet', date: dates[1], isZoom: true, users: [{ username: 'timq' }] }]
 	}
 ];
 

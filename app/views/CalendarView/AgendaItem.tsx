@@ -3,6 +3,8 @@ import { StyleSheet, Alert, View, Text, TouchableOpacity, Button } from 'react-n
 import isEmpty from 'lodash/isEmpty';
 import { format, parseISO } from 'date-fns';
 
+import Avatar from '../../containers/Avatar';
+
 import testIDs from './testIds';
 
 interface ItemProps {
@@ -39,8 +41,12 @@ const AgendaItem = (props: ItemProps) => {
 					<Text style={styles.itemTitleText}>{fullTitle}</Text>
 					<Text style={styles.itemDateText}>{formattedDate}</Text>
 				</View>
-				<View style={styles.itemButtonContainer}>
-					<Button color={'grey'} title={'Info'} onPress={buttonPressed} />
+				<View style={styles.avatarContainer}>
+					{item.users.map((user, index) => (
+						<View key={user.username} style={[styles.avatarWrapper, { zIndex: item.users.length - index, right: index * 15 }]}>
+							<Avatar text={user.username} size={36} borderRadius={18} />
+						</View>
+					))}
 				</View>
 			</TouchableOpacity>
 		</View>
@@ -50,6 +56,14 @@ const AgendaItem = (props: ItemProps) => {
 export default React.memo(AgendaItem);
 
 const styles = StyleSheet.create({
+	avatarContainer: {
+		flexDirection: 'row-reverse',
+		marginLeft: 10
+	},
+	avatarWrapper: {
+		position: 'relative',
+		marginLeft: -1 // Creates overlap
+	},
 	itemContainer: {
 		paddingBottom: 8,
 		backgroundColor: '#F5F4F2'
