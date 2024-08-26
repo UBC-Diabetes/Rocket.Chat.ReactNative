@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { IApplicationState } from '../../definitions';
@@ -19,18 +19,20 @@ const AvatarContainer = ({
 	onPress,
 	getCustomEmoji,
 	isStatic,
-	rid
+	rid,
+	peerSupporterType: propPeerSupporterType
 }: IAvatar): React.ReactElement => {
 	const server = useSelector((state: IApplicationState) => state.share.server.server || state.server.server);
 	const serverVersion = useSelector((state: IApplicationState) => state.share.server.version || state.server.version);
-	const { id, token, username } = useSelector(
-		(state: IApplicationState) => ({
-			id: getUserSelector(state).id,
-			token: getUserSelector(state).token,
-			username: getUserSelector(state).username
-		}),
-		shallowEqual
-	);
+
+	const { user } = useSelector((state: IApplicationState) => ({
+		user: getUserSelector(state)
+	}));
+	const { id, token, username, customFields } = user;
+
+	const peerSupporterType = useMemo(() => {
+		return propPeerSupporterType ?? customFields?.['Peer Supporter Type'] ?? '';
+	}, [propPeerSupporterType, customFields]);
 
 	const { avatarExternalProviderUrl, roomAvatarExternalProviderUrl, cdnPrefix } = useSelector((state: IApplicationState) => ({
 		avatarExternalProviderUrl: state.settings.Accounts_AvatarExternalProviderUrl as string,
@@ -69,6 +71,7 @@ const AvatarContainer = ({
 			avatarETag={avatarETag}
 			serverVersion={serverVersion}
 			cdnPrefix={cdnPrefix}
+			peerSupporterType={peerSupporterType}
 		/>
 	);
 };

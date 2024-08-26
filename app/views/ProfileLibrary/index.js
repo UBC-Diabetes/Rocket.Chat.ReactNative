@@ -245,6 +245,8 @@ class ProfileLibraryView extends React.Component {
 			theme
 		};
 
+		const peerSupporterType = item.customFields?.['Peer Supporter Type'] ? item.customFields?.['Peer Supporter Type'] : '';
+
 		if (type === 'users') {
 			return (
 				<DirectoryItem
@@ -254,6 +256,7 @@ class ProfileLibraryView extends React.Component {
 					type='d'
 					icon={<CustomIcon name='pin-map' size={15} color='#161a1d' />}
 					age={item.customFields?.Age ? `${item.customFields?.Age} years old` : ''}
+					peerSupporterType={peerSupporterType}
 					{...commonProps}
 				/>
 			);
@@ -265,6 +268,7 @@ class ProfileLibraryView extends React.Component {
 				description={item.topic}
 				typeIcon={<RoomTypeIcon type={type} theme={theme} />}
 				rightLabel={I18n.t('N_users', { n: item.usersCount })}
+				peerSupporterType={peerSupporterType}
 				type='c'
 				{...commonProps}
 			/>

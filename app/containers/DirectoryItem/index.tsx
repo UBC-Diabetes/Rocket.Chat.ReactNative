@@ -47,7 +47,8 @@ const DirectoryItem = ({
 	type,
 	rid,
 	age,
-	teamMain
+	teamMain,
+	peerSupporterType
 }: IDirectoryItem): React.ReactElement => {
 	const { theme } = useTheme();
 
@@ -61,7 +62,14 @@ const DirectoryItem = ({
 					{ backgroundColor: themes[theme].peerSupporterBackground }
 				]}
 			>
-				<Avatar text={avatar} size={70} type={type} rid={rid} style={styles.directoryItemAvatar} />
+				<Avatar
+					text={avatar}
+					size={70}
+					type={type}
+					rid={rid}
+					peerSupporterType={peerSupporterType}
+					style={styles.directoryItemAvatar}
+				/>
 				<View style={styles.directoryItemTextContainer}>
 					<View style={styles.directoryItemTextTitle}>
 						{type !== 'd' ? <RoomTypeIcon type={type} teamMain={teamMain} /> : null}

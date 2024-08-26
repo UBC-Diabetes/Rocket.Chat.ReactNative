@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Touchable from 'react-native-platform-touchable';
 import { settings as RocketChatSettings } from '@rocket.chat/sdk';
@@ -31,7 +31,8 @@ const Avatar = React.memo(
 		type = SubscriptionType.DIRECT,
 		avatarExternalProviderUrl,
 		roomAvatarExternalProviderUrl,
-		cdnPrefix
+		cdnPrefix,
+		peerSupporterType
 	}: IAvatar) => {
 		if ((!text && !avatar && !emoji && !rid) || !server) {
 			return null;
@@ -83,9 +84,21 @@ const Avatar = React.memo(
 			image = <Touchable onPress={onPress}>{image}</Touchable>;
 		}
 
+		const bannerStyle = {
+			position: 'absolute',
+			bottom: 0,
+			width: '100%',
+			textAlign: 'center',
+			color: 'white',
+			backgroundColor: 'rgba(121, 154, 121, 0.8)',
+			fontSize: size / 5,
+			paddingVertical: 1
+		};
+
 		return (
 			<View style={[avatarStyle, style]} testID='avatar'>
 				{image}
+				{peerSupporterType ? <Text style={bannerStyle}>{peerSupporterType}</Text> : null}
 				{children}
 			</View>
 		);
