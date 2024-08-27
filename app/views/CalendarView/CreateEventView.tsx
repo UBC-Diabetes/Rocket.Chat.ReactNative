@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 const CreateEventScreen = () => {
 	const [title, setTitle] = useState('');
@@ -23,12 +23,12 @@ const CreateEventScreen = () => {
 				style={[styles.input, styles.textArea]}
 			/>
 			<TextInput placeholder='Enter Zoom link' value={zoomLink} onChangeText={setZoomLink} style={styles.input} />
-			<View style={styles.buttonContainer}>
-				<Button title='Add Peers' onPress={() => console.log('Add Peers')} color='#CB007B' />
-			</View>
-			<View style={styles.buttonContainer}>
-				<Button title='Create Event' onPress={() => console.log('Create Event')} color='#4CAF50' />
-			</View>
+			<TouchableOpacity style={styles.peerButton}>
+				<Text style={styles.peerButtonText}>Add Peers</Text>
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.createButton}>
+				<Text style={styles.createButtonText}>Create Event</Text>
+			</TouchableOpacity>
 		</ScrollView>
 	);
 };
@@ -36,25 +36,47 @@ const CreateEventScreen = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		padding: 10
+		padding: 10,
+		backgroundColor: '#f4f4f4' // Light gray background
 	},
 	header: {
 		fontSize: 22,
 		fontWeight: 'bold',
-		marginBottom: 20
+		marginBottom: 20,
+		textAlign: 'center'
 	},
 	input: {
-		height: 40,
-		marginBottom: 12,
+		height: 50,
+		marginBottom: 15,
 		borderWidth: 1,
 		borderColor: '#ccc',
-		padding: 10
+		padding: 10,
+		borderRadius: 5, // Rounded corners for inputs
+		backgroundColor: '#fff' // White background for input fields
 	},
 	textArea: {
-		height: 100
+		height: 100 // Larger input area for the description
 	},
-	buttonContainer: {
+	peerButton: {
+		backgroundColor: '#CB007B', // Bright pink color
+		padding: 15,
+		borderRadius: 25, // Fully rounded button edges
+		alignItems: 'center',
 		marginBottom: 10
+	},
+	peerButtonText: {
+		color: '#ffffff', // White text
+		fontSize: 16
+	},
+	createButton: {
+		backgroundColor: '#4CAF50', // Moss green color
+		padding: 15,
+		borderRadius: 25, // Fully rounded button edges
+		alignItems: 'center'
+	},
+	createButtonText: {
+		color: '#ffffff', // White text
+		fontSize: 16
 	}
 });
 
