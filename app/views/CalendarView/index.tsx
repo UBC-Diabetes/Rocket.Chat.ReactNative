@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { ExpandableCalendar, AgendaList, CalendarProvider, WeekCalendar } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,6 +25,7 @@ const CalendarView = (props: any): React.ReactElement => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const userName = user?.username || '';
+	const isAdmin = user?.roles.includes('admin');
 
 	const marked = useRef(getMarkedDates());
 
@@ -48,7 +49,7 @@ const CalendarView = (props: any): React.ReactElement => {
 	const renderItem = useCallback(({ item }: any) => <AgendaItem item={item} />, []);
 
 	return (
-		<ScrollView style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
+		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
 			<Text style={styles.title}>Calendar</Text>
 			<CalendarProvider
@@ -93,7 +94,14 @@ const CalendarView = (props: any): React.ReactElement => {
 					// dayFormat={'yyyy-MM-d'}
 				/>
 			</CalendarProvider>
-		</ScrollView>
+			{isAdmin && (
+				<View style={styles.adminButtonContainer}>
+					<Touchable style={styles.adminButton} onPress={() => navigation.navigate('CreateEventView')}>
+						<Text style={styles.adminButtonText}>Create event</Text>
+					</Touchable>
+				</View>
+			)}
+		</View>
 	);
 };
 
@@ -111,6 +119,25 @@ const makeStyles = (theme: any) =>
 			flexDirection: 'row',
 			justifyContent: 'space-around',
 			flexWrap: 'wrap'
+		},
+		adminButtonContainer: {
+			position: 'absolute',
+			bottom: 20,
+			width: '100%'
+		},
+		adminButton: {
+			margin: 10,
+			backgroundColor: '#799A79',
+			paddingVertical: 15,
+			paddingHorizontal: 20,
+			borderRadius: 20,
+			alignItems: 'center',
+			justifyContent: 'center'
+		},
+		adminButtonText: {
+			color: 'white',
+			fontSize: 20,
+			fontWeight: 'bold'
 		}
 	});
 
