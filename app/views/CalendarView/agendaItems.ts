@@ -41,6 +41,40 @@ export const agendaItems = [
 	{
 		title: dates[1],
 		data: [{ title: 'Meet & Greet', date: dates[1], isZoom: true, users: [{ username: 'timq' }] }]
+	},
+	{
+		title: dates[2],
+		data: [
+			{ title: 'Happy Hour', date: dates[2], isZoom: true, users: [{ username: 'timq' }, { username: 'abigaildemian' }] },
+			{ title: 'Meet & Greet', date: dates[2], isZoom: true, users: [{ username: 'timq' }] },
+			{
+				title: 'Happy Hour',
+				date: dates[2],
+				isZoom: true,
+				users: [{ username: 'timq' }, { username: 'yipannie' }, { username: 'alaana.s' }]
+			}
+		]
+	},
+	{
+		title: dates[3],
+		data: [{ title: 'Meet & Greet', date: dates[3], isZoom: true, users: [{ username: 'timq' }] }]
+	},
+	{
+		title: dates[4],
+		data: [
+			{ title: 'Happy Hour', date: dates[4], isZoom: true, users: [{ username: 'timq' }, { username: 'abigaildemian' }] },
+			{ title: 'Meet & Greet', date: dates[4], isZoom: true, users: [{ username: 'timq' }] },
+			{
+				title: 'Happy Hour',
+				date: dates[4],
+				isZoom: true,
+				users: [{ username: 'timq' }, { username: 'yipannie' }, { username: 'alaana.s' }]
+			}
+		]
+	},
+	{
+		title: dates[5],
+		data: [{ title: 'Meet & Greet', date: dates[5], isZoom: true, users: [{ username: 'timq' }] }]
 	}
 ];
 

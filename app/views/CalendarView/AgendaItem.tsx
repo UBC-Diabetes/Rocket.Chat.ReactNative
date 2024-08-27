@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 	},
 	avatarWrapper: {
 		position: 'relative',
-		marginLeft: -1 // Creates overlap
+		marginLeft: -1
 	},
 	itemContainer: {
 		paddingBottom: 8,
@@ -71,7 +71,11 @@ const styles = StyleSheet.create({
 	item: {
 		padding: 20,
 		backgroundColor: 'white',
-		flexDirection: 'row'
+		flexDirection: 'row',
+
+		borderRadius: 20,
+		left: 15,
+		width: '90%'
 	},
 	contentContainer: {
 		flex: 1
