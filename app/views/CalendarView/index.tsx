@@ -25,7 +25,7 @@ const CalendarView = (props: any): React.ReactElement => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const userName = user?.username || '';
-	const isAdmin = user?.roles.includes('admin');
+	const isAdmin = user?.roles && user?.roles.includes('admin');
 
 	const marked = useRef(getMarkedDates());
 

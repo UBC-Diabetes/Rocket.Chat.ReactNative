@@ -14,10 +14,6 @@ interface ItemProps {
 const AgendaItem = (props: ItemProps) => {
 	const { item } = props;
 
-	const buttonPressed = useCallback(() => {
-		Alert.alert('Show me more');
-	}, []);
-
 	const itemPressed = useCallback(() => {
 		Alert.alert(item.title);
 	}, []);
