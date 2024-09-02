@@ -85,6 +85,7 @@ import ChangePasswordView from '../views/ChangePasswordView';
 import HomeView from '../views/HomeView';
 import CalendarView from '../views/CalendarView';
 import CreateEventView from '../views/CalendarView/CreateEventView';
+import SearchPeersView from '../views/CalendarView/SearchPeersView';
 // Discussion Stack
 import DiscussionBoardView from '../views/DiscussionBoard/DiscussionBoardView';
 import DiscussionPostView from '../views/DiscussionBoard/PostView';
@@ -130,6 +131,7 @@ const MainStackNavigator = () => {
 			<MainStack.Screen name='RoomView' component={RoomView} />
 			<MainStack.Screen name='CalendarView' component={CalendarView} />
 			<MainStack.Screen name='CreateEventView' component={CreateEventView} />
+			<MainStack.Screen name='SearchPeersView' component={SearchPeersView} />
 			{/* ChatsStackNavigator */}
 			<MainStack.Screen name='RoomsListView' component={RoomsListView} />
 			<MainStack.Screen name='RoomActionsView' component={RoomActionsView} options={RoomActionsView.navigationOptions} />
