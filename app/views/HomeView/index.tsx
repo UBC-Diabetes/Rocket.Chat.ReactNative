@@ -27,7 +27,6 @@ const HomeView: React.FC = () => {
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
 	const server = useSelector((state: IApplicationState) => state.server.server);
 	const state = useSelector((state: IApplicationState) => state);
-	console.log('hello state! ', state);
 	const userName = user?.username || '';
 	const userRealName = user?.name || '';
 	// const { theme } = useTheme();

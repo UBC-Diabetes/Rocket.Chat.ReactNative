@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { useLoadPeers } from './helpers';
+import Avatar from '../../containers/Avatar';
 import StatusBar from '../../containers/StatusBar';
 import { useTheme } from '../../theme';
-import { debounce } from '../../lib/methods/helpers/debounce';
-import { Services as RocketChat } from '../../lib/services';
-import log from '../../lib/methods/helpers/log';
 
 export interface IUser {
 	user: {
@@ -19,88 +18,106 @@ export interface IUser {
 const SearchPeersView = () => {
 	const theme = useTheme();
 	const { colors } = theme;
-
-	const [state, setState] = useState({
-		data: [],
-		loading: false,
-		refreshing: false,
-		text: '',
-		total: -1,
-		numUsersFetched: 0,
-		showOptionsDropdown: false,
-		globalUsers: true,
-		type: 'users'
-	});
-
 	const navigation = useNavigation<StackNavigationProp<any>>();
+	const { data, loading, refreshing, loadPeers, updateState } = useLoadPeers();
+	const [selectedPeers, setSelectedPeers] = useState<Set<string>>(new Set());
+
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		loadPeers({});
-	});
+	}, []);
 
-	const loadPeers = debounce(async ({ newSearch = false }) => {
-		if (newSearch) {
-			setState({ data: [], total: -1, numUsersFetched: 0, loading: false });
-		}
-		const { loading, total, numUsersFetched } = state;
-		if (loading || (numUsersFetched >= total && total !== -1)) {
-			return;
-		}
-
-		setState({ ...state, loading: true });
-
-		try {
-			const { data, type, text, globalUsers, numUsersFetched } = state;
-			const query = { text, type, workspace: globalUsers ? 'all' : 'local' };
-
-			//Returns 50 users based on offset, sorted by name from the directory of ALL users
-			const directories = await RocketChat.getDirectory({
-				query,
-				offset: numUsersFetched,
-				count: 50,
-				sort: { name: 1 }
-			});
-			if (directories.success) {
-				const combinedResults = [];
-				const results = directories.result;
-
-				await Promise.all(
-					results.map(async (item, index) => {
-						const user = await RocketChat.getUserInfo(item._id);
-						//Only keep users that are Peer Supporters
-						if (user.user.roles.includes('Peer Supporter')) {
-							combinedResults.push({ ...item, customFields: user.user.customFields });
-						}
-					})
-				);
-
-				console.log('hey', combinedResults);
-
-				// Update total number of users in directory, and number fetched (including filtered out users)
-				setState({
-					data: [...data, ...combinedResults],
-					loading: false,
-					refreshing: false,
-					numUsersFetched: numUsersFetched + directories.count,
-					total: directories.total
-				});
+	const togglePeerSelection = (peerId: string) => {
+		setSelectedPeers(prev => {
+			const newSet = new Set(prev);
+			if (newSet.has(peerId)) {
+				newSet.delete(peerId);
 			} else {
-				setState({ ...state, loading: false, refreshing: false });
+				newSet.add(peerId);
 			}
-		} catch (e) {
-			log(e);
-			setState({ ...state, loading: false, refreshing: false });
+			return newSet;
+		});
+	};
+
+	const renderItem = ({ item }) => (
+		<TouchableOpacity style={styles.peerItem} onPress={() => togglePeerSelection(item._id)}>
+			<View style={styles.peerInfo}>
+				<Avatar text={item.username} size={36} borderRadius={18} />
+				<Text style={styles.peerName}>{item.username}</Text>
+			</View>
+			{selectedPeers.has(item._id) && (
+				<View style={styles.checkMark}>
+					<Text style={styles.checkMarkText}>✓</Text>
+				</View>
+			)}
+		</TouchableOpacity>
+	);
+
+	const handleLoadMore = useCallback(() => {
+		if (!loading && !refreshing) {
+			loadPeers({});
 		}
-	}, 200);
+	}, [loading, refreshing, loadPeers]);
+
+	if (loading && data.length === 0) {
+		return (
+			<View style={[styles.container, styles.centerContent]}>
+				<ActivityIndicator size='large' color={colors.primary} />
+			</View>
+		);
+	}
 
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
-			{state.data.map(d => (
-				<Text>{d.username}</Text>
-			))}
+			<FlatList
+				data={data}
+				renderItem={renderItem}
+				keyExtractor={item => item._id}
+				onEndReached={handleLoadMore}
+				onEndReachedThreshold={0.5}
+				ListFooterComponent={loading && !refreshing ? <ActivityIndicator color={colors.primary} /> : null}
+			/>
 		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1
+	},
+	centerContent: {
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	peerItem: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		padding: 10,
+		borderBottomWidth: 1,
+		borderBottomColor: '#E0E0E0'
+	},
+	peerInfo: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	peerName: {
+		fontSize: 16,
+		marginLeft: 10
+	},
+	checkMark: {
+		width: 24,
+		height: 24,
+		borderRadius: 12,
+		backgroundColor: '#4CAF50',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	checkMarkText: {
+		color: 'white',
+		fontSize: 16
+	}
+});
 
 export default SearchPeersView;
