@@ -5,6 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { useLoadPeers } from './helpers';
 import Avatar from '../../containers/Avatar';
+import SearchBox from '../../containers/SearchBox';
 import StatusBar from '../../containers/StatusBar';
 import { useTheme } from '../../theme';
 
@@ -19,13 +20,17 @@ const SearchPeersView = () => {
 	const theme = useTheme();
 	const { colors } = theme;
 	const navigation = useNavigation<StackNavigationProp<any>>();
-	const { data, loading, refreshing, loadPeers, updateState } = useLoadPeers();
+	const { data, loading, loadPeers, updateSearchText } = useLoadPeers();
 	const [selectedPeers, setSelectedPeers] = useState<Set<string>>(new Set());
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		loadPeers({});
 	}, []);
+
+	const onSearchChangeText = (text: string) => {
+		updateSearchText(text);
+	};
 
 	const togglePeerSelection = (peerId: string) => {
 		setSelectedPeers(prev => {
@@ -54,10 +59,10 @@ const SearchPeersView = () => {
 	);
 
 	const handleLoadMore = useCallback(() => {
-		if (!loading && !refreshing) {
+		if (!loading) {
 			loadPeers({});
 		}
-	}, [loading, refreshing, loadPeers]);
+	}, [loading, loadPeers]);
 
 	if (loading && data.length === 0) {
 		return (
@@ -68,15 +73,21 @@ const SearchPeersView = () => {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
+		<View style={[styles.container, { backgroundColor: colors.backgroundColor }]} testID='calendar-view'>
 			<StatusBar />
+			<SearchBox
+				onChangeText={onSearchChangeText}
+				onSubmitEditing={() => loadPeers({ newSearch: true })}
+				clearText={() => updateSearchText('')}
+				testID='federation-view-search'
+			/>
 			<FlatList
 				data={data}
 				renderItem={renderItem}
 				keyExtractor={item => item._id}
 				onEndReached={handleLoadMore}
 				onEndReachedThreshold={0.5}
-				ListFooterComponent={loading && !refreshing ? <ActivityIndicator color={colors.primary} /> : null}
+				ListFooterComponent={loading ? <ActivityIndicator color={colors.primary} /> : null}
 			/>
 		</View>
 	);
@@ -110,12 +121,12 @@ const styles = StyleSheet.create({
 		width: 24,
 		height: 24,
 		borderRadius: 12,
-		backgroundColor: '#4CAF50',
+		backgroundColor: '#F5F4F2',
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
 	checkMarkText: {
-		color: 'white',
+		color: '#000000',
 		fontSize: 16
 	}
 });
