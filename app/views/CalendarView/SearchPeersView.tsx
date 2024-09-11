@@ -20,7 +20,7 @@ const SearchPeersView = () => {
 	const theme = useTheme();
 	const { colors } = theme;
 	const navigation = useNavigation<StackNavigationProp<any>>();
-	const { data, loading, loadPeers, updateSearchText } = useLoadPeers();
+	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
 	const [selectedPeers, setSelectedPeers] = useState<Set<string>>(new Set());
 
 	useEffect(() => {
@@ -28,9 +28,19 @@ const SearchPeersView = () => {
 		loadPeers({});
 	}, []);
 
-	const onSearchChangeText = (text: string) => {
-		updateSearchText(text);
+	const onSearchChangeText = (newText: string) => {
+		updateSearchText(newText);
 	};
+
+	const clearSearch = useCallback(() => {
+		updateSearchText('');
+	}, [updateSearchText]);
+
+	const handleLoadMore = useCallback(() => {
+		if (!loading && text === '') {
+			loadPeers({});
+		}
+	}, [loading, loadPeers, text]);
 
 	const togglePeerSelection = (peerId: string) => {
 		setSelectedPeers(prev => {
@@ -58,42 +68,35 @@ const SearchPeersView = () => {
 		</TouchableOpacity>
 	);
 
-	const handleLoadMore = useCallback(() => {
-		if (!loading) {
-			loadPeers({});
-		}
-	}, [loading, loadPeers]);
-
-	if (loading && data.length === 0) {
-		return (
-			<View style={[styles.container, styles.centerContent]}>
-				<ActivityIndicator size='large' color={colors.primary} />
-			</View>
-		);
-	}
-
 	return (
 		<View style={[styles.container, { backgroundColor: colors.backgroundColor }]} testID='calendar-view'>
 			<StatusBar />
-			<SearchBox
-				onChangeText={onSearchChangeText}
-				onSubmitEditing={() => loadPeers({ newSearch: true })}
-				clearText={() => updateSearchText('')}
-				testID='federation-view-search'
-			/>
-			<FlatList
-				data={data}
-				renderItem={renderItem}
-				keyExtractor={item => item._id}
-				onEndReached={handleLoadMore}
-				onEndReachedThreshold={0.5}
-				ListFooterComponent={loading ? <ActivityIndicator color={colors.primary} /> : null}
-			/>
+			<SearchBox onChangeText={onSearchChangeText} clearText={clearSearch} testID='federation-view-search' value={text} />
+			{loading && data.length === 0 ? (
+				<View style={styles.centerContent}>
+					<ActivityIndicator size='large' color={colors.primary} />
+				</View>
+			) : (
+				<FlatList
+					data={data}
+					renderItem={renderItem}
+					keyExtractor={item => item._id}
+					onEndReached={handleLoadMore}
+					onEndReachedThreshold={0.5}
+					ListFooterComponent={loading ? <ActivityIndicator color={colors.primary} /> : null}
+				/>
+			)}
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+	searchContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		padding: 10
+	},
+	searchSpinner: {},
 	container: {
 		flex: 1
 	},

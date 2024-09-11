@@ -14,24 +14,27 @@ export const useLoadPeers = () => {
 		type: 'users'
 	});
 
-	const loadPeersImpl = async ({ newSearch = false }) => {
+	const isSearchActive = useRef(false);
+
+	const loadPeersImpl = async ({ newSearch = false, searchText = state.text }) => {
 		if (newSearch) {
 			setState(prevState => ({ ...prevState, data: [], total: -1, numUsersFetched: 0 }));
+			isSearchActive.current = searchText !== '';
 		}
 
-		const { loading, total, numUsersFetched, text, type, globalUsers } = state;
-		if (loading || (numUsersFetched >= total && total !== -1)) {
+		if (isSearchActive.current && !newSearch) {
+			// Don't load more results if a search is active
 			return;
 		}
 
 		setState(prevState => ({ ...prevState, loading: true }));
 
 		try {
-			const query = { text, type, workspace: globalUsers ? 'all' : 'local' };
+			const query = { text: searchText, type: state.type, workspace: state.globalUsers ? 'all' : 'local' };
 
 			const directories = await RocketChat.getDirectory({
 				query,
-				offset: numUsersFetched,
+				offset: newSearch ? 0 : state.numUsersFetched,
 				count: 50,
 				sort: { name: 1 }
 			});
@@ -51,9 +54,9 @@ export const useLoadPeers = () => {
 
 				setState(prevState => ({
 					...prevState,
-					data: [...prevState.data, ...combinedResults],
+					data: newSearch ? combinedResults : [...prevState.data, ...combinedResults],
 					loading: false,
-					numUsersFetched: prevState.numUsersFetched + directories.count,
+					numUsersFetched: newSearch ? combinedResults.length : prevState.numUsersFetched + combinedResults.length,
 					total: directories.total
 				}));
 			} else {
@@ -69,18 +72,15 @@ export const useLoadPeers = () => {
 
 	const loadPeers = useCallback(
 		({ newSearch = false }) => {
-			debouncedLoadPeers({ newSearch });
+			debouncedLoadPeers({ newSearch, searchText: state.text });
 		},
-		[debouncedLoadPeers]
+		[state.text]
 	);
 
-	const updateSearchText = useCallback(
-		(text: string) => {
-			setState(prevState => ({ ...prevState, text }));
-			loadPeers({ newSearch: true });
-		},
-		[loadPeers]
-	);
+	const updateSearchText = useCallback((text: string) => {
+		setState(prevState => ({ ...prevState, text }));
+		debouncedLoadPeers({ newSearch: true, searchText: text });
+	}, []);
 
 	return {
 		...state,
