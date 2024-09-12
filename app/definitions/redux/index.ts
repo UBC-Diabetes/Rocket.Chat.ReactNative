@@ -24,6 +24,7 @@ import { IActiveUsers } from '../../reducers/activeUsers';
 import { IApp } from '../../reducers/app';
 import { IConnect } from '../../reducers/connect';
 import { ICreateChannel } from '../../reducers/createChannel';
+import { ICreateEvent } from '../../reducers/createEvent';
 import { ICreateDiscussion } from '../../reducers/createDiscussion';
 import { IEncryption } from '../../reducers/encryption';
 import { IInviteLinks } from '../../reducers/inviteLinks';
@@ -53,6 +54,7 @@ export interface IApplicationState {
 	selectedUsers: ISelectedUsers;
 	app: IApp;
 	createChannel: ICreateChannel;
+	createEvent: ICreateEvent;
 	room: IRoom;
 	rooms: any;
 	sortPreferences: any;

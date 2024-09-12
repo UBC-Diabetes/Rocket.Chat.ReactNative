@@ -9,6 +9,7 @@ import * as HeaderButton from '../../containers/HeaderButton';
 import { useSelector } from 'react-redux';
 
 import { getUserSelector } from '../../selectors/login';
+import { getEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 
@@ -27,6 +28,7 @@ const CreateEventView = () => {
 
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
+	const event = useSelector((state: IApplicationState) => getEventSelector(state));
 	const userName = user?.username || '';
 
 	useEffect(() => {

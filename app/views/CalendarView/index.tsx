@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { ExpandableCalendar, AgendaList, CalendarProvider, WeekCalendar } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Touchable from 'react-native-platform-touchable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useTheme } from '../../theme';
+import { createEventDraft } from '../../actions/createEvent';
 import { getUserSelector } from '../../selectors/login';
 import { IApplicationState } from '../../definitions';
 import StatusBar from '../../containers/StatusBar';
@@ -20,6 +21,7 @@ import { getMarkedDates } from './mockedDates';
 const CalendarView = (props: any): React.ReactElement => {
 	const { weekView } = props;
 
+	const dispatch = useDispatch();
 	const theme = useTheme();
 	const { colors } = theme;
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -45,6 +47,11 @@ const CalendarView = (props: any): React.ReactElement => {
 			)
 		});
 	});
+
+	const createEvent = useCallback(() => {
+		dispatch(createEventDraft({ author: userName }));
+		navigation.navigate('CreateEventView');
+	}, []);
 
 	const renderItem = useCallback(({ item }: any) => <AgendaItem item={item} />, []);
 
@@ -96,7 +103,7 @@ const CalendarView = (props: any): React.ReactElement => {
 			</CalendarProvider>
 			{isAdmin && (
 				<View style={styles.adminButtonContainer}>
-					<Touchable style={styles.adminButton} onPress={() => navigation.navigate('CreateEventView')}>
+					<Touchable style={styles.adminButton} onPress={() => createEvent()}>
 						<Text style={styles.adminButtonText}>Create event</Text>
 					</Touchable>
 				</View>

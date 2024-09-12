@@ -2,21 +2,15 @@ import { TApplicationActions } from '../definitions';
 import { CREATE_EVENT } from '../actions/actionsTypes';
 
 interface ICreateEventResult {
-	name: string;
-	users: string[];
-	teamId?: string;
-	type: boolean;
-	readOnly: boolean;
-	encrypted: boolean;
-	broadcast: boolean;
-	isTeam: boolean;
+	author?: string;
+	peers?: string[];
 }
 
-interface ICreateEventResultOnlyGroup {
-	group: boolean;
-}
+export type TCreateEventResult = ICreateEventResult;
 
-export type TCreateEventResult = ICreateEventResult | ICreateEventResultOnlyGroup;
+export type TCreateEventDraft = {
+	author?: string;
+};
 
 export interface ICreateEvent {
 	isFetching: boolean;
@@ -37,9 +31,10 @@ export default function (state = initialState, action: TApplicationActions): ICr
 		case CREATE_EVENT.DRAFT:
 			return {
 				...state,
-				isFetching: true,
+				isFetching: false,
 				failure: false,
-				error: {}
+				error: {},
+				...action.data
 			};
 		case CREATE_EVENT.REQUEST:
 			return {
