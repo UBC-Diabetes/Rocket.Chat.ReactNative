@@ -1,0 +1,48 @@
+import { Action } from 'redux';
+
+import { TCreateEventResult } from '../reducers/createEvent';
+import { CREATE_EVENT } from './actionsTypes';
+
+interface ICreateEventRequest extends Action {
+	data: TCreateEventResult;
+}
+
+interface ICreateEventSuccess extends Action {
+	data: TCreateEventResult;
+}
+
+interface ICreateEventFailure extends Action {
+	err: any;
+	isTeam: boolean;
+}
+
+export type TActionCreateEvent = ICreateEventRequest & ICreateEventSuccess & ICreateEventFailure;
+
+export function createEventDraft(data: TCreateEventResult): ICreateEventRequest {
+	return {
+		type: CREATE_EVENT.DRAFT,
+		data
+	};
+}
+
+export function createEventRequest(data: TCreateEventResult): ICreateEventRequest {
+	return {
+		type: CREATE_EVENT.REQUEST,
+		data
+	};
+}
+
+export function createEventSuccess(data: TCreateEventResult): ICreateEventSuccess {
+	return {
+		type: CREATE_EVENT.SUCCESS,
+		data
+	};
+}
+
+export function createEventFailure(err: any, isTeam: boolean): ICreateEventFailure {
+	return {
+		type: CREATE_EVENT.FAILURE,
+		err,
+		isTeam
+	};
+}
