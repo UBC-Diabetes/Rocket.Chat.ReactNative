@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -8,6 +9,7 @@ import Avatar from '../../containers/Avatar';
 import SearchBox from '../../containers/SearchBox';
 import StatusBar from '../../containers/StatusBar';
 import { useTheme } from '../../theme';
+import { createEventDraft } from '../../actions/createEvent';
 
 export interface IUser {
 	user: {
@@ -18,6 +20,8 @@ export interface IUser {
 
 const SearchPeersView = () => {
 	const theme = useTheme();
+	const dispatch = useDispatch();
+
 	const { colors } = theme;
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
@@ -42,25 +46,27 @@ const SearchPeersView = () => {
 		}
 	}, [loading, loadPeers, text]);
 
-	const togglePeerSelection = (peerId: string) => {
+	const togglePeerSelection = (username: string) => {
 		setSelectedPeers(prev => {
 			const newSet = new Set(prev);
-			if (newSet.has(peerId)) {
-				newSet.delete(peerId);
+			if (newSet.has(username)) {
+				newSet.delete(username);
 			} else {
-				newSet.add(peerId);
+				newSet.add(username);
 			}
+
+			dispatch(createEventDraft({ peers: Array.from(newSet) }));
 			return newSet;
 		});
 	};
 
 	const renderItem = ({ item }) => (
-		<TouchableOpacity style={styles.peerItem} onPress={() => togglePeerSelection(item._id)}>
+		<TouchableOpacity style={styles.peerItem} onPress={() => togglePeerSelection(item.username)}>
 			<View style={styles.peerInfo}>
 				<Avatar text={item.username} size={36} borderRadius={18} />
 				<Text style={styles.peerName}>{item.username}</Text>
 			</View>
-			{selectedPeers.has(item._id) && (
+			{selectedPeers.has(item.username) && (
 				<View style={styles.checkMark}>
 					<Text style={styles.checkMarkText}>✓</Text>
 				</View>
@@ -98,7 +104,7 @@ const SearchPeersView = () => {
 				<FlatList
 					data={data}
 					renderItem={renderItem}
-					keyExtractor={item => item._id}
+					keyExtractor={item => item.username}
 					onEndReached={handleLoadMore}
 					onEndReachedThreshold={0.5}
 					ListFooterComponent={loading ? <ActivityIndicator color={colors.primary} /> : null}

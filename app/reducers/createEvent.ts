@@ -3,6 +3,11 @@ import { CREATE_EVENT } from '../actions/actionsTypes';
 
 interface ICreateEventResult {
 	author?: string;
+	title?: string;
+	description?: string;
+	date?: string;
+	time?: string;
+	zoomLink?: string;
 	peers?: string[];
 }
 
@@ -17,6 +22,13 @@ export interface ICreateEvent {
 	failure: boolean;
 	result: TCreateEventResult | {};
 	error: any;
+	author?: string;
+	title?: string;
+	description?: string;
+	date?: string;
+	time?: string;
+	zoomLink?: string;
+	peers?: string[];
 }
 
 export const initialState: ICreateEvent = {

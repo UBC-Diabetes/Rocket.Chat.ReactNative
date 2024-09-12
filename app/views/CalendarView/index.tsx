@@ -32,7 +32,6 @@ const CalendarView = (props: any): React.ReactElement => {
 	const marked = useRef(getMarkedDates());
 
 	const styles = makeStyles(theme);
-	const todayBtnTheme = { current: colors.buttonBackground };
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });

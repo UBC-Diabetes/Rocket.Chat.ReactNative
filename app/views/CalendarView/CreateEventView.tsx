@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as HeaderButton from '../../containers/HeaderButton';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { createEventDraft } from '../../actions/createEvent';
 import { getUserSelector } from '../../selectors/login';
 import { getEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
@@ -26,9 +27,10 @@ const CreateEventView = () => {
 		{ id: '2', name: 'Jane Doe', image: 'https://example.com/image2.jpg' }
 	]);
 
+	const dispatch = useDispatch();
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
-	const event = useSelector((state: IApplicationState) => getEventSelector(state));
+	const draftEvent = useSelector((state: IApplicationState) => getEventSelector(state));
 	const userName = user?.username || '';
 
 	useEffect(() => {
@@ -45,30 +47,42 @@ const CreateEventView = () => {
 		});
 	});
 
+	const onTitleChange = (title: string) => {
+		setTitle(title);
+		dispatch(createEventDraft({ title }));
+	};
+	const onDescriptionChange = (description: string) => {
+		setDescription(description);
+		dispatch(createEventDraft({ description }));
+	};
+	const onZoomLinkChange = (zoomLink: string) => {
+		setZoomLink(zoomLink);
+		dispatch(createEventDraft({ zoomLink }));
+	};
 	const onDateChange = (event, selectedDate) => {
 		const currentDate = selectedDate || date;
 		setShowDatePicker(false);
 		setDate(currentDate);
+		dispatch(createEventDraft({ date: currentDate }));
 	};
-
 	const onTimeChange = (event, selectedTime) => {
 		const currentTime = selectedTime || time;
 		setShowTimePicker(false);
 		setTime(currentTime);
-	};
-	const addPeer = peer => {
-		setPeers([...peers, peer]);
+		dispatch(createEventDraft({ time: currentTime }));
 	};
 
-	const removePeer = id => {
-		setPeers(peers.filter(peer => peer.id !== id));
+	const removePeer = (username: string) => {
+		const newPeers = draftEvent?.peers?.filter(peer => peer !== username);
+
+		dispatch(createEventDraft({ peers: newPeers }));
 	};
 
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.header}>Create Event</Text>
 			<Text style={styles.label}>Title</Text>
-			<TextInput style={styles.input} value={title} onChangeText={setTitle} placeholder='Enter event title' />
+			<TextInput style={styles.input} value={title} onChangeText={onTitleChange} placeholder='Enter event title' />
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.label}>Date</Text>
@@ -92,13 +106,13 @@ const CreateEventView = () => {
 				style={[styles.input, styles.textArea]}
 				placeholder='Describe your event'
 				value={description}
-				onChangeText={setDescription}
+				onChangeText={onDescriptionChange}
 				multiline
 				numberOfLines={4}
 			/>
 
 			<Text style={styles.label}>Zoom Link</Text>
-			<TextInput style={styles.input} placeholder='Enter Zoom link' value={zoomLink} onChangeText={setZoomLink} />
+			<TextInput style={styles.input} placeholder='Enter Zoom link' value={zoomLink} onChangeText={onZoomLinkChange} />
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.sectionTitle}>Peer Supporters</Text>
@@ -107,10 +121,10 @@ const CreateEventView = () => {
 				</TouchableOpacity>
 			</View>
 
-			{peers.map((peer, index) => (
+			{draftEvent.peers?.map((peer, index) => (
 				<View key={index} style={styles.peerItem}>
-					<Avatar text='timq' size={36} borderRadius={18} />
-					<Text style={styles.peerName}>{peer.name}</Text>
+					<Avatar text={peer} size={36} borderRadius={18} />
+					<Text style={styles.peerName}>{peer}</Text>
 					<TouchableOpacity onPress={() => removePeer(peer)} style={styles.removePeerButton}>
 						<Text style={styles.removePeerButtonText}>x</Text>
 					</TouchableOpacity>
