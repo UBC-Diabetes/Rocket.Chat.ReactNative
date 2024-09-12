@@ -68,10 +68,28 @@ const SearchPeersView = () => {
 		</TouchableOpacity>
 	);
 
+	const handleDone = () => {
+		console.log('Done pressed, selected peers:', Array.from(selectedPeers));
+		navigation.goBack();
+	};
+
 	return (
 		<View style={[styles.container, { backgroundColor: colors.backgroundColor }]} testID='calendar-view'>
 			<StatusBar />
-			<SearchBox onChangeText={onSearchChangeText} clearText={clearSearch} testID='federation-view-search' value={text} />
+			<View style={styles.headerContainer}>
+				<View style={styles.searchContainer}>
+					<SearchBox
+						onChangeText={onSearchChangeText}
+						clearText={clearSearch}
+						testID='federation-view-search'
+						value={text}
+						placeholder='Add guests'
+					/>
+				</View>
+				<TouchableOpacity style={styles.doneButton} onPress={handleDone}>
+					<Text style={styles.doneButtonText}>Done</Text>
+				</TouchableOpacity>
+			</View>
 			{loading && data.length === 0 ? (
 				<View style={styles.centerContent}>
 					<ActivityIndicator size='large' color={colors.primary} />
@@ -91,10 +109,24 @@ const SearchPeersView = () => {
 };
 
 const styles = StyleSheet.create({
-	searchContainer: {
+	headerContainer: {
 		flexDirection: 'row',
+		justifyContent: 'space-between',
 		alignItems: 'center',
 		padding: 10
+	},
+	doneButton: {
+		padding: 10,
+		alignItems: 'center',
+		marginBottom: 15
+	},
+	doneButtonText: {
+		color: '#ff69b4',
+		fontSize: 16
+	},
+	searchContainer: {
+		flex: 1,
+		marginRight: 10
 	},
 	searchSpinner: {},
 	container: {
