@@ -45,6 +45,15 @@ const CreateEventView = () => {
 				</HeaderButton.Container>
 			)
 		});
+		if (!draftEvent.time) {
+			const defaultEvent = {
+				time: time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+				description: draftEvent.description ?? 'Event description',
+				title: draftEvent.title ?? 'Event title',
+				date: draftEvent.date ?? date
+			};
+			dispatch(createEventDraft(defaultEvent));
+		}
 	});
 
 	const onTitleChange = (title: string) => {

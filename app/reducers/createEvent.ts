@@ -5,7 +5,7 @@ interface ICreateEventResult {
 	author?: string;
 	title?: string;
 	description?: string;
-	date?: string;
+	date?: string | Date;
 	time?: string;
 	zoomLink?: string;
 	peers?: string[];
