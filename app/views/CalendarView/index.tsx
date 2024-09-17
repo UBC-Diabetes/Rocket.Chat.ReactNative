@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '../../theme';
 import { createEventDraft } from '../../actions/createEvent';
 import { getUserSelector } from '../../selectors/login';
+import { getPopupSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import StatusBar from '../../containers/StatusBar';
 import Avatar from '../../containers/Avatar';
@@ -32,6 +33,9 @@ const CalendarView = (props: any): React.ReactElement => {
 
 	const marked = useRef(getMarkedDates());
 
+	const { showConfirmationPopup, confirmationPopupDetails } = useSelector((state: IApplicationState) => getPopupSelector(state));
+	console.log(confirmationPopupDetails);
+
 	const styles = makeStyles(theme);
 
 	useEffect(() => {
@@ -52,8 +56,6 @@ const CalendarView = (props: any): React.ReactElement => {
 		dispatch(createEventDraft({ author: userName }));
 		navigation.navigate('CreateEventView');
 	}, []);
-
-	const handleConfirm = useCallback(() => 'blah');
 
 	const renderItem = useCallback(({ item }: any) => <AgendaItem item={item} />, []);
 
@@ -103,16 +105,7 @@ const CalendarView = (props: any): React.ReactElement => {
 					// dayFormat={'yyyy-MM-d'}
 				/>
 			</CalendarProvider>
-			<ConfirmationPopup
-				onConfirm={handleConfirm}
-				eventDetails={{
-					title: 'Happy Hour (Zoom)',
-					guests: 10,
-					date: 'Tuesday, Feb 6',
-					time: '9-10AM',
-					zoomLink: 'https://ubc.zoom.us/j/69367593586?pwd=VXE1MUVkc1hERmd4SFZiWjlsMDdrZz09'
-				}}
-			/>
+			{showConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} />}
 			{isAdmin && (
 				<View style={styles.adminButtonContainer}>
 					<Touchable style={styles.adminButton} onPress={() => createEvent()}>

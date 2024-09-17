@@ -3,7 +3,7 @@ import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-nati
 import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as HeaderButton from '../../containers/HeaderButton';
 import { getUserSelector } from '../../selectors/login';
@@ -11,19 +11,19 @@ import { getEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
+import { showConfirmationPopup } from '../../actions/confirmationPopup';
 
 const EventDetailsView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 
+	const dispatch = useDispatch();
+
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
-	const { title, date, time, description, zoomLink, peers, numGuests } = useSelector((state: IApplicationState) =>
-		getEventSelector(state)
-	);
+	const eventDetails = useSelector((state: IApplicationState) => getEventSelector(state));
+	const { title, date, time, description, zoomLink, peers, numGuests } = eventDetails;
 	const userName = user?.username || '';
 
 	// const isRegistered = guests.contains(userName)
-
-	console.log(numGuests);
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -40,6 +40,7 @@ const EventDetailsView = () => {
 
 	const handleRegister = () => {
 		navigation.goBack();
+		dispatch(showConfirmationPopup({ eventDetails }));
 	};
 
 	return (

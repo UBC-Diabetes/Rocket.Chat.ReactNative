@@ -27,6 +27,7 @@ import usersRoles from './usersRoles';
 import troubleshootingNotification from './troubleshootingNotification';
 import supportedVersions from './supportedVersions';
 import inAppFeedback from './inAppFeedback';
+import confirmationPopup from './confirmationPopup';
 
 export default combineReducers({
 	settings,
@@ -55,5 +56,6 @@ export default combineReducers({
 	usersRoles,
 	troubleshootingNotification,
 	supportedVersions,
-	inAppFeedback
+	inAppFeedback,
+    confirmationPopup
 });

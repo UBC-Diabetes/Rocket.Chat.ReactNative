@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 
-const ConfirmationPopup = ({ onConfirm, eventDetails }) => {
+import { hideConfirmationPopup } from '../../actions/confirmationPopup';
+
+const ConfirmationPopup = ({ event }) => {
+	const eventDetails = useMemo(() => {
+		return event?.title
+			? event
+			: {
+					title: 'Happy Hour (Zoom)',
+					guests: 10,
+					date: 'Tuesday, Feb 6',
+					time: '9-10AM',
+					zoomLink: 'https://ubc.zoom.us/j/69367593586?pwd=VXE1MUVkc1hERmd4SFZiWjlsMDdrZz09'
+			  };
+	}, [event]);
+
+	const dispatch = useDispatch();
+
+	const handleConfirm = () => {
+		dispatch(hideConfirmationPopup());
+	};
+
 	return (
 		<View style={styles.overlay}>
 			<SafeAreaView style={styles.safeArea}>
@@ -13,11 +34,17 @@ const ConfirmationPopup = ({ onConfirm, eventDetails }) => {
 						<View style={styles.detailsContainer}>
 							<View style={styles.detailRow}>
 								<Text style={styles.detailIcon}>👥</Text>
-								<Text style={styles.detailText}>{eventDetails.guests} guests</Text>
+								<Text style={styles.detailText}>{eventDetails.guests || 0} guests</Text>
 							</View>
 							<View style={styles.detailRow}>
 								<Text style={styles.detailIcon}>📅</Text>
-								<Text style={styles.detailText}>{eventDetails.date}</Text>
+								<Text style={styles.detailText}>
+									{new Date(eventDetails.date ?? '').toLocaleDateString('en-US', {
+										weekday: 'long',
+										month: 'long',
+										day: 'numeric'
+									})}
+								</Text>
 							</View>
 							<View style={styles.detailRow}>
 								<Text style={styles.detailIcon}>🕒</Text>
@@ -26,9 +53,9 @@ const ConfirmationPopup = ({ onConfirm, eventDetails }) => {
 						</View>
 
 						<Text style={styles.zoomLinkLabel}>Zoom Link</Text>
-						<Text style={styles.zoomLink}>{eventDetails.zoomLink}</Text>
+						<Text style={styles.zoomLink}>{eventDetails.zoomLink || 'Stay tuned'}</Text>
 
-						<TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
+						<TouchableOpacity style={styles.confirmButton} onPress={() => handleConfirm()}>
 							<Text style={styles.confirmButtonText}>Confirm</Text>
 						</TouchableOpacity>
 

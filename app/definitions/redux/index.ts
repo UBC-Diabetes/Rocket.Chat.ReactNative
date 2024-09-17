@@ -45,6 +45,7 @@ import { ITroubleshootingNotification } from '../../reducers/troubleshootingNoti
 import { TActionTroubleshootingNotification } from '../../actions/troubleshootingNotification';
 import { ISupportedVersionsState } from '../../reducers/supportedVersions';
 import { IInAppFeedbackState } from '../../reducers/inAppFeedback';
+import { IPopup } from '../../reducers/confirmationPopup';
 
 export interface IApplicationState {
 	settings: TSettingsState;
@@ -74,6 +75,7 @@ export interface IApplicationState {
 	troubleshootingNotification: ITroubleshootingNotification;
 	supportedVersions: ISupportedVersionsState;
 	inAppFeedback: IInAppFeedbackState;
+	confirmationPopup: IPopup;
 }
 
 export type TApplicationActions = TActionActiveUsers &
