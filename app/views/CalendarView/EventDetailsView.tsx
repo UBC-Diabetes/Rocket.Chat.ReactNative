@@ -4,7 +4,6 @@ import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as HeaderButton from '../../containers/HeaderButton';
 import { getUserSelector } from '../../selectors/login';
@@ -15,6 +14,7 @@ import { CustomIcon } from '../../containers/CustomIcon';
 
 const EventDetailsView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
+
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const { title, date, time, description, zoomLink, peers, numGuests } = useSelector((state: IApplicationState) =>
 		getEventSelector(state)
@@ -37,6 +37,10 @@ const EventDetailsView = () => {
 			)
 		});
 	});
+
+	const handleRegister = () => {
+		navigation.goBack();
+	};
 
 	return (
 		<ScrollView style={styles.container}>
@@ -73,7 +77,7 @@ const EventDetailsView = () => {
 					</View>
 				</View>
 			))}
-			<TouchableOpacity style={styles.createEventButton} onPress={() => 'blah'}>
+			<TouchableOpacity style={styles.createEventButton} onPress={() => handleRegister()}>
 				<Text style={styles.createEventButtonText}>Register</Text>
 			</TouchableOpacity>
 		</ScrollView>

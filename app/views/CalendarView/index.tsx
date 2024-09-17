@@ -17,6 +17,7 @@ import { agendaItems } from './agendaItems';
 import AgendaItem from './AgendaItem';
 import testIDs from './testIds';
 import { getMarkedDates } from './mockedDates';
+import ConfirmationPopup from './ConfirmationPopup';
 
 const CalendarView = (props: any): React.ReactElement => {
 	const { weekView } = props;
@@ -51,6 +52,8 @@ const CalendarView = (props: any): React.ReactElement => {
 		dispatch(createEventDraft({ author: userName }));
 		navigation.navigate('CreateEventView');
 	}, []);
+
+	const handleConfirm = useCallback(() => 'blah');
 
 	const renderItem = useCallback(({ item }: any) => <AgendaItem item={item} />, []);
 
@@ -100,6 +103,16 @@ const CalendarView = (props: any): React.ReactElement => {
 					// dayFormat={'yyyy-MM-d'}
 				/>
 			</CalendarProvider>
+			<ConfirmationPopup
+				onConfirm={handleConfirm}
+				eventDetails={{
+					title: 'Happy Hour (Zoom)',
+					guests: 10,
+					date: 'Tuesday, Feb 6',
+					time: '9-10AM',
+					zoomLink: 'https://ubc.zoom.us/j/69367593586?pwd=VXE1MUVkc1hERmd4SFZiWjlsMDdrZz09'
+				}}
+			/>
 			{isAdmin && (
 				<View style={styles.adminButtonContainer}>
 					<Touchable style={styles.adminButton} onPress={() => createEvent()}>
