@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, Alert, View, Text, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import isEmpty from 'lodash/isEmpty';
 import { format, parseISO } from 'date-fns';
 
@@ -13,9 +15,11 @@ interface ItemProps {
 
 const AgendaItem = (props: ItemProps) => {
 	const { item } = props;
+	const navigation = useNavigation<StackNavigationProp<any>>();
 
-	const itemPressed = useCallback(() => {
-		Alert.alert(item.title);
+	const itemPressed = useCallback(item => {
+		console.log(item);
+		navigation.navigate('EventDetailsView');
 	}, []);
 
 	if (isEmpty(item)) {
@@ -32,7 +36,7 @@ const AgendaItem = (props: ItemProps) => {
 
 	return (
 		<View style={styles.itemContainer}>
-			<TouchableOpacity onPress={itemPressed} style={styles.item} testID={testIDs.agenda.ITEM}>
+			<TouchableOpacity onPress={() => itemPressed(item)} style={styles.item} testID={testIDs.agenda.ITEM}>
 				<View style={styles.contentContainer}>
 					<Text style={styles.itemTitleText}>{fullTitle}</Text>
 					<Text style={styles.itemDateText}>{formattedDate}</Text>

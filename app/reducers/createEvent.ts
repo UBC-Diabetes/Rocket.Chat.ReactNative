@@ -29,6 +29,7 @@ export interface ICreateEvent {
 	time?: string;
 	zoomLink?: string;
 	peers?: string[];
+	numGuests?: number;
 }
 
 export const initialState: ICreateEvent = {
