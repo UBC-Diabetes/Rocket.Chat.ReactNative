@@ -7,7 +7,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useLoadPeers } from './helpers';
 import Avatar from '../../containers/Avatar';
 import SearchBox from '../../containers/SearchBox';
-import StatusBar from '../../containers/StatusBar';
 import { useTheme } from '../../theme';
 import { createEventDraft } from '../../actions/createEvent';
 
@@ -81,7 +80,6 @@ const SearchPeersView = () => {
 
 	return (
 		<View style={[styles.container, { backgroundColor: colors.backgroundColor }]} testID='calendar-view'>
-			<StatusBar />
 			<View style={styles.headerContainer}>
 				<View style={styles.searchContainer}>
 					<SearchBox

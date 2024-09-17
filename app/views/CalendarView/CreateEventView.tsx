@@ -13,6 +13,7 @@ import { getUserSelector } from '../../selectors/login';
 import { getEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
+import { eventTest } from '../../lib/services/restApi';
 
 const CreateEventView = () => {
 	const [title, setTitle] = useState('');
@@ -22,10 +23,6 @@ const CreateEventView = () => {
 	const [zoomLink, setZoomLink] = useState('');
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [showTimePicker, setShowTimePicker] = useState(false);
-	const [peers, setPeers] = useState([
-		{ id: '1', name: 'John Doe', image: 'https://example.com/image1.jpg' },
-		{ id: '2', name: 'Jane Doe', image: 'https://example.com/image2.jpg' }
-	]);
 
 	const dispatch = useDispatch();
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -36,7 +33,6 @@ const CreateEventView = () => {
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		navigation.setOptions({
-			headerLeft: () => <HeaderButton.Drawer navigation={navigation} testID='calendar-view-drawer' />,
 			headerRight: () => (
 				<HeaderButton.Container>
 					<Touchable style={{ marginRight: 20 }} onPress={() => navigation.navigate('ProfileView')}>
@@ -90,6 +86,7 @@ const CreateEventView = () => {
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.header}>Create Event</Text>
+
 			<Text style={styles.label}>Title</Text>
 			<TextInput style={styles.input} value={title} onChangeText={onTitleChange} placeholder='Enter event title' />
 
@@ -140,7 +137,7 @@ const CreateEventView = () => {
 				</View>
 			))}
 
-			<TouchableOpacity style={styles.createEventButton} onPress={() => navigation.navigate('SearchPeersView')}>
+			<TouchableOpacity style={styles.createEventButton} onPress={() => eventTest()}>
 				<Text style={styles.createEventButtonText}>Create Event</Text>
 			</TouchableOpacity>
 		</ScrollView>

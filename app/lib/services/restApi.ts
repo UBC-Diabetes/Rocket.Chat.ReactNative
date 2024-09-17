@@ -905,6 +905,11 @@ export const removePushToken = (): Promise<boolean | void> => {
 	return Promise.resolve();
 };
 
+export const eventTest = () => {
+	const event = reduxStore.getState().createEvent;
+	return sdk.post('createEvent', { event });
+};
+
 // RC 6.6.0
 export const pushTest = () => sdk.post('push.test');
 
