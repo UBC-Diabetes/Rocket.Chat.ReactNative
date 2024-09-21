@@ -8,12 +8,12 @@ import * as HeaderButton from '../../containers/HeaderButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { createEventDraft } from '../../actions/createEvent';
+import { createEventDraft } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
 import { getEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
-import { eventTest } from '../../lib/services/restApi';
+import { createCalendarEvent } from '../../lib/services/restApi';
 
 const CreateEventView = () => {
 	const [title, setTitle] = useState('');

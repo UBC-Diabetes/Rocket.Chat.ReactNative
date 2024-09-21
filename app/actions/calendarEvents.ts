@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 
-import { TCreateEventResult } from '../reducers/createEvent';
-import { CREATE_EVENT } from './actionsTypes';
+import { TCreateEventResult } from '../reducers/calendarEvent';
+import { CREATE_EVENT, FETCH_EVENT } from './actionsTypes';
 
 interface ICreateEventRequest extends Action {
 	data: TCreateEventResult;
@@ -44,5 +44,19 @@ export function createEventFailure(err: any, isTeam: boolean): ICreateEventFailu
 		type: CREATE_EVENT.FAILURE,
 		err,
 		isTeam
+	};
+}
+
+export function fetchEventSuccess(data: any) {
+	return {
+		type: FETCH_EVENT.success,
+		data
+	};
+}
+
+export function fetchEventFailure(err: any) {
+	return {
+		type: FETCH_EVENT.FAILURE,
+		err
 	};
 }

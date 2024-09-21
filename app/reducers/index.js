@@ -9,7 +9,7 @@ import rooms from './rooms';
 import server from './server';
 import selectedUsers from './selectedUsers';
 import createChannel from './createChannel';
-import createEvent from './createEvent';
+import createEvent from './calendarEvent';
 import app from './app';
 import sortPreferences from './sortPreferences';
 import share from './share';

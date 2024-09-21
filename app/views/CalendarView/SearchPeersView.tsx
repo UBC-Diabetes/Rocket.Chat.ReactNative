@@ -8,7 +8,7 @@ import { useLoadPeers } from './helpers';
 import Avatar from '../../containers/Avatar';
 import SearchBox from '../../containers/SearchBox';
 import { useTheme } from '../../theme';
-import { createEventDraft } from '../../actions/createEvent';
+import { createEventDraft } from '../../actions/calendarEvents';
 
 export interface IUser {
 	user: {

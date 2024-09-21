@@ -24,7 +24,7 @@ import { IActiveUsers } from '../../reducers/activeUsers';
 import { IApp } from '../../reducers/app';
 import { IConnect } from '../../reducers/connect';
 import { ICreateChannel } from '../../reducers/createChannel';
-import { ICreateEvent } from '../../reducers/createEvent';
+import { ICreateEvent } from '../../reducers/calendarEvent';
 import { ICreateDiscussion } from '../../reducers/createDiscussion';
 import { IEncryption } from '../../reducers/encryption';
 import { IInviteLinks } from '../../reducers/inviteLinks';
