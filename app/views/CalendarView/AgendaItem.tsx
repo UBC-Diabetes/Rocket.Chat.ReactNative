@@ -32,7 +32,7 @@ const AgendaItem = (props: ItemProps) => {
 
 	const parsedDate = parseISO(item.date ?? '2023-08-20T16:00:00');
 	const formattedDate = format(parsedDate, "EEEE 'at' h:mm a");
-	const fullTitle = `${item.title}${item.isZoom ? ' (Zoom)' : ''}`;
+	const fullTitle = `${item.title}${item.zoomLink ? ' (Zoom)' : ''}`;
 
 	return (
 		<View style={styles.itemContainer}>
@@ -42,9 +42,9 @@ const AgendaItem = (props: ItemProps) => {
 					<Text style={styles.itemDateText}>{formattedDate}</Text>
 				</View>
 				<View style={styles.avatarContainer}>
-					{item.users.map((user, index) => (
-						<View key={user.username} style={[styles.avatarWrapper, { zIndex: item.users.length - index, right: index * 15 }]}>
-							<Avatar text={user.username} size={36} borderRadius={18} />
+					{item.peers.map((user: string, index: number) => (
+						<View key={user} style={[styles.avatarWrapper, { zIndex: item.peers.length - index, right: index * 15 }]}>
+							<Avatar text={user} size={36} borderRadius={18} />
 						</View>
 					))}
 				</View>

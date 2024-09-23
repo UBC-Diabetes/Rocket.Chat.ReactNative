@@ -79,8 +79,12 @@ const CreateEventView = () => {
 
 	const removePeer = (username: string) => {
 		const newPeers = draftEvent?.peers?.filter(peer => peer !== username);
-
 		dispatch(createEventDraft({ peers: newPeers }));
+	};
+
+	const createEvent = async () => {
+		await createCalendarEvent();
+		navigation.goBack();
 	};
 
 	return (
@@ -137,7 +141,7 @@ const CreateEventView = () => {
 				</View>
 			))}
 
-			<TouchableOpacity style={styles.createEventButton} onPress={() => eventTest()}>
+			<TouchableOpacity style={styles.createEventButton} onPress={() => createEvent()}>
 				<Text style={styles.createEventButtonText}>Create Event</Text>
 			</TouchableOpacity>
 		</ScrollView>

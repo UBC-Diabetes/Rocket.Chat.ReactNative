@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ExpandableCalendar, AgendaList, CalendarProvider, WeekCalendar } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
@@ -9,12 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '../../theme';
 import { createEventDraft, fetchEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
-import { getPopupSelector } from '../../selectors/event';
+import { getCalendarEventsSelector, getPopupSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import StatusBar from '../../containers/StatusBar';
 import Avatar from '../../containers/Avatar';
 import * as HeaderButton from '../../containers/HeaderButton';
-import { agendaItems } from './agendaItems';
 import AgendaItem from './AgendaItem';
 import testIDs from './testIds';
 import { getMarkedDates } from './mockedDates';
@@ -31,10 +30,11 @@ const CalendarView = (props: any): React.ReactElement => {
 	const userName = user?.username || '';
 	const isAdmin = user?.roles && user?.roles.includes('admin');
 
+	const agendaItems = useSelector((state: IApplicationState) => getCalendarEventsSelector(state));
+
 	const marked = useRef(getMarkedDates());
 
 	const { showConfirmationPopup, confirmationPopupDetails } = useSelector((state: IApplicationState) => getPopupSelector(state));
-	console.log(confirmationPopupDetails);
 
 	const styles = makeStyles(theme);
 
@@ -52,7 +52,7 @@ const CalendarView = (props: any): React.ReactElement => {
 		});
 
 		dispatch(fetchEventRequest());
-	});
+	}, [navigation, userName, dispatch]);
 
 	const createEvent = useCallback(() => {
 		dispatch(createEventDraft({ author: userName }));
@@ -61,12 +61,14 @@ const CalendarView = (props: any): React.ReactElement => {
 
 	const renderItem = useCallback(({ item }: any) => <AgendaItem item={item} />, []);
 
+	const todaysDate = useMemo(() => new Date().toISOString().split('T')[0], []);
+
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
 			<Text style={styles.title}>Calendar</Text>
 			<CalendarProvider
-				date={agendaItems[1]?.title}
+				date={todaysDate}
 				// onDateChanged={onDateChanged}
 				// onMonthChange={onMonthChange}
 				showTodayButton
@@ -79,32 +81,17 @@ const CalendarView = (props: any): React.ReactElement => {
 				) : (
 					<ExpandableCalendar
 						testID={testIDs.expandableCalendar.CONTAINER}
-						// horizontal={false}
-						// hideArrows
-						// disablePan
-						// hideKnob
-						// initialPosition={ExpandableCalendar.positions.OPEN}
-						// calendarStyle={styles.calendar}
-						// headerStyle={styles.header} // for horizontal only
-						// disableWeekScroll
 						theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
-						// disableAllTouchEventsForDisabledDays
 						firstDay={1}
 						markedDates={marked.current}
-						// leftArrowImageSource={leftArrowIcon}
-						// rightArrowImageSource={rightArrowIcon}
-						// animateScroll
-						// closeOnDayPress={false}
 					/>
 				)}
 				<AgendaList
-					sections={agendaItems}
+					sections={agendaItems ?? []}
 					renderItem={renderItem}
-					// scrollToNextEvent
 					sectionStyle={{
 						backgroundColor: '#F5F4F2'
 					}}
-					// dayFormat={'yyyy-MM-d'}
 				/>
 			</CalendarProvider>
 			{showConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} />}
