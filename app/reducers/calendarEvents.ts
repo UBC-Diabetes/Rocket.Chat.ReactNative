@@ -1,5 +1,5 @@
 import { TApplicationActions } from '../definitions';
-import { CREATE_EVENT } from '../actions/actionsTypes';
+import { CREATE_EVENT, FETCH_EVENT } from '../actions/actionsTypes';
 
 interface ICreateEventResult {
 	author?: string;
@@ -64,6 +64,27 @@ export default function (state = initialState, action: TApplicationActions): ICr
 				result: action.data
 			};
 		case CREATE_EVENT.FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				failure: true,
+				error: action.err
+			};
+		case FETCH_EVENT.REQUEST:
+			return {
+				...state,
+				isFetching: true,
+				failure: false,
+				error: {}
+			};
+		case FETCH_EVENT.SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				failure: false,
+				result: action.data
+			};
+		case FETCH_EVENT.FAILURE:
 			return {
 				...state,
 				isFetching: false,

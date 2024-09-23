@@ -9,7 +9,7 @@ import rooms from './rooms';
 import server from './server';
 import selectedUsers from './selectedUsers';
 import createChannel from './createChannel';
-import createEvent from './calendarEvent';
+import calendarEvents from './calendarEvents';
 import app from './app';
 import sortPreferences from './sortPreferences';
 import share from './share';
@@ -36,7 +36,7 @@ export default combineReducers({
 	server,
 	selectedUsers,
 	createChannel,
-	createEvent,
+	calendarEvents,
 	app,
 	room,
 	rooms,

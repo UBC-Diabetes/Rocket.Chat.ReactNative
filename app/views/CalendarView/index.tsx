@@ -7,7 +7,7 @@ import Touchable from 'react-native-platform-touchable';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useTheme } from '../../theme';
-import { createEventDraft } from '../../actions/calendarEvents';
+import { createEventDraft, fetchEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
 import { getPopupSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
@@ -50,12 +50,14 @@ const CalendarView = (props: any): React.ReactElement => {
 				</HeaderButton.Container>
 			)
 		});
+
+		dispatch(fetchEventRequest());
 	});
 
 	const createEvent = useCallback(() => {
 		dispatch(createEventDraft({ author: userName }));
 		navigation.navigate('CreateEventView');
-	}, []);
+	}, [dispatch, navigation, userName]);
 
 	const renderItem = useCallback(({ item }: any) => <AgendaItem item={item} />, []);
 

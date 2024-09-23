@@ -47,9 +47,15 @@ export function createEventFailure(err: any, isTeam: boolean): ICreateEventFailu
 	};
 }
 
+export function fetchEventRequest() {
+	return {
+		type: FETCH_EVENT.REQUEST
+	};
+}
+
 export function fetchEventSuccess(data: any) {
 	return {
-		type: FETCH_EVENT.success,
+		type: FETCH_EVENT.SUCCESS,
 		data
 	};
 }

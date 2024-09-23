@@ -101,3 +101,4 @@ export const SUPPORTED_VERSIONS = createRequestTypes('SUPPORTED_VERSIONS', ['SET
 export const IN_APP_FEEDBACK = createRequestTypes('IN_APP_FEEDBACK', ['SET', 'REMOVE', 'CLEAR']);
 
 export const CREATE_EVENT = createRequestTypes('CREATE_EVENT', [...defaultTypes, 'DRAFT']);
+export const FETCH_EVENT = createRequestTypes('FETCH_EVENT', [...defaultTypes]);
