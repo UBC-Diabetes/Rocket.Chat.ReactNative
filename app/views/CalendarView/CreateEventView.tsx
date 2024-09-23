@@ -20,7 +20,7 @@ const CreateEventView = () => {
 	const [date, setDate] = useState(new Date());
 	const [time, setTime] = useState(new Date());
 	const [description, setDescription] = useState('');
-	const [zoomLink, setZoomLink] = useState('');
+	const [meetingLink, setMeetingLink] = useState('');
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [showTimePicker, setShowTimePicker] = useState(false);
 
@@ -41,16 +41,16 @@ const CreateEventView = () => {
 				</HeaderButton.Container>
 			)
 		});
-		if (!draftEvent.time) {
+		if (!draftEvent?.time) {
 			const defaultEvent = {
 				time: time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-				description: draftEvent.description ?? 'Event description',
-				title: draftEvent.title ?? 'Event title',
-				date: draftEvent.date ?? date
+				description: draftEvent?.description ?? 'Event description',
+				title: draftEvent?.title ?? 'Event title',
+				date: draftEvent?.date ?? date
 			};
 			dispatch(createEventDraft(defaultEvent));
 		}
-	});
+	}, []);
 
 	const onTitleChange = (title: string) => {
 		setTitle(title);
@@ -60,9 +60,9 @@ const CreateEventView = () => {
 		setDescription(description);
 		dispatch(createEventDraft({ description }));
 	};
-	const onZoomLinkChange = (zoomLink: string) => {
-		setZoomLink(zoomLink);
-		dispatch(createEventDraft({ zoomLink }));
+	const onMeetingLinkChange = (meetingLink: string) => {
+		setMeetingLink(meetingLink);
+		dispatch(createEventDraft({ meetingLink }));
 	};
 	const onDateChange = (event, selectedDate) => {
 		const currentDate = selectedDate || date;
@@ -122,7 +122,7 @@ const CreateEventView = () => {
 			/>
 
 			<Text style={styles.label}>Zoom Link</Text>
-			<TextInput style={styles.input} placeholder='Enter Zoom link' value={zoomLink} onChangeText={onZoomLinkChange} />
+			<TextInput style={styles.input} placeholder='Enter Meeting link' value={meetingLink} onChangeText={onMeetingLinkChange} />
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.sectionTitle}>Peer Supporters</Text>
@@ -131,7 +131,7 @@ const CreateEventView = () => {
 				</TouchableOpacity>
 			</View>
 
-			{draftEvent.peers?.map((peer, index) => (
+			{draftEvent?.peers?.map((peer, index) => (
 				<View key={index} style={styles.peerItem}>
 					<Avatar text={peer} size={36} borderRadius={18} />
 					<Text style={styles.peerName}>{peer}</Text>

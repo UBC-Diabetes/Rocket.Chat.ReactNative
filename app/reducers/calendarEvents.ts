@@ -7,7 +7,7 @@ interface ICreateEventResult {
 	description?: string;
 	date?: string | Date;
 	time?: string;
-	zoomLink?: string;
+	meetingLink?: string;
 	peers?: string[];
 }
 
@@ -27,7 +27,7 @@ export interface ICreateEvent {
 	description?: string;
 	date?: string;
 	time?: string;
-	zoomLink?: string;
+	meetingLink?: string;
 	peers?: string[];
 	numGuests?: number;
 }

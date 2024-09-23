@@ -13,7 +13,7 @@ const ConfirmationPopup = ({ event }) => {
 					guests: 10,
 					date: 'Tuesday, Feb 6',
 					time: '9-10AM',
-					zoomLink: 'https://ubc.zoom.us/j/69367593586?pwd=VXE1MUVkc1hERmd4SFZiWjlsMDdrZz09'
+					meetingLink: 'https://ubc.meeting.us/j/69367593586?pwd=VXE1MUVkc1hERmd4SFZiWjlsMDdrZz09'
 			  };
 	}, [event]);
 
@@ -52,8 +52,8 @@ const ConfirmationPopup = ({ event }) => {
 							</View>
 						</View>
 
-						<Text style={styles.zoomLinkLabel}>Zoom Link</Text>
-						<Text style={styles.zoomLink}>{eventDetails.zoomLink || 'Stay tuned'}</Text>
+						<Text style={styles.meetingLinkLabel}>Meeting Link</Text>
+						<Text style={styles.meetingLink}>{eventDetails.meetingLink || 'Stay tuned'}</Text>
 
 						<TouchableOpacity style={styles.confirmButton} onPress={() => handleConfirm()}>
 							<Text style={styles.confirmButtonText}>Confirm</Text>
@@ -115,12 +115,12 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: '#333'
 	},
-	zoomLinkLabel: {
+	meetingLinkLabel: {
 		fontSize: 14,
 		color: '#666',
 		marginBottom: 5
 	},
-	zoomLink: {
+	meetingLink: {
 		fontSize: 14,
 		color: '#0000FF',
 		textDecorationLine: 'underline',

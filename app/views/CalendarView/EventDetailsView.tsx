@@ -20,7 +20,7 @@ const EventDetailsView = () => {
 
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const eventDetails = useSelector((state: IApplicationState) => getEventSelector(state));
-	const { title, date, time, description, zoomLink, peers, numGuests } = eventDetails;
+	const { title, date, time, description, meetingLink, peers, numGuests } = eventDetails;
 	const userName = user?.username || '';
 
 	// const isRegistered = guests.contains(userName)
@@ -57,7 +57,7 @@ const EventDetailsView = () => {
 
 			<View style={styles.zoomContainer}>
 				<Text style={styles.label}>Zoom Link</Text>
-				<Text>{zoomLink}</Text>
+				<Text>{meetingLink}</Text>
 			</View>
 			<View style={{ height: 1, backgroundColor: '#E3E3E3', width: '100%', marginBottom: 24 }} />
 

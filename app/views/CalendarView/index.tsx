@@ -32,7 +32,7 @@ const CalendarView = (props: any): React.ReactElement => {
 
 	const agendaItems = useSelector((state: IApplicationState) => getCalendarEventsSelector(state));
 
-	const marked = useRef(getMarkedDates());
+	const marked = useRef(getMarkedDates(agendaItems));
 
 	const { showConfirmationPopup, confirmationPopupDetails } = useSelector((state: IApplicationState) => getPopupSelector(state));
 

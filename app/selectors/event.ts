@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { IApplicationState } from '../definitions';
 
-const getEvent = (state: IApplicationState) => state.createEvent;
+const getEvent = (state: IApplicationState) => state.calendarEvents;
 
 export const getEventSelector = createSelector([getEvent], event => event);
 
