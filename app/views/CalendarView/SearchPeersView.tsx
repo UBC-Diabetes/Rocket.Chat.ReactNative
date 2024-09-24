@@ -24,7 +24,7 @@ const SearchPeersView = () => {
 	const { colors } = theme;
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
-	const [selectedPeers, setSelectedPeers] = useState<Set<string>>(new Set());
+	const [selectedPeers, setSelectedPeers] = useState<Map<string, any>>(new Map());
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -45,27 +45,27 @@ const SearchPeersView = () => {
 		}
 	}, [loading, loadPeers, text]);
 
-	const togglePeerSelection = (username: string) => {
+	const togglePeerSelection = user => {
 		setSelectedPeers(prev => {
-			const newSet = new Set(prev);
-			if (newSet.has(username)) {
-				newSet.delete(username);
+			const newSet = new Map(prev);
+			if (newSet.has(user._id)) {
+				newSet.delete(user._id);
 			} else {
-				newSet.add(username);
+				newSet.set(user._id, user);
 			}
 
-			dispatch(createEventDraft({ peers: Array.from(newSet) }));
+			dispatch(createEventDraft({ peers: Array.from(newSet.values()) }));
 			return newSet;
 		});
 	};
 
 	const renderItem = ({ item }) => (
-		<TouchableOpacity style={styles.peerItem} onPress={() => togglePeerSelection(item.username)}>
+		<TouchableOpacity style={styles.peerItem} onPress={() => togglePeerSelection(item)}>
 			<View style={styles.peerInfo}>
 				<Avatar text={item.username} size={36} borderRadius={18} />
 				<Text style={styles.peerName}>{item.username}</Text>
 			</View>
-			{selectedPeers.has(item.username) && (
+			{selectedPeers.has(item._id) && (
 				<View style={styles.checkMark}>
 					<Text style={styles.checkMarkText}>✓</Text>
 				</View>
@@ -74,7 +74,6 @@ const SearchPeersView = () => {
 	);
 
 	const handleDone = () => {
-		console.log('Done pressed, selected peers:', Array.from(selectedPeers));
 		navigation.goBack();
 	};
 

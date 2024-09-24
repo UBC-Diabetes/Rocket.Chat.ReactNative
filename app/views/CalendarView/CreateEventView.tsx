@@ -80,7 +80,7 @@ const CreateEventView = () => {
 	};
 
 	const removePeer = (username: string) => {
-		const newPeers = draftEvent?.peers?.filter(peer => peer !== username);
+		const newPeers = draftEvent?.peers?.filter(peer => peer.username !== username);
 		dispatch(createEventDraft({ peers: newPeers }));
 	};
 
@@ -135,9 +135,9 @@ const CreateEventView = () => {
 
 			{draftEvent?.peers?.map((peer, index) => (
 				<View key={index} style={styles.peerItem}>
-					<Avatar text={peer} size={36} borderRadius={18} />
-					<Text style={styles.peerName}>{peer}</Text>
-					<TouchableOpacity onPress={() => removePeer(peer)} style={styles.removePeerButton}>
+					<Avatar text={peer.username} size={36} borderRadius={18} />
+					<Text style={styles.peerName}>{peer.username}</Text>
+					<TouchableOpacity onPress={() => removePeer(peer.username)} style={styles.removePeerButton}>
 						<Text style={styles.removePeerButtonText}>x</Text>
 					</TouchableOpacity>
 				</View>
