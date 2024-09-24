@@ -1,9 +1,12 @@
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import isEmpty from 'lodash/isEmpty';
 import { format, parseISO } from 'date-fns';
+
+import { pressEventRequest } from '../../actions/calendarEvents';
 
 import Avatar from '../../containers/Avatar';
 
@@ -16,9 +19,10 @@ interface ItemProps {
 const AgendaItem = (props: ItemProps) => {
 	const { item } = props;
 	const navigation = useNavigation<StackNavigationProp<any>>();
+	const dispatch = useDispatch();
 
 	const itemPressed = useCallback(item => {
-		console.log(item);
+		dispatch(pressEventRequest(item));
 		navigation.navigate('EventDetailsView');
 	}, []);
 

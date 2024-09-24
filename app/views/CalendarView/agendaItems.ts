@@ -78,7 +78,7 @@ export const agendaItems = [
 	}
 ];
 
-export function getMarkedDates() {
+export function getMarkedDates(agendaItems) {
 	const marked: any = {};
 
 	agendaItems.forEach(item => {

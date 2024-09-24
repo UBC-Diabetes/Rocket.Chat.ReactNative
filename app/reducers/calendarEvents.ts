@@ -1,5 +1,5 @@
 import { TApplicationActions } from '../definitions';
-import { CREATE_EVENT, FETCH_EVENT } from '../actions/actionsTypes';
+import { CREATE_EVENT, FETCH_EVENT, PRESS_EVENT } from '../actions/actionsTypes';
 
 interface ICreateEventResult {
 	author?: string;
@@ -19,8 +19,8 @@ export type TCreateEventDraft = {
 
 export interface ICreateEvent {
 	isFetching: boolean;
+	isDrafting: boolean;
 	failure: boolean;
-	result: TCreateEventResult | {};
 	error: any;
 	author?: string;
 	title?: string;
@@ -28,6 +28,8 @@ export interface ICreateEvent {
 	date?: string;
 	time?: string;
 	meetingLink?: string;
+	pressedEvent: {};
+	fetchedEvents: ICreateEventResult[];
 	peers?: string[];
 	numGuests?: number;
 }
@@ -35,7 +37,9 @@ export interface ICreateEvent {
 export const initialState: ICreateEvent = {
 	isFetching: false,
 	failure: false,
-	result: {},
+	isDrafting: false,
+	pressedEvent: {},
+	fetchedEvents: [],
 	error: {}
 };
 
@@ -47,12 +51,16 @@ export default function (state = initialState, action: TApplicationActions): ICr
 				isFetching: false,
 				failure: false,
 				error: {},
-				...action.data
+				isDrafting: true,
+				draftEvent: {
+					...action.data
+				}
 			};
 		case CREATE_EVENT.REQUEST:
 			return {
 				...state,
 				isFetching: true,
+				isDrafting: false,
 				failure: false,
 				error: {}
 			};
@@ -61,35 +69,62 @@ export default function (state = initialState, action: TApplicationActions): ICr
 				...state,
 				isFetching: false,
 				failure: false,
-				result: action.data
+				isDrafting: false,
+				createdEvent: action.data
 			};
 		case CREATE_EVENT.FAILURE:
 			return {
 				...state,
 				isFetching: false,
 				failure: true,
-				error: action.err
+				isDrafting: false,
+				createdEvent: action.err
 			};
 		case FETCH_EVENT.REQUEST:
 			return {
 				...state,
 				isFetching: true,
 				failure: false,
-				error: {}
+				isDrafting: false,
+				fetchedEvents: {
+					error: {}
+				}
 			};
 		case FETCH_EVENT.SUCCESS:
 			return {
 				...state,
 				isFetching: false,
 				failure: false,
-				result: action.data
+				isDrafting: false,
+				fetchedEvents: action.data
 			};
 		case FETCH_EVENT.FAILURE:
 			return {
 				...state,
 				isFetching: false,
 				failure: true,
-				error: action.err
+				isDrafting: false,
+				fetchedEvents: action.err
+			};
+		case PRESS_EVENT.REQUEST:
+			return {
+				...state,
+				isFetching: false,
+				failure: false,
+				isDrafting: false,
+				pressedEvent: action.data
+			};
+		case PRESS_EVENT.SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				failure: false
+			};
+		case PRESS_EVENT.FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				failure: true
 			};
 		default:
 			return state;

@@ -16,7 +16,7 @@ import Avatar from '../../containers/Avatar';
 import * as HeaderButton from '../../containers/HeaderButton';
 import AgendaItem from './AgendaItem';
 import testIDs from './testIds';
-import { getMarkedDates } from './mockedDates';
+import { getMarkedDates } from './helpers';
 import ConfirmationPopup from './ConfirmationPopup';
 
 const CalendarView = (props: any): React.ReactElement => {
@@ -32,7 +32,7 @@ const CalendarView = (props: any): React.ReactElement => {
 
 	const agendaItems = useSelector((state: IApplicationState) => getCalendarEventsSelector(state));
 
-	const marked = useRef(getMarkedDates(agendaItems));
+	const marked = useRef(getMarkedDates(agendaItems ?? []));
 
 	const { showConfirmationPopup, confirmationPopupDetails } = useSelector((state: IApplicationState) => getPopupSelector(state));
 
@@ -67,15 +67,7 @@ const CalendarView = (props: any): React.ReactElement => {
 		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
 			<Text style={styles.title}>Calendar</Text>
-			<CalendarProvider
-				date={todaysDate}
-				// onDateChanged={onDateChanged}
-				// onMonthChange={onMonthChange}
-				showTodayButton
-				// disabledOpacity={0.6}
-				// theme={todayBtnTheme.current}
-				// todayBottomMargin={16}
-			>
+			<CalendarProvider date={todaysDate} showTodayButton>
 				{weekView ? (
 					<WeekCalendar testID={testIDs.weekCalendar.CONTAINER} firstDay={1} markedDates={marked.current} />
 				) : (

@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { IApplicationState } from '../definitions';
 
-const getEvent = (state: IApplicationState) => state.calendarEvents;
+const getEvent = (state: IApplicationState) => state.calendarEvents.draftEvent;
 
 export const getEventSelector = createSelector([getEvent], event => event);
 
@@ -11,10 +11,9 @@ export const getPopupSelector = createSelector([getPopup], confirmationPopup => 
 
 const getCalendarEvents = (state: IApplicationState) => state.calendarEvents;
 export const getCalendarEventsSelector = createSelector([getCalendarEvents], calendarEvents =>
-	calendarEvents.result.length
-		? calendarEvents.result.map(e => ({
-				title: e.event.title,
-				data: [e.event]
-		  }))
-		: []
+	calendarEvents.fetchedEvents.length ? calendarEvents.fetchedEvents : []
 );
+
+const getPressedEvent = (state: IApplicationState) => state.calendarEvents.pressedEvent;
+
+export const getPressedEventSelector = createSelector([getPressedEvent], event => event);

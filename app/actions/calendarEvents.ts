@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 
 import { TCreateEventResult } from '../reducers/calendarEvent';
-import { CREATE_EVENT, FETCH_EVENT } from './actionsTypes';
+import { CREATE_EVENT, FETCH_EVENT, PRESS_EVENT } from './actionsTypes';
 
 interface ICreateEventRequest extends Action {
 	data: TCreateEventResult;
@@ -13,7 +13,6 @@ interface ICreateEventSuccess extends Action {
 
 interface ICreateEventFailure extends Action {
 	err: any;
-	isTeam: boolean;
 }
 
 export type TActionCreateEvent = ICreateEventRequest & ICreateEventSuccess & ICreateEventFailure;
@@ -39,11 +38,10 @@ export function createEventSuccess(data: TCreateEventResult): ICreateEventSucces
 	};
 }
 
-export function createEventFailure(err: any, isTeam: boolean): ICreateEventFailure {
+export function createEventFailure(err: any): ICreateEventFailure {
 	return {
 		type: CREATE_EVENT.FAILURE,
-		err,
-		isTeam
+		err
 	};
 }
 
@@ -63,6 +61,27 @@ export function fetchEventSuccess(data: any) {
 export function fetchEventFailure(err: any) {
 	return {
 		type: FETCH_EVENT.FAILURE,
+		err
+	};
+}
+
+export function pressEventRequest(data: any) {
+	return {
+		type: PRESS_EVENT.REQUEST,
+		data
+	};
+}
+
+export function pressEventSuccess(data: any) {
+	return {
+		type: PRESS_EVENT.SUCCESS,
+		data
+	};
+}
+
+export function pressEventFailure(err: any) {
+	return {
+		type: PRESS_EVENT.FAILURE,
 		err
 	};
 }

@@ -1,5 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 
+import isEmpty from 'lodash/isEmpty';
+
 import { Services as RocketChat } from '../../lib/services';
 import { useDebounce } from '../../lib/methods/helpers/debounce';
 
@@ -88,3 +90,18 @@ export const useLoadPeers = () => {
 		updateSearchText
 	};
 };
+
+export function getMarkedDates(agendaItems) {
+	const marked: any = {};
+
+	agendaItems.forEach(item => {
+		// NOTE: only mark dates with data
+		if (item.data && item.data.length > 0 && !isEmpty(item.data[0])) {
+			marked[item.title] = { marked: true };
+		} else {
+			marked[item.title] = { disabled: true };
+		}
+	});
+
+	return marked;
+}

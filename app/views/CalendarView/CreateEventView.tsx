@@ -46,7 +46,9 @@ const CreateEventView = () => {
 				time: time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 				description: draftEvent?.description ?? 'Event description',
 				title: draftEvent?.title ?? 'Event title',
-				date: draftEvent?.date ?? date
+				date: draftEvent?.date ?? date,
+				peers: draftEvent?.peers ?? [],
+				attendees: draftEvent?.attendees ?? []
 			};
 			dispatch(createEventDraft(defaultEvent));
 		}

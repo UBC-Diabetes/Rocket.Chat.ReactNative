@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import * as HeaderButton from '../../containers/HeaderButton';
 import { getUserSelector } from '../../selectors/login';
-import { getEventSelector } from '../../selectors/event';
+import { getPressedEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
@@ -19,7 +19,7 @@ const EventDetailsView = () => {
 	const dispatch = useDispatch();
 
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
-	const eventDetails = useSelector((state: IApplicationState) => getEventSelector(state));
+	const eventDetails = useSelector((state: IApplicationState) => getPressedEventSelector(state));
 	const { title, date, time, description, meetingLink, peers, numGuests } = eventDetails;
 	const userName = user?.username || '';
 
@@ -56,7 +56,7 @@ const EventDetailsView = () => {
 			<Text style={styles.description}>{description}</Text>
 
 			<View style={styles.zoomContainer}>
-				<Text style={styles.label}>Zoom Link</Text>
+				<Text style={styles.label}>Meeting Link</Text>
 				<Text>{meetingLink}</Text>
 			</View>
 			<View style={{ height: 1, backgroundColor: '#E3E3E3', width: '100%', marginBottom: 24 }} />

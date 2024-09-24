@@ -102,3 +102,4 @@ export const IN_APP_FEEDBACK = createRequestTypes('IN_APP_FEEDBACK', ['SET', 'RE
 
 export const CREATE_EVENT = createRequestTypes('CREATE_EVENT', [...defaultTypes, 'DRAFT']);
 export const FETCH_EVENT = createRequestTypes('FETCH_EVENT', [...defaultTypes]);
+export const PRESS_EVENT = createRequestTypes('PRESS_EVENT', [...defaultTypes]);
