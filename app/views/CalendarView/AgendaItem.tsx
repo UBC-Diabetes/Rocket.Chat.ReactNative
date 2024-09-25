@@ -7,9 +7,7 @@ import isEmpty from 'lodash/isEmpty';
 import { format, parseISO } from 'date-fns';
 
 import { pressEventRequest } from '../../actions/calendarEvents';
-
 import Avatar from '../../containers/Avatar';
-
 import testIDs from './testIds';
 
 interface ItemProps {
@@ -21,10 +19,13 @@ const AgendaItem = (props: ItemProps) => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const dispatch = useDispatch();
 
-	const itemPressed = useCallback(item => {
-		dispatch(pressEventRequest(item));
-		navigation.navigate('EventDetailsView');
-	}, []);
+	const itemPressed = useCallback(
+		(item: any) => {
+			dispatch(pressEventRequest(item));
+			navigation.navigate('EventDetailsView');
+		},
+		[dispatch, navigation]
+	);
 
 	if (isEmpty(item)) {
 		return (
@@ -46,9 +47,9 @@ const AgendaItem = (props: ItemProps) => {
 					<Text style={styles.itemDateText}>{formattedDate}</Text>
 				</View>
 				<View style={styles.avatarContainer}>
-					{item.peers.map((user: string, index: number) => (
-						<View key={user} style={[styles.avatarWrapper, { zIndex: item.peers.length - index, right: index * 15 }]}>
-							<Avatar text={user} size={36} borderRadius={18} />
+					{item.peers.map((user: Record<string, any>, index: number) => (
+						<View key={user._id} style={[styles.avatarWrapper, { zIndex: item.peers.length - index, right: index * 15 }]}>
+							<Avatar text={user.username} size={36} borderRadius={18} />
 						</View>
 					))}
 				</View>

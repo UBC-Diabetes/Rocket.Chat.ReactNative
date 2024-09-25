@@ -12,6 +12,7 @@ import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { showConfirmationPopup } from '../../actions/confirmationPopup';
+import { deleteCalendarEvent } from '../../lib/services/restApi';
 
 const EventDetailsView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -20,9 +21,9 @@ const EventDetailsView = () => {
 
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const eventDetails = useSelector((state: IApplicationState) => getPressedEventSelector(state));
-	const { title, date, time, description, meetingLink, peers, numGuests } = eventDetails;
-	const userName = user?.username || '';
-
+	const { title, date, time, description, meetingLink, peers, numGuests, id: eventId } = eventDetails;
+	const isAdmin = user?.roles && user?.roles.includes('admin');
+	// const userName = user?.username || '';
 	// const isRegistered = guests.contains(userName)
 
 	useEffect(() => {
@@ -30,13 +31,20 @@ const EventDetailsView = () => {
 		navigation.setOptions({
 			headerRight: () => (
 				<HeaderButton.Container>
-					<Touchable style={{ marginRight: 20 }} onPress={() => navigation.navigate('ProfileView')}>
-						{userName ? <Avatar text={userName} size={24} borderRadius={12} /> : <></>}
-					</Touchable>
+					{isAdmin && (
+						<Touchable style={{ marginRight: 20 }} onPress={() => handleDeleteEvent()}>
+							<CustomIcon name='delete' size={24} color='#CB007B' />
+						</Touchable>
+					)}
 				</HeaderButton.Container>
 			)
 		});
 	});
+
+	const handleDeleteEvent = async () => {
+		await deleteCalendarEvent(eventId);
+		navigation.goBack();
+	};
 
 	const handleRegister = () => {
 		navigation.goBack();
@@ -65,8 +73,8 @@ const EventDetailsView = () => {
 			{peers?.map((peer, index) => (
 				<View key={index} style={styles.peerItem}>
 					<View style={styles.peerInfo}>
-						<Avatar text={peer} size={36} borderRadius={18} />
-						<Text style={styles.peerName}>{peer}</Text>
+						<Avatar text={peer.username} size={36} borderRadius={18} />
+						<Text style={styles.peerName}>{peer.username}</Text>
 					</View>
 					<View style={styles.iconContainer}>
 						<TouchableOpacity style={styles.iconButton}>

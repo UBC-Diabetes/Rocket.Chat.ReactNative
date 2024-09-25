@@ -905,18 +905,23 @@ export const removePushToken = (): Promise<boolean | void> => {
 	return Promise.resolve();
 };
 
-export const createCalendarEvent = async () => {
-	const event = reduxStore.getState().createEvent;
-	return sdk.post('events', { event });
-};
-
-export const getCalendarEvents = () => sdk.get('events');
-
 // RC 6.6.0
 export const pushTest = () => sdk.post('push.test');
 
 // RC 6.5.0
 export const pushInfo = () => sdk.get('push.info');
+
+export const createCalendarEvent = async () => {
+	const event = reduxStore.getState().calendarEvents.draftEvent;
+
+	return sdk.post('calendarEvents.create', { event });
+};
+
+export const deleteCalendarEvent = async (eventId: string) => {
+	return sdk.post('calendarEvents.delete', { eventId });
+};
+
+export const getCalendarEvents = () => sdk.get('calendarEvents.fetch');
 
 export const sendEmailCode = () => {
 	const { username } = reduxStore.getState().login.user as IUser;

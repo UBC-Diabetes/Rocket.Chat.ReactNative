@@ -123,7 +123,7 @@ const CreateEventView = () => {
 				numberOfLines={4}
 			/>
 
-			<Text style={styles.label}>Zoom Link</Text>
+			<Text style={styles.label}>Meeting Link</Text>
 			<TextInput style={styles.input} placeholder='Enter Meeting link' value={meetingLink} onChangeText={onMeetingLinkChange} />
 
 			<View style={styles.rowContainer}>

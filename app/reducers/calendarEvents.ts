@@ -53,6 +53,7 @@ export default function (state = initialState, action: TApplicationActions): ICr
 				error: {},
 				isDrafting: true,
 				draftEvent: {
+					...state.draftEvent,
 					...action.data
 				}
 			};
