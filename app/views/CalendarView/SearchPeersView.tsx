@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { IApplicationState } from '../../definitions';
 import { useLoadPeers } from './helpers';
 import Avatar from '../../containers/Avatar';
 import SearchBox from '../../containers/SearchBox';
 import { useTheme } from '../../theme';
 import { createEventDraft } from '../../actions/calendarEvents';
+import { getEventSelector } from '../../selectors/event';
 
 export interface IUser {
 	user: {
@@ -26,10 +28,20 @@ const SearchPeersView = () => {
 	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
 	const [selectedPeers, setSelectedPeers] = useState<Map<string, any>>(new Map());
 
+	const { peers } = useSelector((state: IApplicationState) => getEventSelector(state));
+
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		loadPeers({});
 	}, []);
+
+	useEffect(() => {
+		if (peers) {
+			const initialPeerSet = new Map();
+			peers?.forEach((peer: Record<string, any>) => initialPeerSet.set(peer._id, peer));
+			setSelectedPeers(initialPeerSet);
+		}
+	}, [peers]);
 
 	const onSearchChangeText = (newText: string) => {
 		updateSearchText(newText);
@@ -101,7 +113,7 @@ const SearchPeersView = () => {
 				<FlatList
 					data={data}
 					renderItem={renderItem}
-					keyExtractor={item => item.username}
+					keyExtractor={item => item._id}
 					onEndReached={handleLoadMore}
 					onEndReachedThreshold={0.5}
 					ListFooterComponent={loading ? <ActivityIndicator color={colors.primary} /> : null}
