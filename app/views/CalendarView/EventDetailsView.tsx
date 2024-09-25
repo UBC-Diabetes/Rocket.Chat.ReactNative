@@ -12,6 +12,7 @@ import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { showConfirmationPopup } from '../../actions/confirmationPopup';
+import { createEventDraft } from '../../actions/calendarEvents';
 import { deleteCalendarEvent } from '../../lib/services/restApi';
 
 const EventDetailsView = () => {
@@ -32,14 +33,28 @@ const EventDetailsView = () => {
 			headerRight: () => (
 				<HeaderButton.Container>
 					{isAdmin && (
-						<Touchable style={{ marginRight: 20 }} onPress={() => handleDeleteEvent()}>
-							<CustomIcon name='delete' size={24} color='#CB007B' />
-						</Touchable>
+						<View style={styles.iconContainer}>
+							<Touchable style={{ marginRight: 20 }} onPress={() => handleDeleteEvent()}>
+								<CustomIcon name='delete' size={24} color='#CB007B' />
+							</Touchable>
+							<Touchable style={{ marginRight: 20 }} onPress={() => handleEditEvent()}>
+								<CustomIcon name='edit' size={24} color='#CB007B' />
+							</Touchable>
+						</View>
 					)}
 				</HeaderButton.Container>
 			)
 		});
 	});
+
+	const handleEditEvent = async () => {
+		const editableEvent = {
+			...eventDetails,
+			isDefaultEvent: false
+		};
+		dispatch(createEventDraft(editableEvent));
+		navigation.navigate('CreateEventView');
+	};
 
 	const handleDeleteEvent = async () => {
 		await deleteCalendarEvent(eventId);

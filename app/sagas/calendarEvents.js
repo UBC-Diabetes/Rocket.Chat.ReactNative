@@ -1,36 +1,55 @@
 import { delay, put, select, takeLatest } from 'redux-saga/effects';
+import { parse, format } from 'date-fns';
 
 import { FETCH_EVENT } from '../actions/actionsTypes';
 import { Services } from '../lib/services';
+
 import { fetchEventSuccess, fetchEventFailure } from '../actions/calendarEvents';
 
-function groupEventsByDate(events) {
-    // Helper function to parse ISO date and remove the time part
-    const parseDate = (dateString) => new Date(dateString).toISOString().split('T')[0];
 
-    // Grouping events by date
-    const grouped = events.reduce((acc, { _id, event }) => {
-        const dateKey = parseDate(event.date);
-        const item = {
-            id: _id,
-            title: event.title,
-            date: dateKey,
-            time: event.time,
-            meetingLink: event.meetingLink,
-            description: event.description,
-            peers: event.peers
-        };
+function convertDateToISO(dateString) {
+    // Parse the date from MM/DD/YYYY format
+    const parsedDate = parse(dateString, 'MM/dd/yyyy', new Date());
 
-        if (!acc[dateKey]) {
-            acc[dateKey] = [];
-        }
-        acc[dateKey].push(item);
-        return acc;
-    }, {});
-
-    // Transforming into the required format
-    return Object.entries(grouped).map(([title, data]) => ({ title, data }));
+    // Format it to ISO (YYYY-MM-DD)
+    return format(parsedDate, 'yyyy-MM-dd');
 }
+
+
+const parseDate = (dateString) => {
+    if (!dateString) {
+        return 'unknown-date';
+    }
+    try {
+        return convertDateToISO(dateString);
+    } catch (error) {
+        console.error('Date conversion error:', error);
+    }
+};
+
+function groupEventsByDate(events) {
+    try {
+        const grouped = events.reduce((acc, { _id, event }) => {
+            const dateKey = parseDate(event.date);
+            const item = {
+                id: _id,
+                ...event
+            };
+
+            if (!acc[dateKey]) {
+                acc[dateKey] = [];
+            }
+            acc[dateKey].push(item);
+            return acc;
+        }, {});
+
+        return Object.entries(grouped).map(([title, data]) => ({ title, data }));
+    } catch (error) {
+        console.error('Error in groupEventsByDate:', error);
+        return [];
+    }
+}
+
 
 const handleRequest = function* handleFetchCalendarEvents() {
 

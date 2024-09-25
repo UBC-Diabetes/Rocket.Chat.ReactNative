@@ -917,6 +917,12 @@ export const createCalendarEvent = async () => {
 	return sdk.post('calendarEvents.create', { event });
 };
 
+export const updateCalendarEvent = async () => {
+	const event = reduxStore.getState().calendarEvents.draftEvent;
+
+	return sdk.post('calendarEvents.update', { event });
+};
+
 export const deleteCalendarEvent = async (eventId: string) => {
 	return sdk.post('calendarEvents.delete', { eventId });
 };

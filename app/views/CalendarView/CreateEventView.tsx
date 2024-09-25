@@ -13,14 +13,9 @@ import { getUserSelector } from '../../selectors/login';
 import { getEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
-import { createCalendarEvent } from '../../lib/services/restApi';
+import { createCalendarEvent, updateCalendarEvent } from '../../lib/services/restApi';
 
 const CreateEventView = () => {
-	const [title, setTitle] = useState('');
-	const [date, setDate] = useState(new Date());
-	const [time, setTime] = useState(new Date());
-	const [description, setDescription] = useState('');
-	const [meetingLink, setMeetingLink] = useState('');
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [showTimePicker, setShowTimePicker] = useState(false);
 
@@ -43,39 +38,35 @@ const CreateEventView = () => {
 		});
 		if (!draftEvent?.time) {
 			const defaultEvent = {
-				time: time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+				time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 				description: draftEvent?.description ?? 'Event description',
 				title: draftEvent?.title ?? 'Event title',
-				date: draftEvent?.date ?? date,
+				date: draftEvent?.date ?? new Date().toLocaleDateString(),
 				peers: draftEvent?.peers ?? [],
-				attendees: draftEvent?.attendees ?? []
+				attendees: draftEvent?.attendees ?? [],
+				isDefaultEvent: true
 			};
 			dispatch(createEventDraft(defaultEvent));
 		}
 	}, []);
 
 	const onTitleChange = (title: string) => {
-		setTitle(title);
 		dispatch(createEventDraft({ title }));
 	};
 	const onDescriptionChange = (description: string) => {
-		setDescription(description);
 		dispatch(createEventDraft({ description }));
 	};
 	const onMeetingLinkChange = (meetingLink: string) => {
-		setMeetingLink(meetingLink);
 		dispatch(createEventDraft({ meetingLink }));
 	};
 	const onDateChange = (event, selectedDate) => {
-		const currentDate = selectedDate || date;
+		const currentDate = selectedDate || draftEvent.date;
 		setShowDatePicker(false);
-		setDate(currentDate);
 		dispatch(createEventDraft({ date: currentDate }));
 	};
 	const onTimeChange = (event, selectedTime) => {
-		const currentTime = selectedTime || time;
+		const currentTime = selectedTime || draftEvent.time;
 		setShowTimePicker(false);
-		setTime(currentTime);
 		dispatch(createEventDraft({ time: currentTime }));
 	};
 
@@ -84,8 +75,13 @@ const CreateEventView = () => {
 		dispatch(createEventDraft({ peers: newPeers }));
 	};
 
-	const createEvent = async () => {
-		await createCalendarEvent();
+	const createOrUpdateEvent = async () => {
+		if (draftEvent.isDefaultEvent) {
+			draftEvent.isDefaultEvent = false;
+			await createCalendarEvent();
+		} else {
+			await updateCalendarEvent();
+		}
 		navigation.goBack();
 	};
 
@@ -94,37 +90,49 @@ const CreateEventView = () => {
 			<Text style={styles.header}>Create Event</Text>
 
 			<Text style={styles.label}>Title</Text>
-			<TextInput style={styles.input} value={title} onChangeText={onTitleChange} placeholder='Enter event title' />
+			<TextInput
+				style={styles.input}
+				value={!draftEvent.isDefaultEvent && draftEvent.title}
+				onChangeText={onTitleChange}
+				placeholder='Enter event title'
+			/>
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.label}>Date</Text>
 				<TouchableOpacity style={styles.dateTimeButton} onPress={() => setShowDatePicker(true)}>
-					<Text style={styles.dateTimeText}>{date.toLocaleDateString()}</Text>
+					<Text style={styles.dateTimeText}>{draftEvent.date}</Text>
 				</TouchableOpacity>
 			</View>
-			{showDatePicker && <DateTimePicker value={date} mode='date' display='default' onChange={onDateChange} />}
+			{showDatePicker && <DateTimePicker value={draftEvent.date} mode='date' display='default' onChange={onDateChange} />}
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.label}>Time</Text>
 				<TouchableOpacity style={styles.dateTimeButton} onPress={() => setShowTimePicker(true)}>
-					<Text style={styles.dateTimeText}>{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+					<Text style={styles.dateTimeText}>{draftEvent.time}</Text>
 				</TouchableOpacity>
 			</View>
 
-			{showTimePicker && <DateTimePicker value={time} mode='time' is24Hour={true} display='default' onChange={onTimeChange} />}
+			{showTimePicker && (
+				<DateTimePicker value={draftEvent.time} mode='time' is24Hour={true} display='default' onChange={onTimeChange} />
+			)}
 
 			<Text style={styles.label}>Description</Text>
 			<TextInput
 				style={[styles.input, styles.textArea]}
 				placeholder='Describe your event'
-				value={description}
+				value={!draftEvent.isDefaultEvent && draftEvent.description}
 				onChangeText={onDescriptionChange}
 				multiline
 				numberOfLines={4}
 			/>
 
 			<Text style={styles.label}>Meeting Link</Text>
-			<TextInput style={styles.input} placeholder='Enter Meeting link' value={meetingLink} onChangeText={onMeetingLinkChange} />
+			<TextInput
+				style={styles.input}
+				placeholder='Enter Meeting link'
+				value={draftEvent.meetingLink}
+				onChangeText={onMeetingLinkChange}
+			/>
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.sectionTitle}>Peer Supporters</Text>
@@ -143,8 +151,8 @@ const CreateEventView = () => {
 				</View>
 			))}
 
-			<TouchableOpacity style={styles.createEventButton} onPress={() => createEvent()}>
-				<Text style={styles.createEventButtonText}>Create Event</Text>
+			<TouchableOpacity style={styles.createEventButton} onPress={() => createOrUpdateEvent()}>
+				<Text style={styles.createEventButtonText}>{draftEvent.isDefaultEvent ? 'Create Event' : 'Save'}</Text>
 			</TouchableOpacity>
 		</ScrollView>
 	);
