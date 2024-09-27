@@ -1,5 +1,5 @@
 import { TApplicationActions } from '../definitions';
-import { CREATE_EVENT, FETCH_EVENT, PRESS_EVENT } from '../actions/actionsTypes';
+import { EDIT_EVENT, CREATE_EVENT, FETCH_EVENT, PRESS_EVENT } from '../actions/actionsTypes';
 
 interface ICreateEventResult {
 	author?: string;
@@ -20,6 +20,7 @@ export type TCreateEventDraft = {
 export interface ICreateEvent {
 	isFetching: boolean;
 	isDrafting: boolean;
+	isEditing: boolean;
 	failure: boolean;
 	error: any;
 	author?: string;
@@ -38,6 +39,7 @@ export const initialState: ICreateEvent = {
 	isFetching: false,
 	failure: false,
 	isDrafting: false,
+	isEditing: false,
 	pressedEvent: {},
 	fetchedEvents: [],
 	error: {}
@@ -45,6 +47,39 @@ export const initialState: ICreateEvent = {
 
 export default function (state = initialState, action: TApplicationActions): ICreateEvent {
 	switch (action.type) {
+		case EDIT_EVENT.REQUEST:
+			return {
+				...state,
+				isFetching: false,
+				failure: false,
+				error: {},
+				isDrafting: false,
+				isEditing: true,
+				draftEvent: {
+					...state.draftEvent,
+					...action.data
+				}
+			};
+		case EDIT_EVENT.SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				failure: false,
+				error: {},
+				isDrafting: false,
+				isEditing: false,
+				draftEvent: {}
+			};
+		case EDIT_EVENT.CANCEL:
+			return {
+				...state,
+				isFetching: false,
+				failure: false,
+				error: {},
+				isDrafting: false,
+				isEditing: false,
+				draftEvent: {}
+			};
 		case CREATE_EVENT.DRAFT:
 			return {
 				...state,
@@ -52,6 +87,7 @@ export default function (state = initialState, action: TApplicationActions): ICr
 				failure: false,
 				error: {},
 				isDrafting: true,
+				isEditing: false,
 				draftEvent: {
 					...state.draftEvent,
 					...action.data

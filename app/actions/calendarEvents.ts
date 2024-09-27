@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 
 import { TCreateEventResult } from '../reducers/calendarEvent';
-import { CREATE_EVENT, FETCH_EVENT, PRESS_EVENT } from './actionsTypes';
+import { CREATE_EVENT, EDIT_EVENT, FETCH_EVENT, PRESS_EVENT } from './actionsTypes';
 
 interface ICreateEventRequest extends Action {
 	data: TCreateEventResult;
@@ -17,6 +17,19 @@ interface ICreateEventFailure extends Action {
 
 export type TActionCreateEvent = ICreateEventRequest & ICreateEventSuccess & ICreateEventFailure;
 
+export function editEvent(data: TCreateEventResult): ICreateEventRequest {
+	return {
+		type: EDIT_EVENT.REQUEST,
+		data
+	};
+}
+
+export function cancelEventEdit() {
+	return {
+		type: EDIT_EVENT.CANCEL
+	};
+}
+
 export function createEventDraft(data: TCreateEventResult): ICreateEventRequest {
 	return {
 		type: CREATE_EVENT.DRAFT,
@@ -24,10 +37,10 @@ export function createEventDraft(data: TCreateEventResult): ICreateEventRequest 
 	};
 }
 
-export function createEventRequest(data: TCreateEventResult): ICreateEventRequest {
+export function createEventRequest() {
+	console.log('so this got called');
 	return {
-		type: CREATE_EVENT.REQUEST,
-		data
+		type: CREATE_EVENT.REQUEST
 	};
 }
 

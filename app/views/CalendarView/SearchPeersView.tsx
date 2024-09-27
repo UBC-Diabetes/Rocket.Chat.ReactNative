@@ -10,7 +10,7 @@ import Avatar from '../../containers/Avatar';
 import SearchBox from '../../containers/SearchBox';
 import { useTheme } from '../../theme';
 import { createEventDraft } from '../../actions/calendarEvents';
-import { getEventSelector } from '../../selectors/event';
+import { getDraftEventSelector } from '../../selectors/event';
 
 export interface IUser {
 	user: {
@@ -28,7 +28,7 @@ const SearchPeersView = () => {
 	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
 	const [selectedPeers, setSelectedPeers] = useState<Map<string, any>>(new Map());
 
-	const { peers } = useSelector((state: IApplicationState) => getEventSelector(state));
+	const { peers } = useSelector((state: IApplicationState) => getDraftEventSelector(state));
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });

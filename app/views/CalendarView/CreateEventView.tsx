@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as HeaderButton from '../../containers/HeaderButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { createEventDraft } from '../../actions/calendarEvents';
+import { cancelEventEdit, createEventDraft, createEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
-import { getEventSelector } from '../../selectors/event';
+import { getCalendarEventsSelector, getDraftEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
-import { createCalendarEvent, updateCalendarEvent } from '../../lib/services/restApi';
+import { updateCalendarEvent } from '../../lib/services/restApi';
 
 const CreateEventView = () => {
 	const [showDatePicker, setShowDatePicker] = useState(false);
@@ -22,8 +22,15 @@ const CreateEventView = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
-	const draftEvent = useSelector((state: IApplicationState) => getEventSelector(state));
+	const { isEditing } = useSelector((state: IApplicationState) => getCalendarEventsSelector(state));
+	const draftEvent = useSelector((state: IApplicationState) => getDraftEventSelector(state));
 	const userName = user?.username || '';
+
+	useFocusEffect(
+		React.useCallback(() => {
+			return () => dispatch(cancelEventEdit());
+		}, [])
+	);
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -36,7 +43,7 @@ const CreateEventView = () => {
 				</HeaderButton.Container>
 			)
 		});
-		if (!draftEvent?.time) {
+		if (!isEditing) {
 			const defaultEvent = {
 				time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 				description: draftEvent?.description ?? 'Event description',
@@ -77,8 +84,7 @@ const CreateEventView = () => {
 
 	const createOrUpdateEvent = async () => {
 		if (draftEvent.isDefaultEvent) {
-			draftEvent.isDefaultEvent = false;
-			await createCalendarEvent();
+			dispatch(createEventRequest());
 		} else {
 			await updateCalendarEvent();
 		}
@@ -92,7 +98,7 @@ const CreateEventView = () => {
 			<Text style={styles.label}>Title</Text>
 			<TextInput
 				style={styles.input}
-				value={!draftEvent.isDefaultEvent && draftEvent.title}
+				value={isEditing && draftEvent.title}
 				onChangeText={onTitleChange}
 				placeholder='Enter event title'
 			/>
@@ -120,7 +126,7 @@ const CreateEventView = () => {
 			<TextInput
 				style={[styles.input, styles.textArea]}
 				placeholder='Describe your event'
-				value={!draftEvent.isDefaultEvent && draftEvent.description}
+				value={isEditing && draftEvent.description}
 				onChangeText={onDescriptionChange}
 				multiline
 				numberOfLines={4}
@@ -152,7 +158,7 @@ const CreateEventView = () => {
 			))}
 
 			<TouchableOpacity style={styles.createEventButton} onPress={() => createOrUpdateEvent()}>
-				<Text style={styles.createEventButtonText}>{draftEvent.isDefaultEvent ? 'Create Event' : 'Save'}</Text>
+				<Text style={styles.createEventButtonText}>{isEditing ? 'Save' : 'Create Event'}</Text>
 			</TouchableOpacity>
 		</ScrollView>
 	);

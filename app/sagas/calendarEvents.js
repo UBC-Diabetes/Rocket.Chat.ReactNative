@@ -1,10 +1,16 @@
 import { delay, put, select, takeLatest } from 'redux-saga/effects';
 import { parse, format } from 'date-fns';
 
-import { FETCH_EVENT } from '../actions/actionsTypes';
+import { CREATE_EVENT ,FETCH_EVENT } from '../actions/actionsTypes';
 import { Services } from '../lib/services';
 
-import { fetchEventSuccess, fetchEventFailure } from '../actions/calendarEvents';
+import {
+    createEventSuccess,
+    createEventFailure,
+    fetchEventRequest,
+    fetchEventSuccess,
+    fetchEventFailure
+    } from '../actions/calendarEvents';
 
 
 function convertDateToISO(dateString) {
@@ -51,7 +57,7 @@ function groupEventsByDate(events) {
 }
 
 
-const handleRequest = function* handleFetchCalendarEvents() {
+const handleFetchRequest = function* handleFetchCalendarEvents() {
 
   const { success, events, error } = yield Services.getCalendarEvents();
 
@@ -65,9 +71,30 @@ const handleRequest = function* handleFetchCalendarEvents() {
 
 };
 
+const handleCreateRequest = function* handleCreateCalendarEvent() {
+
+  const response = yield Services.createCalendarEvent();
+  const { success, error } = response;
+
+  if (success) {
+		yield put(createEventSuccess());
+  } else {
+		yield put(createEventFailure(error));
+  }
+
+};
+
+const handleCreateSuccess = function* handleCreateEventSuccess() {
+		yield put(fetchEventRequest());
+};
+
+
+
 
 const root = function* root() {
-	yield takeLatest(FETCH_EVENT.REQUEST, handleRequest);
+	yield takeLatest(FETCH_EVENT.REQUEST, handleFetchRequest);
+	yield takeLatest(CREATE_EVENT.REQUEST, handleCreateRequest);
+	yield takeLatest(CREATE_EVENT.SUCCESS, handleCreateSuccess);
 };
 
 export default root;

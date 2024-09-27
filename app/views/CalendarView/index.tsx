@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '../../theme';
 import { createEventDraft, fetchEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
-import { getCalendarEventsSelector, getPopupSelector } from '../../selectors/event';
+import { getFetchedEventsSelector, getPopupSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import StatusBar from '../../containers/StatusBar';
 import Avatar from '../../containers/Avatar';
@@ -30,7 +30,7 @@ const CalendarView = (props: any): React.ReactElement => {
 	const userName = user?.username || '';
 	const isAdmin = user?.roles && user?.roles.includes('admin');
 
-	const agendaItems = useSelector((state: IApplicationState) => getCalendarEventsSelector(state));
+	const agendaItems = useSelector((state: IApplicationState) => getFetchedEventsSelector(state));
 
 	const marked = useRef(getMarkedDates(agendaItems ?? []));
 

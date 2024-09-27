@@ -12,7 +12,7 @@ import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { showConfirmationPopup } from '../../actions/confirmationPopup';
-import { createEventDraft } from '../../actions/calendarEvents';
+import { editEvent } from '../../actions/calendarEvents';
 import { deleteCalendarEvent } from '../../lib/services/restApi';
 
 const EventDetailsView = () => {
@@ -48,11 +48,7 @@ const EventDetailsView = () => {
 	});
 
 	const handleEditEvent = async () => {
-		const editableEvent = {
-			...eventDetails,
-			isDefaultEvent: false
-		};
-		dispatch(createEventDraft(editableEvent));
+		dispatch(editEvent(eventDetails));
 		navigation.navigate('CreateEventView');
 	};
 
