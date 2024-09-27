@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 
 import { hideConfirmationPopup } from '../../actions/confirmationPopup';
 
@@ -23,8 +23,15 @@ const ConfirmationPopup = ({ event }) => {
 		dispatch(hideConfirmationPopup());
 	};
 
+	const handleDismiss = () => {
+		dispatch(hideConfirmationPopup());
+	};
+
 	return (
-		<View style={styles.overlay}>
+		<View style={styles.fullOverlay}>
+			<TouchableWithoutFeedback onPress={handleDismiss}>
+				<View style={styles.overlay}></View>
+			</TouchableWithoutFeedback>
 			<SafeAreaView style={styles.safeArea}>
 				<View style={styles.popupContainer}>
 					<View style={styles.popup}>
@@ -70,11 +77,20 @@ const ConfirmationPopup = ({ event }) => {
 };
 
 const styles = StyleSheet.create({
-	overlay: {
+	fullOverlay: {
 		...StyleSheet.absoluteFillObject,
 		backgroundColor: 'rgba(0, 0, 0, 0.5)',
 		justifyContent: 'flex-end',
 		zIndex: 1000
+	},
+	overlay: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	safeArea: {
 		backgroundColor: 'transparent'

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { ExpandableCalendar, AgendaList, CalendarProvider, WeekCalendar } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -91,13 +91,7 @@ const CalendarView = (props: any): React.ReactElement => {
 					}}
 				/>
 			</CalendarProvider>
-			{showConfirmationPopup && (
-				<TouchableWithoutFeedback onPress={closePopup}>
-					<View style={styles.overlay}>
-						<ConfirmationPopup event={confirmationPopupDetails} />
-					</View>
-				</TouchableWithoutFeedback>
-			)}
+			{showConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} />}
 			{isAdmin && (
 				<View style={styles.adminButtonContainer}>
 					<Touchable style={styles.adminButton} onPress={() => createEvent()}>
