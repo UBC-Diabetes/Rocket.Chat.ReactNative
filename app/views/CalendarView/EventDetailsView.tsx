@@ -12,8 +12,7 @@ import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { showConfirmationPopup } from '../../actions/confirmationPopup';
-import { editEvent } from '../../actions/calendarEvents';
-import { deleteCalendarEvent } from '../../lib/services/restApi';
+import { deleteEventRequest, editEvent } from '../../actions/calendarEvents';
 
 const EventDetailsView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -53,7 +52,7 @@ const EventDetailsView = () => {
 	};
 
 	const handleDeleteEvent = async () => {
-		await deleteCalendarEvent(eventId);
+		dispatch(deleteEventRequest(eventId));
 		navigation.goBack();
 	};
 

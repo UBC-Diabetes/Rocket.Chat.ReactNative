@@ -105,3 +105,4 @@ export const EDIT_EVENT = createRequestTypes('EDIT_EVENT', [...defaultTypes, 'CA
 export const FETCH_EVENT = createRequestTypes('FETCH_EVENT', [...defaultTypes]);
 export const PRESS_EVENT = createRequestTypes('PRESS_EVENT', [...defaultTypes]);
 export const UPDATE_EVENT = createRequestTypes('UPDATE_EVENT', [...defaultTypes]);
+export const DELETE_EVENT = createRequestTypes('DELETE_EVENT', [...defaultTypes]);

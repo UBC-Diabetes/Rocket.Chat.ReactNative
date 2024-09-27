@@ -1,7 +1,7 @@
 import { delay, put, select, takeLatest } from 'redux-saga/effects';
 import { parse, format } from 'date-fns';
 
-import { CREATE_EVENT, FETCH_EVENT, UPDATE_EVENT } from '../actions/actionsTypes';
+import { CREATE_EVENT, DELETE_EVENT, FETCH_EVENT, UPDATE_EVENT } from '../actions/actionsTypes';
 import { Services } from '../lib/services';
 
 import {
@@ -11,6 +11,7 @@ import {
     fetchEventSuccess,
     fetchEventFailure,
     updateEventSuccess,
+    deleteEventSuccess
     } from '../actions/calendarEvents';
 
 
@@ -68,7 +69,6 @@ const handleFetchRequest = function* handleFetchCalendarEvents() {
   if (success) {
 		yield put(fetchEventSuccess(groupedEvents));
   } else {
-      console.log(error)
 		yield put(fetchEventFailure(error));
   }
 
@@ -109,6 +109,21 @@ const handleUpdateSuccess = function* handleUpdateEventSuccess() {
 
 
 
+const handleDeleteRequest = function* handleDeleteCalendarEvent({ data }) {
+
+  const response = yield Services.deleteCalendarEvent(data);
+  const { success, error } = response;
+
+  if (success) {
+		yield put(deleteEventSuccess());
+  } else {
+      console.log('error deleting event!', error);
+  }
+};
+
+const handleDeleteSuccess = function* handleDeleteEventSuccess() {
+		yield put(fetchEventRequest());
+};
 
 const root = function* root() {
 	yield takeLatest(FETCH_EVENT.REQUEST, handleFetchRequest);
@@ -116,6 +131,8 @@ const root = function* root() {
 	yield takeLatest(CREATE_EVENT.SUCCESS, handleCreateSuccess);
 	yield takeLatest(UPDATE_EVENT.REQUEST, handleUpdateRequest);
 	yield takeLatest(UPDATE_EVENT.SUCCESS, handleUpdateSuccess);
+	yield takeLatest(DELETE_EVENT.REQUEST, handleDeleteRequest);
+	yield takeLatest(DELETE_EVENT.SUCCESS, handleDeleteSuccess);
 };
 
 export default root;
