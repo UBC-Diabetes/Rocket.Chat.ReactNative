@@ -33,7 +33,7 @@ const CalendarView = (props: any): React.ReactElement => {
 
 	const agendaItems = useSelector((state: IApplicationState) => getFetchedEventsSelector(state));
 
-	const marked = useRef(getMarkedDates(agendaItems ?? []));
+	const marked = getMarkedDates(agendaItems ?? []);
 
 	const { showConfirmationPopup, confirmationPopupDetails } = useSelector((state: IApplicationState) => getPopupSelector(state));
 
@@ -80,7 +80,7 @@ const CalendarView = (props: any): React.ReactElement => {
 						testID={testIDs.expandableCalendar.CONTAINER}
 						theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
 						firstDay={1}
-						markedDates={marked.current}
+						markedDates={marked}
 					/>
 				)}
 				<AgendaList
