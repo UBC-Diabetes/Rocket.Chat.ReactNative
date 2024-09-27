@@ -7,6 +7,7 @@ import { Services } from '../lib/services';
 import {
     createEventSuccess,
     createEventFailure,
+    createEventReset,
     fetchEventRequest,
     fetchEventSuccess,
     fetchEventFailure,
@@ -89,6 +90,7 @@ const handleCreateRequest = function* handleCreateCalendarEvent() {
 
 const handleCreateSuccess = function* handleCreateEventSuccess() {
 		yield put(fetchEventRequest());
+		yield put(createEventReset());
 };
 
 
@@ -104,6 +106,7 @@ const handleUpdateRequest = function* handleUpdateCalendarEvent() {
 };
 
 const handleUpdateSuccess = function* handleUpdateEventSuccess() {
+		yield put(createEventReset());
 		yield put(fetchEventRequest());
 };
 

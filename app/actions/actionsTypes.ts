@@ -100,7 +100,7 @@ export const TROUBLESHOOTING_NOTIFICATION = createRequestTypes('TROUBLESHOOTING_
 export const SUPPORTED_VERSIONS = createRequestTypes('SUPPORTED_VERSIONS', ['SET']);
 export const IN_APP_FEEDBACK = createRequestTypes('IN_APP_FEEDBACK', ['SET', 'REMOVE', 'CLEAR']);
 
-export const CREATE_EVENT = createRequestTypes('CREATE_EVENT', [...defaultTypes, 'DRAFT']);
+export const CREATE_EVENT = createRequestTypes('CREATE_EVENT', [...defaultTypes, 'DRAFT', 'RESET']);
 export const EDIT_EVENT = createRequestTypes('EDIT_EVENT', [...defaultTypes, 'CANCEL']);
 export const FETCH_EVENT = createRequestTypes('FETCH_EVENT', [...defaultTypes]);
 export const PRESS_EVENT = createRequestTypes('PRESS_EVENT', [...defaultTypes]);

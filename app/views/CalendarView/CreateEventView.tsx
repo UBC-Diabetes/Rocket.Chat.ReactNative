@@ -4,10 +4,10 @@ import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import * as HeaderButton from '../../containers/HeaderButton';
-
+import { parse } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
+import * as HeaderButton from '../../containers/HeaderButton';
 import { cancelEventEdit, createEventDraft, createEventRequest, updateEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
 import { getCalendarEventsSelector, getDraftEventSelector } from '../../selectors/event';
@@ -73,12 +73,12 @@ const CreateEventView = () => {
 		dispatch(createEventDraft({ meetingLink }));
 	};
 	const onDateChange = (event, selectedDate) => {
-		const currentDate = selectedDate || draftEvent.date;
+		const currentDate = new Date(selectedDate).toLocaleDateString() || draftEvent.date;
 		setShowDatePicker(false);
 		dispatch(createEventDraft({ date: currentDate }));
 	};
 	const onTimeChange = (event, selectedTime) => {
-		const currentTime = selectedTime || draftEvent.time;
+		const currentTime = new Date(selectedTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || draftEvent.time;
 		setShowTimePicker(false);
 		dispatch(createEventDraft({ time: currentTime }));
 	};
@@ -96,6 +96,10 @@ const CreateEventView = () => {
 		}
 		navigation.navigate('CalendarView');
 	};
+
+	const dateTimeStr = `${draftEvent.date} ${draftEvent.time}`;
+
+	const dateTime = parse(dateTimeStr, 'M/d/yyyy h:mm a', new Date());
 
 	return (
 		<ScrollView style={styles.container}>
@@ -115,7 +119,7 @@ const CreateEventView = () => {
 					<Text style={styles.dateTimeText}>{draftEvent.date}</Text>
 				</TouchableOpacity>
 			</View>
-			{showDatePicker && <DateTimePicker value={draftEvent.date} mode='date' display='default' onChange={onDateChange} />}
+			{showDatePicker && <DateTimePicker value={dateTime} mode='date' display='default' onChange={onDateChange} />}
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.label}>Time</Text>
@@ -125,7 +129,7 @@ const CreateEventView = () => {
 			</View>
 
 			{showTimePicker && (
-				<DateTimePicker value={draftEvent.time} mode='time' is24Hour={true} display='default' onChange={onTimeChange} />
+				<DateTimePicker value={dateTime} mode='time' is24Hour={true} display='default' onChange={onTimeChange} />
 			)}
 
 			<Text style={styles.label}>Description</Text>

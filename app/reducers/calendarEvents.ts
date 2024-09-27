@@ -100,13 +100,15 @@ export default function (state = initialState, action: TApplicationActions): ICr
 				failure: false,
 				error: {}
 			};
-		case CREATE_EVENT.SUCCESS:
+		case CREATE_EVENT.RESET:
 			return {
 				...state,
 				isFetching: false,
 				failure: false,
 				isDrafting: false,
-				createdEvent: action.data
+				isEditing: false,
+				createdEvent: action.data,
+				draftEvent: {}
 			};
 		case CREATE_EVENT.FAILURE:
 			return {

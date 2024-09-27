@@ -63,7 +63,6 @@ export function createEventDraft(data: TCreateEventResult): ICreateEventRequest 
 }
 
 export function createEventRequest() {
-	console.log('so this got called');
 	return {
 		type: CREATE_EVENT.REQUEST
 	};
@@ -73,6 +72,12 @@ export function createEventSuccess(data: TCreateEventResult): ICreateEventSucces
 	return {
 		type: CREATE_EVENT.SUCCESS,
 		data
+	};
+}
+
+export function createEventReset() {
+	return {
+		type: CREATE_EVENT.RESET
 	};
 }
 
