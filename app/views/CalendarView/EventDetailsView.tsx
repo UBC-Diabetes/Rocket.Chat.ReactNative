@@ -4,6 +4,7 @@ import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
+import { parse } from 'date-fns';
 
 import * as HeaderButton from '../../containers/HeaderButton';
 import { getUserSelector } from '../../selectors/login';
@@ -25,6 +26,8 @@ const EventDetailsView = () => {
 	const isAdmin = user?.roles && user?.roles.includes('admin');
 	// const userName = user?.username || '';
 	// const isRegistered = guests.contains(userName)
+
+	const parsedDate = parse(date, 'MM/dd/yyyy', new Date());
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -66,7 +69,7 @@ const EventDetailsView = () => {
 			<Text style={styles.headerTitle}>{title}</Text>
 
 			<Text style={styles.dateTimeText}>
-				{new Date(date ?? '').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} • {time}
+				{parsedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} • {time}
 			</Text>
 
 			<Text style={styles.guests}>{numGuests || 0} guests</Text>
