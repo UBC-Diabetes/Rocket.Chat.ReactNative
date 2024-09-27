@@ -1,7 +1,7 @@
 import { delay, put, select, takeLatest } from 'redux-saga/effects';
 import { parse, format } from 'date-fns';
 
-import { CREATE_EVENT ,FETCH_EVENT } from '../actions/actionsTypes';
+import { CREATE_EVENT, FETCH_EVENT, UPDATE_EVENT } from '../actions/actionsTypes';
 import { Services } from '../lib/services';
 
 import {
@@ -9,7 +9,8 @@ import {
     createEventFailure,
     fetchEventRequest,
     fetchEventSuccess,
-    fetchEventFailure
+    fetchEventFailure,
+    updateEventSuccess,
     } from '../actions/calendarEvents';
 
 
@@ -36,11 +37,12 @@ const parseDate = (dateString) => {
 function groupEventsByDate(events) {
     try {
         const grouped = events.reduce((acc, { _id, event }) => {
-            const dateKey = parseDate(event.date);
             const item = {
-                id: _id,
-                ...event
+                ...event,
+                id: _id
             };
+
+            const dateKey = parseDate(event.date);
 
             if (!acc[dateKey]) {
                 acc[dateKey] = [];
@@ -66,6 +68,7 @@ const handleFetchRequest = function* handleFetchCalendarEvents() {
   if (success) {
 		yield put(fetchEventSuccess(groupedEvents));
   } else {
+      console.log(error)
 		yield put(fetchEventFailure(error));
   }
 
@@ -90,11 +93,29 @@ const handleCreateSuccess = function* handleCreateEventSuccess() {
 
 
 
+const handleUpdateRequest = function* handleUpdateCalendarEvent() {
+
+  const response = yield Services.updateCalendarEvent();
+  const { success, error } = response;
+
+  if (success) {
+		yield put(updateEventSuccess());
+  }
+};
+
+const handleUpdateSuccess = function* handleUpdateEventSuccess() {
+		yield put(fetchEventRequest());
+};
+
+
+
 
 const root = function* root() {
 	yield takeLatest(FETCH_EVENT.REQUEST, handleFetchRequest);
 	yield takeLatest(CREATE_EVENT.REQUEST, handleCreateRequest);
 	yield takeLatest(CREATE_EVENT.SUCCESS, handleCreateSuccess);
+	yield takeLatest(UPDATE_EVENT.REQUEST, handleUpdateRequest);
+	yield takeLatest(UPDATE_EVENT.SUCCESS, handleUpdateSuccess);
 };
 
 export default root;

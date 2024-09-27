@@ -87,7 +87,6 @@ export default function (state = initialState, action: TApplicationActions): ICr
 				failure: false,
 				error: {},
 				isDrafting: true,
-				isEditing: false,
 				draftEvent: {
 					...state.draftEvent,
 					...action.data

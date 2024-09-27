@@ -104,3 +104,4 @@ export const CREATE_EVENT = createRequestTypes('CREATE_EVENT', [...defaultTypes,
 export const EDIT_EVENT = createRequestTypes('EDIT_EVENT', [...defaultTypes, 'CANCEL']);
 export const FETCH_EVENT = createRequestTypes('FETCH_EVENT', [...defaultTypes]);
 export const PRESS_EVENT = createRequestTypes('PRESS_EVENT', [...defaultTypes]);
+export const UPDATE_EVENT = createRequestTypes('UPDATE_EVENT', [...defaultTypes]);

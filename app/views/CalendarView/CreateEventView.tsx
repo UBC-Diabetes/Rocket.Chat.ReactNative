@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as HeaderButton from '../../containers/HeaderButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { cancelEventEdit, createEventDraft, createEventRequest } from '../../actions/calendarEvents';
+import { cancelEventEdit, createEventDraft, createEventRequest, updateEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
 import { getCalendarEventsSelector, getDraftEventSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
-import { updateCalendarEvent } from '../../lib/services/restApi';
+
+const leftArrow = require('../../static/images/discussionboard/arrow_left.png');
 
 const CreateEventView = () => {
 	const [showDatePicker, setShowDatePicker] = useState(false);
@@ -26,15 +27,19 @@ const CreateEventView = () => {
 	const draftEvent = useSelector((state: IApplicationState) => getDraftEventSelector(state));
 	const userName = user?.username || '';
 
-	useFocusEffect(
-		React.useCallback(() => {
-			return () => dispatch(cancelEventEdit());
-		}, [])
-	);
+	const backAction = () => {
+		dispatch(cancelEventEdit());
+		navigation.goBack();
+	};
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		navigation.setOptions({
+			headerLeft: () => (
+				<TouchableOpacity style={{ marginLeft: 20 }} onPress={() => backAction()}>
+					<Image source={leftArrow} style={{ width: 11, height: 19 }} resizeMode='contain' />
+				</TouchableOpacity>
+			),
 			headerRight: () => (
 				<HeaderButton.Container>
 					<Touchable style={{ marginRight: 20 }} onPress={() => navigation.navigate('ProfileView')}>
@@ -43,6 +48,7 @@ const CreateEventView = () => {
 				</HeaderButton.Container>
 			)
 		});
+
 		if (!isEditing) {
 			const defaultEvent = {
 				time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -83,12 +89,12 @@ const CreateEventView = () => {
 	};
 
 	const createOrUpdateEvent = async () => {
-		if (draftEvent.isDefaultEvent) {
-			dispatch(createEventRequest());
+		if (isEditing) {
+			dispatch(updateEventRequest());
 		} else {
-			await updateCalendarEvent();
+			dispatch(createEventRequest());
 		}
-		navigation.goBack();
+		navigation.navigate('CalendarView');
 	};
 
 	return (
