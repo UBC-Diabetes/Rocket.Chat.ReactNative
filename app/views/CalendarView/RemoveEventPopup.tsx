@@ -1,25 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import { Modal, View, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 
 import { hideRemoveEventPopup } from '../../actions/confirmationPopup';
 
-const ConfirmationPopup = ({ event }) => {
-	const eventDetails = useMemo(() => {
-		return event?.title
-			? event
-			: {
-					title: 'Happy Hour (Zoom)',
-					guests: 10,
-					date: 'Tuesday, Feb 6',
-					time: '9-10AM',
-					meetingLink: 'https://ubc.meeting.us/j/69367593586?pwd=VXE1MUVkc1hERmd4SFZiWjlsMDdrZz09'
-			  };
-	}, [event]);
-
+const RemoveEventPopup = ({ event }: { event: any }) => {
 	const dispatch = useDispatch();
 
-	const handleConfirm = () => {
+	const handleRemove = () => {
 		dispatch(hideRemoveEventPopup());
 	};
 
@@ -28,141 +16,93 @@ const ConfirmationPopup = ({ event }) => {
 	};
 
 	return (
-		<View style={styles.fullOverlay}>
+		<Modal transparent={true} onRequestClose={handleDismiss}>
 			<TouchableWithoutFeedback onPress={handleDismiss}>
-				<View style={styles.overlay}></View>
-			</TouchableWithoutFeedback>
-			<SafeAreaView style={styles.safeArea}>
-				<View style={styles.popupContainer}>
+				<View style={styles.fullScreen}>
 					<View style={styles.popup}>
-						<Text style={styles.popupTitle}>Confirmation</Text>
-						<Text style={styles.eventTitle}>{eventDetails.title}</Text>
-
-						<View style={styles.detailsContainer}>
-							<View style={styles.detailRow}>
-								<Text style={styles.detailIcon}>👥</Text>
-								<Text style={styles.detailText}>{eventDetails.guests || 0} guests</Text>
-							</View>
-							<View style={styles.detailRow}>
-								<Text style={styles.detailIcon}>📅</Text>
-								<Text style={styles.detailText}>
-									{new Date(eventDetails.date ?? '').toLocaleDateString('en-US', {
-										weekday: 'long',
-										month: 'long',
-										day: 'numeric'
-									})}
-								</Text>
-							</View>
-							<View style={styles.detailRow}>
-								<Text style={styles.detailIcon}>🕒</Text>
-								<Text style={styles.detailText}>{eventDetails.time}</Text>
-							</View>
+						<View style={styles.contentContainer}>
+							<Text style={styles.title}>Are you sure you want to remove this event from the calendar?</Text>
 						</View>
-
-						<Text style={styles.meetingLinkLabel}>Meeting Link</Text>
-						<Text style={styles.meetingLink}>{eventDetails.meetingLink || 'Stay tuned'}</Text>
-
-						<TouchableOpacity style={styles.confirmButton} onPress={() => handleConfirm()}>
-							<Text style={styles.confirmButtonText}>Confirm</Text>
+						<TouchableOpacity style={styles.removeButton} onPress={handleRemove}>
+							<Text style={styles.removeButtonText}>Remove event</Text>
 						</TouchableOpacity>
-
-						<TouchableOpacity style={styles.helpButton}>
-							<Text style={styles.helpButtonText}>Need help? Chat with a research assistant</Text>
+						<View style={styles.buttonSeparator} />
+						<TouchableOpacity style={styles.cancelButton} onPress={handleDismiss}>
+							<Text style={styles.cancelButtonText}>Cancel</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
-			</SafeAreaView>
-		</View>
+			</TouchableWithoutFeedback>
+		</Modal>
 	);
 };
 
 const styles = StyleSheet.create({
-	fullOverlay: {
-		...StyleSheet.absoluteFillObject,
-		backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	fullScreen: {
+		flex: 1,
 		justifyContent: 'flex-end',
-		zIndex: 1000
-	},
-	overlay: {
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	safeArea: {
-		backgroundColor: 'transparent'
-	},
-	popupContainer: {
-		backgroundColor: '#FFFFFF',
-		borderTopLeftRadius: 20,
-		borderTopRightRadius: 20
+		alignItems: 'center',
+		backgroundColor: 'rgba(0, 0, 0, 0.4)'
 	},
 	popup: {
-		padding: 20
+		width: '97%',
+		backgroundColor: 'white',
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20,
+		paddingVertical: 20,
+		paddingHorizontal: 20,
+		alignItems: 'center',
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: -2
+		},
+		shadowOpacity: 0.1,
+		shadowRadius: 4,
+		elevation: 5
 	},
-	popupTitle: {
+	contentContainer: {
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		borderBottomColor: '#CCCCCC'
+	},
+	removeButton: {
+		paddingVertical: 12
+	},
+	removeButtonText: {
+		color: 'red',
+		textAlign: 'center',
+		fontSize: 17,
+		fontWeight: '600'
+	},
+	buttonSeparator: {
+		height: 8,
+		backgroundColor: '#F1F1F1'
+	},
+	cancelButton: {
+		paddingVertical: 12
+	},
+	cancelButtonText: {
+		color: '#007AFF',
+		textAlign: 'center',
+		fontSize: 17,
+		fontWeight: '400'
+	},
+	title: {
 		fontSize: 18,
-		fontWeight: 'bold',
-		marginBottom: 10,
-		color: '#333'
-	},
-	eventTitle: {
-		fontSize: 24,
-		fontWeight: 'bold',
-		marginBottom: 20,
-		color: '#000'
-	},
-	detailsContainer: {
+		fontWeight: '500',
+		textAlign: 'center',
 		marginBottom: 20
 	},
-	detailRow: {
+	buttonContainer: {
 		flexDirection: 'row',
-		alignItems: 'center',
-		marginBottom: 10
+		justifyContent: 'space-between',
+		width: '100%'
 	},
-	detailIcon: {
+	buttonText: {
 		fontSize: 18,
-		marginRight: 10
-	},
-	detailText: {
-		fontSize: 16,
-		color: '#333'
-	},
-	meetingLinkLabel: {
-		fontSize: 14,
-		color: '#666',
-		marginBottom: 5
-	},
-	meetingLink: {
-		fontSize: 14,
-		color: '#0000FF',
-		textDecorationLine: 'underline',
-		marginBottom: 20
-	},
-	confirmButton: {
-		paddingVertical: 15,
-		borderRadius: 25,
-		alignItems: 'center',
-		marginBottom: 15,
-		borderWidth: 1,
-		borderColor: '#E3E3E3'
-	},
-	confirmButtonText: {
-		color: '#000',
-		fontSize: 18,
+		color: '#FFF',
 		fontWeight: 'bold'
-	},
-	helpButton: {
-		alignItems: 'center'
-	},
-	helpButtonText: {
-		color: '#666',
-		fontSize: 14,
-		textDecorationLine: 'underline'
 	}
 });
 
-export default ConfirmationPopup;
+export default RemoveEventPopup;
