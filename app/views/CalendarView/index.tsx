@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useTheme } from '../../theme';
 import { createEventDraft, fetchEventRequest } from '../../actions/calendarEvents';
-import { hideConfirmationPopup } from '../../actions/confirmationPopup';
 import { getUserSelector } from '../../selectors/login';
 import { getFetchedEventsSelector, getPopupSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
@@ -35,7 +34,9 @@ const CalendarView = (props: any): React.ReactElement => {
 
 	const marked = getMarkedDates(agendaItems ?? []);
 
-	const { showConfirmationPopup, confirmationPopupDetails } = useSelector((state: IApplicationState) => getPopupSelector(state));
+	const { shouldShowConfirmationPopup, confirmationPopupDetails } = useSelector((state: IApplicationState) =>
+		getPopupSelector(state)
+	);
 
 	const styles = makeStyles(theme);
 
@@ -64,10 +65,6 @@ const CalendarView = (props: any): React.ReactElement => {
 
 	const todaysDate = useMemo(() => new Date().toISOString().split('T')[0], []);
 
-	const closePopup = useCallback(() => {
-		dispatch(hideConfirmationPopup());
-	}, [dispatch]);
-
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
@@ -91,7 +88,7 @@ const CalendarView = (props: any): React.ReactElement => {
 					}}
 				/>
 			</CalendarProvider>
-			{showConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} />}
+			{shouldShowConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} />}
 			{isAdmin && (
 				<View style={styles.adminButtonContainer}>
 					<Touchable style={styles.adminButton} onPress={() => createEvent()}>
@@ -136,15 +133,6 @@ const makeStyles = (theme: any) =>
 			color: 'white',
 			fontSize: 20,
 			fontWeight: 'bold'
-		},
-		overlay: {
-			position: 'absolute',
-			top: 0,
-			left: 0,
-			right: 0,
-			bottom: 0,
-			justifyContent: 'center',
-			alignItems: 'center'
 		}
 	});
 

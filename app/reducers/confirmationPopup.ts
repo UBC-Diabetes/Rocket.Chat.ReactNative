@@ -1,25 +1,40 @@
 export interface IPopup {
-	showConfirmationPopup: boolean;
+	shouldShowConfirmationPopup: boolean;
+	shouldShowRemoveEventPopup: boolean;
 	confirmationPopupDetails: any;
+	removeEventPopupDetails: any;
 }
 
 const initialState: IPopup = {
-	showConfirmationPopup: false,
-	confirmationPopupDetails: null
+	shouldShowConfirmationPopup: false,
+	shouldShowRemoveEventPopup: false,
+	confirmationPopupDetails: null,
+	removeEventPopupDetails: null
 };
 
-export default function confirmationPopupReducer(state = initialState, action) {
+export default function confirmationPopupReducer(state = initialState, action: { type: string; data: any }): any {
 	switch (action.type) {
 		case 'SHOW_CONFIRMATION_POPUP':
 			return {
 				...state,
-				showConfirmationPopup: true,
+				shouldShowConfirmationPopup: true,
 				confirmationPopupDetails: action.data.eventDetails
 			};
 		case 'HIDE_CONFIRMATION_POPUP':
 			return {
 				...state,
-				showConfirmationPopup: false
+				shouldShowConfirmationPopup: false
+			};
+		case 'SHOW_REMOVE_EVENT_POPUP':
+			return {
+				...state,
+				shouldShowRemoveEventPopup: true,
+				removeEventPopupDetails: action.data.eventDetails
+			};
+		case 'HIDE_REMOVE_EVENT_POPUP':
+			return {
+				...state,
+				shouldShowRemoveEventPopup: false
 			};
 		default:
 			return state;

@@ -8,12 +8,13 @@ import { parse } from 'date-fns';
 
 import * as HeaderButton from '../../containers/HeaderButton';
 import { getUserSelector } from '../../selectors/login';
-import { getPressedEventSelector } from '../../selectors/event';
+import { getPressedEventSelector, getPopupSelector } from '../../selectors/event';
 import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
-import { showConfirmationPopup } from '../../actions/confirmationPopup';
+import { showConfirmationPopup, showRemoveEventPopup } from '../../actions/confirmationPopup';
 import { deleteEventRequest, editEvent } from '../../actions/calendarEvents';
+import RemoveEventPopup from './RemoveEventPopup';
 
 const EventDetailsView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -26,6 +27,10 @@ const EventDetailsView = () => {
 	const isAdmin = user?.roles && user?.roles.includes('admin');
 	// const userName = user?.username || '';
 	// const isRegistered = guests.contains(userName)
+
+	const { shouldShowRemoveEventPopup, removeEventPopupDetails } = useSelector((state: IApplicationState) =>
+		getPopupSelector(state)
+	);
 
 	const parsedDate = parse(date, 'MM/dd/yyyy', new Date());
 
@@ -55,8 +60,10 @@ const EventDetailsView = () => {
 	};
 
 	const handleDeleteEvent = async () => {
-		dispatch(deleteEventRequest(eventId));
-		navigation.goBack();
+		// dispatch(deleteEventRequest(eventId));
+
+		dispatch(showRemoveEventPopup({ eventDetails }));
+		// navigation.goBack();
 	};
 
 	const handleRegister = () => {
@@ -102,6 +109,7 @@ const EventDetailsView = () => {
 			<TouchableOpacity style={styles.createEventButton} onPress={() => handleRegister()}>
 				<Text style={styles.createEventButtonText}>Register</Text>
 			</TouchableOpacity>
+			{shouldShowRemoveEventPopup && <RemoveEventPopup event={removeEventPopupDetails} />}
 		</ScrollView>
 	);
 };
