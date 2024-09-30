@@ -13,7 +13,7 @@ import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { showConfirmationPopup, showRemoveEventPopup } from '../../actions/confirmationPopup';
-import { deleteEventRequest, editEvent } from '../../actions/calendarEvents';
+import { editEvent } from '../../actions/calendarEvents';
 import RemoveEventPopup from './RemoveEventPopup';
 
 const EventDetailsView = () => {
@@ -60,10 +60,7 @@ const EventDetailsView = () => {
 	};
 
 	const handleDeleteEvent = async () => {
-		// dispatch(deleteEventRequest(eventId));
-
 		dispatch(showRemoveEventPopup({ eventDetails }));
-		// navigation.goBack();
 	};
 
 	const handleRegister = () => {
@@ -109,7 +106,7 @@ const EventDetailsView = () => {
 			<TouchableOpacity style={styles.createEventButton} onPress={() => handleRegister()}>
 				<Text style={styles.createEventButtonText}>Register</Text>
 			</TouchableOpacity>
-			{shouldShowRemoveEventPopup && <RemoveEventPopup event={removeEventPopupDetails} />}
+			{shouldShowRemoveEventPopup && <RemoveEventPopup eventId={removeEventPopupDetails.id} />}
 		</ScrollView>
 	);
 };

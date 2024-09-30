@@ -1,14 +1,20 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { hideRemoveEventPopup } from '../../actions/confirmationPopup';
+import { deleteEventRequest } from '../../actions/calendarEvents';
 
-const RemoveEventPopup = ({ event }: { event: any }) => {
+const RemoveEventPopup = ({ eventId }: { eventId: string }) => {
 	const dispatch = useDispatch();
+	const navigation = useNavigation<StackNavigationProp<any>>();
 
 	const handleRemove = () => {
+		dispatch(deleteEventRequest(eventId));
 		dispatch(hideRemoveEventPopup());
+		navigation.goBack();
 	};
 
 	const handleDismiss = () => {
@@ -45,28 +51,28 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(0, 0, 0, 0.4)'
 	},
 	popup: {
-		width: '97%',
+		width: '90%',
 		backgroundColor: 'white',
-		borderTopLeftRadius: 20,
-		borderTopRightRadius: 20,
-		paddingVertical: 20,
-		paddingHorizontal: 20,
-		alignItems: 'center',
-		shadowColor: '#000',
-		shadowOffset: {
-			width: 0,
-			height: -2
-		},
-		shadowOpacity: 0.1,
-		shadowRadius: 4,
-		elevation: 5
+		borderTopLeftRadius: 10,
+		borderTopRightRadius: 10,
+		paddingTop: 20,
+		alignItems: 'center'
 	},
 	contentContainer: {
-		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderBottomColor: '#CCCCCC'
+		width: '100%',
+		paddingHorizontal: 20,
+		paddingBottom: 20
+	},
+	title: {
+		fontSize: 13,
+		textAlign: 'center',
+		color: '#3C3C4399'
 	},
 	removeButton: {
-		paddingVertical: 12
+		width: '100%',
+		paddingVertical: 12,
+		borderTopWidth: StyleSheet.hairlineWidth,
+		borderTopColor: '#CCCCCC'
 	},
 	removeButtonText: {
 		color: 'red',
@@ -75,10 +81,12 @@ const styles = StyleSheet.create({
 		fontWeight: '600'
 	},
 	buttonSeparator: {
-		height: 8,
-		backgroundColor: '#F1F1F1'
+		height: StyleSheet.hairlineWidth,
+		backgroundColor: '#CCCCCC',
+		width: '100%'
 	},
 	cancelButton: {
+		width: '100%',
 		paddingVertical: 12
 	},
 	cancelButtonText: {
@@ -86,22 +94,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		fontSize: 17,
 		fontWeight: '400'
-	},
-	title: {
-		fontSize: 18,
-		fontWeight: '500',
-		textAlign: 'center',
-		marginBottom: 20
-	},
-	buttonContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		width: '100%'
-	},
-	buttonText: {
-		fontSize: 18,
-		color: '#FFF',
-		fontWeight: 'bold'
 	}
 });
 
