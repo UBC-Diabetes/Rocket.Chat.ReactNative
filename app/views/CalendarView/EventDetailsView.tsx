@@ -23,7 +23,7 @@ const EventDetailsView = () => {
 
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const eventDetails = useSelector((state: IApplicationState) => getPressedEventSelector(state));
-	const { attendees, title, date, time, description, meetingLink, peers, numGuests, id: eventId } = eventDetails;
+	const { attendees, title, date, time, description, meetingLink, peers, id: eventId } = eventDetails;
 	const isAdmin = user?.roles && user?.roles.includes('admin');
 	const userName = user?.username;
 
@@ -90,7 +90,7 @@ const EventDetailsView = () => {
 				{parsedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} • {time}
 			</Text>
 
-			<Text style={styles.guests}>{numGuests || 0} guests</Text>
+			<Text style={styles.guests}>{`${attendees.length} ${attendees.length === 1 ? 'guest' : 'guests'}`}</Text>
 
 			<Text style={styles.description}>{description}</Text>
 
