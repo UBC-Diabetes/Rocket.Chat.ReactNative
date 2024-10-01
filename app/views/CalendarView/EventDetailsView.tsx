@@ -68,6 +68,17 @@ const EventDetailsView = () => {
 		dispatch(showConfirmationPopup({ eventDetails }));
 	};
 
+	const RegisterButton = () => (
+		<TouchableOpacity style={styles.createEventButton} onPress={() => handleRegister()}>
+			<Text style={styles.createEventButtonText}>Register</Text>
+		</TouchableOpacity>
+	);
+	const DoneButton = () => (
+		<TouchableOpacity style={styles.createEventButton} onPress={() => navigation.goBack()}>
+			<Text style={styles.createEventButtonText}>Done</Text>
+		</TouchableOpacity>
+	);
+
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.headerTitle}>{title}</Text>
@@ -103,9 +114,7 @@ const EventDetailsView = () => {
 					</View>
 				</View>
 			))}
-			<TouchableOpacity style={styles.createEventButton} onPress={() => handleRegister()}>
-				<Text style={styles.createEventButtonText}>Register</Text>
-			</TouchableOpacity>
+			{isAdmin ? <DoneButton /> : <RegisterButton />}
 			{shouldShowRemoveEventPopup && <RemoveEventPopup eventId={removeEventPopupDetails.id} />}
 		</ScrollView>
 	);
