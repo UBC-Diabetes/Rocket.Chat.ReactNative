@@ -16,6 +16,10 @@ import { showConfirmationPopup, showRemoveEventPopup } from '../../actions/confi
 import { editEvent } from '../../actions/calendarEvents';
 import RemoveEventPopup from './RemoveEventPopup';
 
+import { getRoomTitle, getUidDirectMessage } from '../../lib/methods/helpers';
+import { goRoom } from '../../lib/methods/helpers/goRoom';
+import { Services } from '../../lib/services';
+
 const EventDetailsView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -71,6 +75,45 @@ const EventDetailsView = () => {
 		dispatch(showConfirmationPopup({ eventDetails }));
 	};
 
+	const visitPeerProfile = peer => {
+		const peerUser = { id: peer._id, username: peer.username };
+
+		navigation.navigate('ConnectView', { user: peerUser });
+	};
+
+	const handleCreateDirectMessage = async (onPress: (rid: string) => void, peer) => {
+		try {
+			const result = await Services.createDirectMessage(peer.username);
+			if (result.success) {
+				const {
+					room: { rid }
+				} = result;
+				if (rid) {
+					onPress(rid);
+				}
+			}
+		} catch {}
+	};
+
+	const goToRoom = (rid: string) => {
+		const room = { rid: rid, t: 'd' };
+
+		const params = {
+			rid: room.rid,
+			name: getRoomTitle(room),
+			t: room.t,
+			roomUserId: getUidDirectMessage(room)
+		};
+
+		if (room.rid) {
+			try {
+				goRoom({ item: params, isMasterDetail: true, popToRoot: true });
+			} catch (e) {
+				console.log(e);
+			}
+		}
+	};
+
 	const RegisterButton = () => (
 		<TouchableOpacity style={styles.createEventButton} onPress={() => handleRegister()}>
 			<Text style={styles.createEventButtonText}>Register</Text>
@@ -108,10 +151,13 @@ const EventDetailsView = () => {
 						<Text style={styles.peerName}>{peer.username}</Text>
 					</View>
 					<View style={styles.iconContainer}>
-						<TouchableOpacity style={styles.iconButton}>
+						<TouchableOpacity style={styles.iconButton} onPress={() => visitPeerProfile(peer)}>
 							<CustomIcon name='user' size={25} color='#000' />
 						</TouchableOpacity>
-						<TouchableOpacity style={[styles.iconButton, { marginLeft: 10 }]}>
+						<TouchableOpacity
+							style={[styles.iconButton, { marginLeft: 10 }]}
+							onPress={() => handleCreateDirectMessage(goToRoom, peer)}
+						>
 							<CustomIcon name='message' size={25} color='#000' />
 						</TouchableOpacity>
 					</View>
