@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 
 import { hideConfirmationPopup } from '../../actions/confirmationPopup';
+import { registerEventRequest } from '../../actions/calendarEvents';
 
-const ConfirmationPopup = ({ event }) => {
+const ConfirmationPopup = ({ event, userName }) => {
 	const eventDetails = useMemo(() => {
 		return event?.title
 			? event
@@ -20,6 +21,7 @@ const ConfirmationPopup = ({ event }) => {
 	const dispatch = useDispatch();
 
 	const handleConfirm = () => {
+		dispatch(registerEventRequest(event.id, userName));
 		dispatch(hideConfirmationPopup());
 	};
 

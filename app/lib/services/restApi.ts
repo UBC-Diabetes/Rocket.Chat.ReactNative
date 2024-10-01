@@ -927,6 +927,14 @@ export const deleteCalendarEvent = async (eventId: string) => {
 	return sdk.post('calendarEvents.delete', { eventId });
 };
 
+export const registerCalendarEvent = async (eventId: string, attendeeId: string) => {
+	return sdk.post('calendarEvents.register', { eventId, attendeeId });
+};
+
+export const deregisterCalendarEvent = async (eventId: string, attendeeId: string) => {
+	return sdk.post('calendarEvents.deregister', { eventId, attendeeId });
+};
+
 export const getCalendarEvents = () => sdk.get('calendarEvents.fetch');
 
 export const sendEmailCode = () => {

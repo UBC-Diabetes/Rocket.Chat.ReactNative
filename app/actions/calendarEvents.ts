@@ -1,7 +1,16 @@
 import { Action } from 'redux';
 
 import { TCreateEventResult } from '../reducers/calendarEvent';
-import { CREATE_EVENT, DELETE_EVENT, EDIT_EVENT, FETCH_EVENT, PRESS_EVENT, UPDATE_EVENT } from './actionsTypes';
+import {
+	CREATE_EVENT,
+	DELETE_EVENT,
+	EDIT_EVENT,
+	FETCH_EVENT,
+	PRESS_EVENT,
+	REGISTER_EVENT,
+	DE_REGISTER_EVENT,
+	UPDATE_EVENT
+} from './actionsTypes';
 
 interface ICreateEventRequest extends Action {
 	data: TCreateEventResult;
@@ -126,5 +135,37 @@ export function pressEventFailure(err: any) {
 	return {
 		type: PRESS_EVENT.FAILURE,
 		err
+	};
+}
+
+export function registerEventRequest(eventId: string, attendeeId: string) {
+	return {
+		type: REGISTER_EVENT.REQUEST,
+		data: {
+			eventId,
+			attendeeId
+		}
+	};
+}
+
+export function registerEventSuccess() {
+	return {
+		type: REGISTER_EVENT.SUCCESS
+	};
+}
+
+export function deregisterEventRequest(eventId: string, attendeeId: string) {
+	return {
+		type: DE_REGISTER_EVENT.REQUEST,
+		data: {
+			eventId,
+			attendeeId
+		}
+	};
+}
+
+export function deregisterEventSuccess() {
+	return {
+		type: DE_REGISTER_EVENT.SUCCESS
 	};
 }

@@ -88,7 +88,7 @@ const CalendarView = (props: any): React.ReactElement => {
 					}}
 				/>
 			</CalendarProvider>
-			{shouldShowConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} />}
+			{shouldShowConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} userName={userName} />}
 			{isAdmin && (
 				<View style={styles.adminButtonContainer}>
 					<Touchable style={styles.adminButton} onPress={() => createEvent()}>

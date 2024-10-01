@@ -1,7 +1,7 @@
 import { delay, put, select, takeLatest } from 'redux-saga/effects';
 import { parse, format } from 'date-fns';
 
-import { CREATE_EVENT, DELETE_EVENT, FETCH_EVENT, UPDATE_EVENT } from '../actions/actionsTypes';
+import { CREATE_EVENT, DELETE_EVENT, FETCH_EVENT, REGISTER_EVENT, DE_REGISTER_EVENT, UPDATE_EVENT } from '../actions/actionsTypes';
 import { Services } from '../lib/services';
 
 import {
@@ -12,7 +12,9 @@ import {
     fetchEventSuccess,
     fetchEventFailure,
     updateEventSuccess,
-    deleteEventSuccess
+    deleteEventSuccess,
+    registerEventSuccess,
+    deregisterEventSuccess
     } from '../actions/calendarEvents';
 
 
@@ -128,6 +130,39 @@ const handleDeleteSuccess = function* handleDeleteEventSuccess() {
 		yield put(fetchEventRequest());
 };
 
+const handleRegisterRequest = function* handleRegisterCalendarEvent({ data }) {
+
+    const response = yield Services.registerCalendarEvent(data.eventId, data.attendeeId);
+  const { success, error } = response;
+
+  if (success) {
+		yield put(registerEventSuccess());
+  } else {
+      console.log('error registering for event!', error);
+  }
+};
+
+const handleRegisterSuccess = function* handleRegisterEventSuccess() {
+		yield put(fetchEventRequest());
+};
+
+const handleDeRegisterRequest = function* handleDeRegisterCalendarEvent({ data }) {
+
+    const response = yield Services.deregisterCalendarEvent(data.eventId, data.attendeeId);
+  const { success, error } = response;
+
+  if (success) {
+		yield put(deregisterEventSuccess());
+  } else {
+      console.log('error deregistering for event!', error);
+  }
+};
+
+const handleDeRegisterSuccess = function* handleDeRegisterEventSuccess() {
+		yield put(fetchEventRequest());
+};
+
+
 const root = function* root() {
 	yield takeLatest(FETCH_EVENT.REQUEST, handleFetchRequest);
 	yield takeLatest(CREATE_EVENT.REQUEST, handleCreateRequest);
@@ -136,6 +171,10 @@ const root = function* root() {
 	yield takeLatest(UPDATE_EVENT.SUCCESS, handleUpdateSuccess);
 	yield takeLatest(DELETE_EVENT.REQUEST, handleDeleteRequest);
 	yield takeLatest(DELETE_EVENT.SUCCESS, handleDeleteSuccess);
+	yield takeLatest(REGISTER_EVENT.REQUEST, handleRegisterRequest);
+	yield takeLatest(REGISTER_EVENT.SUCCESS, handleRegisterSuccess);
+	yield takeLatest(DE_REGISTER_EVENT.REQUEST, handleDeRegisterRequest);
+	yield takeLatest(DE_REGISTER_EVENT.SUCCESS, handleDeRegisterSuccess);
 };
 
 export default root;

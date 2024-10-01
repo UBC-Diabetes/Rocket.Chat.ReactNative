@@ -1,6 +1,26 @@
 import { TApplicationActions } from '../definitions';
 import { EDIT_EVENT, CREATE_EVENT, FETCH_EVENT, PRESS_EVENT } from '../actions/actionsTypes';
 
+interface Peer {
+	_id: string;
+	createdAt: string;
+	name: string;
+	emails: string[];
+	username: string;
+	avatarETag: string;
+	customFields: {
+		Age: number;
+		Bio: string;
+		ConnectIds: string;
+		'Glucose Monitoring Method': string;
+		'Insulin Delivery Method': string;
+		Location: string;
+		'Stage of Life': string;
+		'T1D Since': number;
+		VideoUrl: string;
+	};
+}
+
 interface ICreateEventResult {
 	author?: string;
 	title?: string;
@@ -8,7 +28,8 @@ interface ICreateEventResult {
 	date?: string | Date;
 	time?: string;
 	meetingLink?: string;
-	peers?: string[];
+	peers?: Peer[];
+	attendees?: string[];
 }
 
 export type TCreateEventResult = ICreateEventResult;

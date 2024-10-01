@@ -106,3 +106,6 @@ export const FETCH_EVENT = createRequestTypes('FETCH_EVENT', [...defaultTypes]);
 export const PRESS_EVENT = createRequestTypes('PRESS_EVENT', [...defaultTypes]);
 export const UPDATE_EVENT = createRequestTypes('UPDATE_EVENT', [...defaultTypes]);
 export const DELETE_EVENT = createRequestTypes('DELETE_EVENT', [...defaultTypes]);
+
+export const REGISTER_EVENT = createRequestTypes('REGISTER_EVENT', [...defaultTypes]);
+export const DE_REGISTER_EVENT = createRequestTypes('DE_REGISTER_EVENT', [...defaultTypes]);

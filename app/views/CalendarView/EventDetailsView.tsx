@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
@@ -13,7 +13,7 @@ import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { showConfirmationPopup, showRemoveEventPopup } from '../../actions/confirmationPopup';
-import { editEvent } from '../../actions/calendarEvents';
+import { deregisterEventRequest, editEvent } from '../../actions/calendarEvents';
 import RemoveEventPopup from './RemoveEventPopup';
 
 const EventDetailsView = () => {
@@ -23,10 +23,10 @@ const EventDetailsView = () => {
 
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const eventDetails = useSelector((state: IApplicationState) => getPressedEventSelector(state));
-	const { title, date, time, description, meetingLink, peers, numGuests, id: eventId } = eventDetails;
-	const isAdmin = user?.roles && user?.roles.includes('admin');
-	// const userName = user?.username || '';
-	// const isRegistered = guests.contains(userName)
+	const { attendees, title, date, time, description, meetingLink, peers, numGuests, id: eventId } = eventDetails;
+	const userName = user?.username;
+
+	const isAttending = useMemo(() => attendees.includes(userName), [attendees, userName]);
 
 	const { shouldShowRemoveEventPopup, removeEventPopupDetails } = useSelector((state: IApplicationState) =>
 		getPopupSelector(state)
@@ -39,16 +39,18 @@ const EventDetailsView = () => {
 		navigation.setOptions({
 			headerRight: () => (
 				<HeaderButton.Container>
-					{isAdmin && (
-						<View style={styles.iconContainer}>
+					<View style={styles.iconContainer}>
+						{(isAdmin || isAttending) && (
 							<Touchable style={{ marginRight: 20 }} onPress={() => handleDeleteEvent()}>
 								<CustomIcon name='delete' size={24} color='#CB007B' />
 							</Touchable>
+						)}
+						{isAdmin && (
 							<Touchable style={{ marginRight: 20 }} onPress={() => handleEditEvent()}>
 								<CustomIcon name='edit' size={24} color='#CB007B' />
 							</Touchable>
-						</View>
-					)}
+						)}
+					</View>
 				</HeaderButton.Container>
 			)
 		});
@@ -60,7 +62,12 @@ const EventDetailsView = () => {
 	};
 
 	const handleDeleteEvent = async () => {
-		dispatch(showRemoveEventPopup({ eventDetails }));
+		if (isAdmin) {
+			dispatch(showRemoveEventPopup({ eventDetails }));
+		} else {
+			dispatch(deregisterEventRequest(eventDetails.id, userName));
+			navigation.goBack();
+		}
 	};
 
 	const handleRegister = () => {

@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import isEmpty from 'lodash/isEmpty';
 import { format, parse } from 'date-fns';
 
+import { CustomIcon } from '../../containers/CustomIcon';
+import { getUserSelector } from '../../selectors/login';
 import { pressEventRequest } from '../../actions/calendarEvents';
+import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import testIDs from './testIds';
 
@@ -18,6 +21,11 @@ const AgendaItem = (props: ItemProps) => {
 	const { item } = props;
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const dispatch = useDispatch();
+
+	const { username } = useSelector((state: IApplicationState) => getUserSelector(state));
+	const { attendees } = item;
+
+	const isAttending = useMemo(() => attendees.includes(username), [attendees, username]);
 
 	const itemPressed = useCallback(
 		(item: any) => {
@@ -46,6 +54,12 @@ const AgendaItem = (props: ItemProps) => {
 				<View style={styles.contentContainer}>
 					<Text style={styles.itemTitleText}>{fullTitle}</Text>
 					<Text style={styles.itemDateText}>{formattedDate}</Text>
+					{isAttending && (
+						<View style={styles.attendingContainer}>
+							<CustomIcon name='check' color='white' size={16} />
+							<Text style={styles.attendingText}>Attending</Text>
+						</View>
+					)}
 				</View>
 				<View style={styles.avatarContainer}>
 					{item.peers.map((user: Record<string, any>, index: number) => (
@@ -62,6 +76,20 @@ const AgendaItem = (props: ItemProps) => {
 export default React.memo(AgendaItem);
 
 const styles = StyleSheet.create({
+	attendingContainer: {
+		backgroundColor: '#799A79',
+		paddingVertical: 4,
+		paddingHorizontal: 8,
+
+		flexDirection: 'row',
+		alignSelf: 'flex-start',
+		marginTop: 4
+	},
+	attendingText: {
+		color: 'white',
+		fontSize: 12,
+		fontWeight: 'bold'
+	},
 	avatarContainer: {
 		flexDirection: 'row-reverse',
 		marginLeft: 10
