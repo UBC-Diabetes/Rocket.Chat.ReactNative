@@ -1,18 +1,28 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { IApplicationState } from '../../definitions';
 import { hideRemoveEventPopup } from '../../actions/confirmationPopup';
-import { deleteEventRequest } from '../../actions/calendarEvents';
+import { deleteEventRequest, deregisterEventRequest } from '../../actions/calendarEvents';
+import { getUserSelector } from '../../selectors/login';
 
-const RemoveEventPopup = ({ eventId }: { eventId: string }) => {
+const RemoveEventPopup = ({ eventId, attendeeId }: { eventId: string; attendeeId: string }) => {
 	const dispatch = useDispatch();
 	const navigation = useNavigation<StackNavigationProp<any>>();
 
+	const user = useSelector((state: IApplicationState) => getUserSelector(state));
+	const isAdmin = user?.roles && user?.roles.includes('admin');
+
 	const handleRemove = () => {
-		dispatch(deleteEventRequest(eventId));
+		console.log(eventId, attendeeId);
+		if (isAdmin) {
+			dispatch(deleteEventRequest(eventId));
+		} else {
+			dispatch(deregisterEventRequest(eventId, attendeeId));
+		}
 		dispatch(hideRemoveEventPopup());
 		navigation.goBack();
 	};

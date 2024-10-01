@@ -13,7 +13,7 @@ import { IApplicationState } from '../../definitions';
 import Avatar from '../../containers/Avatar';
 import { CustomIcon } from '../../containers/CustomIcon';
 import { showConfirmationPopup, showRemoveEventPopup } from '../../actions/confirmationPopup';
-import { deregisterEventRequest, editEvent } from '../../actions/calendarEvents';
+import { editEvent } from '../../actions/calendarEvents';
 import RemoveEventPopup from './RemoveEventPopup';
 
 const EventDetailsView = () => {
@@ -24,6 +24,7 @@ const EventDetailsView = () => {
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const eventDetails = useSelector((state: IApplicationState) => getPressedEventSelector(state));
 	const { attendees, title, date, time, description, meetingLink, peers, numGuests, id: eventId } = eventDetails;
+	const isAdmin = user?.roles && user?.roles.includes('admin');
 	const userName = user?.username;
 
 	const isAttending = useMemo(() => attendees.includes(userName), [attendees, userName]);
@@ -62,12 +63,7 @@ const EventDetailsView = () => {
 	};
 
 	const handleDeleteEvent = async () => {
-		if (isAdmin) {
-			dispatch(showRemoveEventPopup({ eventDetails }));
-		} else {
-			dispatch(deregisterEventRequest(eventDetails.id, userName));
-			navigation.goBack();
-		}
+		dispatch(showRemoveEventPopup({ eventDetails, attendeeId: userName }));
 	};
 
 	const handleRegister = () => {
@@ -122,7 +118,7 @@ const EventDetailsView = () => {
 				</View>
 			))}
 			{isAdmin ? <DoneButton /> : <RegisterButton />}
-			{shouldShowRemoveEventPopup && <RemoveEventPopup eventId={removeEventPopupDetails.id} />}
+			{shouldShowRemoveEventPopup && <RemoveEventPopup eventId={removeEventPopupDetails.id} attendeeId={userName} />}
 		</ScrollView>
 	);
 };
