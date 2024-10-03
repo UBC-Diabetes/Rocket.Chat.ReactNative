@@ -19,6 +19,7 @@ import RemoveEventPopup from './RemoveEventPopup';
 import { getRoomTitle, getUidDirectMessage } from '../../lib/methods/helpers';
 import { goRoom } from '../../lib/methods/helpers/goRoom';
 import { Services } from '../../lib/services';
+import addToPersonalCalendar from './Permissions';
 
 const EventDetailsView = () => {
 	const navigation = useNavigation<StackNavigationProp<any>>();
@@ -131,6 +132,15 @@ const EventDetailsView = () => {
 		</TouchableOpacity>
 	);
 
+	const AddToCalendarButton = () => {
+		return (
+			<TouchableOpacity style={styles.addToCalendarButton} onPress={() => addToPersonalCalendar(eventDetails)}>
+				<CustomIcon style={{ marginRight: 10 }} name='calendar' size={24} color='#CB007B' />
+				<Text style={styles.addToCalendarText}>Add to calendar</Text>
+			</TouchableOpacity>
+		);
+	};
+
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.headerTitle}>{title}</Text>
@@ -147,6 +157,7 @@ const EventDetailsView = () => {
 				<Text style={styles.label}>Meeting Link</Text>
 				<Text>{meetingLink}</Text>
 			</View>
+			{!isAdmin && <AddToCalendarButton />}
 			<View style={{ height: 1, backgroundColor: '#E3E3E3', width: '100%', marginBottom: 24 }} />
 
 			<Text style={styles.sectionTitle}>Peer Supporters</Text>
@@ -320,6 +331,21 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: '600'
 	},
+	addToCalendarButton: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderWidth: 1,
+		borderColor: '#E3E3E3',
+		borderRadius: 20,
+		paddingVertical: 8,
+		paddingHorizontal: 16,
+		marginBottom: 10
+	},
+	addToCalendarText: {
+		color: '#000',
+		fontSize: 16,
+		fontWeight: '600'
 	}
 });
 
