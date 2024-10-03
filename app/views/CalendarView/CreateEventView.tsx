@@ -56,8 +56,7 @@ const CreateEventView = () => {
 				title: draftEvent?.title ?? 'Event title',
 				date: draftEvent?.date ?? new Date().toLocaleDateString(),
 				peers: draftEvent?.peers ?? [],
-				attendees: draftEvent?.attendees ?? [],
-				isDefaultEvent: true
+				attendees: draftEvent?.attendees ?? []
 			};
 			dispatch(createEventDraft(defaultEvent));
 		}

@@ -119,6 +119,12 @@ const EventDetailsView = () => {
 			<Text style={styles.createEventButtonText}>Register</Text>
 		</TouchableOpacity>
 	);
+	const AttendingButton = () => (
+		<TouchableOpacity style={styles.attendingButton} onPress={() => navigation.goBack()}>
+			<CustomIcon style={{ marginRight: 10 }} name='check' size={24} color='#fff' />
+			<Text style={styles.attendingButtonText}>Attending</Text>
+		</TouchableOpacity>
+	);
 	const DoneButton = () => (
 		<TouchableOpacity style={styles.createEventButton} onPress={() => navigation.goBack()}>
 			<Text style={styles.createEventButtonText}>Done</Text>
@@ -163,7 +169,7 @@ const EventDetailsView = () => {
 					</View>
 				</View>
 			))}
-			{isAdmin ? <DoneButton /> : <RegisterButton />}
+			{isAdmin ? <DoneButton /> : isAttending ? <AttendingButton /> : <RegisterButton />}
 			{shouldShowRemoveEventPopup && <RemoveEventPopup eventId={removeEventPopupDetails.id} attendeeId={userName} />}
 		</ScrollView>
 	);
@@ -268,10 +274,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center'
 	},
-	iconContainer: {
-		flexDirection: 'row',
-		alignItems: 'center'
-	},
 	peerName: {
 		marginLeft: 10,
 		fontSize: 16
@@ -301,6 +303,23 @@ const styles = StyleSheet.create({
 		color: '#fff',
 		fontSize: 18,
 		fontWeight: 'bold'
+	},
+	attendingButton: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#A1AAA1',
+		borderRadius: 25,
+		padding: 15,
+		alignItems: 'center',
+		marginTop: 20,
+		marginBottom: 20
+	},
+	attendingButtonText: {
+		color: '#fff',
+		fontSize: 16,
+		fontWeight: '600'
+	},
 	}
 });
 
