@@ -62,28 +62,41 @@ const AgendaItem = (props: ItemProps) => {
 					)}
 				</View>
 				<View style={styles.avatarContainer}>
-					{item.peers.map((user: Record<string, any>, index: number) => (
-						<View key={user._id} style={[styles.avatarWrapper, { zIndex: item.peers.length - index, right: index * 15 }]}>
-							<Avatar text={user.username} size={36} borderRadius={18} />
+					<View style={styles.avatarGroup}>
+						{item.peers.slice(0, 3).map((user: Record<string, any>, index: number) => (
+							<View key={user._id} style={[styles.avatarWrapper, { zIndex: item.peers.length - index, right: index * 15 }]}>
+								<Avatar text={user.username} size={36} borderRadius={18} />
+							</View>
+						))}
+					</View>
+					{item.peers.length > 3 && (
+						<View style={styles.morePeersContainer}>
+							<Text style={styles.morePeersText}>{`+${item.peers.length - 3} more`}</Text>
 						</View>
-					))}
+					)}
 				</View>
 			</TouchableOpacity>
 		</View>
 	);
 };
 
-export default React.memo(AgendaItem);
-
 const styles = StyleSheet.create({
 	attendingContainer: {
 		backgroundColor: '#799A79',
 		paddingVertical: 4,
 		paddingHorizontal: 8,
-
+		alignItems: 'center',
 		flexDirection: 'row',
 		alignSelf: 'flex-start',
 		marginTop: 4
+	},
+	morePeersContainer: {
+		alignSelf: 'center',
+		marginTop: 4
+	},
+	morePeersText: {
+		color: 'grey',
+		fontSize: 12
 	},
 	attendingText: {
 		color: 'white',
@@ -91,12 +104,23 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold'
 	},
 	avatarContainer: {
-		flexDirection: 'row-reverse',
+		flexDirection: 'column',
 		marginLeft: 10
+	},
+	avatarGroup: {
+		flexDirection: 'row-reverse'
 	},
 	avatarWrapper: {
 		position: 'relative',
-		marginLeft: -1
+		marginLeft: -2,
+		borderWidth: 2,
+		borderColor: 'white',
+		borderRadius: 18,
+		overflow: 'hidden',
+		width: 36,
+		height: 36,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	itemContainer: {
 		paddingBottom: 8,
@@ -124,10 +148,6 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		marginTop: 4
 	},
-	itemButtonContainer: {
-		flex: 1,
-		alignItems: 'flex-end'
-	},
 	emptyItem: {
 		paddingLeft: 20,
 		height: 52,
@@ -140,3 +160,5 @@ const styles = StyleSheet.create({
 		fontSize: 14
 	}
 });
+
+export default React.memo(AgendaItem);
