@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ExpandableCalendar, AgendaList, CalendarProvider } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -66,30 +66,32 @@ const CalendarView = (): React.ReactElement => {
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
-			<Text style={styles.title}>Calendar</Text>
-			<CalendarProvider date={todaysDate}>
-				<ExpandableCalendar
-					testID={testIDs.expandableCalendar.CONTAINER}
-					theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
-					firstDay={0}
-					markedDates={marked}
-				/>
-				<AgendaList
-					sections={agendaItems ?? []}
-					renderItem={renderItem}
-					sectionStyle={{
-						backgroundColor: '#F5F4F2'
-					}}
-				/>
-			</CalendarProvider>
-			{shouldShowConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} userName={userName} />}
-			{isAdmin && (
-				<View style={styles.adminButtonContainer}>
-					<Touchable style={styles.adminButton} onPress={() => createEvent()}>
-						<Text style={styles.adminButtonText}>Create event</Text>
-					</Touchable>
-				</View>
-			)}
+			<ScrollView style={{ flex: 1 }}>
+				<Text style={styles.title}>Calendar</Text>
+				<CalendarProvider date={todaysDate}>
+					<ExpandableCalendar
+						testID={testIDs.expandableCalendar.CONTAINER}
+						theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
+						firstDay={0}
+						markedDates={marked}
+					/>
+					<AgendaList
+						sections={agendaItems ?? []}
+						renderItem={renderItem}
+						sectionStyle={{
+							backgroundColor: '#F5F4F2'
+						}}
+					/>
+				</CalendarProvider>
+				{shouldShowConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} userName={userName} />}
+				{isAdmin && (
+					<View style={styles.adminButtonContainer}>
+						<Touchable style={styles.adminButton} onPress={() => createEvent()}>
+							<Text style={styles.adminButtonText}>Create event</Text>
+						</Touchable>
+					</View>
+				)}
+			</ScrollView>
 		</View>
 	);
 };
@@ -98,7 +100,7 @@ const makeStyles = (theme: any) =>
 	StyleSheet.create({
 		title: {
 			color: theme.colors.titleText,
-			marginLeft: 5,
+			marginLeft: 20,
 			marginBottom: 10,
 			fontSize: 24,
 			lineHeight: 29,
@@ -110,9 +112,10 @@ const makeStyles = (theme: any) =>
 			flexWrap: 'wrap'
 		},
 		adminButtonContainer: {
-			position: 'absolute',
+			marginTop: 20,
 			bottom: 20,
-			width: '100%'
+			width: '100%',
+			backgroundColor: '#F5F4F2'
 		},
 		adminButton: {
 			margin: 10,
