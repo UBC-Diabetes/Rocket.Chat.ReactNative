@@ -1,5 +1,5 @@
 import { delay, put, select, takeLatest } from 'redux-saga/effects';
-import { parse, format } from 'date-fns';
+import { parseISO, format } from 'date-fns';
 
 import { CREATE_EVENT, DELETE_EVENT, FETCH_EVENT, REGISTER_EVENT, DE_REGISTER_EVENT, UPDATE_EVENT } from '../actions/actionsTypes';
 import { Services } from '../lib/services';
@@ -18,11 +18,9 @@ import {
     } from '../actions/calendarEvents';
 
 
-function convertDateToISO(dateString) {
-    // Parse the date from MM/DD/YYYY format
-    const parsedDate = parse(dateString, 'MM/dd/yyyy', new Date());
+function convertDateFromISO(dateString) {
+    const parsedDate = parseISO(dateString);
 
-    // Format it to ISO (YYYY-MM-DD)
     return format(parsedDate, 'yyyy-MM-dd');
 }
 
@@ -32,7 +30,7 @@ const parseDate = (dateString) => {
         return 'unknown-date';
     }
     try {
-        return convertDateToISO(dateString);
+        return convertDateFromISO(dateString);
     } catch (error) {
         console.error('Date conversion error:', error);
     }
@@ -46,7 +44,7 @@ function groupEventsByDate(events) {
                 id: _id
             };
 
-            const dateKey = parseDate(event.date);
+            const dateKey = parseDate(event.dateTime);
 
             if (!acc[dateKey]) {
                 acc[dateKey] = [];

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { ExpandableCalendar, AgendaList, CalendarProvider, WeekCalendar } from 'react-native-calendars';
+import { ExpandableCalendar, AgendaList, CalendarProvider } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Touchable from 'react-native-platform-touchable';
@@ -19,9 +19,7 @@ import testIDs from './testIds';
 import { getMarkedDates } from './helpers';
 import ConfirmationPopup from './ConfirmationPopup';
 
-const CalendarView = (props: any): React.ReactElement => {
-	const { weekView } = props;
-
+const CalendarView = (): React.ReactElement => {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 	const { colors } = theme;
@@ -69,17 +67,13 @@ const CalendarView = (props: any): React.ReactElement => {
 		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
 			<Text style={styles.title}>Calendar</Text>
-			<CalendarProvider date={todaysDate} showTodayButton>
-				{weekView ? (
-					<WeekCalendar testID={testIDs.weekCalendar.CONTAINER} firstDay={1} markedDates={marked.current} />
-				) : (
-					<ExpandableCalendar
-						testID={testIDs.expandableCalendar.CONTAINER}
-						theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
-						firstDay={1}
-						markedDates={marked}
-					/>
-				)}
+			<CalendarProvider date={todaysDate}>
+				<ExpandableCalendar
+					testID={testIDs.expandableCalendar.CONTAINER}
+					theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
+					firstDay={0}
+					markedDates={marked}
+				/>
 				<AgendaList
 					sections={agendaItems ?? []}
 					renderItem={renderItem}
