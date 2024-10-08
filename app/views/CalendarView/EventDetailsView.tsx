@@ -4,7 +4,7 @@ import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { parse } from 'date-fns';
+import { parseISO, format } from 'date-fns';
 
 import * as HeaderButton from '../../containers/HeaderButton';
 import { getUserSelector } from '../../selectors/login';
@@ -28,7 +28,7 @@ const EventDetailsView = () => {
 
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const eventDetails = useSelector((state: IApplicationState) => getPressedEventSelector(state));
-	const { attendees, title, date, time, description, meetingLink, peers, id: eventId } = eventDetails;
+	const { attendees, title, dateTime, description, meetingLink, peers, id: eventId } = eventDetails;
 	const isAdmin = user?.roles && user?.roles.includes('admin');
 	const userName = user?.username;
 
@@ -37,8 +37,6 @@ const EventDetailsView = () => {
 	const { shouldShowRemoveEventPopup, removeEventPopupDetails } = useSelector((state: IApplicationState) =>
 		getPopupSelector(state)
 	);
-
-	const parsedDate = parse(date, 'MM/dd/yyyy', new Date());
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -141,13 +139,20 @@ const EventDetailsView = () => {
 		);
 	};
 
+	const getFullDateWithTime = isoDateTime => {
+		const date = parseISO(isoDateTime);
+		const formattedDate = format(date, 'EEEE, LLLL do'); // Example: 'Monday, June 15th'
+		const formattedTime = format(date, 'h:mm a'); // Example: '3:45 PM'
+		return `${formattedDate} • ${formattedTime}`;
+	};
+
+	const dateTimeDisplay = getFullDateWithTime(dateTime);
+
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.headerTitle}>{title}</Text>
 
-			<Text style={styles.dateTimeText}>
-				{parsedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} • {time}
-			</Text>
+			<Text style={styles.dateTimeText}>{dateTimeDisplay}</Text>
 
 			<Text style={styles.guests}>{`${attendees.length} ${attendees.length === 1 ? 'guest' : 'guests'}`}</Text>
 

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
+import { parseISO, format } from 'date-fns';
 
 import { hideConfirmationPopup } from '../../actions/confirmationPopup';
 import { registerEventRequest } from '../../actions/calendarEvents';
@@ -12,8 +13,7 @@ const ConfirmationPopup = ({ event, userName }) => {
 			: {
 					title: 'Happy Hour (Zoom)',
 					guests: 10,
-					date: 'Tuesday, Feb 6',
-					time: '9-10AM',
+					dateTime: new Date().toISOString(),
 					meetingLink: 'https://ubc.meeting.us/j/69367593586?pwd=VXE1MUVkc1hERmd4SFZiWjlsMDdrZz09'
 			  };
 	}, [event]);
@@ -28,6 +28,17 @@ const ConfirmationPopup = ({ event, userName }) => {
 	const handleDismiss = () => {
 		dispatch(hideConfirmationPopup());
 	};
+
+	const getFullDateWithoutTime = (isoDateTime: string) => {
+		const date = parseISO(isoDateTime);
+		const formattedDate = format(date, 'EEEE, LLLL do'); // Example: 'Monday, June 15th'
+		return formattedDate;
+	};
+
+	const displayTime = (isoString: string) => format(parseISO(isoString || new Date().toISOString()), 'h:mm a');
+
+	const formattedDate = getFullDateWithoutTime(eventDetails.dateTime);
+	const formattedTime = displayTime(eventDetails.dateTime);
 
 	return (
 		<View style={styles.fullOverlay}>
@@ -47,17 +58,11 @@ const ConfirmationPopup = ({ event, userName }) => {
 							</View>
 							<View style={styles.detailRow}>
 								<Text style={styles.detailIcon}>📅</Text>
-								<Text style={styles.detailText}>
-									{new Date(eventDetails.date ?? '').toLocaleDateString('en-US', {
-										weekday: 'long',
-										month: 'long',
-										day: 'numeric'
-									})}
-								</Text>
+								<Text style={styles.detailText}>{formattedDate}</Text>
 							</View>
 							<View style={styles.detailRow}>
 								<Text style={styles.detailIcon}>🕒</Text>
-								<Text style={styles.detailText}>{eventDetails.time}</Text>
+								<Text style={styles.detailText}>{formattedTime}</Text>
 							</View>
 						</View>
 

@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import isEmpty from 'lodash/isEmpty';
-import { format, parse } from 'date-fns';
+import { parseISO, format } from 'date-fns';
 
 import { CustomIcon } from '../../containers/CustomIcon';
 import { getUserSelector } from '../../selectors/login';
@@ -43,9 +43,14 @@ const AgendaItem = (props: ItemProps) => {
 		);
 	}
 
-	const parsedDate = parse(item.date, 'MM/dd/yyyy', new Date());
-	const dayOfWeek = format(parsedDate, 'EEEE');
-	const formattedDate = `${dayOfWeek} at ${item.time}`;
+	const getFormattedDateTime = (isoDateTime: string) => {
+		const date = parseISO(isoDateTime);
+		const dayOfWeek = format(date, 'EEEE');
+		const time = format(date, 'h:mm a');
+		return `${dayOfWeek} at ${time}`;
+	};
+
+	const formattedDate = getFormattedDateTime(item.dateTime);
 	const fullTitle = `${item.title}${item.meetingLink ? ' (Meeting)' : ''}`;
 
 	return (

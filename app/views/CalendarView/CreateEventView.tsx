@@ -4,7 +4,7 @@ import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { parse } from 'date-fns';
+import { format, parseISO, parse } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as HeaderButton from '../../containers/HeaderButton';
@@ -51,10 +51,9 @@ const CreateEventView = () => {
 
 		if (!isEditing) {
 			const defaultEvent = {
-				time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 				description: draftEvent?.description ?? 'Event description',
 				title: draftEvent?.title ?? 'Event title',
-				date: draftEvent?.date ?? new Date().toLocaleDateString(),
+				dateTime: new Date().toISOString(),
 				peers: draftEvent?.peers ?? [],
 				attendees: draftEvent?.attendees ?? []
 			};
@@ -71,15 +70,23 @@ const CreateEventView = () => {
 	const onMeetingLinkChange = (meetingLink: string) => {
 		dispatch(createEventDraft({ meetingLink }));
 	};
+
 	const onDateChange = (event, selectedDate) => {
-		const currentDate = new Date(selectedDate).toLocaleDateString() || draftEvent.date;
 		setShowDatePicker(false);
-		dispatch(createEventDraft({ date: currentDate }));
+		if (selectedDate) {
+			const newDate = new Date(draftEvent.dateTime);
+			newDate.setFullYear(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+			dispatch(createEventDraft({ dateTime: newDate.toISOString() }));
+		}
 	};
+
 	const onTimeChange = (event, selectedTime) => {
-		const currentTime = new Date(selectedTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || draftEvent.time;
 		setShowTimePicker(false);
-		dispatch(createEventDraft({ time: currentTime }));
+		if (selectedTime) {
+			const newTime = new Date(draftEvent.dateTime);
+			newTime.setHours(selectedTime.getHours(), selectedTime.getMinutes());
+			dispatch(createEventDraft({ dateTime: newTime.toISOString() }));
+		}
 	};
 
 	const removePeer = (username: string) => {
@@ -96,9 +103,12 @@ const CreateEventView = () => {
 		navigation.navigate('CalendarView');
 	};
 
-	const dateTimeStr = `${draftEvent.date} ${draftEvent.time}`;
+	const dateTime = new Date(draftEvent.dateTime);
+	const displayDate = (isoString: string) => format(parseISO(isoString || new Date().toISOString()), 'MM/dd/yyyy');
+	const displayTime = (isoString: string) => format(parseISO(isoString || new Date().toISOString()), 'h:mm a');
 
-	const dateTime = parse(dateTimeStr, 'M/d/yyyy h:mm a', new Date());
+	const formattedDate = displayDate(draftEvent.dateTime);
+	const formattedTime = displayTime(draftEvent.dateTime);
 
 	return (
 		<ScrollView style={styles.container}>
@@ -115,7 +125,7 @@ const CreateEventView = () => {
 			<View style={styles.rowContainer}>
 				<Text style={styles.label}>Date</Text>
 				<TouchableOpacity style={styles.dateTimeButton} onPress={() => setShowDatePicker(true)}>
-					<Text style={styles.dateTimeText}>{draftEvent.date}</Text>
+					<Text style={styles.dateTimeText}>{formattedDate}</Text>
 				</TouchableOpacity>
 			</View>
 			{showDatePicker && <DateTimePicker value={dateTime} mode='date' display='default' onChange={onDateChange} />}
@@ -123,7 +133,7 @@ const CreateEventView = () => {
 			<View style={styles.rowContainer}>
 				<Text style={styles.label}>Time</Text>
 				<TouchableOpacity style={styles.dateTimeButton} onPress={() => setShowTimePicker(true)}>
-					<Text style={styles.dateTimeText}>{draftEvent.time}</Text>
+					<Text style={styles.dateTimeText}>{formattedTime}</Text>
 				</TouchableOpacity>
 			</View>
 
