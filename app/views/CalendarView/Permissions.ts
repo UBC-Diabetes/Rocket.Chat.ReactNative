@@ -1,11 +1,24 @@
 import { Platform } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import * as Permissions from 'react-native-permissions';
+import { addHours, formatISO, parseISO } from 'date-fns';
 
-const eventConfig = {
-	title: 'whatever'
-	// and other options
-};
+interface IEventConfig {
+	title: string;
+	startDate: string; //  'YYYY-MM-DDTHH:mm:ss.SSSZ'
+	endDate: string;
+	location: string;
+	allDay: boolean;
+	url?: string; // iOS only
+	notes: string; // The notes (iOS) or description (Android) associated with the event.
+	navigationBarIOS?: {
+		tintColor: string;
+		barTintColor: string;
+		backgroundColor: string;
+		translucent: boolean;
+		titleColor: string;
+	};
+}
 
 const addToPersonalCalendar = event =>
 	Permissions.request(
@@ -18,6 +31,17 @@ const addToPersonalCalendar = event =>
 			if (result !== Permissions.RESULTS.GRANTED) {
 				return;
 			}
+			const eventStartDate = parseISO(event.dateTime);
+			const eventEndDate = addHours(eventStartDate, 1);
+
+			const eventConfig: IEventConfig = {
+				title: event.title,
+				startDate: new Date(eventStartDate).toISOString(),
+				endDate: new Date(eventEndDate).toISOString(),
+				location: event.meetingLink,
+				allDay: false,
+				notes: event.description
+			};
 			return AddCalendarEvent.presentEventCreatingDialog(eventConfig);
 		})
 		.then((eventInfo: { calendarItemIdentifier: string; eventIdentifier: string }) => {

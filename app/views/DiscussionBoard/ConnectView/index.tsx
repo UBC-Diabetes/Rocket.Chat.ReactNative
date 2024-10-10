@@ -83,7 +83,7 @@ const ConnectView: React.FC = ({ route, theme }: { route: any; theme: string }) 
 			try {
 				goRoom({ item: params, isMasterDetail: true, popToRoot: true });
 			} catch (e) {
-				log(e);
+				console.log(e);
 			}
 		}
 	};

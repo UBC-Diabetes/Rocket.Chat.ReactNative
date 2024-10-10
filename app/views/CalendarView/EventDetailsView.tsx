@@ -139,7 +139,7 @@ const EventDetailsView = () => {
 		);
 	};
 
-	const getFullDateWithTime = isoDateTime => {
+	const getFullDateWithTime = (isoDateTime: string) => {
 		const date = parseISO(isoDateTime);
 		const formattedDate = format(date, 'EEEE, LLLL do'); // Example: 'Monday, June 15th'
 		const formattedTime = format(date, 'h:mm a'); // Example: '3:45 PM'
@@ -162,7 +162,7 @@ const EventDetailsView = () => {
 				<Text style={styles.label}>Meeting Link</Text>
 				<Text>{meetingLink}</Text>
 			</View>
-			{!isAdmin && <AddToCalendarButton />}
+			<AddToCalendarButton />
 			<View style={{ height: 1, backgroundColor: '#E3E3E3', width: '100%', marginBottom: 24 }} />
 
 			<Text style={styles.sectionTitle}>Peer Supporters</Text>
