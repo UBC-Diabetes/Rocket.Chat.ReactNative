@@ -13,18 +13,21 @@ export const useLoadPeers = () => {
 		total: -1,
 		numUsersFetched: 0,
 		globalUsers: true,
-		type: 'users'
+		type: 'users',
+		reachedEnd: false
 	});
 
 	const isSearchActive = useRef(false);
+	const userIds = useRef(new Set());
 
 	const loadPeersImpl = async ({ newSearch = false, searchText = state.text }) => {
 		if (newSearch) {
-			setState(prevState => ({ ...prevState, data: [], total: -1, numUsersFetched: 0 }));
+			userIds.current.clear();
+			setState(prevState => ({ ...prevState, data: [], total: -1, numUsersFetched: 0, reachedEnd: false }));
 			isSearchActive.current = searchText !== '';
 		}
 
-		if (isSearchActive.current && !newSearch) {
+		if ((isSearchActive.current && !newSearch) || state.reachedEnd) {
 			// Don't load more results if a search is active
 			return;
 		}
@@ -42,24 +45,27 @@ export const useLoadPeers = () => {
 			});
 
 			if (directories.success) {
-				const combinedResults = [];
+				const newResults = [];
 				const results = directories.result;
 
-				await Promise.all(
-					results.map(async item => {
+				for (const item of results) {
+					if (!userIds.current.has(item._id)) {
+						userIds.current.add(item._id);
 						const user = await RocketChat.getUserInfo(item._id);
 						if (user.user.roles.includes('Peer Supporter')) {
-							combinedResults.push({ ...item, customFields: user.user.customFields });
+							newResults.push({ ...item, customFields: user.user.customFields });
 						}
-					})
-				);
+					}
+				}
 
+				const numUsersFetched = newSearch ? results.length : state.numUsersFetched + results.length;
 				setState(prevState => ({
 					...prevState,
-					data: newSearch ? combinedResults : [...prevState.data, ...combinedResults],
+					data: newSearch ? newResults : [...prevState.data, ...newResults],
 					loading: false,
-					numUsersFetched: newSearch ? combinedResults.length : prevState.numUsersFetched + combinedResults.length,
-					total: directories.total
+					numUsersFetched: numUsersFetched,
+					total: directories.total,
+					reachedEnd: numUsersFetched >= directories.total
 				}));
 			} else {
 				setState(prevState => ({ ...prevState, loading: false }));
