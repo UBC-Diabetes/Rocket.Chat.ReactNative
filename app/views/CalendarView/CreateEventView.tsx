@@ -33,7 +33,7 @@ const CreateEventView = () => {
 	const scrollViewRef = useRef(null);
 
 	const dispatch = useDispatch();
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const { isEditing } = useSelector((state: IApplicationState) => getCalendarEventsSelector(state));
 	const draftEvent = useSelector((state: IApplicationState) => getDraftEventSelector(state));
@@ -137,8 +137,7 @@ const CreateEventView = () => {
 		<KeyboardAvoidingView
 			style={{ flex: 1 }}
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			keyboardVerticalOffset={Platform.OS === 'ios' ? 15 : 0}
-		>
+			keyboardVerticalOffset={Platform.OS === 'ios' ? 15 : 0}>
 			<ScrollView style={styles.container} contentInset={{ bottom: 100 }} ref={scrollViewRef}>
 				<Text style={styles.header}>Create Event</Text>
 

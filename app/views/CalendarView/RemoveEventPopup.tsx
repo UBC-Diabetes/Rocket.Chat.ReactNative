@@ -11,7 +11,7 @@ import { getUserSelector } from '../../selectors/login';
 
 const RemoveEventPopup = ({ eventId, attendeeId }: { eventId: string; attendeeId: string }) => {
 	const dispatch = useDispatch();
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const isAdmin = user?.roles && user?.roles.includes('admin');

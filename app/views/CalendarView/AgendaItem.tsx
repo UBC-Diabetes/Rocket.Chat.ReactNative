@@ -19,7 +19,7 @@ interface ItemProps {
 
 const AgendaItem = (props: ItemProps) => {
 	const { item } = props;
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const dispatch = useDispatch();
 
 	const { username } = useSelector((state: IApplicationState) => getUserSelector(state));

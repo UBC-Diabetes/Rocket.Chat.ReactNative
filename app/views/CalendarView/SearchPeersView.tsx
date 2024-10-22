@@ -24,7 +24,7 @@ const SearchPeersView = () => {
 	const dispatch = useDispatch();
 
 	const { colors } = theme;
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
 	const [selectedPeers, setSelectedPeers] = useState<Map<string, any>>(new Map());
 

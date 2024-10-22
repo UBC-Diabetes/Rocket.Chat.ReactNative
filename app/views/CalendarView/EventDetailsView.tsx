@@ -22,7 +22,7 @@ import { Services } from '../../lib/services';
 import addToPersonalCalendar from './Permissions';
 
 const EventDetailsView = () => {
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
 	const dispatch = useDispatch();
 
@@ -180,8 +180,7 @@ const EventDetailsView = () => {
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={[styles.iconButton, { marginLeft: 10 }]}
-							onPress={() => handleCreateDirectMessage(goToRoom, peer)}
-						>
+							onPress={() => handleCreateDirectMessage(goToRoom, peer)}>
 							<CustomIcon name='message' size={25} color='#000' />
 						</TouchableOpacity>
 					</View>

@@ -23,7 +23,7 @@ const CalendarView = (): React.ReactElement => {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 	const { colors } = theme;
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const userName = user?.username || '';
 	const isAdmin = user?.roles && user?.roles.includes('admin');
