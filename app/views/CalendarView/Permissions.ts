@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import * as Permissions from 'react-native-permissions';
-import { addHours, formatISO, parseISO } from 'date-fns';
+import { addHours, parseISO } from 'date-fns';
 
 interface IEventConfig {
 	title: string;
@@ -49,7 +49,6 @@ const addToPersonalCalendar = event =>
 			// These are two different identifiers on iOS.
 			// On Android, where they are both equal and represent the event id, also strings.
 			// when { action: 'CANCELED' } is returned, the dialog was dismissed
-			console.log('hey we made it?', event);
 			console.warn(JSON.stringify(eventInfo));
 		})
 		.catch((error: string) => {
