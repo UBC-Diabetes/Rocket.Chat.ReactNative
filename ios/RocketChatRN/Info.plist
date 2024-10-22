@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>This app requires access to your calendar to create events.</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>This app requires access to your calendar to create events.</string>
 	<key>AppGroup</key>
 	<string>group.com.t1dreachout.app</string>
 	<key>CFBundleDevelopmentRegion</key>
