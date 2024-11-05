@@ -28,6 +28,8 @@ const CreateEventView = () => {
 	const userName = user?.username || '';
 
 	const backAction = () => {
+		setShowDatePicker(false);
+		setShowTimePicker(false);
 		dispatch(cancelEventEdit());
 		navigation.goBack();
 	};
