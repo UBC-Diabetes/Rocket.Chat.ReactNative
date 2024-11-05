@@ -122,6 +122,7 @@ const CreateEventView = () => {
 				value={isEditing && draftEvent.title}
 				onChangeText={onTitleChange}
 				placeholder='Enter event title'
+				placeholderTextColor='#9e9e9e'
 			/>
 
 			<View style={styles.rowContainer}>
@@ -147,6 +148,7 @@ const CreateEventView = () => {
 			<TextInput
 				style={[styles.input, styles.textArea]}
 				placeholder='Describe your event'
+				placeholderTextColor='#9e9e9e'
 				value={isEditing && draftEvent.description}
 				onChangeText={onDescriptionChange}
 				multiline
@@ -157,6 +159,7 @@ const CreateEventView = () => {
 			<TextInput
 				style={styles.input}
 				placeholder='Enter Meeting link'
+				placeholderTextColor='#9e9e9e'
 				value={draftEvent.meetingLink}
 				onChangeText={onMeetingLinkChange}
 			/>
