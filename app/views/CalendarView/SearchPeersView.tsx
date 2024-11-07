@@ -28,6 +28,8 @@ const SearchPeersView = () => {
 	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
 	const [selectedPeers, setSelectedPeers] = useState<Map<string, any>>(new Map());
 
+	const styles = makeStyles(colors);
+
 	const { peers } = useSelector((state: IApplicationState) => getDraftEventSelector(state));
 
 	useEffect(() => {
@@ -123,62 +125,65 @@ const SearchPeersView = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	headerContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		padding: 10
-	},
-	doneButton: {
-		padding: 10,
-		alignItems: 'center',
-		marginBottom: 15
-	},
-	doneButtonText: {
-		color: '#ff69b4',
-		fontSize: 16
-	},
-	searchContainer: {
-		flex: 1,
-		marginRight: 10
-	},
-	searchSpinner: {},
-	container: {
-		flex: 1
-	},
-	centerContent: {
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	peerItem: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		padding: 10,
-		borderBottomWidth: 1,
-		borderBottomColor: '#E0E0E0'
-	},
-	peerInfo: {
-		flexDirection: 'row',
-		alignItems: 'center'
-	},
-	peerName: {
-		fontSize: 16,
-		marginLeft: 10
-	},
-	checkMark: {
-		width: 24,
-		height: 24,
-		borderRadius: 12,
-		backgroundColor: '#F5F4F2',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	checkMarkText: {
-		color: '#000000',
-		fontSize: 16
-	}
-});
+const makeStyles = (colors: any) => {
+	return StyleSheet.create({
+		headerContainer: {
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			padding: 10
+		},
+		doneButton: {
+			padding: 10,
+			alignItems: 'center',
+			marginBottom: 15
+		},
+		doneButtonText: {
+			color: '#ff69b4',
+			fontSize: 16
+		},
+		searchContainer: {
+			flex: 1,
+			marginRight: 10
+		},
+		searchSpinner: {},
+		container: {
+			flex: 1
+		},
+		centerContent: {
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		peerItem: {
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			padding: 10,
+			borderBottomWidth: 1,
+			borderBottomColor: '#E0E0E0'
+		},
+		peerInfo: {
+			flexDirection: 'row',
+			alignItems: 'center'
+		},
+		peerName: {
+			fontSize: 16,
+			marginLeft: 10,
+			color: colors.bodyText
+		},
+		checkMark: {
+			width: 24,
+			height: 24,
+			borderRadius: 12,
+			backgroundColor: '#F5F4F2',
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		checkMarkText: {
+			color: '#000000',
+			fontSize: 16
+		}
+	});
+};
 
 export default SearchPeersView;
