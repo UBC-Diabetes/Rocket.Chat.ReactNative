@@ -131,7 +131,9 @@ const CreateEventView = () => {
 					<Text style={styles.dateTimeText}>{formattedDate}</Text>
 				</TouchableOpacity>
 			</View>
-			{showDatePicker && <DateTimePicker value={dateTime} mode='date' display='spinner' onChange={onDateChange} />}
+			{showDatePicker && (
+				<DateTimePicker value={dateTime} mode='date' display='spinner' onChange={onDateChange} textColor='black' />
+			)}
 
 			<View style={styles.rowContainer}>
 				<Text style={styles.label}>Time</Text>
@@ -141,7 +143,14 @@ const CreateEventView = () => {
 			</View>
 
 			{showTimePicker && (
-				<DateTimePicker value={dateTime} mode='time' is24Hour={true} display='spinner' onChange={onTimeChange} />
+				<DateTimePicker
+					value={dateTime}
+					mode='time'
+					is24Hour={true}
+					display='spinner'
+					onChange={onTimeChange}
+					textColor='black'
+				/>
 			)}
 
 			<Text style={styles.label}>Description</Text>
