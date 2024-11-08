@@ -7,6 +7,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { format, parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useTheme } from '../../theme';
 import * as HeaderButton from '../../containers/HeaderButton';
 import { cancelEventEdit, createEventDraft, createEventRequest, updateEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
@@ -26,6 +27,9 @@ const CreateEventView = () => {
 	const { isEditing } = useSelector((state: IApplicationState) => getCalendarEventsSelector(state));
 	const draftEvent = useSelector((state: IApplicationState) => getDraftEventSelector(state));
 	const userName = user?.username || '';
+
+	const { colors } = useTheme();
+	const styles = makeStyles(colors);
 
 	const backAction = () => {
 		setShowDatePicker(false);
@@ -122,7 +126,7 @@ const CreateEventView = () => {
 				value={isEditing && draftEvent.title}
 				onChangeText={onTitleChange}
 				placeholder='Enter event title'
-				placeholderTextColor='#9e9e9e'
+				placeholderTextColor={colors.placeholderText}
 			/>
 
 			<View style={styles.rowContainer}>
@@ -132,7 +136,7 @@ const CreateEventView = () => {
 				</TouchableOpacity>
 			</View>
 			{showDatePicker && (
-				<DateTimePicker value={dateTime} mode='date' display='spinner' onChange={onDateChange} textColor='black' />
+				<DateTimePicker value={dateTime} mode='date' display='spinner' onChange={onDateChange} textColor={colors.controlText} />
 			)}
 
 			<View style={styles.rowContainer}>
@@ -157,7 +161,7 @@ const CreateEventView = () => {
 			<TextInput
 				style={[styles.input, styles.textArea]}
 				placeholder='Describe your event'
-				placeholderTextColor='#9e9e9e'
+				placeholderTextColor={colors.placeholderText}
 				value={isEditing && draftEvent.description}
 				onChangeText={onDescriptionChange}
 				multiline
@@ -168,7 +172,7 @@ const CreateEventView = () => {
 			<TextInput
 				style={styles.input}
 				placeholder='Enter Meeting link'
-				placeholderTextColor='#9e9e9e'
+				placeholderTextColor={colors.placeholderText}
 				value={draftEvent.meetingLink}
 				onChangeText={onMeetingLinkChange}
 			/>
@@ -197,107 +201,113 @@ const CreateEventView = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		padding: 20,
-		backgroundColor: '#fff'
-	},
-	header: {
-		fontSize: 22,
-		fontWeight: 'bold',
-		marginBottom: 20,
-		textAlign: 'center'
-	},
-
-	headerText: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginLeft: 20
-	},
-	input: {
-		borderWidth: 1,
-		borderColor: '#e0e0e0',
-		borderRadius: 8,
-		padding: 15,
-		marginBottom: 15,
-		fontSize: 16
-	},
-	textArea: {
-		height: 100,
-		textAlignVertical: 'top'
-	},
-	label: {
-		fontSize: 16,
-		marginBottom: 8
-	},
-	rowContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		marginBottom: 16
-	},
-	dateTimeButton: {
-		borderRadius: 8,
-		padding: 12,
-		minWidth: 150,
-		alignItems: 'flex-end'
-	},
-	dateTimeText: {
-		fontWeight: 'bold'
-	},
-	sectionTitle: {
-		fontSize: 18,
-		marginTop: 20,
-		marginBottom: 10
-	},
-	addPeersButton: {
-		borderWidth: 1,
-		borderColor: '#ff69b4',
-		borderRadius: 25,
-		padding: 10,
-		alignItems: 'center',
-		marginBottom: 15
-	},
-	addPeersButtonText: {
-		color: '#ff69b4',
-		fontSize: 16
-	},
-	peerItem: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		marginBottom: 10
-	},
-	peerName: {
-		fontSize: 16
-	},
-	removePeerButton: {
-		backgroundColor: '#F5F4F2',
-		borderRadius: 15,
-		width: 32,
-		height: 32,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	removePeerButtonText: {
-		color: '#000000',
-		fontSize: 16,
-		marginBottom: 5
-	},
-	createEventButton: {
-		backgroundColor: '#799A79',
-		borderRadius: 25,
-		padding: 15,
-		alignItems: 'center',
-		marginTop: 20,
-		marginBottom: 20
-	},
-	createEventButtonText: {
-		color: '#fff',
-		fontSize: 18,
-		fontWeight: 'bold'
-	}
-});
+const makeStyles = (colors: any) => {
+	return StyleSheet.create({
+		container: {
+			flex: 1,
+			padding: 20,
+			backgroundColor: colors.auxiliaryBackground
+		},
+		header: {
+			fontSize: 22,
+			fontWeight: 'bold',
+			marginBottom: 20,
+			textAlign: 'center',
+			color: colors.controlText
+		},
+		headerText: {
+			fontSize: 20,
+			fontWeight: 'bold',
+			marginLeft: 20
+		},
+		input: {
+			borderWidth: 1,
+			borderColor: '#e0e0e0',
+			borderRadius: 8,
+			padding: 15,
+			marginBottom: 15,
+			fontSize: 16
+		},
+		textArea: {
+			height: 100,
+			textAlignVertical: 'top'
+		},
+		label: {
+			fontSize: 16,
+			marginBottom: 8,
+			color: colors.controlText
+		},
+		rowContainer: {
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			marginBottom: 16
+		},
+		dateTimeButton: {
+			borderRadius: 8,
+			padding: 12,
+			minWidth: 150,
+			alignItems: 'flex-end'
+		},
+		dateTimeText: {
+			fontWeight: 'bold',
+			color: colors.controlText
+		},
+		sectionTitle: {
+			fontSize: 18,
+			marginTop: 20,
+			marginBottom: 10,
+			color: colors.controlText
+		},
+		addPeersButton: {
+			borderWidth: 1,
+			borderColor: '#ff69b4',
+			borderRadius: 25,
+			padding: 10,
+			alignItems: 'center',
+			marginBottom: 15
+		},
+		addPeersButtonText: {
+			color: '#ff69b4',
+			fontSize: 16
+		},
+		peerItem: {
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			marginBottom: 10
+		},
+		peerName: {
+			fontSize: 16,
+			color: colors.controlText
+		},
+		removePeerButton: {
+			backgroundColor: '#F5F4F2',
+			borderRadius: 15,
+			width: 32,
+			height: 32,
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		removePeerButtonText: {
+			color: '#000000',
+			fontSize: 16,
+			marginBottom: 5
+		},
+		createEventButton: {
+			backgroundColor: '#799A79',
+			borderRadius: 25,
+			padding: 15,
+			alignItems: 'center',
+			marginTop: 20,
+			marginBottom: 20
+		},
+		createEventButtonText: {
+			color: '#fff',
+			fontSize: 18,
+			fontWeight: 'bold'
+		}
+	});
+};
 
 export default CreateEventView;
