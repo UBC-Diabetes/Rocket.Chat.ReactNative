@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Linking, ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -160,7 +160,9 @@ const EventDetailsView = () => {
 
 			<View style={styles.zoomContainer}>
 				<Text style={styles.label}>Meeting Link</Text>
-				<Text>{meetingLink}</Text>
+				<Text style={{ color: 'blue' }} onPress={() => Linking.openURL(meetingLink)}>
+					{meetingLink}
+				</Text>
 			</View>
 			<AddToCalendarButton />
 			<View style={{ height: 1, backgroundColor: '#E3E3E3', width: '100%', marginBottom: 24 }} />
