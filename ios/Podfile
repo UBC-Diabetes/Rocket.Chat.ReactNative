@@ -10,9 +10,6 @@ use_modular_headers!
 
 plugin 'cocoapods-patch'
 
-platform :ios, '13.0'
-install! 'cocoapods', :deterministic_uuids => false
-
 def node_require(script)
   require Pod::Executable.execute_command('node', ['-p',
     "require.resolve('#{script}', {paths: [process.argv[1]]})", __dir__]).strip

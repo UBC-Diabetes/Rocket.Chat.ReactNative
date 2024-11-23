@@ -19,6 +19,7 @@ import expo.modules.ReactNativeHostWrapper
 import chat.rocket.reactnative.networking.SSLPinningPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import android.content.res.Configuration;
+import chat.rocket.reactnative.modules.AdditionalModules
 
 open class MainApplication : Application(), ReactApplication {
 
