@@ -1,4 +1,4 @@
-package chat.rocket.reachout.networking;
+package chat.rocket.reactnative.networking;
 
 import java.util.Arrays;
 import java.util.Collections;

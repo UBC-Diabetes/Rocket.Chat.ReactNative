@@ -1,4 +1,4 @@
-package chat.rocket.reachout;
+package chat.rocket.reactnative;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.Callback;

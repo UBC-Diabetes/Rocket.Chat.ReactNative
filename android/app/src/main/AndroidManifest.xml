@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <application
-        android:name="chat.rocket.reachout.MainApplication"
+        android:name="chat.rocket.reactnative.MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -62,7 +62,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="chat.rocket.reachout.share.ShareActivity"
+            android:name="chat.rocket.reactnative.share.ShareActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/share_extension_name"
             android:noHistory="true"

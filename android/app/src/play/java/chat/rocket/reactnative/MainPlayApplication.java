@@ -1,4 +1,4 @@
-package chat.rocket.reachout;
+package chat.rocket.reactnative;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package chat.rocket.reachout.newarchitecture;
+package chat.rocket.reactnative.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import chat.rocket.reachout.BuildConfig;
-import chat.rocket.reachout.newarchitecture.components.MainComponentsRegistry;
-import chat.rocket.reachout.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import chat.rocket.reactnative.BuildConfig;
+import chat.rocket.reactnative.newarchitecture.components.MainComponentsRegistry;
+import chat.rocket.reactnative.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
