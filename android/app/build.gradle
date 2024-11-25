@@ -87,7 +87,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "chat.rocket.reactnative"
+    namespace "chat.rocket.reachout"
     defaultConfig {
         applicationId APPLICATION_ID
         minSdkVersion rootProject.ext.minSdkVersion
@@ -99,7 +99,7 @@ android {
             manifestPlaceholders = [BugsnagAPIKey: BugsnagAPIKey as String]
             missingDimensionStrategy "RNNotifications.reactNativeVersion", "reactNative60" // See note below!
         }
-        resValue "string", "rn_config_reader_custom_package", "chat.rocket.reactnative"
+        resValue "string", "rn_config_reader_custom_package", "chat.rocket.reachout"
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }

@@ -1,4 +1,4 @@
-package chat.rocket.reactnative
+package chat.rocket.reachout
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -16,7 +16,7 @@ import com.facebook.react.bridge.JSIModulePackage;
 
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
-import chat.rocket.reactnative.networking.SSLPinningPackage;
+import chat.rocket.reachout.networking.SSLPinningPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import android.content.res.Configuration;
 
