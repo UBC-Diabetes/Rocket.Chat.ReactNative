@@ -4,7 +4,7 @@
 
     <application
         android:usesCleartextTraffic="true"
-        android:name="chat.rocket.reactnative.MainDebugApplication"
+        android:name="chat.rocket.reachout.MainDebugApplication"
         tools:replace="android:name"
         tools:targetApi="28"
         tools:ignore="GoogleAppIndexingWarning"/>
