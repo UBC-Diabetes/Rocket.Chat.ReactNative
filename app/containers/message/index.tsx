@@ -144,7 +144,7 @@ class MessageContainer extends React.Component<IMessageContainerProps, IMessageC
 
 	onPress = debounce(
 		() => {
-			const { onPress } = this.props;
+			const { onPress, isRoom247Chatroom } = this.props;
 			if (this.isIgnored) {
 				return this.onIgnoredMessagePress();
 			}
@@ -156,7 +156,7 @@ class MessageContainer extends React.Component<IMessageContainerProps, IMessageC
 			const { item, isThreadRoom } = this.props;
 			Keyboard.dismiss();
 
-			if ((item.tlm || item.tmid) && !isThreadRoom) {
+			if (isRoom247Chatroom || ((item.tlm || item.tmid) && !isThreadRoom)) {
 				this.onThreadPress();
 			}
 
@@ -360,7 +360,8 @@ class MessageContainer extends React.Component<IMessageContainerProps, IMessageC
 			jumpToMessage,
 			highlighted,
 			isBeingEdited,
-			isPreview
+			isPreview,
+			isRoom247Chatroom
 		} = this.props;
 		const {
 			id,
@@ -485,6 +486,7 @@ class MessageContainer extends React.Component<IMessageContainerProps, IMessageC
 					isTranslated={isTranslated}
 					isBeingEdited={isBeingEdited}
 					isPreview={isPreview}
+					isRoom247Chatroom={isRoom247Chatroom}
 				/>
 			</MessageContext.Provider>
 		);
