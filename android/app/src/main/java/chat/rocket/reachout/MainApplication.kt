@@ -19,6 +19,7 @@ import expo.modules.ReactNativeHostWrapper
 import chat.rocket.reachout.networking.SSLPinningPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import android.content.res.Configuration;
+import com.bugsnag.android.Bugsnag;
 
 open class MainApplication : Application(), ReactApplication {
 
@@ -49,6 +50,9 @@ open class MainApplication : Application(), ReactApplication {
 
   override fun onCreate() {
     super.onCreate()
+    android.util.Log.d("RocketChat", "MainApplication onCreate started")
+    Bugsnag.start(this)
+
     SoLoader.init(this, false)
 
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
@@ -56,6 +60,8 @@ open class MainApplication : Application(), ReactApplication {
       load()
     }
 		ApplicationLifecycleDispatcher.onApplicationCreate(this)
+    android.util.Log.d("RocketChat", "MainApplication onCreate completed")
+
   }
 
 	override fun onConfigurationChanged(newConfig: Configuration) {
