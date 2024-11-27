@@ -101,6 +101,7 @@ export const colors = {
 		composerInputBackground: '#FFFFFF',
 		textInputSecondaryBackground: '#E4E7EA',
 		messageComposerIcons: '#6C727A',
+		placeholderText: '#9e9e9e',
 		...mentions,
 		...themeColors
 	},
@@ -175,6 +176,7 @@ export const colors = {
 		composerInputBackground: '#F9F9F9',
 		textInputSecondaryBackground: '#030b1b',
 		messageComposerIcons: '#6C727A',
+		placeholderText: '#9e9e9e',
 		...mentions,
 		...themeColors
 	},
@@ -249,6 +251,7 @@ export const colors = {
 		composerInputBackground: '#F9F9F9',
 		textInputSecondaryBackground: '#000000',
 		messageComposerIcons: '#FFFFFF',
+		placeholderText: '#9e9e9e',
 		...mentions,
 		...themeColors
 	}

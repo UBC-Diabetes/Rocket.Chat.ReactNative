@@ -10,11 +10,17 @@ import { IMessageThread } from './interfaces';
 import { useTheme } from '../../theme';
 
 const Thread = React.memo(
-	({ msg, tcount, tlm, isThreadRoom, id }: IMessageThread) => {
+	({ msg, tcount, tlm, isThreadRoom, id, isRoom247Chatroom }: IMessageThread) => {
 		const { theme } = useTheme();
 		const { threadBadgeColor, toggleFollowThread, user, replies } = useContext(MessageContext);
 
-		if (!tlm || isThreadRoom || tcount === null) {
+		// Commenting this out results in the blue Reply button always being visible
+		// Otherwise, it is visible only if someone has replied as a thread already
+		// We want it to be visible so people make more threads, organizing the discussion
+
+		const isNotMain247Chatroom = isRoom247Chatroom && isThreadRoom;
+
+		if (isNotMain247Chatroom && (!tlm || isThreadRoom || tcount === null)) {
 			return null;
 		}
 
