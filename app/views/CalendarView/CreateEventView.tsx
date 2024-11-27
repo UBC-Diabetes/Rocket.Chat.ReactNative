@@ -149,6 +149,7 @@ const CreateEventView = () => {
 					placeholder='Enter event title'
 					placeholderTextColor={colors.placeholderText}
 				/>
+
 				<View style={styles.rowContainer}>
 					<Text style={styles.label}>Date</Text>
 					<TouchableOpacity style={styles.dateTimeButton} onPress={() => setShowDatePicker(true)}>

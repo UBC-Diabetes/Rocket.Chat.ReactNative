@@ -1332,6 +1332,8 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 			if (inAppFeedback?.[item.id]) {
 				this.hapticFeedback(item.id);
 			}
+			const isRoom247Chatroom = room.fname === '24/7 Chatroom';
+
 			content = (
 				<Message
 					item={item}
@@ -1376,6 +1378,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					isBeingEdited={isBeingEdited}
 					dateSeparator={dateSeparator}
 					showUnreadSeparator={showUnreadSeparator}
+					isRoom247Chatroom={isRoom247Chatroom}
 				/>
 			);
 		}
@@ -1396,9 +1399,9 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					<Text style={[styles.previewMode, { color: themes[theme].fontTitlesLabels }]}>{I18n.t('Chat_is_on_hold')}</Text>
 					<Touch
 						onPress={this.resumeRoom}
-						style={[styles.joinRoomButton, { backgroundColor: themes[theme].fontHint }]}
+						style={[styles.joinRoomButton, { backgroundColor: themes[theme].actionTintColor }]}
 						enabled={!loading}>
-						<Text style={[styles.joinRoomText, { color: themes[theme].fontWhite }]} testID='room-view-chat-on-hold-button'>
+						<Text style={[styles.joinRoomText, { color: themes[theme].buttonText }]} testID='room-view-chat-on-hold-button'>
 							{I18n.t('Resume')}
 						</Text>
 					</Touch>
@@ -1411,9 +1414,9 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					<Text style={[styles.previewMode, { color: themes[theme].fontTitlesLabels }]}>{I18n.t('You_are_in_preview_mode')}</Text>
 					<Touch
 						onPress={this.joinRoom}
-						style={[styles.joinRoomButton, { backgroundColor: themes[theme].fontHint }]}
+						style={[styles.joinRoomButton, { backgroundColor: themes[theme].actionTintColor }]}
 						enabled={!loading}>
-						<Text style={[styles.joinRoomText, { color: themes[theme].fontWhite }]} testID='room-view-join-button'>
+						<Text style={[styles.joinRoomText, { color: themes[theme].buttonText }]} testID='room-view-join-button'>
 							{I18n.t(this.isOmnichannel ? 'Take_it' : 'Join')}
 						</Text>
 					</Touch>
@@ -1514,7 +1517,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					setQuotesAndText: this.setQuotesAndText,
 					getText: this.getText
 				}}>
-				<SafeAreaView style={{ backgroundColor: themes[theme].surfaceRoom }} testID='room-view'>
+				<SafeAreaView style={{ backgroundColor: themes[theme].backgroundColor }} testID='room-view'>
 					<StatusBar />
 					<Banner title={I18n.t('Announcement')} text={announcement} bannerClosed={bannerClosed} closeBanner={this.closeBanner} />
 					<List
