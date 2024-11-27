@@ -156,7 +156,9 @@ class MessageContainer extends React.Component<IMessageContainerProps, IMessageC
 			const { item, isThreadRoom } = this.props;
 			Keyboard.dismiss();
 
-			if (isRoom247Chatroom || ((item.tlm || item.tmid) && !isThreadRoom)) {
+			const isMain247Chatroom = isRoom247Chatroom && !isThreadRoom;
+
+			if (isMain247Chatroom || ((item.tlm || item.tmid) && !isThreadRoom)) {
 				this.onThreadPress();
 			}
 
