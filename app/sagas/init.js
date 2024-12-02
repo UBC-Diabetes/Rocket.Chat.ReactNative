@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import RNBootSplash from 'react-native-bootsplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { CURRENT_SERVER, TOKEN_KEY } from '../lib/constants';
+import { BIOMETRY_ENABLED_KEY, CURRENT_SERVER, TOKEN_KEY } from '../lib/constants';
 import UserPreferences from '../lib/methods/userPreferences';
 import { selectServerRequest, serverRequest } from '../actions/server';
 import { setAllPreferences } from '../actions/sortPreferences';
@@ -25,37 +25,44 @@ export const initLocalSettings = function* initLocalSettings() {
 	yield put(setAllPreferences(sortPreferences));
 };
 
+const BIOMETRY_MIGRATION_KEY = 'kBiometryMigration';
+
 const restore = function* restore() {
-	console.log('RESTORE');
 	try {
 		const { server } = appConfig;
 		const userId = UserPreferences.getString(`${TOKEN_KEY}-${server}`);
 
-		if (!server) {
-			yield put(appStart({ root: RootEnum.ROOT_OUTSIDE }));
-		} else if (!userId) {
+		// Migration biometry setting from WatermelonDB to MMKV
+		// TODO: remove it after a few versions
+		const hasMigratedBiometry = UserPreferences.getBool(BIOMETRY_MIGRATION_KEY);
+		if (!hasMigratedBiometry) {
+			const serversDB = database.servers;
+			const serversCollection = serversDB.get('servers');
+			const servers = yield serversCollection.query().fetch();
+			const isBiometryEnabled = servers.some(server => !!server.biometry);
+			UserPreferences.setBool(BIOMETRY_ENABLED_KEY, isBiometryEnabled);
+			UserPreferences.setBool(BIOMETRY_MIGRATION_KEY, true);
+		}
+
+		if (!userId) {
 			const serversDB = database.servers;
 			const serversCollection = serversDB.get('servers');
 			const servers = yield serversCollection.query().fetch();
 
-			// Check if there're other logged in servers and picks first one
-			if (servers.length > 0) {
-				for (let i = 0; i < servers.length; i += 1) {
-					const newServer = servers[i].id;
-					userId = UserPreferences.getString(`${TOKEN_KEY}-${newServer}`);
-					if (userId) {
-						return yield put(selectServerRequest(newServer, newServer.version));
-					}
-				}
-			}
+			yield put(serverRequest(SERVER_URL));
 			yield put(appStart({ root: RootEnum.ROOT_OUTSIDE }));
 		} else {
-			yield localAuthenticate(server);
-			const serverRecord = yield getServerById(server);
-			if (!serverRecord) {
-				return;
+			const serversDB = database.servers;
+			const serverCollections = serversDB.get('servers');
+
+			let serverObj;
+			try {
+				yield localAuthenticate(server);
+				serverObj = yield serverCollections.find(server);
+			} catch {
+				// Server not found
 			}
-			yield put(selectServerRequest(server, serverRecord.version));
+			yield put(selectServerRequest(server, serverObj && serverObj.version));
 		}
 
 		yield put(appReady({}));
