@@ -19,22 +19,41 @@ export const getVirtualHappyHourChat = async (): Promise<TSubscriptionModel | un
 	)[];
 
 	return new Promise<TSubscriptionModel | undefined>((resolve, reject) => {
-		const observable = db
-			.get('subscriptions')
-			.query(...defaultWhereClause)
-			.observeWithColumns(['on_hold']);
+		try {
+			const observable = db
+				.get('subscriptions')
+				.query(...defaultWhereClause)
+				.observeWithColumns(['on_hold']);
 
-		const subscription = observable.subscribe({
-			next: data => {
-				subscription.unsubscribe();
-				const chatRoom = data.find(chat => chat.name === VIRTUAL_HAPPY_HOUR_ROOMID);
-				resolve(chatRoom);
-			},
-			error: error => {
-				subscription.unsubscribe();
-				reject(error);
+			console.log('Observable created:', observable); // Debug log
+
+			const subscription = observable.subscribe({
+				next: data => {
+					console.log('Data received:', data); // Debug log
+					if (subscription) {
+						subscription.unsubscribe();
+					}
+					const chatRoom = data.find(chat => chat.name === VIRTUAL_HAPPY_HOUR_ROOMID);
+					resolve(chatRoom);
+				},
+				error: error => {
+					console.log('Error in subscription:', error); // Debug log
+					if (subscription) {
+						subscription.unsubscribe();
+					}
+					reject(error);
+				}
+			});
+
+			console.log('Subscription created:', subscription); // Debug log
+
+			if (!subscription) {
+				throw new Error('Subscription was not created properly');
 			}
-		});
+		} catch (e) {
+			console.error('Error in getVirtualHappyHourChat:', e);
+			reject(e);
+		}
 	});
 };
 
@@ -80,22 +99,41 @@ export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
 	)[];
 
 	return new Promise<TSubscriptionModel | undefined>((resolve, reject) => {
-		const observable = db
-			.get('subscriptions')
-			.query(...defaultWhereClause)
-			.observeWithColumns(['on_hold']);
+		try {
+			const observable = db
+				.get('subscriptions')
+				.query(...defaultWhereClause)
+				.observeWithColumns(['on_hold']);
 
-		const subscription = observable.subscribe({
-			next: data => {
-				subscription.unsubscribe();
-				const chatRoom = data.find(chat => chat.name === CHAT247ROOMID);
-				resolve(chatRoom);
-			},
-			error: error => {
-				subscription.unsubscribe();
-				reject(error);
+			console.log('Observable created:', observable); // Debug log
+
+			const subscription = observable.subscribe({
+				next: data => {
+					console.log('Data received:', data); // Debug log
+					if (subscription) {
+						subscription.unsubscribe();
+					}
+					const chatRoom = data.find(chat => chat.name === CHAT247ROOMID);
+					resolve(chatRoom);
+				},
+				error: error => {
+					console.log('Error in subscription:', error); // Debug log
+					if (subscription) {
+						subscription.unsubscribe();
+					}
+					reject(error);
+				}
+			});
+
+			console.log('Subscription created:', subscription); // Debug log
+
+			if (!subscription) {
+				throw new Error('Subscription was not created properly');
 			}
-		});
+		} catch (e) {
+			console.error('Error in get247Chat:', e);
+			reject(e);
+		}
 	});
 };
 
