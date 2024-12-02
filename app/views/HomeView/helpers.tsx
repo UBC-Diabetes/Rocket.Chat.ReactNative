@@ -13,11 +13,10 @@ const TECH_SUPPORT_USERNAME = 'tech_support';
 
 export const getVirtualHappyHourChat = async (): Promise<TSubscriptionModel | undefined> => {
 	const db = database.active;
-	const defaultWhereClause = [
-		Q.where('archived', false),
-		Q.where('open', true),
-		Q.experimentalSortBy('room_updated_at', Q.desc)
-	] as (Q.WhereDescription | Q.SortBy)[];
+	const defaultWhereClause = [Q.where('archived', false), Q.where('open', true), Q.sortBy('room_updated_at', Q.desc)] as (
+		| Q.WhereDescription
+		| Q.SortBy
+	)[];
 
 	return new Promise<TSubscriptionModel | undefined>((resolve, reject) => {
 		const observable = db
@@ -75,11 +74,10 @@ export const navToTechSupport = async (Navigation: any, isMasterDetail: boolean)
 
 export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
 	const db = database.active;
-	const defaultWhereClause = [
-		Q.where('archived', false),
-		Q.where('open', true),
-		Q.experimentalSortBy('room_updated_at', Q.desc)
-	] as (Q.WhereDescription | Q.SortBy)[];
+	const defaultWhereClause = [Q.where('archived', false), Q.where('open', true), Q.sortBy('room_updated_at', Q.desc)] as (
+		| Q.WhereDescription
+		| Q.SortBy
+	)[];
 
 	return new Promise<TSubscriptionModel | undefined>((resolve, reject) => {
 		const observable = db

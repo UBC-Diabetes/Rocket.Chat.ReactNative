@@ -100,7 +100,7 @@ const SearchView: React.FC<SearchProps> = ({ route }) => {
 
 			const messagesObservable = db
 				.get('messages')
-				.query(...whereClause, Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0))
+				.query(...whereClause, Q.sortBy('ts', Q.desc), Q.skip(0))
 				.observe();
 			messagesObservable.subscribe((data: any) => {
 				setFilteredData(data);

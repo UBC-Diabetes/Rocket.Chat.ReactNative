@@ -124,12 +124,12 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 			}
 			messagesObservable = db
 				.get('thread_messages')
-				.query(Q.where('rid', tmid), Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0), Q.experimentalTake(count))
+				.query(Q.where('rid', tmid), Q.sortBy('ts', Q.desc), Q.skip(0), Q.take(count))
 				.observe();
 		} else if (rid) {
 			const whereClause = [
 				Q.where('rid', rid),
-				Q.experimentalSortBy('ts', Q.desc),
+				Q.sortBy('ts', Q.desc),
 				Q.experimentalSkip(0),
 				Q.experimentalTake(count)
 			] as (Q.WhereDescription | Q.Or)[];

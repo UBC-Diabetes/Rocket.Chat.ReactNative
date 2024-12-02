@@ -89,9 +89,9 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 			const defaultWhereClause = [Q.where('archived', false), Q.where('open', true)];
 
 			if (sortBy === SortBy.Alphabetical) {
-				defaultWhereClause.push(Q.experimentalSortBy(`${useRealName ? 'fname' : 'name'}`, Q.asc));
+				defaultWhereClause.push(Q.sortBy(`${useRealName ? 'fname' : 'name'}`, Q.asc));
 			} else {
-				defaultWhereClause.push(Q.experimentalSortBy('room_updated_at', Q.desc));
+				defaultWhereClause.push(Q.sortBy('room_updated_at', Q.desc));
 			}
 
 			// When we're grouping by something
@@ -143,10 +143,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 	}, [isFocused]);
 
 	const getSavedChat = async () => {
-		const messagesObservable = db
-			.get('messages')
-			.query(Q.where('starred', true), Q.experimentalSortBy('ts', Q.desc), Q.experimentalSkip(0))
-			.observe();
+		const messagesObservable = db.get('messages').query(Q.where('starred', true), Q.sortBy('ts', Q.desc), Q.skip(0)).observe();
 
 		messagesObservable?.subscribe(messages => {
 			// filter out messages
