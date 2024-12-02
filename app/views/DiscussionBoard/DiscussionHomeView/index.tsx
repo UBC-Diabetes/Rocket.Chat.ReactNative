@@ -37,7 +37,7 @@ const VIRTUAL_HAPPY_HOUR = {
 };
 
 const DiscussionHomeView: React.FC = ({ route }) => {
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
 	const { sortBy, showUnread, showFavorites, groupByType } = useSelector((state: IApplicationState) => state.sortPreferences);
 	const useRealName = useSelector((state: IApplicationState) => state.settings.UI_Use_Real_Name);
