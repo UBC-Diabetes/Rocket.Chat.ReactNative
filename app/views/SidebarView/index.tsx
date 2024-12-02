@@ -18,6 +18,7 @@ import { TSupportedThemes, withTheme } from '../../theme';
 import { getUserSelector } from '../../selectors/login';
 import SafeAreaView from '../../containers/SafeAreaView';
 import Navigation from '../../lib/navigation/appNavigation';
+import SidebarItem from './SidebarItem';
 import styles from './styles';
 import { DrawerParamList } from '../../stacks/types';
 import { IApplicationState, IUser, TSVStatus } from '../../definitions';
@@ -25,7 +26,6 @@ import * as List from '../../containers/List';
 import { IActionSheetProvider, showActionSheetRef, withActionSheet } from '../../containers/ActionSheet';
 import { setNotificationPresenceCap } from '../../actions/app';
 import { SupportedVersionsWarning } from '../../containers/SupportedVersions';
-import SidebarItem from './SidebarItem';
 
 import { navigateTo247Chat, navToTechSupport, navigateToVirtualHappyHour } from '../HomeView/helpers';
 
@@ -223,11 +223,13 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 		return (
 			<>
 				<List.Separator />
-				<List.Item
-					title={'Admin_Panel'}
-					left={() => <List.Icon name='settings' />}
+				<SidebarItem
+					text={I18n.t('Admin_Panel')}
+					left={<CustomIcon name='settings' size={20} color={themes[theme!].titleText} />}
 					onPress={() => this.sidebarNavigate(routeName)}
-					backgroundColor={this.currentItemKey === routeName ? themes[theme!].strokeLight : undefined}
+					testID='sidebar-admin'
+					theme={theme!}
+					current={this.currentItemKey === routeName}
 				/>
 			</>
 		);
@@ -371,20 +373,26 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 			return null;
 		}
 		return (
-			<SafeAreaView testID='sidebar-view' vertical={isMasterDetail}>
-				<ScrollView style={styles.container} {...scrollPersistTaps}>
-					<List.Separator />
+			<SafeAreaView testID='sidebar-view' style={{ backgroundColor: themes[theme!].focusedBackground }} vertical={isMasterDetail}>
+				<ScrollView
+					style={[
+						styles.container,
+						{
+							backgroundColor: isMasterDetail ? themes[theme!].backgroundColor : themes[theme!].focusedBackground
+						}
+					]}
+					{...scrollPersistTaps}>
 					<TouchableWithoutFeedback onPress={this.onPressUser} testID='sidebar-close-drawer'>
-						<View style={[styles.header, { backgroundColor: themes[theme!].surfaceRoom }]}>
+						<View style={styles.header}>
 							<Avatar text={user.username} style={styles.avatar} size={30} />
 							<View style={styles.headerTextContainer}>
 								<View style={styles.headerUsername}>
-									<Text numberOfLines={1} style={[styles.username, { color: themes[theme!].fontTitlesLabels }]}>
+									<Text numberOfLines={1} style={[styles.username, { color: themes[theme!].titleText }]}>
 										{useRealName ? user.name : user.username}
 									</Text>
 								</View>
 								<Text
-									style={[styles.currentServerText, { color: themes[theme!].fontTitlesLabels }]}
+									style={[styles.currentServerText, { color: themes[theme!].titleText }]}
 									numberOfLines={1}
 									accessibilityLabel={`Connected to ${baseUrl}`}>
 									{Site_Name}
@@ -395,17 +403,16 @@ class Sidebar extends Component<ISidebarProps, ISidebarState> {
 
 					<List.Separator />
 
-					{allowStatusMessage !== false ? this.renderCustomStatus() : null}
+					{allowStatusMessage ? this.renderCustomStatus() : null}
 					{!isMasterDetail ? (
 						<>
 							<List.Separator />
 							{this.renderNavigation()}
+							<List.Separator />
 						</>
 					) : (
 						<>{this.renderAdmin()}</>
 					)}
-
-					<List.Separator />
 				</ScrollView>
 			</SafeAreaView>
 		);

@@ -95,6 +95,8 @@ import DiscussionNewPostView from '../views/DiscussionBoard/NewPostView';
 import DiscussionSearchView from '../views/DiscussionBoard/SearchView';
 import ConnectView from '../views/DiscussionBoard/ConnectView';
 
+import { themes } from '../lib/constants';
+
 // DisplayPreferenceNavigator
 const DisplayPrefStack = createNativeStackNavigator<DisplayPrefStackParamList>();
 const DisplayPrefStackNavigator = () => {
@@ -206,7 +208,7 @@ const MainStackNavigator = () => {
 // DrawerNavigator
 const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerNavigator = () => {
-	const { colors } = React.useContext(ThemeContext);
+	const { theme } = React.useContext(ThemeContext);
 
 	return (
 		<Drawer.Navigator
