@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import FastImage from 'react-native-fast-image';
 import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';

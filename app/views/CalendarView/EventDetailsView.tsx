@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { Linking, ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { parseISO, format } from 'date-fns';
 

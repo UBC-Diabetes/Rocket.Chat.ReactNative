@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ExpandableCalendar, AgendaList, CalendarProvider } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Touchable from 'react-native-platform-touchable';
 import { useDispatch, useSelector } from 'react-redux';
 

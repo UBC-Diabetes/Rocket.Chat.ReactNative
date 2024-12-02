@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format, parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';

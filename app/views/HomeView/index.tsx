@@ -3,7 +3,7 @@ import { ScrollView, Text, View, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import Touchable from 'react-native-platform-touchable';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { getUserSelector } from '../../selectors/login';
 import StatusBar from '../../containers/StatusBar';

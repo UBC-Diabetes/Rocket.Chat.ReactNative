@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, Image, TouchableOpacity, TextInput, FlatList, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Q } from '@nozbe/watermelondb';
 import { useDebounce } from 'use-debounce';
 
