@@ -105,7 +105,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 				setSearchCount(searchCount + QUERY_SIZE);
 				observable = await db
 					.get('subscriptions')
-					.query(...defaultWhereClause, Q.experimentalSkip(0), Q.experimentalTake(searchCount))
+					.query(...defaultWhereClause, Q.skip(0), Q.take(searchCount))
 					.observeWithColumns(['on_hold']);
 			}
 

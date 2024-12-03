@@ -14,7 +14,7 @@
 		"android-release": "cd android && ./gradlew assembleExperimentalPlayRelease && cd ..",
 		"android-test-release": "cd android && ./gradlew assembleRelease && cd ..",
 		"android-prod-release": "cd android && ./gradlew bundleRelease && cd ..",
-		"clean:android": "cd android && ./gradlew clean & cd ..",
+		"clean:android": "cd android && ./gradlew clean && cd .. && rm -rf android/build & rm -rf android/app/build",
 		"clean:all": "rm -rf node_modules/ && rm -rf $TMPDIR/react-* & rm -rf $TMPDIR/haste-* & rm -rf $TMPDIR/metro-* & yarn cache clean & rm -rf android/build & rm -rf android/app/build",
 		"restart-watchman": "watchman watch-del '/Users/timothy/Documents/Breakout/Rocket.Chat.ReactNative' ; watchman watch-project '/Users/timothy/Documents/Breakout/Rocket.Chat.ReactNative'`",
 		"log-android": "react-native log-android",

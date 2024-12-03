@@ -69,8 +69,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 						onPress={() => {
 							navigation.goBack();
 						}}
-						hitSlop={hitSlop}
-					>
+						hitSlop={hitSlop}>
 						<Image source={getIcon('arrowLeft')} style={{ width: 11, height: 19 }} resizeMode='contain' />
 					</TouchableOpacity>
 				),
@@ -127,12 +126,10 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 				.query(Q.where('rid', tmid), Q.sortBy('ts', Q.desc), Q.skip(0), Q.take(count))
 				.observe();
 		} else if (rid) {
-			const whereClause = [
-				Q.where('rid', rid),
-				Q.sortBy('ts', Q.desc),
-				Q.experimentalSkip(0),
-				Q.experimentalTake(count)
-			] as (Q.WhereDescription | Q.Or)[];
+			const whereClause = [Q.where('rid', rid), Q.sortBy('ts', Q.desc), Q.skip(0), Q.take(count)] as (
+				| Q.WhereDescription
+				| Q.Or
+			)[];
 			if (!showMessageInMainThread) {
 				whereClause.push(Q.or(Q.where('tmid', null), Q.where('tshow', Q.eq(true))));
 			}
@@ -232,8 +229,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 				style={[styles.buttonContainer, { backgroundColor: themes[theme].mossGreen }]}
 				onPress={() => {
 					navigation.navigate('DiscussionNewPostView', { selectedBoard: route.params?.item, boards: route.params?.boards });
-				}}
-			>
+				}}>
 				<Text style={styles.buttonText}>Create a post</Text>
 			</TouchableOpacity>
 		</View>
