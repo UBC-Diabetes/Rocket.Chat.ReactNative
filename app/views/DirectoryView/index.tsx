@@ -30,8 +30,8 @@ import { getSubscriptionByRoomId } from '../../lib/database/services/Subscriptio
 
 interface IDirectoryViewProps {
 	navigation: CompositeNavigationProp<
-	NativeStackNavigationProp<ChatsStackParamList, 'DirectoryView'>,
-	NativeStackNavigationProp<MasterDetailInsideStackParamList>
+		NativeStackNavigationProp<ChatsStackParamList, 'DirectoryView'>,
+		NativeStackNavigationProp<MasterDetailInsideStackParamList>
 	>;
 	baseUrl: string;
 	isFederationEnabled: boolean;
@@ -108,7 +108,7 @@ class DirectoryView extends React.Component<IDirectoryViewProps, IDirectoryViewS
 
 		try {
 			const { data, type, globalUsers } = this.state;
-			const directories = await Services.getDirectory({
+			const directories = await Services.getDirectoryLegacy({
 				text,
 				type,
 				workspace: globalUsers ? 'all' : 'local',
@@ -215,7 +215,6 @@ class DirectoryView extends React.Component<IDirectoryViewProps, IDirectoryViewS
 		} catch {
 			// do nothing
 		}
-		
 	};
 
 	renderHeader = () => (

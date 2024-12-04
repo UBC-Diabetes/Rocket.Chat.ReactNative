@@ -1,9 +1,8 @@
 import { Q } from '@nozbe/watermelondb';
-import { Subscription } from 'rxjs';
 
 import database from '../../lib/database';
 import { SubscriptionType, TSubscriptionModel } from '../../definitions';
-import { goRoom, TGoRoomItem } from '../../lib/methods/helpers/goRoom';
+import { goRoom } from '../../lib/methods/helpers/goRoom';
 import { Services } from '../../lib/services';
 import log from '../../lib/methods/helpers/log';
 
@@ -44,8 +43,6 @@ export const getVirtualHappyHourChat = async (): Promise<TSubscriptionModel | un
 					reject(error);
 				}
 			});
-
-			console.log('Subscription created:', subscription); // Debug log
 
 			if (!subscription) {
 				throw new Error('Subscription was not created properly');
@@ -105,11 +102,8 @@ export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
 				.query(...defaultWhereClause)
 				.observeWithColumns(['on_hold']);
 
-			console.log('Observable created:', observable); // Debug log
-
 			const subscription = observable.subscribe({
 				next: data => {
-					console.log('Data received:', data); // Debug log
 					if (subscription) {
 						subscription.unsubscribe();
 					}

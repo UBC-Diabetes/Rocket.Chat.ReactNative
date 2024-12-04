@@ -853,6 +853,25 @@ export const getDirectory = ({
 	return sdk.get('directory', params);
 };
 
+export const getDirectoryLegacy = ({
+	query,
+	count,
+	offset,
+	sort
+}: {
+	query: { [key: string]: string };
+	count: number;
+	offset: number;
+	sort: { [key: string]: number };
+}) =>
+	// RC 1.0
+	sdk.get('directory', {
+		query,
+		count,
+		offset,
+		sort
+	});
+
 export const saveAutoTranslate = ({
 	rid,
 	field,

@@ -37,7 +37,7 @@ export const useLoadPeers = () => {
 		try {
 			const query = { text: searchText, type: state.type, workspace: state.globalUsers ? 'all' : 'local' };
 
-			const directories = await RocketChat.getDirectory({
+			const directories = await RocketChat.getDirectoryLegacy({
 				query,
 				offset: newSearch ? 0 : state.numUsersFetched,
 				count: 50,

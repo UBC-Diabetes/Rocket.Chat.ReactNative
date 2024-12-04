@@ -119,7 +119,7 @@ class ProfileLibraryView extends React.Component {
 			const query = { text, type, workspace: globalUsers ? 'all' : 'local' };
 
 			//Returns 50 users based on offset, sorted by name from the directory of ALL users
-			const directories = await RocketChat.getDirectory({
+			const directories = await RocketChat.getDirectoryLegacy({
 				query,
 				offset: numUsersFetched,
 				count: 50,
