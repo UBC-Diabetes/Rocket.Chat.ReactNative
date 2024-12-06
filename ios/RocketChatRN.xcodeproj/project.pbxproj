@@ -19,10 +19,6 @@
 		1E01C82D2511337700FEF824 /* RoomKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E01C82C2511337700FEF824 /* RoomKey.swift */; };
 		1E0426E6251A5467008F022C /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0426E5251A5467008F022C /* RoomType.swift */; };
 		1E0426E7251A54B4008F022C /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0426E5251A5467008F022C /* RoomType.swift */; };
-		1E044F992B92798E00BCA2FD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1E044F982B92798E00BCA2FD /* Localizable.xcstrings */; };
-		1E044F9A2B92798E00BCA2FD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1E044F982B92798E00BCA2FD /* Localizable.xcstrings */; };
-		1E06561B2B7E91FB0081B01F /* ErrorActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E06561A2B7E91FB0081B01F /* ErrorActionHandler.swift */; };
-		1E06561D2B7E9C1C0081B01F /* MessageActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E06561C2B7E9C1C0081B01F /* MessageActionView.swift */; };
 		1E068CFE24FD2DC700A0FFC1 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E068CFD24FD2DC700A0FFC1 /* AppGroup.swift */; };
 		1E068D0124FD2E0500A0FFC1 /* AppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E068D0024FD2E0500A0FFC1 /* AppGroup.m */; };
 		1E1C2F80250FCB69005DCE7D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C2F7F250FCB69005DCE7D /* Database.swift */; };
@@ -35,86 +31,22 @@
 		1E1EA8162326CD4500E22452 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1EA8152326CD4500E22452 /* VideoToolbox.framework */; };
 		1E1EA8182326CD4B00E22452 /* libc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1EA8172326CD4B00E22452 /* libc.tbd */; };
 		1E1EA81A2326CD5100E22452 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E1EA8192326CD5100E22452 /* libsqlite3.tbd */; };
-		1E29A2CC2B5857F50093C03C /* RoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2CB2B5857F50093C03C /* RoomListView.swift */; };
-		1E29A2D02B58582F0093C03C /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2CF2B58582F0093C03C /* RoomView.swift */; };
-		1E29A2EF2B585B070093C03C /* RocketChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D22B585B070093C03C /* RocketChatClient.swift */; };
-		1E29A2F02B585B070093C03C /* AttachmentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D42B585B070093C03C /* AttachmentResponse.swift */; };
-		1E29A2F12B585B070093C03C /* SendMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D52B585B070093C03C /* SendMessageResponse.swift */; };
-		1E29A2F22B585B070093C03C /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D62B585B070093C03C /* HistoryResponse.swift */; };
-		1E29A2F32B585B070093C03C /* MessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D72B585B070093C03C /* MessagesResponse.swift */; };
-		1E29A2F42B585B070093C03C /* SubscriptionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D82B585B070093C03C /* SubscriptionsResponse.swift */; };
-		1E29A2F52B585B070093C03C /* RoomsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D92B585B070093C03C /* RoomsResponse.swift */; };
-		1E29A2F62B585B070093C03C /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DA2B585B070093C03C /* UserResponse.swift */; };
-		1E29A2F72B585B070093C03C /* ReadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DB2B585B070093C03C /* ReadResponse.swift */; };
-		1E29A2F82B585B070093C03C /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DC2B585B070093C03C /* MessageResponse.swift */; };
-		1E29A2F92B585B070093C03C /* SubscriptionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DE2B585B070093C03C /* SubscriptionsRequest.swift */; };
-		1E29A2FA2B585B070093C03C /* HistoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DF2B585B070093C03C /* HistoryRequest.swift */; };
-		1E29A2FB2B585B070093C03C /* MessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E02B585B070093C03C /* MessagesRequest.swift */; };
-		1E29A2FC2B585B070093C03C /* SendMessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E12B585B070093C03C /* SendMessageRequest.swift */; };
-		1E29A2FD2B585B070093C03C /* RoomsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E22B585B070093C03C /* RoomsRequest.swift */; };
-		1E29A2FE2B585B070093C03C /* ReadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E32B585B070093C03C /* ReadRequest.swift */; };
-		1E29A2FF2B585B070093C03C /* TokenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E52B585B070093C03C /* TokenAdapter.swift */; };
-		1E29A3002B585B070093C03C /* JSONAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E62B585B070093C03C /* JSONAdapter.swift */; };
-		1E29A3012B585B070093C03C /* RequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E72B585B070093C03C /* RequestAdapter.swift */; };
-		1E29A3022B585B070093C03C /* DateCodingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E82B585B070093C03C /* DateCodingStrategy.swift */; };
-		1E29A3032B585B070093C03C /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E92B585B070093C03C /* FailableDecodable.swift */; };
-		1E29A3042B585B070093C03C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2EB2B585B070093C03C /* HTTPMethod.swift */; };
-		1E29A3052B585B070093C03C /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2EC2B585B070093C03C /* Request.swift */; };
-		1E29A3072B585B070093C03C /* RocketChatError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2EE2B585B070093C03C /* RocketChatError.swift */; };
-		1E29A30A2B585B370093C03C /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3092B585B370093C03C /* Data+Extensions.swift */; };
-		1E29A30C2B585D1D0093C03C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A30B2B585D1D0093C03C /* String+Extensions.swift */; };
-		1E29A30E2B58608C0093C03C /* LoggedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A30D2B58608C0093C03C /* LoggedUser.swift */; };
-		1E29A3102B5865B80093C03C /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A30F2B5865B80093C03C /* RoomViewModel.swift */; };
-		1E29A3122B5866090093C03C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3112B5866090093C03C /* Room.swift */; };
-		1E29A3162B5868DF0093C03C /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3152B5868DF0093C03C /* MessageListView.swift */; };
-		1E29A3182B5868E50093C03C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3172B5868E50093C03C /* MessageView.swift */; };
-		1E29A31A2B5868EE0093C03C /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3192B5868EE0093C03C /* MessageViewModel.swift */; };
-		1E29A31D2B5871B60093C03C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A31C2B5871B60093C03C /* Date+Extensions.swift */; };
-		1E29A3202B5871C80093C03C /* RoomFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A31F2B5871C80093C03C /* RoomFormatter.swift */; };
-		1E29A3222B5871CE0093C03C /* MessageFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3212B5871CE0093C03C /* MessageFormatter.swift */; };
-		1E29A3242B5874FF0093C03C /* MessageComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3232B5874FF0093C03C /* MessageComposerView.swift */; };
 		1E2F615B25128F9A00871711 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F615A25128F9A00871711 /* API.swift */; };
 		1E2F615D25128FA300871711 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F615C25128FA300871711 /* Response.swift */; };
 		1E2F61642512955D00871711 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F61632512955D00871711 /* HTTPMethod.swift */; };
 		1E2F61662512958900871711 /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F61652512958900871711 /* Push.swift */; };
-		1E388ABE2B934C64006FBDB0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E388ABD2B934C64006FBDB0 /* ImageLoader.swift */; };
-		1E388ABF2B934C64006FBDB0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E388ABD2B934C64006FBDB0 /* ImageLoader.swift */; };
-		1E388AC12B934CD4006FBDB0 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E388AC02B934CD4006FBDB0 /* RemoteImage.swift */; };
-		1E388AC22B934CD4006FBDB0 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E388AC02B934CD4006FBDB0 /* RemoteImage.swift */; };
 		1E470E832513A71E00E3DD1D /* RocketChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E470E822513A71E00E3DD1D /* RocketChat.swift */; };
-		1E4AFC152B5AF09800E2AA7D /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC142B5AF09800E2AA7D /* Dependency.swift */; };
-		1E4AFC172B5AF09C00E2AA7D /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC162B5AF09C00E2AA7D /* Store.swift */; };
-		1E4AFC212B5B1AA000E2AA7D /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC202B5B1AA000E2AA7D /* AppView.swift */; };
-		1E4AFC272B5B23C600E2AA7D /* RetryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC262B5B23C600E2AA7D /* RetryView.swift */; };
 		1E5141182B856673007BE94A /* SSLPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5141172B856673007BE94A /* SSLPinning.swift */; };
 		1E5141192B856673007BE94A /* SSLPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5141172B856673007BE94A /* SSLPinning.swift */; };
 		1E51411C2B85683C007BE94A /* SSLPinning.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E51411B2B85683C007BE94A /* SSLPinning.m */; };
 		1E51411D2B85683C007BE94A /* SSLPinning.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E51411B2B85683C007BE94A /* SSLPinning.m */; };
 		1E51D962251263CD00DC95DE /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E51D961251263CD00DC95DE /* MessageType.swift */; };
 		1E51D965251263D600DC95DE /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E51D964251263D600DC95DE /* NotificationType.swift */; };
-		1E54BA1A2BC9E7100073903D /* MergedRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E54BA182BC9E6D60073903D /* MergedRoom.swift */; };
-		1E54BA1B2BC9E7110073903D /* MergedRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E54BA182BC9E6D60073903D /* MergedRoom.swift */; };
-		1E54BA1D2BC9E8030073903D /* MessageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E54BA1C2BC9E8030073903D /* MessageMapper.swift */; };
-		1E54BA1E2BC9E8030073903D /* MessageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E54BA1C2BC9E8030073903D /* MessageMapper.swift */; };
-		1E54BA202BC9E9B60073903D /* MergedRoomMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E54BA1F2BC9E9B60073903D /* MergedRoomMapper.swift */; };
-		1E54BA212BC9E9B60073903D /* MergedRoomMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E54BA1F2BC9E9B60073903D /* MergedRoomMapper.swift */; };
 		1E598AE42515057D002BDFBD /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E598AE32515057D002BDFBD /* Date+Extensions.swift */; };
 		1E598AE725150660002BDFBD /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E598AE625150660002BDFBD /* Data+Extensions.swift */; };
 		1E598AE925151A63002BDFBD /* SendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E598AE825151A63002BDFBD /* SendMessage.swift */; };
-		1E638E992B5F0A2900E645E4 /* ChatScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E638E982B5F0A2900E645E4 /* ChatScrollView.swift */; };
-		1E638E9E2B5F0F5800E645E4 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E638E9D2B5F0F5800E645E4 /* URL+Extensions.swift */; };
 		1E67380424DC529B0009E081 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E67380324DC529B0009E081 /* String+Extensions.swift */; };
-		1E675B722BAC49B000438590 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E675B712BAC49B000438590 /* Color+Extensions.swift */; };
-		1E675B732BAC49B000438590 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E675B712BAC49B000438590 /* Color+Extensions.swift */; };
 		1E680ED92512990700C9257A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E680ED82512990700C9257A /* Request.swift */; };
-		1E6BA5C62BD13DEA00B16A18 /* RoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C22BD13DEA00B16A18 /* RoomModel.swift */; };
-		1E6BA5C72BD13DEA00B16A18 /* RoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C22BD13DEA00B16A18 /* RoomModel.swift */; };
-		1E6BA5C82BD13DEA00B16A18 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C32BD13DEA00B16A18 /* MessageModel.swift */; };
-		1E6BA5C92BD13DEA00B16A18 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C32BD13DEA00B16A18 /* MessageModel.swift */; };
-		1E6BA5CA2BD13DEA00B16A18 /* AttachmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C42BD13DEA00B16A18 /* AttachmentModel.swift */; };
-		1E6BA5CB2BD13DEA00B16A18 /* AttachmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C42BD13DEA00B16A18 /* AttachmentModel.swift */; };
-		1E6BA5CC2BD13DEA00B16A18 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C52BD13DEA00B16A18 /* UserModel.swift */; };
-		1E6BA5CD2BD13DEA00B16A18 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BA5C52BD13DEA00B16A18 /* UserModel.swift */; };
 		1E6CC61F2513DBF400965591 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A006F13229C83B600803143 /* GoogleService-Info.plist */; };
 		1E76CBC2251529560067298C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB8EF712510F1EE00F352B7 /* Storage.swift */; };
 		1E76CBC325152A460067298C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E67380324DC529B0009E081 /* String+Extensions.swift */; };
@@ -138,30 +70,11 @@
 		1E76CBD825152C870067298C /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E680ED82512990700C9257A /* Request.swift */; };
 		1E76CBD925152C8C0067298C /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2F61652512958900871711 /* Push.swift */; };
 		1E76CBDA25152C8E0067298C /* SendMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E598AE825151A63002BDFBD /* SendMessage.swift */; };
-		1E8979472B6063FC001D99F0 /* WatchSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8979462B6063FC001D99F0 /* WatchSession.swift */; };
-		1E9A71692B59B6E100477BA2 /* MessageSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71682B59B6E100477BA2 /* MessageSender.swift */; };
-		1E9A716F2B59CBCA00477BA2 /* AttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A716E2B59CBCA00477BA2 /* AttachmentView.swift */; };
-		1E9A71712B59CC1300477BA2 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71702B59CC1300477BA2 /* Attachment.swift */; };
 		1E9A71742B59F36E00477BA2 /* ClientSSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71722B59F34E00477BA2 /* ClientSSL.swift */; };
 		1E9A71752B59F36E00477BA2 /* ClientSSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71722B59F34E00477BA2 /* ClientSSL.swift */; };
-		1E9A71772B59FCA900477BA2 /* URLSessionCertificateHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71762B59FCA900477BA2 /* URLSessionCertificateHandling.swift */; };
-		1EB375892B55DBFB00AEC3D7 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB375882B55DBFB00AEC3D7 /* Server.swift */; };
 		1EB8EF722510F1EE00F352B7 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB8EF712510F1EE00F352B7 /* Storage.swift */; };
-		1EC687BA2BA0FF0D00C7BAAD /* MessageInfoMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC687B82BA0FECC00C7BAAD /* MessageInfoMapper.swift */; };
-		1EC687BB2BA0FF0D00C7BAAD /* MessageInfoMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC687B82BA0FECC00C7BAAD /* MessageInfoMapper.swift */; };
 		1EC6ACBB22CB9FC300A41C61 /* ShareRocketChatRN.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EC6ACB022CB9FC300A41C61 /* ShareRocketChatRN.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1ED00BB12513E04400A1331F /* ReplyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED00BB02513E04400A1331F /* ReplyNotification.swift */; };
-		1ED033AE2B55B1CC004F4930 /* Default.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033AC2B55B1CC004F4930 /* Default.xcdatamodeld */; };
-		1ED033B02B55B25A004F4930 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033AF2B55B25A004F4930 /* Database.swift */; };
-		1ED033B62B55B4A5004F4930 /* ServerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033B52B55B4A5004F4930 /* ServerListView.swift */; };
-		1ED033BA2B55B5F6004F4930 /* ServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033B92B55B5F6004F4930 /* ServerView.swift */; };
-		1ED033BF2B55BF94004F4930 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033BE2B55BF94004F4930 /* Storage.swift */; };
-		1ED033C42B55C65C004F4930 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033C32B55C65C004F4930 /* AppRouter.swift */; };
-		1ED033CB2B55D4F0004F4930 /* RocketChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033C92B55D4F0004F4930 /* RocketChat.xcdatamodeld */; };
-		1ED033CD2B55D671004F4930 /* RocketChatDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033CC2B55D671004F4930 /* RocketChatDatabase.swift */; };
-		1ED038912B507B4C00C007D4 /* RocketChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038902B507B4C00C007D4 /* RocketChatApp.swift */; };
-		1ED038952B507B4D00C007D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED038942B507B4D00C007D4 /* Assets.xcassets */; };
-		1ED038982B507B4D00C007D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED038972B507B4D00C007D4 /* Preview Assets.xcassets */; };
 		1ED038A12B508FE700C007D4 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038A02B508FE700C007D4 /* FileManager+Extensions.swift */; };
 		1ED038A22B508FE700C007D4 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038A02B508FE700C007D4 /* FileManager+Extensions.swift */; };
 		1ED038A32B508FE700C007D4 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038A02B508FE700C007D4 /* FileManager+Extensions.swift */; };
@@ -171,117 +84,18 @@
 		1ED038A92B5090AD00C007D4 /* MMKV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038A82B5090AD00C007D4 /* MMKV.swift */; };
 		1ED038AA2B5090AD00C007D4 /* MMKV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038A82B5090AD00C007D4 /* MMKV.swift */; };
 		1ED038AB2B5090AD00C007D4 /* MMKV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038A82B5090AD00C007D4 /* MMKV.swift */; };
-		1ED038BA2B50A1B800C007D4 /* WatchConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038B92B50A1B800C007D4 /* WatchConnection.swift */; };
-		1ED038BB2B50A1B800C007D4 /* WatchConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038B92B50A1B800C007D4 /* WatchConnection.swift */; };
-		1ED038BE2B50A1D400C007D4 /* DBServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038BD2B50A1D400C007D4 /* DBServer.swift */; };
-		1ED038BF2B50A1D400C007D4 /* DBServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038BD2B50A1D400C007D4 /* DBServer.swift */; };
-		1ED038C12B50A1E400C007D4 /* DBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C02B50A1E400C007D4 /* DBUser.swift */; };
-		1ED038C22B50A1E400C007D4 /* DBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C02B50A1E400C007D4 /* DBUser.swift */; };
-		1ED038C42B50A1F500C007D4 /* WatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C32B50A1F500C007D4 /* WatchMessage.swift */; };
-		1ED038C52B50A1F500C007D4 /* WatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C32B50A1F500C007D4 /* WatchMessage.swift */; };
-		1ED038C62B50A21800C007D4 /* WatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C32B50A1F500C007D4 /* WatchMessage.swift */; };
-		1ED038CA2B50A58400C007D4 /* ServersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C92B50A58400C007D4 /* ServersLoader.swift */; };
-		1ED1EC892B867E2400F6620C /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED1EC882B867E2400F6620C /* ExtensionDelegate.swift */; };
-		1ED1EC902B86997F00F6620C /* MessageComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3232B5874FF0093C03C /* MessageComposerView.swift */; };
-		1ED1EC912B86997F00F6620C /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB375882B55DBFB00AEC3D7 /* Server.swift */; };
-		1ED1EC922B86997F00F6620C /* MessageActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E06561C2B7E9C1C0081B01F /* MessageActionView.swift */; };
-		1ED1EC932B86997F00F6620C /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3152B5868DF0093C03C /* MessageListView.swift */; };
-		1ED1EC942B86997F00F6620C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC162B5AF09C00E2AA7D /* Store.swift */; };
-		1ED1EC962B86997F00F6620C /* SubscriptionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D82B585B070093C03C /* SubscriptionsResponse.swift */; };
-		1ED1EC972B86997F00F6620C /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED1EC882B867E2400F6620C /* ExtensionDelegate.swift */; };
-		1ED1EC982B86997F00F6620C /* SubscriptionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DE2B585B070093C03C /* SubscriptionsRequest.swift */; };
-		1ED1EC992B86997F00F6620C /* HistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D62B585B070093C03C /* HistoryResponse.swift */; };
-		1ED1EC9A2B86997F00F6620C /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC142B5AF09800E2AA7D /* Dependency.swift */; };
-		1ED1EC9B2B86997F00F6620C /* ServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033B92B55B5F6004F4930 /* ServerView.swift */; };
-		1ED1EC9C2B86997F00F6620C /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2CF2B58582F0093C03C /* RoomView.swift */; };
-		1ED1EC9D2B86997F00F6620C /* RoomsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E22B585B070093C03C /* RoomsRequest.swift */; };
-		1ED1EC9E2B86997F00F6620C /* ServersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C92B50A58400C007D4 /* ServersLoader.swift */; };
-		1ED1EC9F2B86997F00F6620C /* MessageFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3212B5871CE0093C03C /* MessageFormatter.swift */; };
-		1ED1ECA02B86997F00F6620C /* AttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A716E2B59CBCA00477BA2 /* AttachmentView.swift */; };
-		1ED1ECA12B86997F00F6620C /* JSONAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E62B585B070093C03C /* JSONAdapter.swift */; };
-		1ED1ECA22B86997F00F6620C /* DateCodingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E82B585B070093C03C /* DateCodingStrategy.swift */; };
-		1ED1ECA32B86997F00F6620C /* RetryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC262B5B23C600E2AA7D /* RetryView.swift */; };
-		1ED1ECA42B86997F00F6620C /* ServerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033B52B55B4A5004F4930 /* ServerListView.swift */; };
-		1ED1ECA52B86997F00F6620C /* RoomFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A31F2B5871C80093C03C /* RoomFormatter.swift */; };
-		1ED1ECA62B86997F00F6620C /* MessagesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDFD0F92B589B8F002FEE5F /* MessagesLoader.swift */; };
-		1ED1ECA72B86997F00F6620C /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A30F2B5865B80093C03C /* RoomViewModel.swift */; };
-		1ED1ECA82B86997F00F6620C /* ErrorActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E06561A2B7E91FB0081B01F /* ErrorActionHandler.swift */; };
-		1ED1ECA92B86997F00F6620C /* SendMessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E12B585B070093C03C /* SendMessageRequest.swift */; };
-		1ED1ECAA2B86997F00F6620C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A30B2B585D1D0093C03C /* String+Extensions.swift */; };
-		1ED1ECAB2B86997F00F6620C /* RocketChatDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033CC2B55D671004F4930 /* RocketChatDatabase.swift */; };
-		1ED1ECAC2B86997F00F6620C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3112B5866090093C03C /* Room.swift */; };
-		1ED1ECAD2B86997F00F6620C /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E92B585B070093C03C /* FailableDecodable.swift */; };
-		1ED1ECAE2B86997F00F6620C /* WatchSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8979462B6063FC001D99F0 /* WatchSession.swift */; };
-		1ED1ECAF2B86997F00F6620C /* ReadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E32B585B070093C03C /* ReadRequest.swift */; };
-		1ED1ECB02B86997F00F6620C /* MessageSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71682B59B6E100477BA2 /* MessageSender.swift */; };
-		1ED1ECB12B86997F00F6620C /* RocketChatError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2EE2B585B070093C03C /* RocketChatError.swift */; };
-		1ED1ECB22B86997F00F6620C /* RoomsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDFD1072B58AA77002FEE5F /* RoomsLoader.swift */; };
-		1ED1ECB32B86997F00F6620C /* SendMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D52B585B070093C03C /* SendMessageResponse.swift */; };
-		1ED1ECB42B86997F00F6620C /* LoggedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A30D2B58608C0093C03C /* LoggedUser.swift */; };
-		1ED1ECB52B86997F00F6620C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3172B5868E50093C03C /* MessageView.swift */; };
-		1ED1ECB62B86997F00F6620C /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDFD1052B58A66E002FEE5F /* CancelBag.swift */; };
-		1ED1ECB72B86997F00F6620C /* TokenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E52B585B070093C03C /* TokenAdapter.swift */; };
-		1ED1ECB82B86997F00F6620C /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2EC2B585B070093C03C /* Request.swift */; };
-		1ED1ECB92B86997F00F6620C /* URLSessionCertificateHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71762B59FCA900477BA2 /* URLSessionCertificateHandling.swift */; };
-		1ED1ECBA2B86997F00F6620C /* RocketChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D22B585B070093C03C /* RocketChatClient.swift */; };
-		1ED1ECBB2B86997F00F6620C /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4AFC202B5B1AA000E2AA7D /* AppView.swift */; };
-		1ED1ECBC2B86997F00F6620C /* MessagesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E02B585B070093C03C /* MessagesRequest.swift */; };
-		1ED1ECBD2B86997F00F6620C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A31C2B5871B60093C03C /* Date+Extensions.swift */; };
-		1ED1ECBE2B86997F00F6620C /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DA2B585B070093C03C /* UserResponse.swift */; };
-		1ED1ECBF2B86997F00F6620C /* Default.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033AC2B55B1CC004F4930 /* Default.xcdatamodeld */; };
-		1ED1ECC02B86997F00F6620C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033BE2B55BF94004F4930 /* Storage.swift */; };
-		1ED1ECC12B86997F00F6620C /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DC2B585B070093C03C /* MessageResponse.swift */; };
-		1ED1ECC22B86997F00F6620C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2EB2B585B070093C03C /* HTTPMethod.swift */; };
-		1ED1ECC32B86997F00F6620C /* RequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2E72B585B070093C03C /* RequestAdapter.swift */; };
-		1ED1ECC42B86997F00F6620C /* RoomsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D92B585B070093C03C /* RoomsResponse.swift */; };
-		1ED1ECC52B86997F00F6620C /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDB30F12B5B453A00532C7E /* LoggedInView.swift */; };
-		1ED1ECC62B86997F00F6620C /* MessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D72B585B070093C03C /* MessagesResponse.swift */; };
-		1ED1ECC72B86997F00F6620C /* HistoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DF2B585B070093C03C /* HistoryRequest.swift */; };
-		1ED1ECC82B86997F00F6620C /* WatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038C32B50A1F500C007D4 /* WatchMessage.swift */; };
-		1ED1ECC92B86997F00F6620C /* AttachmentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2D42B585B070093C03C /* AttachmentResponse.swift */; };
-		1ED1ECCA2B86997F00F6620C /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E638E9D2B5F0F5800E645E4 /* URL+Extensions.swift */; };
-		1ED1ECCB2B86997F00F6620C /* RocketChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED038902B507B4C00C007D4 /* RocketChatApp.swift */; };
-		1ED1ECCC2B86997F00F6620C /* RoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2CB2B5857F50093C03C /* RoomListView.swift */; };
-		1ED1ECCD2B86997F00F6620C /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3192B5868EE0093C03C /* MessageViewModel.swift */; };
-		1ED1ECCE2B86997F00F6620C /* ChatScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E638E982B5F0A2900E645E4 /* ChatScrollView.swift */; };
-		1ED1ECCF2B86997F00F6620C /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033C32B55C65C004F4930 /* AppRouter.swift */; };
-		1ED1ECD02B86997F00F6620C /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033AF2B55B25A004F4930 /* Database.swift */; };
-		1ED1ECD12B86997F00F6620C /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A71702B59CC1300477BA2 /* Attachment.swift */; };
-		1ED1ECD22B86997F00F6620C /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A3092B585B370093C03C /* Data+Extensions.swift */; };
-		1ED1ECD32B86997F00F6620C /* ReadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E29A2DB2B585B070093C03C /* ReadResponse.swift */; };
-		1ED1ECD42B86997F00F6620C /* RocketChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1ED033C92B55D4F0004F4930 /* RocketChat.xcdatamodeld */; };
-		1ED1ECD72B86997F00F6620C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED038972B507B4D00C007D4 /* Preview Assets.xcassets */; };
-		1ED1ECD82B86997F00F6620C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED038942B507B4D00C007D4 /* Assets.xcassets */; };
-		1ED1ECE42B8699E900F6620C /* Rocket.Chat Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1ED0388E2B507B4B00C007D4 /* Rocket.Chat Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1ED1ECE72B8699ED00F6620C /* Rocket.Chat Experimental Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1ED1ECDD2B86997F00F6620C /* Rocket.Chat Experimental Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1ED1ECEA2B869A4A00F6620C /* Official.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A14FCF3257FEB59005BDCD4 /* Official.xcassets */; };
-		1ED1ECEC2B869B1300F6620C /* Experimental.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A14FCEC257FEB3A005BDCD4 /* Experimental.xcassets */; };
-		1EDB30F22B5B453A00532C7E /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDB30F12B5B453A00532C7E /* LoggedInView.swift */; };
-		1EDFD0FA2B589B8F002FEE5F /* MessagesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDFD0F92B589B8F002FEE5F /* MessagesLoader.swift */; };
-		1EDFD1062B58A66E002FEE5F /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDFD1052B58A66E002FEE5F /* CancelBag.swift */; };
-		1EDFD1082B58AA77002FEE5F /* RoomsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDFD1072B58AA77002FEE5F /* RoomsLoader.swift */; };
-		1EE096FA2BACD1F200780078 /* ToolbarItemPlacement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE096F92BACD1F200780078 /* ToolbarItemPlacement+Extensions.swift */; };
-		1EE096FB2BACD1F200780078 /* ToolbarItemPlacement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE096F92BACD1F200780078 /* ToolbarItemPlacement+Extensions.swift */; };
-		1EE096FD2BACD58300780078 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE096FC2BACD58300780078 /* LazyView.swift */; };
-		1EE096FE2BACD58300780078 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE096FC2BACD58300780078 /* LazyView.swift */; };
-		1EE097002BACD64C00780078 /* Binding+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE096FF2BACD64C00780078 /* Binding+Extensions.swift */; };
-		1EE097012BACD64C00780078 /* Binding+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE096FF2BACD64C00780078 /* Binding+Extensions.swift */; };
-		1EE097032BACD66900780078 /* NavigationStackModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE097022BACD66900780078 /* NavigationStackModifier.swift */; };
-		1EE097042BACD66900780078 /* NavigationStackModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE097022BACD66900780078 /* NavigationStackModifier.swift */; };
-		1EED2D332BC1E09500832666 /* RoomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED2D322BC1E09500832666 /* RoomInfoView.swift */; };
-		1EED2D342BC1E09500832666 /* RoomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EED2D322BC1E09500832666 /* RoomInfoView.swift */; };
 		1EF5FBD1250C109E00614FEA /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5FBD0250C109E00614FEA /* Encryption.swift */; };
 		1EFEB5982493B6640072EDC0 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFEB5972493B6640072EDC0 /* NotificationService.swift */; };
 		1EFEB59C2493B6640072EDC0 /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EFEB5952493B6640072EDC0 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		24A2AEF2383D44B586D31C01 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 06BB44DD4855498082A744AD /* libz.tbd */; };
 		4C4C8603EF082F0A33A95522 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5C142B655F8EFD006792C /* ExpoModulesProvider.swift */; };
+		5AEB68D33F110B1471AD270A /* libPods-defaults-RocketChatRN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C062B85EB1BE4286D056A5 /* libPods-defaults-RocketChatRN.a */; };
 		65AD38372BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 65AD38362BFBDF4A00271B39 /* PrivacyInfo.xcprivacy */; };
 		65AD38392BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 65AD38362BFBDF4A00271B39 /* PrivacyInfo.xcprivacy */; };
 		65AD383A2BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 65AD38362BFBDF4A00271B39 /* PrivacyInfo.xcprivacy */; };
-		65AD383B2BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 65AD38362BFBDF4A00271B39 /* PrivacyInfo.xcprivacy */; };
-		65AD383C2BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 65AD38362BFBDF4A00271B39 /* PrivacyInfo.xcprivacy */; };
 		65B9A71A2AFC24190088956F /* ringtone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65B9A7192AFC24190088956F /* ringtone.mp3 */; };
 		65B9A71B2AFC24190088956F /* ringtone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 65B9A7192AFC24190088956F /* ringtone.mp3 */; };
+		6E15D1B1D512297194D82C99 /* libPods-defaults-Rocket.Chat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9498A68E7AF8555ED3D3063F /* libPods-defaults-Rocket.Chat.a */; };
 		7A006F14229C83B600803143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A006F13229C83B600803143 /* GoogleService-Info.plist */; };
 		7A0129D42C6E8EC800F84A97 /* ShareRocketChatRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0129D22C6E8B5900F84A97 /* ShareRocketChatRN.swift */; };
 		7A0129D62C6E8F0700F84A97 /* ShareRocketChatRN.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 1EC6AD6022CBA20C00A41C61 /* ShareRocketChatRN.entitlements */; };
@@ -351,11 +165,9 @@
 		7AE10C0628A59530003593CB /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AE10C0528A59530003593CB /* Inter.ttf */; };
 		7AE10C0828A59530003593CB /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AE10C0528A59530003593CB /* Inter.ttf */; };
 		85160EB6C143E0493FE5F014 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D9A8897F4A486C2C6F89A /* ExpoModulesProvider.swift */; };
-		892FF3366E238E823D4CA98E /* libPods-defaults-NotificationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69313923BC265219F5AA0F91 /* libPods-defaults-NotificationService.a */; };
 		BC404914E86821389EEB543D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391C4F7AA7023CD41EEBD106 /* ExpoModulesProvider.swift */; };
-		DBEC1C2EEA49CE58FC49459C /* libPods-defaults-RocketChatRN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC2CC64CE5D2A2783D74136 /* libPods-defaults-RocketChatRN.a */; };
+		C82A56AD9B110BDDD8CE24F2 /* libPods-defaults-NotificationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7408230ECF6427DF0236631 /* libPods-defaults-NotificationService.a */; };
 		DD2BA30A89E64F189C2C24AC /* libWatermelonDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7E862283664608B3894E34 /* libWatermelonDB.a */; };
-		E9D6F82BDFEFD27188D7891D /* libPods-defaults-Rocket.Chat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C23DBD55D58FB3F83AACFDB9 /* libPods-defaults-Rocket.Chat.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -365,20 +177,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1EC6ACAF22CB9FC300A41C61;
 			remoteInfo = ShareRocketChatRN;
-		};
-		1ED1ECE52B8699E900F6620C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1ED0388D2B507B4B00C007D4;
-			remoteInfo = Rocket.Chat.Watch;
-		};
-		1EE79C542B8912F600CF1863 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1ED1EC8E2B86997F00F6620C;
-			remoteInfo = "RocketChatRN Watch";
 		};
 		1EFEB59A2493B6640072EDC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -422,7 +220,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				1ED1ECE72B8699ED00F6620C /* Rocket.Chat Experimental Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,7 +230,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				1ED1ECE42B8699E900F6620C /* Rocket.Chat Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,15 +250,15 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		00B3B450049199CECE67663C /* Pods-defaults-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
+		01C062B85EB1BE4286D056A5 /* libPods-defaults-RocketChatRN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-RocketChatRN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06BB44DD4855498082A744AD /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		0AEAF0543E5B9616162C8362 /* Pods-defaults-Rocket.Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-Rocket.Chat.release.xcconfig"; path = "Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* T1D Reachout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "T1D Reachout.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RocketChatRN/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RocketChatRN/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RocketChatRN/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RocketChatRN/main.m; sourceTree = "<group>"; };
 		194D9A8897F4A486C2C6F89A /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-NotificationService/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		1C0FFCE99E2473945DBC888B /* Pods-defaults-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
 		1E01C81B2511208400FEF824 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		1E01C8202511301400FEF824 /* PushResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushResponse.swift; sourceTree = "<group>"; };
 		1E01C8242511303100FEF824 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -577,20 +373,14 @@
 		1ED033C32B55C65C004F4930 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		1ED033CA2B55D4F0004F4930 /* RocketChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RocketChat.xcdatamodel; sourceTree = "<group>"; };
 		1ED033CC2B55D671004F4930 /* RocketChatDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketChatDatabase.swift; sourceTree = "<group>"; };
-		1ED0388E2B507B4B00C007D4 /* Rocket.Chat Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rocket.Chat Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED038902B507B4C00C007D4 /* RocketChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketChatApp.swift; sourceTree = "<group>"; };
 		1ED038942B507B4D00C007D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1ED038972B507B4D00C007D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1ED038A02B508FE700C007D4 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		1ED038A42B50900800C007D4 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		1ED038A82B5090AD00C007D4 /* MMKV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMKV.swift; sourceTree = "<group>"; };
-		1ED038B92B50A1B800C007D4 /* WatchConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnection.swift; sourceTree = "<group>"; };
-		1ED038BD2B50A1D400C007D4 /* DBServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBServer.swift; sourceTree = "<group>"; };
-		1ED038C02B50A1E400C007D4 /* DBUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBUser.swift; sourceTree = "<group>"; };
-		1ED038C32B50A1F500C007D4 /* WatchMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMessage.swift; sourceTree = "<group>"; };
 		1ED038C92B50A58400C007D4 /* ServersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServersLoader.swift; sourceTree = "<group>"; };
 		1ED1EC882B867E2400F6620C /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		1ED1ECDD2B86997F00F6620C /* Rocket.Chat Experimental Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rocket.Chat Experimental Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EDB30F12B5B453A00532C7E /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
 		1EDFD0F92B589B8F002FEE5F /* MessagesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesLoader.swift; sourceTree = "<group>"; };
 		1EDFD1052B58A66E002FEE5F /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
@@ -606,15 +396,11 @@
 		1EFEB5992493B6640072EDC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EFEB5A12493B67D0072EDC0 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		391C4F7AA7023CD41EEBD106 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-Rocket.Chat/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		3CDB00F98CBC54FF46A9FCF0 /* Pods-defaults-Rocket.Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-Rocket.Chat.debug.xcconfig"; path = "Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat.debug.xcconfig"; sourceTree = "<group>"; };
+		41255DC58F46F11F36AC3E21 /* Pods-defaults-RocketChatRN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-RocketChatRN.release.xcconfig"; path = "Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN.release.xcconfig"; sourceTree = "<group>"; };
 		45D5C142B655F8EFD006792C /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-defaults-RocketChatRN/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		5C0B495947CE6B8AC39A2B20 /* Pods-defaults-RocketChatRN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-RocketChatRN.debug.xcconfig"; path = "Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN.debug.xcconfig"; sourceTree = "<group>"; };
-		5DC2CC64CE5D2A2783D74136 /* libPods-defaults-RocketChatRN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-RocketChatRN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60B2A6A31FC4588700BD58E5 /* RocketChatRN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RocketChatRN.entitlements; path = RocketChatRN/RocketChatRN.entitlements; sourceTree = "<group>"; };
 		65AD38362BFBDF4A00271B39 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		65B9A7192AFC24190088956F /* ringtone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringtone.mp3; sourceTree = "<group>"; };
-		69313923BC265219F5AA0F91 /* libPods-defaults-NotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-NotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C3267AF369919974DD51522 /* Pods-defaults-RocketChatRN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-RocketChatRN.release.xcconfig"; path = "Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN.release.xcconfig"; sourceTree = "<group>"; };
 		7A006F13229C83B600803143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7A0129D22C6E8B5900F84A97 /* ShareRocketChatRN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRocketChatRN.swift; sourceTree = "<group>"; };
 		7A0D62D1242AB187006D5C06 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -630,10 +416,14 @@
 		7AACF8AB2C94B28B0082844E /* DecryptedContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptedContent.swift; sourceTree = "<group>"; };
 		7ACD4853222860DE00442C55 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		7AE10C0528A59530003593CB /* Inter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttf; sourceTree = "<group>"; };
-		7DCBC60D1813EE90B70756E9 /* Pods-defaults-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
+		854FF213F5A919D1EEF02938 /* Pods-defaults-Rocket.Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-Rocket.Chat.release.xcconfig"; path = "Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat.release.xcconfig"; sourceTree = "<group>"; };
+		8F929034DC7D8217BC3A470E /* Pods-defaults-RocketChatRN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-RocketChatRN.debug.xcconfig"; path = "Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN.debug.xcconfig"; sourceTree = "<group>"; };
+		9498A68E7AF8555ED3D3063F /* libPods-defaults-Rocket.Chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-Rocket.Chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A787E44FFEC6503F7D76C636 /* Pods-defaults-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		B37C79D9BD0742CE936B6982 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		BA7E862283664608B3894E34 /* libWatermelonDB.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libWatermelonDB.a; sourceTree = "<group>"; };
-		C23DBD55D58FB3F83AACFDB9 /* libPods-defaults-Rocket.Chat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-Rocket.Chat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7408230ECF6427DF0236631 /* libPods-defaults-NotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-defaults-NotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F30354A062889B8DAC586EBC /* Pods-defaults-Rocket.Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-defaults-Rocket.Chat.debug.xcconfig"; path = "Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -654,21 +444,7 @@
 				7ACD4897222860DE00442C55 /* JavaScriptCore.framework in Frameworks */,
 				24A2AEF2383D44B586D31C01 /* libz.tbd in Frameworks */,
 				DD2BA30A89E64F189C2C24AC /* libWatermelonDB.a in Frameworks */,
-				DBEC1C2EEA49CE58FC49459C /* libPods-defaults-RocketChatRN.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1ED0388B2B507B4B00C007D4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1ED1ECD52B86997F00F6620C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				5AEB68D33F110B1471AD270A /* libPods-defaults-RocketChatRN.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,7 +452,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				892FF3366E238E823D4CA98E /* libPods-defaults-NotificationService.a in Frameworks */,
+				C82A56AD9B110BDDD8CE24F2 /* libPods-defaults-NotificationService.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,7 +473,7 @@
 				7AAB3E3D257E6A6E00707CF6 /* JavaScriptCore.framework in Frameworks */,
 				7AAB3E3E257E6A6E00707CF6 /* libz.tbd in Frameworks */,
 				7AAB3E3F257E6A6E00707CF6 /* libWatermelonDB.a in Frameworks */,
-				E9D6F82BDFEFD27188D7891D /* libPods-defaults-Rocket.Chat.a in Frameworks */,
+				6E15D1B1D512297194D82C99 /* libPods-defaults-Rocket.Chat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1054,25 +830,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		1ED038B82B50A1A500C007D4 /* Watch */ = {
-			isa = PBXGroup;
-			children = (
-				1ED038BC2B50A1C700C007D4 /* Database */,
-				1ED038B92B50A1B800C007D4 /* WatchConnection.swift */,
-				1ED038C32B50A1F500C007D4 /* WatchMessage.swift */,
-			);
-			path = Watch;
-			sourceTree = "<group>";
-		};
-		1ED038BC2B50A1C700C007D4 /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				1ED038BD2B50A1D400C007D4 /* DBServer.swift */,
-				1ED038C02B50A1E400C007D4 /* DBUser.swift */,
-			);
-			path = Database;
-			sourceTree = "<group>";
-		};
 		1EDFD0F82B589B82002FEE5F /* Loaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -1121,12 +878,12 @@
 		7AC2B09613AA7C3FEBAC9F57 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1C0FFCE99E2473945DBC888B /* Pods-defaults-NotificationService.debug.xcconfig */,
-				7DCBC60D1813EE90B70756E9 /* Pods-defaults-NotificationService.release.xcconfig */,
-				3CDB00F98CBC54FF46A9FCF0 /* Pods-defaults-Rocket.Chat.debug.xcconfig */,
-				0AEAF0543E5B9616162C8362 /* Pods-defaults-Rocket.Chat.release.xcconfig */,
-				5C0B495947CE6B8AC39A2B20 /* Pods-defaults-RocketChatRN.debug.xcconfig */,
-				6C3267AF369919974DD51522 /* Pods-defaults-RocketChatRN.release.xcconfig */,
+				00B3B450049199CECE67663C /* Pods-defaults-NotificationService.debug.xcconfig */,
+				A787E44FFEC6503F7D76C636 /* Pods-defaults-NotificationService.release.xcconfig */,
+				F30354A062889B8DAC586EBC /* Pods-defaults-Rocket.Chat.debug.xcconfig */,
+				854FF213F5A919D1EEF02938 /* Pods-defaults-Rocket.Chat.release.xcconfig */,
+				8F929034DC7D8217BC3A470E /* Pods-defaults-RocketChatRN.debug.xcconfig */,
+				41255DC58F46F11F36AC3E21 /* Pods-defaults-RocketChatRN.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1142,7 +899,6 @@
 			isa = PBXGroup;
 			children = (
 				1E51411A2B856820007BE94A /* SSLPinning */,
-				1ED038B82B50A1A500C007D4 /* Watch */,
 				1E76CBC425152A7F0067298C /* Shared */,
 				1E068CFB24FD2DAF00A0FFC1 /* AppGroup */,
 				13B07FAE1A68108700A75B9A /* RocketChatRN */,
@@ -1168,8 +924,6 @@
 				1EC6ACB022CB9FC300A41C61 /* ShareRocketChatRN.appex */,
 				1EFEB5952493B6640072EDC0 /* NotificationService.appex */,
 				7AAB3E52257E6A6E00707CF6 /* Rocket.Chat.app */,
-				1ED0388E2B507B4B00C007D4 /* Rocket.Chat Watch.app */,
-				1ED1ECDD2B86997F00F6620C /* Rocket.Chat Experimental Watch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1222,9 +976,9 @@
 				7ACD4853222860DE00442C55 /* JavaScriptCore.framework */,
 				B37C79D9BD0742CE936B6982 /* libc++.tbd */,
 				06BB44DD4855498082A744AD /* libz.tbd */,
-				69313923BC265219F5AA0F91 /* libPods-defaults-NotificationService.a */,
-				C23DBD55D58FB3F83AACFDB9 /* libPods-defaults-Rocket.Chat.a */,
-				5DC2CC64CE5D2A2783D74136 /* libPods-defaults-RocketChatRN.a */,
+				D7408230ECF6427DF0236631 /* libPods-defaults-NotificationService.a */,
+				9498A68E7AF8555ED3D3063F /* libPods-defaults-Rocket.Chat.a */,
+				01C062B85EB1BE4286D056A5 /* libPods-defaults-RocketChatRN.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1244,7 +998,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RocketChatRN" */;
 			buildPhases = (
-				7730298F9B157D2F197EF19E /* [CP] Check Pods Manifest.lock */,
+				D82059A595E75734E9903800 /* [CP] Check Pods Manifest.lock */,
 				7AA5C63E23E30D110005C4A7 /* Start Packager */,
 				589729E8381BA997CD19EF19 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -1257,15 +1011,14 @@
 				7AAE9EB32891A0D20024F559 /* Upload source maps to Bugsnag */,
 				407D3EDE3DABEE15D27BD87D /* ShellScript */,
 				9C104B12BEE385F7555E641F /* [Expo] Configure project */,
-				4A38FD9DFF48FCF3ABA54C3A /* [CP] Embed Pods Frameworks */,
-				2D3137420B17B8705D0F8452 /* [CP] Copy Pods Resources */,
+				AA818DD732E0791B85E04DA7 /* [CP] Embed Pods Frameworks */,
+				51188129287D202EF9FDA300 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				1EC6ACBA22CB9FC300A41C61 /* PBXTargetDependency */,
 				1EFEB59B2493B6640072EDC0 /* PBXTargetDependency */,
-				1EE79C552B8912F600CF1863 /* PBXTargetDependency */,
 			);
 			name = RocketChatRN;
 			productName = "Hello World";
@@ -1288,50 +1041,16 @@
 			productReference = 1EC6ACB022CB9FC300A41C61 /* ShareRocketChatRN.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		1ED0388D2B507B4B00C007D4 /* Rocket.Chat.Watch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1ED0389F2B507B4F00C007D4 /* Build configuration list for PBXNativeTarget "Rocket.Chat.Watch" */;
-			buildPhases = (
-				1ED0388A2B507B4B00C007D4 /* Sources */,
-				1ED0388B2B507B4B00C007D4 /* Frameworks */,
-				1ED0388C2B507B4B00C007D4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Rocket.Chat.Watch;
-			productName = "RocketChat Watch App";
-			productReference = 1ED0388E2B507B4B00C007D4 /* Rocket.Chat Watch.app */;
-			productType = "com.apple.product-type.application";
-		};
-		1ED1EC8E2B86997F00F6620C /* RocketChatRN Watch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1ED1ECDA2B86997F00F6620C /* Build configuration list for PBXNativeTarget "RocketChatRN Watch" */;
-			buildPhases = (
-				1ED1EC8F2B86997F00F6620C /* Sources */,
-				1ED1ECD52B86997F00F6620C /* Frameworks */,
-				1ED1ECD62B86997F00F6620C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "RocketChatRN Watch";
-			productName = "RocketChat Watch App";
-			productReference = 1ED1ECDD2B86997F00F6620C /* Rocket.Chat Experimental Watch.app */;
-			productType = "com.apple.product-type.application";
-		};
 		1EFEB5942493B6640072EDC0 /* NotificationService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1EFEB5A02493B6640072EDC0 /* Build configuration list for PBXNativeTarget "NotificationService" */;
 			buildPhases = (
-				141C4AA3AE3C8BE3A165C9AA /* [CP] Check Pods Manifest.lock */,
+				FACE29637A332A3249E09581 /* [CP] Check Pods Manifest.lock */,
 				86A998705576AFA7CE938617 /* [Expo] Configure project */,
 				1EFEB5912493B6640072EDC0 /* Sources */,
 				1EFEB5922493B6640072EDC0 /* Frameworks */,
 				1EFEB5932493B6640072EDC0 /* Resources */,
-				1929E6B57AF5E6DF47A2FDD3 /* [CP] Copy Pods Resources */,
+				9A28C4496CD06324A43C53B6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1346,7 +1065,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AAB3E4F257E6A6E00707CF6 /* Build configuration list for PBXNativeTarget "Rocket.Chat" */;
 			buildPhases = (
-				BE47E8240EF93A4AB5454E78 /* [CP] Check Pods Manifest.lock */,
+				01D99FFE08B043A4D35F0B9F /* [CP] Check Pods Manifest.lock */,
 				7AAB3E13257E6A6E00707CF6 /* Start Packager */,
 				6723DBD924B66933E14E7EF7 /* [Expo] Configure project */,
 				7AAB3E14257E6A6E00707CF6 /* Sources */,
@@ -1357,15 +1076,14 @@
 				7AAB3E4B257E6A6E00707CF6 /* ShellScript */,
 				1ED1ECE32B8699DD00F6620C /* Embed Watch Content */,
 				7A10288726B1D15200E47EF8 /* Upload source maps to Bugsnag */,
-				444A25155156529E8C9D0A10 /* [CP] Embed Pods Frameworks */,
-				C6A09625AB6E9326D4923932 /* [CP] Copy Pods Resources */,
+				68C44F5164F84C96BDF8705B /* [CP] Embed Pods Frameworks */,
+				ACBD2C1233032F57404C5FD7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				7AAB3E0E257E6A6E00707CF6 /* PBXTargetDependency */,
 				7AAB3E10257E6A6E00707CF6 /* PBXTargetDependency */,
-				1ED1ECE62B8699E900F6620C /* PBXTargetDependency */,
 			);
 			name = Rocket.Chat;
 			productName = "Hello World";
@@ -1412,15 +1130,6 @@
 							};
 						};
 					};
-					1ED0388D2B507B4B00C007D4 = {
-						CreatedOnToolsVersion = 15.0;
-						DevelopmentTeam = S6UPZG7ZR3;
-						ProvisioningStyle = Manual;
-					};
-					1ED1EC8E2B86997F00F6620C = {
-						DevelopmentTeam = S6UPZG7ZR3;
-						ProvisioningStyle = Manual;
-					};
 					1EFEB5942493B6640072EDC0 = {
 						CreatedOnToolsVersion = 11.5;
 						DevelopmentTeam = 8Y24TAV93W;
@@ -1452,8 +1161,6 @@
 				1EC6ACAF22CB9FC300A41C61 /* ShareRocketChatRN */,
 				1EFEB5942493B6640072EDC0 /* NotificationService */,
 				7AAB3E0D257E6A6E00707CF6 /* Rocket.Chat */,
-				1ED0388D2B507B4B00C007D4 /* Rocket.Chat.Watch */,
-				1ED1EC8E2B86997F00F6620C /* RocketChatRN Watch */,
 			);
 		};
 /* End PBXProject section */
@@ -1471,30 +1178,6 @@
 				7A006F14229C83B600803143 /* GoogleService-Info.plist in Resources */,
 				65AD38372BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */,
 				7A0D62D2242AB187006D5C06 /* LaunchScreen.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1ED0388C2B507B4B00C007D4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1ED1ECEA2B869A4A00F6620C /* Official.xcassets in Resources */,
-				1ED038982B507B4D00C007D4 /* Preview Assets.xcassets in Resources */,
-				1E044F992B92798E00BCA2FD /* Localizable.xcstrings in Resources */,
-				65AD383B2BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */,
-				1ED038952B507B4D00C007D4 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1ED1ECD62B86997F00F6620C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1ED1ECD72B86997F00F6620C /* Preview Assets.xcassets in Resources */,
-				1ED1ECD82B86997F00F6620C /* Assets.xcassets in Resources */,
-				1E044F9A2B92798E00BCA2FD /* Localizable.xcstrings in Resources */,
-				65AD383C2BFBDF4A00271B39 /* PrivacyInfo.xcprivacy in Resources */,
-				1ED1ECEC2B869B1300F6620C /* Experimental.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1548,7 +1231,7 @@
 			shellPath = /bin/sh;
 			shellScript = ". ~/.nvm/nvm.sh\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $TMPDIR/$(md5 -qs \"$CONFIGURATION_BUILD_DIR\")-main.jsbundle.map\"\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		141C4AA3AE3C8BE3A165C9AA /* [CP] Check Pods Manifest.lock */ = {
+		01D99FFE08B043A4D35F0B9F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1563,87 +1246,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-defaults-NotificationService-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-defaults-Rocket.Chat-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1929E6B57AF5E6DF47A2FDD3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore/FirebaseCore_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreExtension/FirebaseCoreExtension_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreInternal/FirebaseCoreInternal_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCrashlytics/FirebaseCrashlytics_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations/FirebaseInstallations_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport/GoogleDataTransport_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift/Promises_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RNDeviceInfo/RNDeviceInfoPrivacyInfo.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/nanopb/nanopb_Privacy.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCore_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCoreExtension_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCoreInternal_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCrashlytics_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseInstallations_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleDataTransport_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleUtilities_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FBLPromises_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Promises_Privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNDeviceInfoPrivacyInfo.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOCropViewControllerBundle.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/nanopb_Privacy.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1E1EA8082326CCE300E22452 /* ShellScript */ = {
@@ -1663,7 +1270,25 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"Target architectures: $ARCHS\"\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\necho $(lipo -info \"$FRAMEWORK_EXECUTABLE_PATH\")\n\nFRAMEWORK_TMP_PATH=\"$FRAMEWORK_EXECUTABLE_PATH-tmp\"\n\n# remove simulator's archs if location is not simulator's directory\ncase \"${TARGET_BUILD_DIR}\" in\n*\"iphonesimulator\")\necho \"No need to remove archs\"\n;;\n*)\nif $(lipo \"$FRAMEWORK_EXECUTABLE_PATH\" -verify_arch \"i386\") ; then\nlipo -output \"$FRAMEWORK_TMP_PATH\" -remove \"i386\" \"$FRAMEWORK_EXECUTABLE_PATH\"\necho \"i386 architecture removed\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_TMP_PATH\" \"$FRAMEWORK_EXECUTABLE_PATH\"\nfi\nif $(lipo \"$FRAMEWORK_EXECUTABLE_PATH\" -verify_arch \"x86_64\") ; then\nlipo -output \"$FRAMEWORK_TMP_PATH\" -remove \"x86_64\" \"$FRAMEWORK_EXECUTABLE_PATH\"\necho \"x86_64 architecture removed\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_TMP_PATH\" \"$FRAMEWORK_EXECUTABLE_PATH\"\nfi\n;;\nesac\n\necho \"Completed for executable $FRAMEWORK_EXECUTABLE_PATH\"\necho $\n\ndone\n";
 		};
-		2D3137420B17B8705D0F8452 /* [CP] Copy Pods Resources */ = {
+		407D3EDE3DABEE15D27BD87D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-defaults-NotificationService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		51188129287D202EF9FDA300 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1681,6 +1306,7 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift/Promises_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNDeviceInfo/RNDeviceInfoPrivacyInfo.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNPermissions/RNPermissionsPrivacyInfo.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -1714,6 +1340,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Promises_Privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNDeviceInfoPrivacyInfo.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNPermissionsPrivacyInfo.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -1737,64 +1364,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		407D3EDE3DABEE15D27BD87D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-defaults-NotificationService-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		444A25155156529E8C9D0A10 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4A38FD9DFF48FCF3ABA54C3A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		589729E8381BA997CD19EF19 /* [Expo] Configure project */ = {
@@ -1835,26 +1404,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-defaults-Rocket.Chat/expo-configure-project.sh\"\n";
 		};
-		7730298F9B157D2F197EF19E /* [CP] Check Pods Manifest.lock */ = {
+		68C44F5164F84C96BDF8705B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-defaults-RocketChatRN-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7A10288726B1D15200E47EF8 /* Upload source maps to Bugsnag */ = {
@@ -1865,7 +1432,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$TARGET_BUILD_DIR/$INFOPLIST_PATH",
+				$TARGET_BUILD_DIR/$INFOPLIST_PATH,
 			);
 			name = "Upload source maps to Bugsnag";
 			outputFileListPaths = (
@@ -1951,7 +1518,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$TARGET_BUILD_DIR/$INFOPLIST_PATH",
+				$TARGET_BUILD_DIR/$INFOPLIST_PATH,
 			);
 			name = "Upload source maps to Bugsnag";
 			outputFileListPaths = (
@@ -1981,54 +1548,13 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-defaults-NotificationService/expo-configure-project.sh\"\n";
 		};
-		9C104B12BEE385F7555E641F /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-defaults-NotificationService/expo-configure-project.sh\"\n";
-		};
-		BE47E8240EF93A4AB5454E78 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-defaults-Rocket.Chat-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C6A09625AB6E9326D4923932 /* [CP] Copy Pods Resources */ = {
+		9A28C4496CD06324A43C53B6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore/FirebaseCore_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreExtension/FirebaseCoreExtension_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreInternal/FirebaseCoreInternal_Privacy.bundle",
@@ -2040,6 +1566,7 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift/Promises_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNDeviceInfo/RNDeviceInfoPrivacyInfo.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNPermissions/RNPermissionsPrivacyInfo.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -2073,6 +1600,124 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Promises_Privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNDeviceInfoPrivacyInfo.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNPermissionsPrivacyInfo.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOCropViewControllerBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/nanopb_Privacy.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-NotificationService/Pods-defaults-NotificationService-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C104B12BEE385F7555E641F /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-defaults-NotificationService/expo-configure-project.sh\"\n";
+		};
+		AA818DD732E0791B85E04DA7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-RocketChatRN/Pods-defaults-RocketChatRN-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACBD2C1233032F57404C5FD7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore/FirebaseCore_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreExtension/FirebaseCoreExtension_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreInternal/FirebaseCoreInternal_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCrashlytics/FirebaseCrashlytics_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations/FirebaseInstallations_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport/GoogleDataTransport_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift/Promises_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNDeviceInfo/RNDeviceInfoPrivacyInfo.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNPermissions/RNPermissionsPrivacyInfo.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/nanopb/nanopb_Privacy.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCore_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCoreExtension_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCoreInternal_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseCrashlytics_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseInstallations_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleDataTransport_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleUtilities_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FBLPromises_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Promises_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNDeviceInfoPrivacyInfo.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNPermissionsPrivacyInfo.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -2096,6 +1741,50 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-defaults-Rocket.Chat/Pods-defaults-Rocket.Chat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D82059A595E75734E9903800 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-defaults-RocketChatRN-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FACE29637A332A3249E09581 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-defaults-NotificationService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2128,16 +1817,12 @@
 				7AACF8AC2C94B28B0082844E /* DecryptedContent.swift in Sources */,
 				1ED038A52B50900800C007D4 /* Bundle+Extensions.swift in Sources */,
 				1E76CBC325152A460067298C /* String+Extensions.swift in Sources */,
-				1ED038BA2B50A1B800C007D4 /* WatchConnection.swift in Sources */,
 				7AACF8A82C94AB8B0082844E /* EncryptedContent.swift in Sources */,
 				1ED038A12B508FE700C007D4 /* FileManager+Extensions.swift in Sources */,
 				1E76CBCA25152C220067298C /* Notification.swift in Sources */,
-				1ED038C12B50A1E400C007D4 /* DBUser.swift in Sources */,
 				1E76CBD525152C7F0067298C /* API.swift in Sources */,
 				1E76CBD625152C820067298C /* Response.swift in Sources */,
-				1ED038BE2B50A1D400C007D4 /* DBServer.swift in Sources */,
 				1E068D0124FD2E0500A0FFC1 /* AppGroup.m in Sources */,
-				1ED038C42B50A1F500C007D4 /* WatchMessage.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				1E76CBD025152C6E0067298C /* URL+Extensions.swift in Sources */,
 				1E068CFE24FD2DC700A0FFC1 /* AppGroup.swift in Sources */,
@@ -2147,188 +1832,6 @@
 				1E76CBCF25152C310067298C /* NotificationType.swift in Sources */,
 				1E76CBDA25152C8E0067298C /* SendMessage.swift in Sources */,
 				4C4C8603EF082F0A33A95522 /* ExpoModulesProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1ED0388A2B507B4B00C007D4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1E54BA1D2BC9E8030073903D /* MessageMapper.swift in Sources */,
-				1EE096FD2BACD58300780078 /* LazyView.swift in Sources */,
-				1E29A3242B5874FF0093C03C /* MessageComposerView.swift in Sources */,
-				1EB375892B55DBFB00AEC3D7 /* Server.swift in Sources */,
-				1E06561D2B7E9C1C0081B01F /* MessageActionView.swift in Sources */,
-				1E6BA5CC2BD13DEA00B16A18 /* UserModel.swift in Sources */,
-				1EE096FA2BACD1F200780078 /* ToolbarItemPlacement+Extensions.swift in Sources */,
-				1E29A3162B5868DF0093C03C /* MessageListView.swift in Sources */,
-				1E4AFC172B5AF09C00E2AA7D /* Store.swift in Sources */,
-				1E29A2F42B585B070093C03C /* SubscriptionsResponse.swift in Sources */,
-				1EE097002BACD64C00780078 /* Binding+Extensions.swift in Sources */,
-				1ED1EC892B867E2400F6620C /* ExtensionDelegate.swift in Sources */,
-				1E29A2F92B585B070093C03C /* SubscriptionsRequest.swift in Sources */,
-				1E29A2F22B585B070093C03C /* HistoryResponse.swift in Sources */,
-				1E4AFC152B5AF09800E2AA7D /* Dependency.swift in Sources */,
-				1ED033BA2B55B5F6004F4930 /* ServerView.swift in Sources */,
-				1E29A2D02B58582F0093C03C /* RoomView.swift in Sources */,
-				1E29A2FD2B585B070093C03C /* RoomsRequest.swift in Sources */,
-				1ED038CA2B50A58400C007D4 /* ServersLoader.swift in Sources */,
-				1E29A3222B5871CE0093C03C /* MessageFormatter.swift in Sources */,
-				1E9A716F2B59CBCA00477BA2 /* AttachmentView.swift in Sources */,
-				1E29A3002B585B070093C03C /* JSONAdapter.swift in Sources */,
-				1E29A3022B585B070093C03C /* DateCodingStrategy.swift in Sources */,
-				1E4AFC272B5B23C600E2AA7D /* RetryView.swift in Sources */,
-				1ED033B62B55B4A5004F4930 /* ServerListView.swift in Sources */,
-				1E29A3202B5871C80093C03C /* RoomFormatter.swift in Sources */,
-				1EDFD0FA2B589B8F002FEE5F /* MessagesLoader.swift in Sources */,
-				1E29A3102B5865B80093C03C /* RoomViewModel.swift in Sources */,
-				1E06561B2B7E91FB0081B01F /* ErrorActionHandler.swift in Sources */,
-				1E29A2FC2B585B070093C03C /* SendMessageRequest.swift in Sources */,
-				1E29A30C2B585D1D0093C03C /* String+Extensions.swift in Sources */,
-				1EE097032BACD66900780078 /* NavigationStackModifier.swift in Sources */,
-				1ED033CD2B55D671004F4930 /* RocketChatDatabase.swift in Sources */,
-				1E29A3122B5866090093C03C /* Room.swift in Sources */,
-				1E29A3032B585B070093C03C /* FailableDecodable.swift in Sources */,
-				1E8979472B6063FC001D99F0 /* WatchSession.swift in Sources */,
-				1E29A2FE2B585B070093C03C /* ReadRequest.swift in Sources */,
-				1E9A71692B59B6E100477BA2 /* MessageSender.swift in Sources */,
-				1E29A3072B585B070093C03C /* RocketChatError.swift in Sources */,
-				1EED2D332BC1E09500832666 /* RoomInfoView.swift in Sources */,
-				1EDFD1082B58AA77002FEE5F /* RoomsLoader.swift in Sources */,
-				1E29A2F12B585B070093C03C /* SendMessageResponse.swift in Sources */,
-				1E29A30E2B58608C0093C03C /* LoggedUser.swift in Sources */,
-				1E29A3182B5868E50093C03C /* MessageView.swift in Sources */,
-				1EDFD1062B58A66E002FEE5F /* CancelBag.swift in Sources */,
-				1E29A2FF2B585B070093C03C /* TokenAdapter.swift in Sources */,
-				1E29A3052B585B070093C03C /* Request.swift in Sources */,
-				1E675B722BAC49B000438590 /* Color+Extensions.swift in Sources */,
-				1E9A71772B59FCA900477BA2 /* URLSessionCertificateHandling.swift in Sources */,
-				1E388AC12B934CD4006FBDB0 /* RemoteImage.swift in Sources */,
-				1E388ABE2B934C64006FBDB0 /* ImageLoader.swift in Sources */,
-				1E29A2EF2B585B070093C03C /* RocketChatClient.swift in Sources */,
-				1E54BA202BC9E9B60073903D /* MergedRoomMapper.swift in Sources */,
-				1E4AFC212B5B1AA000E2AA7D /* AppView.swift in Sources */,
-				1E29A2FB2B585B070093C03C /* MessagesRequest.swift in Sources */,
-				1E29A31D2B5871B60093C03C /* Date+Extensions.swift in Sources */,
-				1EC687BB2BA0FF0D00C7BAAD /* MessageInfoMapper.swift in Sources */,
-				1E29A2F62B585B070093C03C /* UserResponse.swift in Sources */,
-				1ED033AE2B55B1CC004F4930 /* Default.xcdatamodeld in Sources */,
-				1E6BA5CA2BD13DEA00B16A18 /* AttachmentModel.swift in Sources */,
-				1ED033BF2B55BF94004F4930 /* Storage.swift in Sources */,
-				1E29A2F82B585B070093C03C /* MessageResponse.swift in Sources */,
-				1E29A3042B585B070093C03C /* HTTPMethod.swift in Sources */,
-				1E29A3012B585B070093C03C /* RequestAdapter.swift in Sources */,
-				1E6BA5C82BD13DEA00B16A18 /* MessageModel.swift in Sources */,
-				1E29A2F52B585B070093C03C /* RoomsResponse.swift in Sources */,
-				1EDB30F22B5B453A00532C7E /* LoggedInView.swift in Sources */,
-				1E54BA1B2BC9E7110073903D /* MergedRoom.swift in Sources */,
-				1E29A2F32B585B070093C03C /* MessagesResponse.swift in Sources */,
-				1E29A2FA2B585B070093C03C /* HistoryRequest.swift in Sources */,
-				1ED038C62B50A21800C007D4 /* WatchMessage.swift in Sources */,
-				1E29A2F02B585B070093C03C /* AttachmentResponse.swift in Sources */,
-				1E638E9E2B5F0F5800E645E4 /* URL+Extensions.swift in Sources */,
-				1E6BA5C62BD13DEA00B16A18 /* RoomModel.swift in Sources */,
-				1ED038912B507B4C00C007D4 /* RocketChatApp.swift in Sources */,
-				1E29A2CC2B5857F50093C03C /* RoomListView.swift in Sources */,
-				1E29A31A2B5868EE0093C03C /* MessageViewModel.swift in Sources */,
-				1E638E992B5F0A2900E645E4 /* ChatScrollView.swift in Sources */,
-				1ED033C42B55C65C004F4930 /* AppRouter.swift in Sources */,
-				1ED033B02B55B25A004F4930 /* Database.swift in Sources */,
-				1E9A71712B59CC1300477BA2 /* Attachment.swift in Sources */,
-				1E29A30A2B585B370093C03C /* Data+Extensions.swift in Sources */,
-				1E29A2F72B585B070093C03C /* ReadResponse.swift in Sources */,
-				1ED033CB2B55D4F0004F4930 /* RocketChat.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1ED1EC8F2B86997F00F6620C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1E54BA1E2BC9E8030073903D /* MessageMapper.swift in Sources */,
-				1EE096FE2BACD58300780078 /* LazyView.swift in Sources */,
-				1ED1EC902B86997F00F6620C /* MessageComposerView.swift in Sources */,
-				1ED1EC912B86997F00F6620C /* Server.swift in Sources */,
-				1ED1EC922B86997F00F6620C /* MessageActionView.swift in Sources */,
-				1E6BA5CD2BD13DEA00B16A18 /* UserModel.swift in Sources */,
-				1EE096FB2BACD1F200780078 /* ToolbarItemPlacement+Extensions.swift in Sources */,
-				1ED1EC932B86997F00F6620C /* MessageListView.swift in Sources */,
-				1ED1EC942B86997F00F6620C /* Store.swift in Sources */,
-				1ED1EC962B86997F00F6620C /* SubscriptionsResponse.swift in Sources */,
-				1EE097012BACD64C00780078 /* Binding+Extensions.swift in Sources */,
-				1ED1EC972B86997F00F6620C /* ExtensionDelegate.swift in Sources */,
-				1ED1EC982B86997F00F6620C /* SubscriptionsRequest.swift in Sources */,
-				1ED1EC992B86997F00F6620C /* HistoryResponse.swift in Sources */,
-				1ED1EC9A2B86997F00F6620C /* Dependency.swift in Sources */,
-				1ED1EC9B2B86997F00F6620C /* ServerView.swift in Sources */,
-				1ED1EC9C2B86997F00F6620C /* RoomView.swift in Sources */,
-				1ED1EC9D2B86997F00F6620C /* RoomsRequest.swift in Sources */,
-				1ED1EC9E2B86997F00F6620C /* ServersLoader.swift in Sources */,
-				1ED1EC9F2B86997F00F6620C /* MessageFormatter.swift in Sources */,
-				1ED1ECA02B86997F00F6620C /* AttachmentView.swift in Sources */,
-				1ED1ECA12B86997F00F6620C /* JSONAdapter.swift in Sources */,
-				1ED1ECA22B86997F00F6620C /* DateCodingStrategy.swift in Sources */,
-				1ED1ECA32B86997F00F6620C /* RetryView.swift in Sources */,
-				1ED1ECA42B86997F00F6620C /* ServerListView.swift in Sources */,
-				1ED1ECA52B86997F00F6620C /* RoomFormatter.swift in Sources */,
-				1ED1ECA62B86997F00F6620C /* MessagesLoader.swift in Sources */,
-				1ED1ECA72B86997F00F6620C /* RoomViewModel.swift in Sources */,
-				1ED1ECA82B86997F00F6620C /* ErrorActionHandler.swift in Sources */,
-				1ED1ECA92B86997F00F6620C /* SendMessageRequest.swift in Sources */,
-				1ED1ECAA2B86997F00F6620C /* String+Extensions.swift in Sources */,
-				1EE097042BACD66900780078 /* NavigationStackModifier.swift in Sources */,
-				1ED1ECAB2B86997F00F6620C /* RocketChatDatabase.swift in Sources */,
-				1ED1ECAC2B86997F00F6620C /* Room.swift in Sources */,
-				1ED1ECAD2B86997F00F6620C /* FailableDecodable.swift in Sources */,
-				1ED1ECAE2B86997F00F6620C /* WatchSession.swift in Sources */,
-				1ED1ECAF2B86997F00F6620C /* ReadRequest.swift in Sources */,
-				1ED1ECB02B86997F00F6620C /* MessageSender.swift in Sources */,
-				1ED1ECB12B86997F00F6620C /* RocketChatError.swift in Sources */,
-				1EED2D342BC1E09500832666 /* RoomInfoView.swift in Sources */,
-				1ED1ECB22B86997F00F6620C /* RoomsLoader.swift in Sources */,
-				1ED1ECB32B86997F00F6620C /* SendMessageResponse.swift in Sources */,
-				1ED1ECB42B86997F00F6620C /* LoggedUser.swift in Sources */,
-				1ED1ECB52B86997F00F6620C /* MessageView.swift in Sources */,
-				1ED1ECB62B86997F00F6620C /* CancelBag.swift in Sources */,
-				1ED1ECB72B86997F00F6620C /* TokenAdapter.swift in Sources */,
-				1ED1ECB82B86997F00F6620C /* Request.swift in Sources */,
-				1E675B732BAC49B000438590 /* Color+Extensions.swift in Sources */,
-				1ED1ECB92B86997F00F6620C /* URLSessionCertificateHandling.swift in Sources */,
-				1E388AC22B934CD4006FBDB0 /* RemoteImage.swift in Sources */,
-				1E388ABF2B934C64006FBDB0 /* ImageLoader.swift in Sources */,
-				1ED1ECBA2B86997F00F6620C /* RocketChatClient.swift in Sources */,
-				1E54BA212BC9E9B60073903D /* MergedRoomMapper.swift in Sources */,
-				1ED1ECBB2B86997F00F6620C /* AppView.swift in Sources */,
-				1ED1ECBC2B86997F00F6620C /* MessagesRequest.swift in Sources */,
-				1ED1ECBD2B86997F00F6620C /* Date+Extensions.swift in Sources */,
-				1EC687BA2BA0FF0D00C7BAAD /* MessageInfoMapper.swift in Sources */,
-				1ED1ECBE2B86997F00F6620C /* UserResponse.swift in Sources */,
-				1ED1ECBF2B86997F00F6620C /* Default.xcdatamodeld in Sources */,
-				1E6BA5CB2BD13DEA00B16A18 /* AttachmentModel.swift in Sources */,
-				1ED1ECC02B86997F00F6620C /* Storage.swift in Sources */,
-				1ED1ECC12B86997F00F6620C /* MessageResponse.swift in Sources */,
-				1ED1ECC22B86997F00F6620C /* HTTPMethod.swift in Sources */,
-				1ED1ECC32B86997F00F6620C /* RequestAdapter.swift in Sources */,
-				1E6BA5C92BD13DEA00B16A18 /* MessageModel.swift in Sources */,
-				1ED1ECC42B86997F00F6620C /* RoomsResponse.swift in Sources */,
-				1ED1ECC52B86997F00F6620C /* LoggedInView.swift in Sources */,
-				1E54BA1A2BC9E7100073903D /* MergedRoom.swift in Sources */,
-				1ED1ECC62B86997F00F6620C /* MessagesResponse.swift in Sources */,
-				1ED1ECC72B86997F00F6620C /* HistoryRequest.swift in Sources */,
-				1ED1ECC82B86997F00F6620C /* WatchMessage.swift in Sources */,
-				1ED1ECC92B86997F00F6620C /* AttachmentResponse.swift in Sources */,
-				1ED1ECCA2B86997F00F6620C /* URL+Extensions.swift in Sources */,
-				1E6BA5C72BD13DEA00B16A18 /* RoomModel.swift in Sources */,
-				1ED1ECCB2B86997F00F6620C /* RocketChatApp.swift in Sources */,
-				1ED1ECCC2B86997F00F6620C /* RoomListView.swift in Sources */,
-				1ED1ECCD2B86997F00F6620C /* MessageViewModel.swift in Sources */,
-				1ED1ECCE2B86997F00F6620C /* ChatScrollView.swift in Sources */,
-				1ED1ECCF2B86997F00F6620C /* AppRouter.swift in Sources */,
-				1ED1ECD02B86997F00F6620C /* Database.swift in Sources */,
-				1ED1ECD12B86997F00F6620C /* Attachment.swift in Sources */,
-				1ED1ECD22B86997F00F6620C /* Data+Extensions.swift in Sources */,
-				1ED1ECD32B86997F00F6620C /* ReadResponse.swift in Sources */,
-				1ED1ECD42B86997F00F6620C /* RocketChat.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2396,16 +1899,12 @@
 				7AACF8AE2C94B28B0082844E /* DecryptedContent.swift in Sources */,
 				1ED038A72B50900800C007D4 /* Bundle+Extensions.swift in Sources */,
 				7AAB3E26257E6A6E00707CF6 /* String+Extensions.swift in Sources */,
-				1ED038BB2B50A1B800C007D4 /* WatchConnection.swift in Sources */,
 				7AACF8AA2C94AB8B0082844E /* EncryptedContent.swift in Sources */,
 				1ED038A32B508FE700C007D4 /* FileManager+Extensions.swift in Sources */,
 				7AAB3E27257E6A6E00707CF6 /* Notification.swift in Sources */,
-				1ED038C22B50A1E400C007D4 /* DBUser.swift in Sources */,
 				7AAB3E28257E6A6E00707CF6 /* API.swift in Sources */,
 				7AAB3E29257E6A6E00707CF6 /* Response.swift in Sources */,
-				1ED038BF2B50A1D400C007D4 /* DBServer.swift in Sources */,
 				7AAB3E2A257E6A6E00707CF6 /* AppGroup.m in Sources */,
-				1ED038C52B50A1F500C007D4 /* WatchMessage.swift in Sources */,
 				7AAB3E2B257E6A6E00707CF6 /* main.m in Sources */,
 				7AAB3E2C257E6A6E00707CF6 /* URL+Extensions.swift in Sources */,
 				7AAB3E2D257E6A6E00707CF6 /* AppGroup.swift in Sources */,
@@ -2434,16 +1933,6 @@
 			isa = PBXTargetDependency;
 			target = 1EC6ACAF22CB9FC300A41C61 /* ShareRocketChatRN */;
 			targetProxy = 1EC6ACB922CB9FC300A41C61 /* PBXContainerItemProxy */;
-		};
-		1ED1ECE62B8699E900F6620C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1ED0388D2B507B4B00C007D4 /* Rocket.Chat.Watch */;
-			targetProxy = 1ED1ECE52B8699E900F6620C /* PBXContainerItemProxy */;
-		};
-		1EE79C552B8912F600CF1863 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1ED1EC8E2B86997F00F6620C /* RocketChatRN Watch */;
-			targetProxy = 1EE79C542B8912F600CF1863 /* PBXContainerItemProxy */;
 		};
 		1EFEB59B2493B6640072EDC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2476,7 +1965,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C0B495947CE6B8AC39A2B20 /* Pods-defaults-RocketChatRN.debug.xcconfig */;
+			baseConfigurationReference = 8F929034DC7D8217BC3A470E /* Pods-defaults-RocketChatRN.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -2540,7 +2029,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C3267AF369919974DD51522 /* Pods-defaults-RocketChatRN.release.xcconfig */;
+			baseConfigurationReference = 41255DC58F46F11F36AC3E21 /* Pods-defaults-RocketChatRN.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -2646,9 +2135,9 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
+					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
 					"$(SRCROOT)/../node_modules/react-native-mmkv-storage/ios/**",
-					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
+					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
@@ -2723,9 +2212,9 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/rn-extensions-share/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
-					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
+					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
 					"$(SRCROOT)/../node_modules/react-native-mmkv-storage/ios/**",
-					"$PODS_CONFIGURATION_BUILD_DIR/Firebase",
+					$PODS_CONFIGURATION_BUILD_DIR/Firebase,
 				);
 				INFOPLIST_FILE = ShareRocketChatRN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
@@ -2755,217 +2244,9 @@
 			};
 			name = Release;
 		};
-		1ED0389D2B507B4F00C007D4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"RocketChat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=watchos*]" = S6UPZG7ZR3;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Rocket.Chat;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = chat.rocket.ios;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = chat.rocket.ios.watchkitapp;
-				PRODUCT_NAME = "Rocket.Chat Watch";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore chat.rocket.ios.watchkitapp";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore chat.rocket.ios.watchkitapp";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		1ED0389E2B507B4F00C007D4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"RocketChat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=watchos*]" = S6UPZG7ZR3;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Rocket.Chat;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = chat.rocket.ios;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = chat.rocket.ios.watchkitapp;
-				PRODUCT_NAME = "Rocket.Chat Watch";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore chat.rocket.ios.watchkitapp";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore chat.rocket.ios.watchkitapp";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Release;
-		};
-		1ED1ECDB2B86997F00F6620C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"RocketChat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=watchos*]" = S6UPZG7ZR3;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Rocket.Chat Experimental";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = chat.rocket.reactnative;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = chat.rocket.reactnative.watchkitapp;
-				PRODUCT_NAME = "Rocket.Chat Experimental Watch";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore chat.rocket.reactnative.watchkitapp";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore chat.rocket.reactnative.watchkitapp";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		1ED1ECDC2B86997F00F6620C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"RocketChat Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=watchos*]" = S6UPZG7ZR3;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Rocket.Chat Experimental";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = chat.rocket.reactnative;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = chat.rocket.reactnative.watchkitapp;
-				PRODUCT_NAME = "Rocket.Chat Experimental Watch";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore chat.rocket.reactnative.watchkitapp";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore chat.rocket.reactnative.watchkitapp";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Release;
-		};
 		1EFEB59D2493B6640072EDC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C0FFCE99E2473945DBC888B /* Pods-defaults-NotificationService.debug.xcconfig */;
+			baseConfigurationReference = 00B3B450049199CECE67663C /* Pods-defaults-NotificationService.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2985,6 +2266,7 @@
 				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3007,7 +2289,7 @@
 		};
 		1EFEB59E2493B6640072EDC0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7DCBC60D1813EE90B70756E9 /* Pods-defaults-NotificationService.release.xcconfig */;
+			baseConfigurationReference = A787E44FFEC6503F7D76C636 /* Pods-defaults-NotificationService.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -3050,7 +2332,7 @@
 		};
 		7AAB3E50257E6A6E00707CF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3CDB00F98CBC54FF46A9FCF0 /* Pods-defaults-Rocket.Chat.debug.xcconfig */;
+			baseConfigurationReference = F30354A062889B8DAC586EBC /* Pods-defaults-Rocket.Chat.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -3114,7 +2396,7 @@
 		};
 		7AAB3E51257E6A6E00707CF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AEAF0543E5B9616162C8362 /* Pods-defaults-Rocket.Chat.release.xcconfig */;
+			baseConfigurationReference = 854FF213F5A919D1EEF02938 /* Pods-defaults-Rocket.Chat.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -3238,10 +2520,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -3304,10 +2583,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -3333,24 +2609,6 @@
 			buildConfigurations = (
 				1EC6ACBC22CB9FC300A41C61 /* Debug */,
 				1EC6ACBD22CB9FC300A41C61 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1ED0389F2B507B4F00C007D4 /* Build configuration list for PBXNativeTarget "Rocket.Chat.Watch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1ED0389D2B507B4F00C007D4 /* Debug */,
-				1ED0389E2B507B4F00C007D4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1ED1ECDA2B86997F00F6620C /* Build configuration list for PBXNativeTarget "RocketChatRN Watch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1ED1ECDB2B86997F00F6620C /* Debug */,
-				1ED1ECDC2B86997F00F6620C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
