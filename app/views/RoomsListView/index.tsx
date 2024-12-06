@@ -455,21 +455,13 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 			return null;
 		};
 
-		const disabled = supportedVersionsStatus === 'expired' || user.requirePasswordChange;
-
 		return {
 			headerLeft: () => (
 				<HeaderButton.Drawer
 					navigation={navigation}
 					testID='rooms-list-view-sidebar'
-					onPress={
-						isMasterDetail
-							? () => navigation.navigate('ModalStackNavigator', { screen: 'SettingsView' })
-							: // @ts-ignore
-							  () => navigation.toggleDrawer()
-					}
+					onPress={() => navigation.toggleDrawer()}
 					badge={() => getBadge()}
-					disabled={disabled}
 				/>
 			),
 			headerTitle: () => <RoomsListHeaderView width={headerTitleWidth} />,
@@ -491,20 +483,10 @@ class RoomsListView extends React.Component<IRoomsListViewProps, IRoomsListViewS
 						/>
 					) : null}
 					{canCreateRoom ? (
-						<HeaderButton.Item
-							iconName='create'
-							onPress={this.goToNewMessage}
-							testID='rooms-list-view-create-channel'
-							disabled={disabled}
-						/>
+						<HeaderButton.Item iconName='create' onPress={this.goToNewMessage} testID='rooms-list-view-create-channel' />
 					) : null}
-					<HeaderButton.Item iconName='search' onPress={this.initSearching} testID='rooms-list-view-search' disabled={disabled} />
-					<HeaderButton.Item
-						iconName='directory'
-						onPress={this.goDirectory}
-						testID='rooms-list-view-directory'
-						disabled={disabled}
-					/>
+					<HeaderButton.Item iconName='search' onPress={this.initSearching} testID='rooms-list-view-search' />
+					<HeaderButton.Item iconName='directory' onPress={this.goDirectory} testID='rooms-list-view-directory' />
 				</HeaderButton.Container>
 			)
 		};
