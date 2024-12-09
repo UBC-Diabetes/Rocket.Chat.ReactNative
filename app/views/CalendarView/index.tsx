@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { ExpandableCalendar, AgendaList, CalendarProvider } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -66,32 +66,30 @@ const CalendarView = (): React.ReactElement => {
 	return (
 		<View style={{ flex: 1, backgroundColor: colors.backgroundColor }} testID='calendar-view'>
 			<StatusBar />
-			<ScrollView style={{ flex: 1 }}>
-				<Text style={styles.title}>Calendar</Text>
-				<CalendarProvider date={todaysDate}>
-					<ExpandableCalendar
-						testID={testIDs.expandableCalendar.CONTAINER}
-						theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
-						firstDay={0}
-						markedDates={marked}
-					/>
-					<AgendaList
-						sections={agendaItems ?? []}
-						renderItem={renderItem}
-						sectionStyle={{
-							backgroundColor: '#F5F4F2'
-						}}
-					/>
-				</CalendarProvider>
-				{shouldShowConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} userName={userName} />}
-				{isAdmin && (
-					<View style={styles.adminButtonContainer}>
-						<Touchable style={styles.adminButton} onPress={() => createEvent()}>
-							<Text style={styles.adminButtonText}>Create event</Text>
-						</Touchable>
-					</View>
-				)}
-			</ScrollView>
+			<Text style={styles.title}>Calendar</Text>
+			<CalendarProvider date={todaysDate}>
+				<ExpandableCalendar
+					testID={testIDs.expandableCalendar.CONTAINER}
+					theme={{ ...theme, dotColor: '#CB007B', arrowColor: '#CB007B', selectedDayBackgroundColor: '#799A79' }}
+					firstDay={0}
+					markedDates={marked}
+				/>
+				<AgendaList
+					sections={agendaItems ?? []}
+					renderItem={renderItem}
+					sectionStyle={{
+						backgroundColor: '#F5F4F2'
+					}}
+				/>
+			</CalendarProvider>
+			{shouldShowConfirmationPopup && <ConfirmationPopup event={confirmationPopupDetails} userName={userName} />}
+			{isAdmin && (
+				<View style={styles.adminButtonContainer}>
+					<Touchable style={styles.adminButton} onPress={() => createEvent()}>
+						<Text style={styles.adminButtonText}>Create event</Text>
+					</Touchable>
+				</View>
+			)}
 		</View>
 	);
 };
