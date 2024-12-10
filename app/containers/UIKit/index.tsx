@@ -62,10 +62,19 @@ class MessageParser extends UiKitParserMessage<React.ReactElement> {
 		const isContext = context === BlockContext.CONTEXT;
 		if (isContext) {
 			return (
-				<MarkdownPreview msg={element.text} style={[isContext && { color: themes[theme].fontSecondaryInfo }]} numberOfLines={0} />
+				<MarkdownPreview
+					key={element.text}
+					msg={element.text}
+					style={[isContext && { color: themes[theme].fontSecondaryInfo }]}
+					numberOfLines={0}
+				/>
 			);
 		}
-		return <Text style={[styles.text, { color: themes[theme].fontDefault }]}>{element.text}</Text>;
+		return (
+			<Text key={element.text} style={[styles.text, { color: themes[theme].fontDefault }]}>
+				{element.text}
+			</Text>
+		);
 	}
 
 	mrkdwn(element: IMarkdown, context: BlockContext) {
@@ -74,10 +83,22 @@ class MessageParser extends UiKitParserMessage<React.ReactElement> {
 		const isContext = context === BlockContext.CONTEXT;
 		if (isContext) {
 			return (
-				<MarkdownPreview msg={element.text} style={[isContext && { color: themes[theme].fontSecondaryInfo }]} numberOfLines={0} />
+				<MarkdownPreview
+					key={element.text}
+					msg={element.text}
+					style={[isContext && { color: themes[theme].fontSecondaryInfo }]}
+					numberOfLines={0}
+				/>
 			);
 		}
-		return <Markdown msg={element.text} theme={theme} style={[isContext && { color: themes[theme].fontSecondaryInfo }]} />;
+		return (
+			<Markdown
+				key={element.text}
+				msg={element.text}
+				theme={theme}
+				style={[isContext && { color: themes[theme].fontSecondaryInfo }]}
+			/>
+		);
 	}
 
 	button(element: IButton, context: BlockContext) {
@@ -96,15 +117,29 @@ class MessageParser extends UiKitParserMessage<React.ReactElement> {
 	}
 
 	divider() {
-		return <Divider />;
+		// Use static key since divider is likely unique in its context
+		return <Divider key='divider' />;
 	}
 
 	section(args: ISection) {
-		return <Section {...args} parser={this.current} />;
+		// Use blockId if available, or generate from content
+		return <Section key={args.blockId || `section-${JSON.stringify(args.text)}`} {...args} parser={this.current} />;
 	}
 
 	actions(args: IActions) {
-		return <Actions {...args} parser={this.current} />;
+		// Use blockId if available
+		return <Actions key={args.blockId || `actions-${Date.now()}`} {...args} parser={this.current} />;
+	}
+
+	context(args: any) {
+		const { theme } = useContext(ThemeContext);
+		// Use blockId or generate from content
+		return <Context key={args.blockId || `context-${JSON.stringify(args.elements)}`} {...args} theme={theme} parser={this} />;
+	}
+
+	video_conf(element: IElement & { callId: string }) {
+		// Use callId since it should be unique
+		return <VideoConferenceBlock key={element.callId} callId={element.callId} blockId={element.blockId!} />;
 	}
 
 	overflow(element: IElement, context: BlockContext) {
@@ -131,11 +166,6 @@ class MessageParser extends UiKitParserMessage<React.ReactElement> {
 		return <Image element={element} context={context} />;
 	}
 
-	context(args: any) {
-		const { theme } = useContext(ThemeContext);
-		return <Context {...args} theme={theme} parser={this} />;
-	}
-
 	multiStaticSelect(element: IElement, context: BlockContext) {
 		const [{ loading, value }, action] = useBlockContext(element, context);
 		const valueFiltered = element?.options?.filter(option => value?.includes(option.value));
@@ -150,10 +180,6 @@ class MessageParser extends UiKitParserMessage<React.ReactElement> {
 	selectInput(element: IElement, context: BlockContext) {
 		const [{ loading, value }, action] = useBlockContext(element, context);
 		return <MultiSelect {...element} value={value} onChange={action} context={context} loading={loading} />;
-	}
-
-	video_conf(element: IElement & { callId: string }) {
-		return <VideoConferenceBlock callId={element.callId} blockId={element.blockId!} />;
 	}
 }
 
