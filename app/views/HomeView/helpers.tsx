@@ -54,18 +54,6 @@ export const getVirtualHappyHourChat = async (): Promise<TSubscriptionModel | un
 	});
 };
 
-export const navigateToVirtualHappyHour = async (Navigation: any, isMasterDetail: boolean) => {
-	if (Navigation) {
-		try {
-			const chatRoom = await getVirtualHappyHourChat();
-			await Navigation.navigate('RoomView');
-			goRoom({ item: chatRoom, isMasterDetail: true });
-		} catch (error) {
-			console.error('error', error);
-		}
-	}
-};
-
 export const navToTechSupport = async (Navigation: any, isMasterDetail: boolean): Promise<void> => {
 	try {
 		const db = database.active;
@@ -131,13 +119,36 @@ export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
 	});
 };
 
+export const navigateToVirtualHappyHour = async (Navigation: any, isMasterDetail: boolean) => {
+	if (Navigation) {
+		try {
+			const db = database.active;
+			const subsCollection = db.get('subscriptions');
+			const query = await subsCollection.query(Q.where('name', VIRTUAL_HAPPY_HOUR_ROOMID)).fetch();
+
+			if (query.length > 0) {
+				const chatRoom = query[0];
+				await Navigation.navigate('RoomView');
+				goRoom({ item: chatRoom, isMasterDetail: true });
+			}
+		} catch (error) {
+			console.error('error', error);
+		}
+	}
+};
+
 export const navigateTo247Chat = async (Navigation: any, isMasterDetail: boolean) => {
 	if (Navigation) {
 		try {
-			const chatRoom = await get247Chat();
+			const db = database.active;
+			const subsCollection = db.get('subscriptions');
+			const query = await subsCollection.query(Q.where('name', CHAT247ROOMID)).fetch();
 
-			await Navigation.navigate('RoomView');
-			goRoom({ item: chatRoom, isMasterDetail: true });
+			if (query.length > 0) {
+				const chatRoom = query[0];
+				await Navigation.navigate('RoomView');
+				goRoom({ item: chatRoom, isMasterDetail: true });
+			}
 		} catch (error) {
 			console.error('error', error);
 		}
