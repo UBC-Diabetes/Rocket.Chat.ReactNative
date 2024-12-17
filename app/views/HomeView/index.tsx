@@ -22,7 +22,7 @@ import Avatar from '../../containers/Avatar';
 import Navigation from '../../lib/navigation/appNavigation';
 
 const HomeView: React.FC = () => {
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
 	const server = useSelector((state: IApplicationState) => state.server.server);
@@ -76,8 +76,7 @@ const HomeView: React.FC = () => {
 				style={{ opacity: disabled ? 0.4 : 1, ...tileStyles.tile }}
 				key={index}
 				disabled={disabled}
-				activeOpacity={0.6}
-			>
+				activeOpacity={0.6}>
 				<View style={tileStyles.tileContent}>
 					<View style={tileStyles.imageContainer}>
 						<Image source={icon} style={imageStyle} resizeMode='contain' />

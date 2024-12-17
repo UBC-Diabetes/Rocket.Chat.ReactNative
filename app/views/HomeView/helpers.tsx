@@ -1,7 +1,7 @@
 import { Q } from '@nozbe/watermelondb';
 
 import database from '../../lib/database';
-import { SubscriptionType, TSubscriptionModel } from '../../definitions';
+import { SubscriptionType } from '../../definitions';
 import { goRoom } from '../../lib/methods/helpers/goRoom';
 import { Services } from '../../lib/services';
 import log from '../../lib/methods/helpers/log';
@@ -10,55 +10,12 @@ const CHAT247ROOMID = '24-7-chatroom';
 const VIRTUAL_HAPPY_HOUR_ROOMID = 'virtual-happy-hours';
 const TECH_SUPPORT_USERNAME = 'tech_support';
 
-export const getVirtualHappyHourChat = async (): Promise<TSubscriptionModel | undefined> => {
-	const db = database.active;
-	const defaultWhereClause = [Q.where('archived', false), Q.where('open', true), Q.sortBy('room_updated_at', Q.desc)] as (
-		| Q.WhereDescription
-		| Q.SortBy
-	)[];
-
-	return new Promise<TSubscriptionModel | undefined>((resolve, reject) => {
-		try {
-			const observable = db
-				.get('subscriptions')
-				.query(...defaultWhereClause)
-				.observeWithColumns(['on_hold']);
-
-			console.log('Observable created:', observable); // Debug log
-
-			const subscription = observable.subscribe({
-				next: data => {
-					console.log('Data received:', data); // Debug log
-					if (subscription) {
-						subscription.unsubscribe();
-					}
-					const chatRoom = data.find(chat => chat.name === VIRTUAL_HAPPY_HOUR_ROOMID);
-					resolve(chatRoom);
-				},
-				error: error => {
-					console.log('Error in subscription:', error); // Debug log
-					if (subscription) {
-						subscription.unsubscribe();
-					}
-					reject(error);
-				}
-			});
-
-			if (!subscription) {
-				throw new Error('Subscription was not created properly');
-			}
-		} catch (e) {
-			console.error('Error in getVirtualHappyHourChat:', e);
-			reject(e);
-		}
-	});
-};
-
-export const navToTechSupport = async (Navigation: any, isMasterDetail: boolean): Promise<void> => {
+export const navToTechSupport = async (Navigation: any): Promise<void> => {
+	let query;
 	try {
 		const db = database.active;
 		const subsCollection = db.get('subscriptions');
-		const query = await subsCollection.query(Q.where('name', TECH_SUPPORT_USERNAME)).fetch();
+		query = await subsCollection.query(Q.where('name', TECH_SUPPORT_USERNAME)).fetch();
 		if (query.length > 0) {
 			const room = query[0];
 			await Navigation.navigate('RoomView');
@@ -76,50 +33,7 @@ export const navToTechSupport = async (Navigation: any, isMasterDetail: boolean)
 	}
 };
 
-export const get247Chat = async (): Promise<TSubscriptionModel | undefined> => {
-	const db = database.active;
-	const defaultWhereClause = [Q.where('archived', false), Q.where('open', true), Q.sortBy('room_updated_at', Q.desc)] as (
-		| Q.WhereDescription
-		| Q.SortBy
-	)[];
-
-	return new Promise<TSubscriptionModel | undefined>((resolve, reject) => {
-		try {
-			const observable = db
-				.get('subscriptions')
-				.query(...defaultWhereClause)
-				.observeWithColumns(['on_hold']);
-
-			const subscription = observable.subscribe({
-				next: data => {
-					if (subscription) {
-						subscription.unsubscribe();
-					}
-					const chatRoom = data.find(chat => chat.name === CHAT247ROOMID);
-					resolve(chatRoom);
-				},
-				error: error => {
-					console.log('Error in subscription:', error); // Debug log
-					if (subscription) {
-						subscription.unsubscribe();
-					}
-					reject(error);
-				}
-			});
-
-			console.log('Subscription created:', subscription); // Debug log
-
-			if (!subscription) {
-				throw new Error('Subscription was not created properly');
-			}
-		} catch (e) {
-			console.error('Error in get247Chat:', e);
-			reject(e);
-		}
-	});
-};
-
-export const navigateToVirtualHappyHour = async (Navigation: any, isMasterDetail: boolean) => {
+export const navigateToVirtualHappyHour = async (Navigation: any) => {
 	if (Navigation) {
 		try {
 			const db = database.active;
@@ -137,17 +51,33 @@ export const navigateToVirtualHappyHour = async (Navigation: any, isMasterDetail
 	}
 };
 
-export const navigateTo247Chat = async (Navigation: any, isMasterDetail: boolean) => {
+export const navigateTo247Chat = async (Navigation: any) => {
 	if (Navigation) {
 		try {
+			console.log('CHAT247ROOMID:', CHAT247ROOMID);
+
+			console.log('Starting 247 navigation');
 			const db = database.active;
 			const subsCollection = db.get('subscriptions');
+
+			const allSubs = await subsCollection.query().fetch();
+			console.log(
+				'All subscription names:',
+				allSubs.map(s => s.name)
+			);
+
 			const query = await subsCollection.query(Q.where('name', CHAT247ROOMID)).fetch();
+			console.log('247 query result:', query.length > 0 ? 'found' : 'not found');
 
 			if (query.length > 0) {
+				console.log('About to navigate to 247');
+
 				const chatRoom = query[0];
 				await Navigation.navigate('RoomView');
+				console.log('About to goRoom 247');
+
 				goRoom({ item: chatRoom, isMasterDetail: true });
+				console.log('247 navigation complete');
 			}
 		} catch (error) {
 			console.error('error', error);
