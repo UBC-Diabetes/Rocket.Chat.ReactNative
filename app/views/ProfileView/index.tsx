@@ -292,7 +292,6 @@ class ProfileView extends React.Component<IProfileViewProps, IProfileViewState> 
 
 					logEvent(events.SE_CLEAR_LOCAL_SERVER_CACHE);
 					await deleteMediaFiles(server);
-					await clearCache({ server });
 					await FastImage.clearMemoryCache();
 					await FastImage.clearDiskCache();
 				} catch (e) {

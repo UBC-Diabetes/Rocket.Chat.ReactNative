@@ -82,13 +82,11 @@ class ProfileLibraryView extends React.Component {
 		const { server } = this.props;
 
 		await deleteMediaFiles(server.server);
-		await clearCache({ server: server.server });
 		await FastImage.clearMemoryCache();
 		await FastImage.clearDiskCache();
 	};
 
 	componentDidMount() {
-		this.clearCache();
 		this.load({});
 		logEvent(events.DIRECTORY_SEARCH_USERS);
 	}
