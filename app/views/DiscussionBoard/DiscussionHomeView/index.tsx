@@ -82,6 +82,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 	}, [isFocused]);
 
 	useEffect(() => {
+		let subscription: any;
 		const getSubscriptions = async () => {
 			const isGrouping = showUnread || showFavorites || groupByType;
 			let observable;
@@ -109,7 +110,7 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 					.observeWithColumns(['on_hold']);
 			}
 
-			observable.subscribe(data => {
+			subscription = observable.subscribe(data => {
 				const formattedData = data.map(d => {
 					const jsonObject = {
 						...d,
@@ -140,6 +141,11 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 		};
 
 		getSubscriptions();
+		return () => {
+			if (subscription?.unsubscribe) {
+				subscription.unsubscribe();
+			}
+		};
 	}, [isFocused]);
 
 	const getSavedChat = async () => {

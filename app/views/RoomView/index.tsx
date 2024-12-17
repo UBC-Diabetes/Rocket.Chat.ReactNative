@@ -328,6 +328,15 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 	};
 
 	async componentWillUnmount() {
+		this.mounted = false;
+		// Wait for any pending subscription updates to finish
+		if (this.subSubscription) {
+			await new Promise(resolve => {
+				this.subSubscription.unsubscribe();
+				this.subSubscription = undefined;
+				resolve(true);
+			});
+		}
 		const { dispatch } = this.props;
 		dispatch(clearInAppFeedback());
 		this.mounted = false;
@@ -669,20 +678,26 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 	};
 
 	observeRoom = (room: TSubscriptionModel) => {
+		if (this.subSubscription) {
+			this.subSubscription.unsubscribe();
+			this.subSubscription = undefined;
+		}
+
+		// Only observe if we're mounted
+		if (!this.mounted) return;
+
 		const observable = room.observe();
 		this.subSubscription = observable.subscribe(changes => {
 			const roomUpdate = roomAttrsUpdate.reduce((ret: any, attr) => {
 				ret[attr] = changes[attr];
 				return ret;
 			}, {});
+
+			// Only update if mounted
 			if (this.mounted) {
 				this.internalSetState({ room: changes, roomUpdate, isOnHold: !!changes?.onHold });
-			} else {
-				// @ts-ignore
-				this.state.room = changes;
-				// @ts-ignore
-				this.state.roomUpdate = roomUpdate;
 			}
+			// Remove the else case entirely - don't mutate state when unmounted
 		});
 	};
 
