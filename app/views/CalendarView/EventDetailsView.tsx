@@ -160,9 +160,13 @@ const EventDetailsView = () => {
 
 			<View style={styles.zoomContainer}>
 				<Text style={styles.label}>Meeting Link</Text>
-				<Text style={{ color: 'blue' }} onPress={() => Linking.openURL(meetingLink)}>
-					{meetingLink}
-				</Text>
+				{meetingLink ? (
+					<Text style={{ color: 'blue' }} onPress={() => Linking.openURL(meetingLink)}>
+						{meetingLink}
+					</Text>
+				) : (
+					<Text>No meeting link yet</Text>
+				)}
 			</View>
 			<AddToCalendarButton />
 			<View style={{ height: 1, backgroundColor: '#E3E3E3', width: '100%', marginBottom: 24 }} />
