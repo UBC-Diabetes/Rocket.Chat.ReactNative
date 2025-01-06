@@ -9,10 +9,7 @@ import { getUserSelector } from '../../selectors/login';
 import StatusBar from '../../containers/StatusBar';
 import * as HeaderButton from '../../containers/HeaderButton';
 import { themes } from '../../lib/constants';
-import {
-	//  useTheme,
-	withTheme
-} from '../../theme';
+import { withTheme } from '../../theme';
 import { IApplicationState } from '../../definitions';
 import * as tileData from './data';
 import * as allStyles from './styles';
@@ -21,19 +18,16 @@ import { navToTechSupport, navigateTo247Chat, navigateToVirtualHappyHour } from 
 import Avatar from '../../containers/Avatar';
 import Navigation from '../../lib/navigation/appNavigation';
 
-const HomeView: React.FC = () => {
+const HomeView: React.FC = ({ theme }) => {
 	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
-	const server = useSelector((state: IApplicationState) => state.server.server);
-	const state = useSelector((state: IApplicationState) => state);
 	const userName = user?.username || '';
 	const userRealName = user?.name || '';
-	// const { theme } = useTheme();
-	const theme = 'light';
 
 	const { largeTiles, smallTiles } = tileData;
-	const { styles, createTileStyles } = allStyles;
+	const { createMainStyles, createTileStyles } = allStyles;
+	const styles = createMainStyles({ theme });
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -54,7 +48,8 @@ const HomeView: React.FC = () => {
 	const homeViewTile = ({ icon, title, size, screen, color, disabled = false }: Tileprops, index: number) => {
 		const tileStyles = createTileStyles({
 			size,
-			color: themes[theme][color]
+			color: themes[theme][color],
+			theme
 		});
 		const imageStyle = size === 'large' ? tileStyles.largeImage : tileStyles.smallImage;
 
@@ -63,11 +58,11 @@ const HomeView: React.FC = () => {
 				onPress={() => {
 					if (screen) {
 						if (screen === '24Chat') {
-							navigateTo247Chat(Navigation, isMasterDetail);
+							navigateTo247Chat(Navigation);
 						} else if (screen === 'VirtualHappyHour') {
-							navigateToVirtualHappyHour(Navigation, isMasterDetail);
+							navigateToVirtualHappyHour(Navigation);
 						} else if (screen === 'TechSupport') {
-							navToTechSupport(Navigation, isMasterDetail);
+							navToTechSupport(Navigation);
 						} else {
 							navigation.navigate(screen);
 						}
