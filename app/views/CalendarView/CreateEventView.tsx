@@ -143,7 +143,7 @@ const CreateEventView = () => {
 				<Text style={styles.label}>Title</Text>
 				<TextInput
 					style={styles.input}
-					value={isEditing ? draftEvent.title : ''}
+					value={isEditing && draftEvent.title}
 					onChangeText={onTitleChange}
 					placeholder='Enter event title'
 					placeholderTextColor={colors.placeholderText}
@@ -178,7 +178,7 @@ const CreateEventView = () => {
 					style={[styles.input, styles.textArea]}
 					placeholder='Describe your event'
 					placeholderTextColor={colors.placeholderText}
-					value={isEditing ? draftEvent.description : ''}
+					value={isEditing && draftEvent.description}
 					onChangeText={onDescriptionChange}
 					multiline
 					numberOfLines={4}
