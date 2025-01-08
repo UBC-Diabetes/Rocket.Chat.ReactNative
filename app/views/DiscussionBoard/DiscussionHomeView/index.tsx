@@ -8,7 +8,7 @@ import { Q } from '@nozbe/watermelondb';
 import database from '../../../lib/database';
 import * as HeaderButton from '../../../containers/HeaderButton';
 import { MESSAGE_TYPE_ANY_LOAD, SortBy, themes } from '../../../lib/constants';
-import { useTheme, withTheme } from '../../../theme';
+import { withTheme } from '../../../theme';
 import { IApplicationState } from '../../../definitions';
 import DiscussionBoardCard from '../Components/DiscussionBoardCard';
 import DiscussionPostCard from '../Components/DiscussionPostCard';
@@ -36,7 +36,7 @@ const VIRTUAL_HAPPY_HOUR = {
 	ROOM_RID: 'jRXA42HyPKpjAmZpX'
 };
 
-const DiscussionHomeView: React.FC = ({ route }) => {
+const DiscussionHomeView: React.FC = ({ route, theme }) => {
 	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
 	const { sortBy, showUnread, showFavorites, groupByType } = useSelector((state: IApplicationState) => state.sortPreferences);
@@ -48,8 +48,6 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 	const [starredPosts, setStarredPosts] = useState([]);
 	const isFocused = useIsFocused();
 	const db = database.active;
-	// const { theme } = useTheme();
-	const theme = 'light';
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
@@ -188,48 +186,43 @@ const DiscussionHomeView: React.FC = ({ route }) => {
 		}
 	}, [selectedTab]);
 
-	const content = () => (
-		<View style={{ width: '100%' }}>
-			{selectedTab === DiscussionTabs.DISCUSSION_BOARDS && (
-				<FlatList
-					data={boards}
-					renderItem={({ item }) => (
-						<DiscussionBoardCard item={item} onPress={() => navigation.navigate('DiscussionBoardView', { item, boards })} />
-					)}
-					keyExtractor={(item, id) => item.title + id}
-					ItemSeparatorComponent={() => <View style={styles.discussionBoardsSeparator} />}
-					style={{ padding: 20 }}
-					ListFooterComponent={<View style={styles.footer} />}
-				/>
-			)}
-			{selectedTab === DiscussionTabs.SAVED_POSTS && (
-				<FlatList
-					data={starredPosts}
-					renderItem={({ item }) => (
-						<DiscussionPostCard
-							{...item}
-							onPress={(params: any) => navigation.navigate('DiscussionPostView', params)}
-							starPost={(message: any) =>
-								handleStar(message, async () => {
-									await loadMissedMessages({ rid: message.rid, lastOpen: moment().subtract(7, 'days').toDate() });
-									getSavedChat();
-								})
-							}
-						/>
-					)}
-					keyExtractor={(item, id) => item.title + id}
-					ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
-					style={{ padding: 20 }}
-					ListFooterComponent={<View style={styles.footer} />}
-				/>
-			)}
-		</View>
-	);
-
 	return (
 		<View style={styles.mainContainer}>
 			<Header onTabChange={(tab: DiscussionTabs) => setSelectedTab(tab)} />
-			{content()}
+			<View style={{ width: '100%' }}>
+				{selectedTab === DiscussionTabs.DISCUSSION_BOARDS && (
+					<FlatList
+						data={boards}
+						renderItem={({ item }) => (
+							<DiscussionBoardCard item={item} onPress={() => navigation.navigate('DiscussionBoardView', { item, boards })} />
+						)}
+						keyExtractor={(item, id) => item.title + id}
+						ItemSeparatorComponent={() => <View style={styles.discussionBoardsSeparator} />}
+						style={{ padding: 20 }}
+						ListFooterComponent={<View style={styles.footer} />}
+					/>
+				)}
+				{selectedTab === DiscussionTabs.SAVED_POSTS && (
+					<FlatList
+						data={starredPosts}
+						renderItem={({ item }) => (
+							<DiscussionPostCard
+								{...item}
+								onPress={(params: any) => navigation.navigate('DiscussionPostView', params)}
+								starPost={(message: any) =>
+									handleStar(message, async () => {
+										await loadMissedMessages({ rid: message.rid, lastOpen: moment().subtract(7, 'days').toDate() });
+										getSavedChat();
+									})
+								}
+							/>
+						)}
+						keyExtractor={(item, id) => item.title + id}
+						ItemSeparatorComponent={() => <View style={{ height: 24 }} />}
+						ListFooterComponent={<View style={styles.footer} />}
+					/>
+				)}
+			</View>
 		</View>
 	);
 };
