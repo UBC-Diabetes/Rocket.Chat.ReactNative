@@ -18,18 +18,16 @@ const Thread = React.memo(
 		// Otherwise, it is visible only if someone has replied as a thread already
 		// We want it to be visible so people make more threads, organizing the discussion
 
-		const isNotMain247Chatroom = isRoom247Chatroom && isThreadRoom;
+		const isMain247Chatroom = isRoom247Chatroom && !isThreadRoom;
 
-		if (isNotMain247Chatroom && (!tlm || isThreadRoom || tcount === null)) {
+		if (!isMain247Chatroom && (!tlm || isThreadRoom || tcount === null)) {
 			return null;
 		}
-
 		return (
 			<View style={styles.buttonContainer}>
 				<View
 					style={[styles.button, { backgroundColor: themes[theme].badgeBackgroundLevel2 }]}
-					testID={`message-thread-button-${msg}`}
-				>
+					testID={`message-thread-button-${msg}`}>
 					<Text style={[styles.buttonText, { color: themes[theme].fontWhite }]}>{I18n.t('Reply')}</Text>
 				</View>
 				<ThreadDetails
