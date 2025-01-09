@@ -11,6 +11,9 @@ export const themeColors = {
 };
 
 const light = {
+	discussionBoardHeaderButtonText: '#00000080',
+	discussionBoardHeaderButtonTextSelected: '#000000',
+
 	surfaceLight: '#FFFFFF',
 	surfaceTint: '#F7F8FA',
 	surfaceRoom: '#FFFFFF',
@@ -103,6 +106,9 @@ const light = {
 };
 
 const dark = {
+	discussionBoardHeaderButtonText: '#FFFFFF80',
+	discussionBoardHeaderButtonTextSelected: '#FFFFFF',
+
 	surfaceLight: '#262931',
 	surfaceTint: '#1F2329',
 	surfaceRoom: '#1F2329',
@@ -195,6 +201,9 @@ const dark = {
 };
 
 const black = {
+	discussionBoardHeaderButtonText: '#FFFFFF80',
+	discussionBoardHeaderButtonTextSelected: '#FFFFFF',
+
 	surfaceLight: '#0d0d0d',
 	surfaceTint: '#16181a',
 	surfaceRoom: '#000000',

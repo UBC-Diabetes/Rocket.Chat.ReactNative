@@ -2,12 +2,16 @@ import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
 
 import { withTheme } from '../../../theme';
+import { themes } from '../../../lib/constants';
 import { DiscussionTabs, DiscussionHeaderProps } from '../DiscussionHomeView/interaces';
 
-const DiscussionHeader: React.FC<DiscussionHeaderProps> = ({ onTabChange }) => {
+const DiscussionHeader: React.FC<DiscussionHeaderProps> = ({ onTabChange, theme }) => {
 	const [selectedTab, setSelectedTab] = useState(DiscussionTabs.DISCUSSION_BOARDS);
 	const [headerWidth, setHeaderWidth] = useState(0);
 	const marginLeft = useRef(new Animated.Value(0)).current;
+
+	const themeColors = themes[theme];
+	const styles = makeStyles(themeColors);
 
 	const moveTabHighlight = (tab: DiscussionTabs) => {
 		const animation = Animated.timing(marginLeft, {
@@ -37,8 +41,7 @@ const DiscussionHeader: React.FC<DiscussionHeaderProps> = ({ onTabChange }) => {
 			<View style={styles.headerRow} onLayout={onLayout}>
 				<TouchableOpacity style={styles.headerButton} onPress={() => onSelectTab(DiscussionTabs.DISCUSSION_BOARDS)}>
 					<Text
-						style={selectedTab === DiscussionTabs.DISCUSSION_BOARDS ? styles.headerButtonTextSelected : styles.headerButtonText}
-					>
+						style={selectedTab === DiscussionTabs.DISCUSSION_BOARDS ? styles.headerButtonTextSelected : styles.headerButtonText}>
 						Discussion Boards
 					</Text>
 				</TouchableOpacity>
@@ -57,41 +60,42 @@ const DiscussionHeader: React.FC<DiscussionHeaderProps> = ({ onTabChange }) => {
 
 export default withTheme(DiscussionHeader);
 
-const styles = StyleSheet.create({
-	container: {
-		paddingHorizontal: 20,
-		width: '100%'
-	},
-	headerRow: {
-		flexDirection: 'row'
-	},
-	headerButton: {
-		width: '50%',
-		height: 39,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	headerButtonText: {
-		fontWeight: '500',
-		fontSize: 16,
-		lineHeight: 19,
-		color: '#00000080'
-	},
-	headerButtonTextSelected: {
-		fontWeight: '500',
-		fontSize: 16,
-		lineHeight: 19,
-		color: '#000000'
-	},
-	headerBreak: {
-		height: 1,
-		width: '100%',
-		backgroundColor: '#E3E3E3',
-		marginBottom: 4
-	},
-	headerBreakHighlight: {
-		backgroundColor: '#000000',
-		width: '50%',
-		height: 1
-	}
-});
+const makeStyles = themeColors =>
+	StyleSheet.create({
+		container: {
+			paddingHorizontal: 20,
+			width: '100%'
+		},
+		headerRow: {
+			flexDirection: 'row'
+		},
+		headerButton: {
+			width: '50%',
+			height: 39,
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		headerButtonText: {
+			fontWeight: '500',
+			fontSize: 16,
+			lineHeight: 19,
+			color: themeColors.discussionBoardHeaderButtonText
+		},
+		headerButtonTextSelected: {
+			fontWeight: '500',
+			fontSize: 16,
+			lineHeight: 19,
+			color: themeColors.discussionBoardHeaderButtonTextSelected
+		},
+		headerBreak: {
+			height: 1,
+			width: '100%',
+			backgroundColor: '#E3E3E3',
+			marginBottom: 4
+		},
+		headerBreakHighlight: {
+			backgroundColor: '#000000',
+			width: '50%',
+			height: 1
+		}
+	});

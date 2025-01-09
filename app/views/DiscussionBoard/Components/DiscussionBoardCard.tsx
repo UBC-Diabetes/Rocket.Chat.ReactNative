@@ -3,7 +3,7 @@ import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { themes } from '../../../lib/constants';
-import { useTheme } from '../../../theme';
+import { withTheme } from '../../../theme';
 import { DiscussionBoardCardProps } from '../DiscussionHomeView/interaces';
 import { getIcon } from '../helpers';
 import IconOrAvatar from '../../../containers/RoomItem/IconOrAvatar';
@@ -14,7 +14,7 @@ import { useAppSelector } from '../../../lib/hooks';
 const hitSlop = { top: 10, right: 10, bottom: 10, left: 10 };
 const cardColors = ['magenta', 'mossGreen', 'dreamBlue', 'creamsicleYellow', 'pink', 'superGray', 'forestGreen'];
 
-const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardProps) => {
+const DiscussionBoardCard = React.memo(({ item, onPress, theme, colors }: DiscussionBoardCardProps) => {
 	const { title, description, saved = false, icon, color, onSaveClick, avatar, f, usersCount } = item;
 	// const [savedDiscussion, setSavedDiscussion] = React.useState(saved);
 	const {
@@ -29,8 +29,7 @@ const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardPr
 	const status = item.t === 'l' ? item.visitor?.status || item.v?.status : userStatus;
 	const randomColor = cardColors[Math.floor(Math.random() * cardColors.length)];
 
-	const { colors } = useTheme();
-	const theme = 'light';
+	const styles = makeStyles(colors);
 
 	return (
 		<TouchableOpacity style={styles.mainContainer} onPress={() => onPress && onPress()}>
@@ -81,61 +80,64 @@ const DiscussionBoardCard = React.memo(({ item, onPress }: DiscussionBoardCardPr
 	);
 });
 
-export default DiscussionBoardCard;
+export default withTheme(DiscussionBoardCard);
 
-const styles = StyleSheet.create({
-	mainContainer: {
-		width: '100%',
-		flexDirection: 'row'
-	},
-	iconContainer: {
-		borderRadius: 10,
-		height: 80,
-		width: 80,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	icon: {
-		width: 38,
-		height: 38
-	},
-	textContainer: {
-		flex: 1,
-		paddingTop: 6,
-		marginLeft: 12,
-		marginRight: 15
-	},
-	title: {
-		fontFamily: 'Inter',
-		fontWeight: '500',
-		fontSize: 16,
-		lineHeight: 19
-	},
-	description: {
-		fontFamily: 'Inter',
-		fontWeight: '400',
-		fontSize: 12,
-		lineHeight: 15,
-		marginTop: 4
-	},
-	savedContainer: {
-		width: 42,
-		height: 42,
-		marginTop: 10,
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
-	saveIcon: {
-		width: 42,
-		height: 42
-	},
-	boardMembersContainer: {
-		flexDirection: 'row',
-		marginTop: 4
-	},
-	usersIcon: {
-		width: 20,
-		height: 15,
-		marginRight: 8
-	}
-});
+const makeStyles = themeColors =>
+	StyleSheet.create({
+		mainContainer: {
+			width: '100%',
+			flexDirection: 'row'
+		},
+		iconContainer: {
+			borderRadius: 10,
+			height: 80,
+			width: 80,
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		icon: {
+			width: 38,
+			height: 38
+		},
+		textContainer: {
+			flex: 1,
+			paddingTop: 6,
+			marginLeft: 12,
+			marginRight: 15
+		},
+		title: {
+			fontFamily: 'Inter',
+			fontWeight: '500',
+			fontSize: 16,
+			lineHeight: 19,
+			color: themeColors.fontSecondaryInfo
+		},
+		description: {
+			fontFamily: 'Inter',
+			fontWeight: '400',
+			fontSize: 12,
+			lineHeight: 15,
+			marginTop: 4,
+			color: themeColors.fontSecondaryInfo
+		},
+		savedContainer: {
+			width: 42,
+			height: 42,
+			marginTop: 10,
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		saveIcon: {
+			width: 42,
+			height: 42
+		},
+		boardMembersContainer: {
+			flexDirection: 'row',
+			marginTop: 4
+		},
+		usersIcon: {
+			width: 20,
+			height: 15,
+			marginRight: 8
+		}
+	});

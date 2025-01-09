@@ -14,7 +14,7 @@ import DiscussionBoardCard from '../Components/DiscussionBoardCard';
 import DiscussionPostCard from '../Components/DiscussionPostCard';
 import Header from '../Components/Header';
 import { DiscussionTabs } from './interaces';
-import styles from './styles';
+import makeStyles from './styles';
 import { messageTypesToRemove } from '../data';
 import { getRoomAvatar, isGroupChat } from '../../../lib/methods/helpers';
 import { loadMissedMessages } from '../../../lib/methods';
@@ -48,6 +48,9 @@ const DiscussionHomeView: React.FC = ({ route, theme }) => {
 	const [starredPosts, setStarredPosts] = useState([]);
 	const isFocused = useIsFocused();
 	const db = database.active;
+
+	const themeColors = themes[theme];
+	const styles = makeStyles(themeColors);
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
