@@ -241,7 +241,8 @@ const makeStyles = (colors: any) => {
 			borderRadius: 8,
 			padding: 15,
 			marginBottom: 15,
-			fontSize: 16
+			fontSize: 16,
+			color: colors.fontSecondaryInfo
 		},
 		textArea: {
 			height: 100,
