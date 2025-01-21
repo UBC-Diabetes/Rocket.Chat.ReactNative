@@ -1,5 +1,6 @@
 import React from 'react';
 import { I18nManager } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -94,6 +95,8 @@ import DiscussionHomeView from '../views/DiscussionBoard/DiscussionHomeView';
 import DiscussionNewPostView from '../views/DiscussionBoard/NewPostView';
 import DiscussionSearchView from '../views/DiscussionBoard/SearchView';
 import ConnectView from '../views/DiscussionBoard/ConnectView';
+
+import { HeaderBackButton } from '@react-navigation/elements';
 
 import { themes } from '../lib/constants';
 
@@ -278,6 +281,7 @@ const E2EEnterYourPasswordStackNavigator = () => {
 const InsideStack = createNativeStackNavigator<InsideStackParamList & TNavigation>();
 const InsideStackNavigator = () => {
 	const { theme } = React.useContext(ThemeContext);
+	const { goBack } = useNavigation();
 
 	return (
 		<InsideStack.Navigator screenOptions={{ ...defaultHeader, ...themedHeader(theme), presentation: 'containedModal' }}>
@@ -285,7 +289,13 @@ const InsideStackNavigator = () => {
 			<InsideStack.Screen
 				name='VideoPlayerView'
 				component={VideoPlayerView}
-				options={{ title: 'Peer Supporter Video', headerShown: true }}
+				options={{
+					title: 'Peer Supporter Video',
+					headerShown: true,
+					headerLeft: () => (
+						<HeaderBackButton labelVisible={false} onPress={() => goBack()} tintColor={themes[theme].fontDefault} />
+					)
+				}}
 			/>
 			<InsideStack.Screen name='NewMessageStackNavigator' component={NewMessageStackNavigator} options={{ headerShown: false }} />
 			<InsideStack.Screen
