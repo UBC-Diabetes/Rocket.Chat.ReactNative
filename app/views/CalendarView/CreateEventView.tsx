@@ -170,7 +170,7 @@ const CreateEventView = () => {
 						is24Hour={true}
 						display='spinner'
 						onChange={onTimeChange}
-						textColor='black'
+						textColor={colors.controlText}
 					/>
 				)}
 				<Text style={styles.label}>Description</Text>
