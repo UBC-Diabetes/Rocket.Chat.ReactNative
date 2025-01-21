@@ -17,7 +17,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { format, parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useTheme } from '../../theme';
+// import { useTheme } from '../../theme';
+import { themes } from '../../lib/constants';
 import * as HeaderButton from '../../containers/HeaderButton';
 import { cancelEventEdit, createEventDraft, createEventRequest, updateEventRequest } from '../../actions/calendarEvents';
 import { getUserSelector } from '../../selectors/login';
@@ -39,7 +40,8 @@ const CreateEventView = () => {
 	const draftEvent = useSelector((state: IApplicationState) => getDraftEventSelector(state));
 	const userName = user?.username || '';
 
-	const { colors } = useTheme();
+	// let { colors } = useTheme();
+	const colors = themes.light;
 	const styles = makeStyles(colors);
 
 	const backAction = () => {
