@@ -12,10 +12,11 @@ const styles = StyleSheet.create({
 	}
 });
 
-const SearchBox = ({ onChangeText, onSubmitEditing, testID, placeholder }: TextInputProps): JSX.Element => {
+const SearchBox = ({ onChangeText, onSubmitEditing, testID, placeholder, themeColors }: TextInputProps): JSX.Element => {
 	const [text, setText] = useState('');
 
-	const { colors } = useTheme();
+	const theme = useTheme();
+	const colors = themeColors || theme.colors;
 
 	const internalOnChangeText = useCallback((value: string) => {
 		setText(value);
@@ -23,7 +24,7 @@ const SearchBox = ({ onChangeText, onSubmitEditing, testID, placeholder }: TextI
 	}, []);
 
 	return (
-		<View testID='searchbox' style={{ backgroundColor: colors.surfaceRoom }} >
+		<View testID='searchbox' style={{ backgroundColor: colors.surfaceRoom }}>
 			<FormTextInput
 				autoCapitalize='none'
 				autoCorrect={false}
@@ -38,6 +39,7 @@ const SearchBox = ({ onChangeText, onSubmitEditing, testID, placeholder }: TextI
 				testID={testID}
 				onClearInput={() => internalOnChangeText('')}
 				iconRight={'search'}
+				themeColors={colors}
 			/>
 		</View>
 	);

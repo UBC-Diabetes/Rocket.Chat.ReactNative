@@ -11,6 +11,7 @@ import SearchBox from '../../containers/SearchBox';
 import { useTheme } from '../../theme';
 import { createEventDraft } from '../../actions/calendarEvents';
 import { getDraftEventSelector } from '../../selectors/event';
+import { themes } from '../../lib/constants';
 
 export interface IUser {
 	user: {
@@ -20,15 +21,16 @@ export interface IUser {
 }
 
 const SearchPeersView = () => {
-	const theme = useTheme();
+	// const theme = useTheme();
 	const dispatch = useDispatch();
 
-	const { colors } = theme;
+	// const { colors } = theme;
+	const colors = themes.light;
+	const styles = makeStyles(colors);
+
 	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const { data, loading, loadPeers, updateSearchText, text } = useLoadPeers();
 	const [selectedPeers, setSelectedPeers] = useState<Map<string, any>>(new Map());
-
-	const styles = makeStyles(colors);
 
 	const { peers } = useSelector((state: IApplicationState) => getDraftEventSelector(state));
 
@@ -101,6 +103,7 @@ const SearchPeersView = () => {
 						testID='federation-view-search'
 						value={text}
 						placeholder='Add guests'
+						themeColors={colors}
 					/>
 				</View>
 				<TouchableOpacity style={styles.doneButton} onPress={handleDone}>

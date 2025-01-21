@@ -93,7 +93,8 @@ export const FormTextInput = ({
 	accessibilityLabel,
 	...inputProps
 }: IRCTextInputProps): React.ReactElement => {
-	const { colors } = useTheme();
+	const theme = useTheme();
+	const colors = inputProps.themeColors || theme.colors;
 	const [showPassword, setShowPassword] = useState(false);
 	const showClearInput = onClearInput && value && value.length > 0;
 	const Input = bottomSheet ? BottomSheetTextInput : TextInput;
