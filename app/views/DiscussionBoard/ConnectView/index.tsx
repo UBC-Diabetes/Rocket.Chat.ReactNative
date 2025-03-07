@@ -92,6 +92,7 @@ const ConnectView: React.FC = ({ route, theme }: { route: any; theme: string }) 
 		location,
 		bio,
 		t1dSince,
+		pronouns,
 		videoUrl = '';
 
 	const devices = [];
@@ -101,6 +102,7 @@ const ConnectView: React.FC = ({ route, theme }: { route: any; theme: string }) 
 		age = customFields.Age;
 		location = customFields.Location;
 		bio = customFields.Bio;
+		pronouns = customFields.Pronouns;
 		t1dSince = customFields['T1D Since'];
 		videoUrl = customFields.VideoUrl;
 		videoUrl = videoUrl.replace('https://youtu.be/', 'https://www.youtube.com/embed/');
@@ -112,6 +114,8 @@ const ConnectView: React.FC = ({ route, theme }: { route: any; theme: string }) 
 			devices.push(customFields['Insulin Delivery Method']);
 		}
 	}
+
+	const isPronounsPresent = pronouns?.length && pronouns !== 'Not Selected';
 
 	const isVideoUrlPresent = !!videoUrl && videoUrl !== '' && videoUrl !== '?autoplay=1';
 
@@ -133,8 +137,7 @@ const ConnectView: React.FC = ({ route, theme }: { route: any; theme: string }) 
 									style={styles.playIconContainer}
 									onPress={() => {
 										navigation.navigate('VideoPlayerView', { videoUrl: `${videoUrl}` });
-									}}
-								>
+									}}>
 									<Image source={playIcon} style={styles.playIcon} />
 								</TouchableOpacity>
 							) : null}
@@ -147,6 +150,11 @@ const ConnectView: React.FC = ({ route, theme }: { route: any; theme: string }) 
 						{age ? `${name}, ${age}` : `${name ?? ''}`}
 					</Text>
 				</View>
+				{isPronounsPresent && (
+					<View style={styles.pronounsContainer}>
+						<Text style={styles.pronounsText}>{`(${pronouns})`}</Text>
+					</View>
+				)}
 				<View style={styles.locationContainer}>
 					<Text style={[styles.locationText, { color: themes[theme].titleText }]}>{location ?? ''}</Text>
 				</View>

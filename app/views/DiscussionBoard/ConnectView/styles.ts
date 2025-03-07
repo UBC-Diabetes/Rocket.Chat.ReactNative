@@ -32,6 +32,15 @@ const makeStyles = (themes: any, theme: string) => {
 			fontSize: 18,
 			color: themes[theme].titleText
 		},
+		pronounsContainer: {
+			alignSelf: 'center',
+			marginTop: 5
+		},
+		pronounsText: {
+			fontSize: 16,
+			color: themes[theme].auxiliaryText,
+			textAlign: 'center'
+		},
 		locationContainer: {
 			marginTop: 20,
 			alignSelf: 'center'
