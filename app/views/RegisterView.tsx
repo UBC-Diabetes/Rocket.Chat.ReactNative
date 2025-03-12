@@ -189,6 +189,9 @@ class RegisterView extends React.Component<IProps, any> {
 							);
 						}
 
+						const isRequired = this.parsedCustomFields[key].required;
+						const label = isRequired ? `${key}*` : key;
+
 						return (
 							<FormTextInput
 								inputRef={e => {
@@ -196,7 +199,7 @@ class RegisterView extends React.Component<IProps, any> {
 									this[key] = e;
 								}}
 								key={key}
-								label={key}
+								label={label}
 								placeholder={key}
 								value={customFields[key]}
 								onChangeText={(value: string) => {
@@ -233,7 +236,7 @@ class RegisterView extends React.Component<IProps, any> {
 						{I18n.t('Sign_Up')}
 					</Text>
 					<FormTextInput
-						label={I18n.t('Name')}
+						label={`${I18n.t('Name')}*`}
 						containerStyle={styles.inputContainer}
 						placeholder={I18n.t('Full_name')}
 						returnKeyType='next'
@@ -246,7 +249,7 @@ class RegisterView extends React.Component<IProps, any> {
 						autoComplete='name'
 					/>
 					<FormTextInput
-						label={I18n.t('Username')}
+						label={`${I18n.t('Username')}*`}
 						containerStyle={styles.inputContainer}
 						inputRef={e => {
 							this.usernameInput = e;
@@ -261,7 +264,7 @@ class RegisterView extends React.Component<IProps, any> {
 						autoComplete='username'
 					/>
 					<FormTextInput
-						label={I18n.t('Email')}
+						label={`${I18n.t('Email')}*`}
 						containerStyle={styles.inputContainer}
 						inputRef={e => {
 							this.emailInput = e;
@@ -277,7 +280,7 @@ class RegisterView extends React.Component<IProps, any> {
 						autoComplete='email'
 					/>
 					<FormTextInput
-						label={I18n.t('Password')}
+						label={`${I18n.t('Password')}*`}
 						containerStyle={styles.inputContainer}
 						inputRef={e => {
 							this.passwordInput = e;
