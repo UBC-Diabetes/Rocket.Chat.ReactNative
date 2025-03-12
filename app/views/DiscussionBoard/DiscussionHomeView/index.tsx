@@ -54,26 +54,26 @@ const DiscussionHomeView: React.FC = ({ route, theme }) => {
 
 	useEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
-		// if (!isMasterDetail) {
-		// 		navigation.setOptions({
-		// 			headerLeft: () => (
-		// 				<View style={{ marginLeft: 8 }}>
-		// 					<HeaderButton.Drawer navigation={navigation} testID='display-view-drawer' color={themes[theme].superGray} />
-		// 				</View>
-		// 			),
-		// 			headerRight: () => (
-		// 				<View style={{ marginRight: 8 }}>
-		// 					<HeaderButton.Container>
-		// 						<HeaderButton.Item
-		// 							iconName='search'
-		// 							color={themes[theme].superGray}
-		// 							onPress={() => navigation.navigate('DiscussionSearchView', { roomIDs: boards.map((board: any) => board.id) })}
-		// 						/>
-		// 					</HeaderButton.Container>
-		// 				</View>
-		// 			)
-		// 		});
-		// 	}
+		if (!isMasterDetail) {
+			navigation.setOptions({
+				headerLeft: () => (
+					<View style={{ marginLeft: 8 }}>
+						<HeaderButton.Drawer navigation={navigation} testID='display-view-drawer' color={themes[theme].superGray} />
+					</View>
+				),
+				headerRight: () => (
+					<View style={{ marginRight: 8 }}>
+						<HeaderButton.Container>
+							<HeaderButton.Item
+								iconName='search'
+								color={themes[theme].superGray}
+								onPress={() => navigation.navigate('DiscussionSearchView', { roomIDs: boards.map((board: any) => board.id) })}
+							/>
+						</HeaderButton.Container>
+					</View>
+				)
+			});
+		}
 	});
 
 	useEffect(() => {
