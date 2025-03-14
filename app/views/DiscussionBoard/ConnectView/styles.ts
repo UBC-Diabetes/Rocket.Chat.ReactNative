@@ -33,13 +33,14 @@ const makeStyles = (themes: any, theme: string) => {
 			color: themes[theme].titleText
 		},
 		pronounsContainer: {
+			flexDirection: 'row',
 			alignSelf: 'center',
+			alignItems: 'center',
 			marginTop: 5
 		},
 		pronounsText: {
 			fontSize: 16,
-			color: themes[theme].auxiliaryText,
-			textAlign: 'center'
+			color: themes[theme].auxiliaryText
 		},
 		locationContainer: {
 			marginTop: 20,
