@@ -144,17 +144,18 @@ const ConnectView: React.FC = ({ route, theme }: { route: any; theme: string }) 
 						</View>
 					)}
 				</View>
-				<View style={styles.nameContainer}>
-					<Status size={20} id={user._id} />
-					<Text style={[styles.profileName, { color: themes[theme].titleText }]}>
-						{age ? `${name}, ${age}` : `${name ?? ''}`}
-					</Text>
-				</View>
-				{isPronounsPresent && (
-					<View style={styles.pronounsContainer}>
-						<Text style={styles.pronounsText}>{`(${pronouns})`}</Text>
+				<View style={styles.identityContainer}>
+					<View style={styles.nameContainer}>
+						<Status size={20} id={user._id} />
+						<Text style={styles.profileName}>{age ? `${name}, ${age}` : `${name ?? ''}`}</Text>
 					</View>
-				)}
+
+					{isPronounsPresent && (
+						<View style={styles.pronounsContainer}>
+							<Text style={styles.pronounsText}>{`(${pronouns})`}</Text>
+						</View>
+					)}
+				</View>
 				<View style={styles.locationContainer}>
 					<Text style={[styles.locationText, { color: themes[theme].titleText }]}>{location ?? ''}</Text>
 				</View>

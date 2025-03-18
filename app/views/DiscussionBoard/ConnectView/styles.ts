@@ -12,11 +12,27 @@ const makeStyles = (themes: any, theme: string) => {
 		},
 		profileImage: {},
 
+		identityContainer: {
+			alignSelf: 'center',
+			marginTop: 40
+		},
 		nameContainer: {
 			flexDirection: 'row',
-			alignSelf: 'center',
-			marginTop: 40,
 			alignItems: 'center'
+		},
+		profileName: {
+			marginLeft: 10,
+			fontSize: 18,
+			color: themes[theme].titleText
+		},
+		pronounsContainer: {
+			paddingLeft: 30,
+			marginTop: 5
+		},
+
+		pronounsText: {
+			fontSize: 16,
+			color: themes[theme].auxiliaryText
 		},
 		playIconContainer: {
 			position: 'absolute',
@@ -26,21 +42,6 @@ const makeStyles = (themes: any, theme: string) => {
 		playIcon: {
 			height: 50,
 			width: 50
-		},
-		profileName: {
-			marginLeft: 10,
-			fontSize: 18,
-			color: themes[theme].titleText
-		},
-		pronounsContainer: {
-			flexDirection: 'row',
-			alignSelf: 'center',
-			alignItems: 'center',
-			marginTop: 5
-		},
-		pronounsText: {
-			fontSize: 16,
-			color: themes[theme].auxiliaryText
 		},
 		locationContainer: {
 			marginTop: 20,
