@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -52,7 +52,7 @@ const DiscussionHomeView: React.FC = ({ route, theme }) => {
 	const themeColors = themes[theme];
 	const styles = makeStyles(themeColors);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		if (!isMasterDetail) {
 			navigation.setOptions({

@@ -262,14 +262,12 @@ const PostView: React.FC = ({ route }) => {
 			<View style={styles.comment} key={key}>
 				<View style={styles.commentHeader}>
 					<TouchableOpacity
-						onPress={() => navigation.navigate('ConnectView', { user: item.user, fromRid: post?.rid, room: route.params?.room })}
-					>
+						onPress={() => navigation.navigate('ConnectView', { user: item.user, fromRid: post?.rid, room: route.params?.room })}>
 						<Avatar text={username} style={styles.profileImage} size={24} server={server} borderRadius={12} />
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.commentUsernameContainer}
-						onPress={() => navigation.navigate('ConnectView', { user: item.user, fromRid: post?.rid, room: route.params?.room })}
-					>
+						onPress={() => navigation.navigate('ConnectView', { user: item.user, fromRid: post?.rid, room: route.params?.room })}>
 						<Text style={styles.commentUsername}>{name}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
@@ -277,8 +275,7 @@ const PostView: React.FC = ({ route }) => {
 						onPress={() => {
 							setSelectedComment(item);
 							setShowCommentOptionsModal(!showCommentOptionsModal);
-						}}
-					>
+						}}>
 						<Image source={getIcon('more')} style={styles.commentOptionsIcon} resizeMode='contain' />
 					</TouchableOpacity>
 				</View>
@@ -393,8 +390,7 @@ const PostView: React.FC = ({ route }) => {
 								<TouchableOpacity
 									onPress={() =>
 										navigation.navigate('ConnectView', { user: postUser, fromRid: post?.rid, room: route.params?.room })
-									}
-								>
+									}>
 									<Avatar text={postUser?.username} style={styles.profileImage} size={24} server={server} borderRadius={12} />
 								</TouchableOpacity>
 							) : (
@@ -404,8 +400,7 @@ const PostView: React.FC = ({ route }) => {
 								style={styles.profileNameContainer}
 								onPress={() =>
 									navigation.navigate('ConnectView', { user: postUser, fromRid: post?.rid, room: route.params?.room })
-								}
-							>
+								}>
 								<Text style={styles.profileName}>{post?.u?.name ?? ''}</Text>
 							</TouchableOpacity>
 							{showDelete && (
@@ -419,8 +414,7 @@ const PostView: React.FC = ({ route }) => {
 											setShowReportModal(true);
 										}
 									}}
-									hitSlop={hitSlop}
-								>
+									hitSlop={hitSlop}>
 									<Image source={getIcon('more')} style={styles.moreMenuIcon} resizeMode='contain' />
 								</TouchableOpacity>
 							)}
@@ -473,8 +467,7 @@ const PostView: React.FC = ({ route }) => {
 									likePost();
 								}}
 								style={{ flexDirection: 'row', alignItems: 'center' }}
-								hitSlop={hitSlop}
-							>
+								hitSlop={hitSlop}>
 								<Image
 									style={{ ...styles.icon, ...(postLiked && { tintColor: 'blue' }) }}
 									source={getIcon('like')}
@@ -485,8 +478,7 @@ const PostView: React.FC = ({ route }) => {
 							<TouchableOpacity
 								onPress={() => scrollCommentsToTop()}
 								style={{ flexDirection: 'row', alignItems: 'center' }}
-								hitSlop={hitSlop}
-							>
+								hitSlop={hitSlop}>
 								<Image style={styles.icon} source={getIcon('comment')} resizeMode='contain' />
 								<Text style={styles.reactionText}>{replies?.length ?? '0'}</Text>
 							</TouchableOpacity>
@@ -517,8 +509,7 @@ const PostView: React.FC = ({ route }) => {
 								// send api request to post comment
 								sendReply(newComment);
 								Keyboard.dismiss();
-							}}
-						>
+							}}>
 							<Image source={getIcon('send')} style={styles.sendIcon} resizeMode='contain' />
 						</TouchableOpacity>
 					</View>

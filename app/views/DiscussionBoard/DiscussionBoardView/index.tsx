@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -59,7 +59,7 @@ const DiscussionView: React.FC<ScreenProps> = ({ route }) => {
 		}
 	}, [isFocused]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		navigation.setOptions({ title: '', headerStyle: { shadowColor: 'transparent' } });
 		if (!isMasterDetail) {
 			navigation.setOptions({
