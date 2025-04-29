@@ -48,6 +48,7 @@ import JoinCode, { IJoinCode } from './JoinCode';
 import UploadProgress from './UploadProgress';
 import ReactionPicker from './ReactionPicker';
 import List from './List';
+import { Room247Chatroom } from './components';
 import {
 	IApplicationState,
 	IAttachment,
@@ -1516,6 +1517,9 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 			}
 		}
 
+		// Check if this room is the 247 chatroom
+		const isRoom247Chatroom = room.fname === '24/7 Chatroom';
+
 		return (
 			<RoomContext.Provider
 				value={{
@@ -1532,25 +1536,54 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					setQuotesAndText: this.setQuotesAndText,
 					getText: this.getText
 				}}>
-				<SafeAreaView style={{ backgroundColor: themes[theme].backgroundColor }} testID='room-view'>
-					<StatusBar />
-					<Banner title={I18n.t('Announcement')} text={announcement} bannerClosed={bannerClosed} closeBanner={this.closeBanner} />
-					<List
-						ref={this.list}
-						listRef={this.flatList}
+				{isRoom247Chatroom ? (
+					// Render the 247 Chatroom UI with WhatsApp-like interface
+					<Room247Chatroom
 						rid={rid}
 						tmid={this.tmid}
-						renderRow={this.renderItem}
+						room={room}
+						user={user}
+						baseUrl={baseUrl}
+						width={width}
 						loading={loading}
-						hideSystemMessages={this.hideSystemMessages}
-						showMessageInMainThread={user.showMessageInMainThread ?? false}
-						serverVersion={serverVersion}
+						announcement={announcement}
+						bannerClosed={bannerClosed}
+						closeBanner={this.closeBanner}
+						onSendMessage={this.handleSendMessage}
+						renderItem={this.renderItem}
+						renderFooter={this.renderFooter}
+						renderActions={this.renderActions}
+						joinCode={this.joinCode}
+						onJoin={this.onJoin}
+						t={t}
 					/>
-					{this.renderFooter()}
-					{this.renderActions()}
-					<UploadProgress rid={rid} user={user} baseUrl={baseUrl} width={width} />
-					<JoinCode ref={this.joinCode} onJoin={this.onJoin} rid={rid} t={t} theme={theme} />
-				</SafeAreaView>
+				) : (
+					// Render the standard room UI
+					<SafeAreaView style={{ backgroundColor: themes[theme].backgroundColor }} testID='room-view'>
+						<StatusBar />
+						<Banner
+							title={I18n.t('Announcement')}
+							text={announcement}
+							bannerClosed={bannerClosed}
+							closeBanner={this.closeBanner}
+						/>
+						<List
+							ref={this.list}
+							listRef={this.flatList}
+							rid={rid}
+							tmid={this.tmid}
+							renderRow={this.renderItem}
+							loading={loading}
+							hideSystemMessages={this.hideSystemMessages}
+							showMessageInMainThread={user.showMessageInMainThread ?? false}
+							serverVersion={serverVersion}
+						/>
+						{this.renderFooter()}
+						{this.renderActions()}
+						<UploadProgress rid={rid} user={user} baseUrl={baseUrl} width={width} />
+						<JoinCode ref={this.joinCode} onJoin={this.onJoin} rid={rid} t={t} theme={theme} />
+					</SafeAreaView>
+				)}
 			</RoomContext.Provider>
 		);
 	}
