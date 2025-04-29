@@ -55,8 +55,8 @@ const Room247Chatroom = ({
 
 			{/* Temporarily render a placeholder message until we implement the full WhatsApp-like UI */}
 			<View style={styles.container}>
-				<Text style={[styles.text, { color: themes[theme].titleText }]}>{I18n.t('24/7 Chatroom')}</Text>
-				<Text style={[styles.subtitle, { color: themes[theme].auxiliaryText }]}>{I18n.t('24/7 Chatroom')}</Text>
+				<Text style={[styles.text, { color: themes[theme].titleText }]}>{I18n.t('247ChatRoom')}</Text>
+				<Text style={[styles.subtitle, { color: themes[theme].auxiliaryText }]}>{I18n.t('247ChatRoom')}</Text>
 			</View>
 
 			{/* We still render these components to ensure functionality works */}

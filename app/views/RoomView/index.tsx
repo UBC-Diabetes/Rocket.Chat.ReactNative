@@ -48,7 +48,7 @@ import JoinCode, { IJoinCode } from './JoinCode';
 import UploadProgress from './UploadProgress';
 import ReactionPicker from './ReactionPicker';
 import List from './List';
-import { Room247Chatroom } from './components';
+import { Room247Chatroom, DefaultRoomUI } from './components';
 import {
 	IApplicationState,
 	IAttachment,
@@ -1537,7 +1537,6 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					getText: this.getText
 				}}>
 				{isRoom247Chatroom ? (
-					// Render the 247 Chatroom UI with WhatsApp-like interface
 					<Room247Chatroom
 						rid={rid}
 						tmid={this.tmid}
@@ -1558,31 +1557,30 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 						t={t}
 					/>
 				) : (
-					// Render the standard room UI
-					<SafeAreaView style={{ backgroundColor: themes[theme].backgroundColor }} testID='room-view'>
-						<StatusBar />
-						<Banner
-							title={I18n.t('Announcement')}
-							text={announcement}
-							bannerClosed={bannerClosed}
-							closeBanner={this.closeBanner}
-						/>
-						<List
-							ref={this.list}
-							listRef={this.flatList}
-							rid={rid}
-							tmid={this.tmid}
-							renderRow={this.renderItem}
-							loading={loading}
-							hideSystemMessages={this.hideSystemMessages}
-							showMessageInMainThread={user.showMessageInMainThread ?? false}
-							serverVersion={serverVersion}
-						/>
-						{this.renderFooter()}
-						{this.renderActions()}
-						<UploadProgress rid={rid} user={user} baseUrl={baseUrl} width={width} />
-						<JoinCode ref={this.joinCode} onJoin={this.onJoin} rid={rid} t={t} theme={theme} />
-					</SafeAreaView>
+					<DefaultRoomUI
+						theme={theme}
+						rid={rid}
+						t={t}
+						tmid={this.tmid}
+						room={room}
+						user={user}
+						baseUrl={baseUrl}
+						width={width}
+						loading={loading}
+						announcement={announcement}
+						bannerClosed={bannerClosed}
+						closeBanner={this.closeBanner}
+						renderFooter={this.renderFooter}
+						renderActions={this.renderActions}
+						joinCode={this.joinCode}
+						onJoin={this.onJoin}
+						serverVersion={serverVersion}
+						listRef={this.list}
+						flatList={this.flatList}
+						renderRow={this.renderItem}
+						hideSystemMessages={this.hideSystemMessages}
+						showMessageInMainThread={user.showMessageInMainThread ?? false}
+					/>
 				)}
 			</RoomContext.Provider>
 		);
