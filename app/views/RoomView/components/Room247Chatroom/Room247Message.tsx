@@ -187,7 +187,14 @@ const Room247Message = (props: IRoom247MessageProps) => {
 				</View>
 				{/* Reply button and icons row below the bubble */}
 				<View style={styles.replyRow}>
-					<TouchableOpacity style={styles.replyButton}>
+					<TouchableOpacity
+						style={styles.replyButton}
+						onPress={() => {
+							if (props.onThreadPress) {
+								props.onThreadPress(item);
+							}
+						}}
+					>
 						<Text style={styles.replyButtonText}>Reply</Text>
 					</TouchableOpacity>
 					<View style={styles.iconCount}>
