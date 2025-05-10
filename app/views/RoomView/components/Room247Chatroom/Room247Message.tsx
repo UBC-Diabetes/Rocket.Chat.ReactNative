@@ -35,17 +35,23 @@ interface IRoom247MessageProps {
 	showAttachment?: (file: IAttachment) => void;
 	navToRoomInfo?: (navParam: IRoomInfoParam) => void;
 	isRoom247Chatroom?: boolean;
+	autoTranslateRoom?: boolean;
+	autoTranslateLanguage?: string;
 	// Other props from MessageContainer
 	[key: string]: any;
 }
 
 const Room247Message = (props: IRoom247MessageProps) => {
-	const { item, user, previousItem, getCustomEmoji, showAttachment } = props;
+	const { item, user, previousItem, getCustomEmoji, showAttachment, autoTranslateRoom, autoTranslateLanguage } = props;
 	const context = useContext(MessageContext);
 	const { theme } = useTheme();
 
 	// Check if the message is from the current user
 	const isOwn = item?.u?.username === user?.username;
+	const otherUserMessage = item.u?.username !== user?.username;
+
+	// Determine if translation is needed (similar to Message container logic)
+	const canTranslateMessage = autoTranslateRoom && autoTranslateLanguage && otherUserMessage;
 
 	// Format timestamp to be used for time display
 	const timestamp = item.ts ? new Date(item.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
@@ -82,6 +88,16 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	// Determine if we should show username (not own message and first message from this user)
 	const showUsername = !isOwn && showTail && item.u?.username !== user.username;
 
+	// Create a message context with all necessary values, including proper translateLanguage
+	const messageContextValue = {
+		user,
+		onPress: handlePress,
+		onLongPress: handleLongPress,
+		translateLanguage: canTranslateMessage ? autoTranslateLanguage : undefined,
+		rid: props.rid,
+		baseUrl: props.baseUrl
+	};
+
 	return (
 		<View style={styles.container}>
 			<View style={isOwn ? styles.ownMessageWrapper : styles.otherMessageWrapper}>
@@ -102,16 +118,15 @@ const Room247Message = (props: IRoom247MessageProps) => {
 							<Markdown msg={item.msg} theme={theme} username={user?.username} getCustomEmoji={getCustomEmoji} />
 						) : null}
 
-						{/* Attachments */}
-						{item.attachments?.length ? (
+						{/* Attachments - wrap in MessageContext.Provider with proper translation support */}
+						<MessageContext.Provider value={messageContextValue}>
 							<Attachments
 								attachments={item.attachments}
 								timeFormat={props.timeFormat}
 								showAttachment={showAttachment}
 								getCustomEmoji={getCustomEmoji}
-								translateLanguage=''
 							/>
-						) : null}
+						</MessageContext.Provider>
 
 						{/* Timestamp */}
 						{timestamp ? <Text style={styles.timestamp}>{timestamp}</Text> : null}

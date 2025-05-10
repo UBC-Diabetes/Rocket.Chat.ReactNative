@@ -17,10 +17,19 @@ interface IMessageAttachmentsWithTranslate extends IMessageAttachments {
 }
 
 const Attachments: React.FC<IMessageAttachmentsWithTranslate> = React.memo(
-	({ attachments, timeFormat, showAttachment, style, getCustomEmoji, isReply, author, translateLanguage: propTranslateLanguage }: IMessageAttachmentsWithTranslate) => {
+	({
+		attachments,
+		timeFormat,
+		showAttachment,
+		style,
+		getCustomEmoji,
+		isReply,
+		author,
+		translateLanguage: propTranslateLanguage
+	}: IMessageAttachmentsWithTranslate) => {
 		const context = useContext(MessageContext);
 		// Use prop if available, otherwise fall back to context
-		const translateLanguage = propTranslateLanguage !== undefined ? propTranslateLanguage : context?.translateLanguage;
+		const translateLanguage = propTranslateLanguage ?? context?.translateLanguage;
 
 		if (!attachments || attachments.length === 0) {
 			return null;

@@ -39,6 +39,7 @@ import { sendLoadingEvent } from '../../containers/Loading';
 import getThreadName from '../../lib/methods/getThreadName';
 import getRoomInfo from '../../lib/methods/getRoomInfo';
 import { ContainerTypes } from '../../containers/UIKit/interfaces';
+import WhatsAppComposer from '../../containers/MessageComposer/WhatsAppStyle';
 import RoomServices from './services';
 import LoadMore from './LoadMore';
 import Banner from './Banner';
@@ -1471,7 +1472,6 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 		// Use WhatsApp-styled composer for 247 Chatroom
 		const isRoom247Chatroom = room.fname === '24/7 Chatroom';
 		if (isRoom247Chatroom) {
-			const WhatsAppComposer = require('../../containers/MessageComposer/WhatsAppStyle').default;
 			return (
 				<WhatsAppComposer theme={theme}>
 					<MessageComposerContainer ref={this.messageComposerRef} />
