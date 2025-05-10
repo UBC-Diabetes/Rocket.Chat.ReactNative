@@ -35,12 +35,12 @@ const AddReaction = React.memo(({ theme }: { theme: TSupportedThemes }) => {
 			onPress={reactionInit}
 			key='message-add-reaction'
 			testID='message-add-reaction'
-			style={[styles.reactionButton, { backgroundColor: themes[theme].surfaceRoom }]}
-			background={Touchable.Ripple(themes[theme].surfaceNeutral)}
+			style={styles.reactionButton}
+			background={Touchable.Ripple('#EEE')}
 			hitSlop={BUTTON_HIT_SLOP}
 		>
-			<View style={[styles.reactionContainer, { borderColor: themes[theme].strokeLight }]}>
-				<CustomIcon name='reaction-add' size={21} color={themes[theme].badgeBackgroundLevel2} />
+			<View style={styles.reactionContainer}>
+				<CustomIcon name='reaction-add' size={21} color={'#1E2A3A'} />
 			</View>
 		</Touchable>
 	);
@@ -55,23 +55,18 @@ const Reaction = React.memo(({ reaction, getCustomEmoji, theme }: IMessageReacti
 			onLongPress={onReactionLongPress}
 			key={reaction.emoji}
 			testID={`message-reaction-${reaction.emoji}`}
-			style={[styles.reactionButton, { backgroundColor: reacted ? themes[theme].surfaceNeutral : themes[theme].surfaceRoom }]}
-			background={Touchable.Ripple(themes[theme].surfaceNeutral)}
+			style={styles.reactionButton}
+			background={Touchable.Ripple('#EEE')}
 			hitSlop={BUTTON_HIT_SLOP}
 		>
-			<View
-				style={[
-					styles.reactionContainer,
-					{ borderColor: reacted ? themes[theme].badgeBackgroundLevel2 : themes[theme].strokeLight }
-				]}
-			>
+			<View style={styles.reactionContainer}>
 				<Emoji
 					content={reaction.emoji}
 					standardEmojiStyle={styles.reactionEmoji}
 					customEmojiStyle={styles.reactionCustomEmoji}
 					getCustomEmoji={getCustomEmoji}
 				/>
-				<Text style={[styles.reactionCount, { color: themes[theme].badgeBackgroundLevel2 }]}>{reaction.usernames.length}</Text>
+				<Text style={[styles.reactionCount, { color: '#1E2A3A' }]}>{reaction.usernames.length}</Text>
 			</View>
 		</Touchable>
 	);
@@ -80,12 +75,9 @@ const Reaction = React.memo(({ reaction, getCustomEmoji, theme }: IMessageReacti
 const Reactions = React.memo(({ reactions, getCustomEmoji }: IMessageReactions) => {
 	const { theme } = useTheme();
 
-	if (!Array.isArray(reactions) || reactions.length === 0) {
-		return null;
-	}
 	return (
 		<View style={styles.reactionsContainer}>
-			{reactions.map(reaction => (
+			{Array.isArray(reactions) && reactions.map(reaction => (
 				<Reaction key={reaction.emoji} reaction={reaction} getCustomEmoji={getCustomEmoji} theme={theme} />
 			))}
 			<AddReaction theme={theme} />

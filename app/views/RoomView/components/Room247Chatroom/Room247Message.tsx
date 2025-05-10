@@ -150,7 +150,6 @@ const Room247Message = (props: IRoom247MessageProps) => {
 							style={isOwn ? styles.ownMessage : styles.otherMessage}>
 							{/* Add tail if it's the first message from this user */}
 							{showTail && <View style={isOwn ? styles.ownTail : styles.otherTail} />}
-
 							<View style={styles.bubbleMessageContent}>
 								{/* Show username for others if it's the first from this sender */}
 								{showUsername && item.u?.username && (
@@ -163,7 +162,6 @@ const Room247Message = (props: IRoom247MessageProps) => {
 										{item.u.username}
 									</Text>
 								)}
-
 								{/* Message content */}
 								{item.msg ? (
 									<Markdown
@@ -174,7 +172,6 @@ const Room247Message = (props: IRoom247MessageProps) => {
 										textColor={isOwn ? '#FFFFFF' : '#000000'}
 									/>
 								) : null}
-
 								{/* Attachments - now context is provided above */}
 								<Attachments
 									attachments={item.attachments}
@@ -182,26 +179,18 @@ const Room247Message = (props: IRoom247MessageProps) => {
 									showAttachment={showAttachment}
 									getCustomEmoji={getCustomEmoji}
 								/>
-
 								{/* Timestamp */}
 								{timestamp ? (
-									<Text
-										style={[
-											styles.timestamp,
-											isOwn ? { color: '#FFFFFF' } : { color: '#888888' }
-										]}
-									>
-										{timestamp}
-									</Text>
+									<Text style={[styles.timestamp, isOwn ? { color: '#FFFFFF' } : { color: '#888888' }]}>{timestamp}</Text>
 								) : null}
 							</View>
 						</TouchableOpacity>
+						{/* Absolutely positioned reactions row inside bubble wrapper */}
+						<View style={[styles.reactionsRowAbsoluteContainer]}>
+							<Reactions reactions={item.reactions || []} getCustomEmoji={getCustomEmoji} />
+						</View>
 					</View>
-					{/* Reactions */}
-					{item.reactions && item.reactions.length > 0 && (
-						<Reactions reactions={item.reactions} getCustomEmoji={getCustomEmoji} />
-					)}
-					{/* Reply button and icons row below the bubble */}
+					{/* Reply button and icons row below the reactions row */}
 					<View style={styles.replyRow}>
 						<TouchableOpacity
 							style={styles.replyButton}
@@ -209,8 +198,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 								if (props.onThreadPress) {
 									props.onThreadPress(item);
 								}
-							}}
-						>
+							}}>
 							<Text style={styles.replyButtonText}>Reply</Text>
 						</TouchableOpacity>
 						<View style={styles.iconCount}>

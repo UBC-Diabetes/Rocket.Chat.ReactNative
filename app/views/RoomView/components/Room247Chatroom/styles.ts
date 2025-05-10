@@ -235,7 +235,7 @@ export default StyleSheet.create({
 		fontSize: 10,
 		position: 'absolute',
 		right: 8,
-		bottom: 4,
+		bottom: 4
 		// color will be set inline depending on own/other
 	},
 	// Message tail styles
@@ -279,7 +279,7 @@ export default StyleSheet.create({
 	replyRow: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginTop: 8,
+		marginTop: 24,
 		marginBottom: 12,
 		gap: 12
 	},
@@ -315,5 +315,12 @@ export default StyleSheet.create({
 	// Message text color for other messages
 	otherMessageText: {
 		color: '#000000'
+	},
+	// Position for the reactions container
+	reactionsRowAbsoluteContainer: {
+		position: 'absolute',
+		bottom: -16,
+		zIndex: 2,
+		left: 16
 	}
 });

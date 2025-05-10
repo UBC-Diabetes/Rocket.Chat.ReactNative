@@ -36,32 +36,42 @@ export default StyleSheet.create({
 	reactionsContainer: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginTop: 8
+		marginTop: 6,
+		alignSelf: 'flex-start'
 	},
 	reactionButton: {
-		marginRight: 8,
-		marginBottom: 8,
-		borderRadius: 4
+		marginRight: 4,
+		marginBottom: 0,
+		borderRadius: 16,
+		width: 32,
+		height: 32,
+		backgroundColor: '#FFF',
+		borderWidth: 1,
+		borderColor: '#CBCED1',
+		alignItems: 'center',
+		justifyContent: 'center'
 	},
 	reactionContainer: {
 		flexDirection: 'row',
-		justifyContent: 'center',
 		alignItems: 'center',
-		borderRadius: 4,
+		justifyContent: 'center',
+		borderRadius: 16,
+		width: 32,
+		height: 32,
 		borderWidth: 1,
-		height: 28,
-		minWidth: 46.3
+		borderColor: '#CBCED1'
 	},
 	reactionCount: {
 		fontSize: 14,
 		marginLeft: 3,
 		marginRight: 8.5,
+		color: '#FFFFFF',
 		...sharedStyles.textSemibold
 	},
 	reactionEmoji: {
 		fontSize: 13,
 		marginLeft: 7,
-		color: '#ffffff'
+		color: '#FFFFFF'
 	},
 	reactionCustomEmoji: {
 		width: 19,
@@ -180,5 +190,19 @@ export default StyleSheet.create({
 		position: 'absolute',
 		justifyContent: 'center',
 		alignItems: 'center'
+	},
+	reactionsRowCenteredContainer: {
+		width: '100%',
+		alignItems: 'center',
+		marginTop: -16,
+		zIndex: 2
+	},
+	reactionsRowAbsoluteContainer: {
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		bottom: -16,
+		alignItems: 'center',
+		zIndex: 2
 	}
 });
