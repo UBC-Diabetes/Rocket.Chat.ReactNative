@@ -14,6 +14,8 @@ import Touch from '../../containers/Touch';
 import { replyBroadcast } from '../../actions/messages';
 import database from '../../lib/database';
 import Message from '../../containers/message';
+import Room247Message from '../../containers/message/Room247Message';
+import Room247Chatroom from './components/Room247Chatroom';
 import MessageActions, { IMessageActions } from '../../containers/MessageActions';
 import MessageErrorActions, { IMessageErrorActions } from '../../containers/MessageErrorActions';
 import log, { events, logEvent } from '../../lib/methods/helpers/log';
@@ -914,7 +916,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 		});
 	};
 
-	onThreadPress = debounce((item: TAnyMessageModel) => this.navToThread(item), 1000, true);
+	onThreadPress = debounce((item: TAnyMessageModel | { tmid: string }) => this.navToThread(item), 1000, true);
 
 	shouldNavigateToRoom = (message: IMessage) => {
 		if (message.tmid && message.tmid === this.tmid) {
@@ -1349,8 +1351,11 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 			}
 			const isRoom247Chatroom = room.fname === '24/7 Chatroom';
 
+			// const MessageComponent = isRoom247Chatroom ? Room247Message : Message;
+			const MessageComponent = Message;
+
 			content = (
-				<Message
+				<MessageComponent
 					item={item}
 					user={user as any}
 					rid={room.rid}
@@ -1464,6 +1469,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 				</View>
 			);
 		}
+
 		return <MessageComposerContainer ref={this.messageComposerRef} />;
 	};
 
@@ -1504,6 +1510,8 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 			({ bannerClosed, announcement } = room);
 		}
 
+		const isRoom247Chatroom = room.fname === '24/7 Chatroom';
+
 		if ('encrypted' in room) {
 			// Missing room encryption key
 			if (isMissingRoomE2EEKey({ encryptionEnabled, roomEncrypted: room.encrypted, E2EKey: room.E2EKey })) {
@@ -1535,17 +1543,46 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 				<SafeAreaView style={{ backgroundColor: themes[theme].backgroundColor }} testID='room-view'>
 					<StatusBar />
 					<Banner title={I18n.t('Announcement')} text={announcement} bannerClosed={bannerClosed} closeBanner={this.closeBanner} />
-					<List
-						ref={this.list}
-						listRef={this.flatList}
-						rid={rid}
-						tmid={this.tmid}
-						renderRow={this.renderItem}
-						loading={loading}
-						hideSystemMessages={this.hideSystemMessages}
-						showMessageInMainThread={user.showMessageInMainThread ?? false}
-						serverVersion={serverVersion}
-					/>
+
+					{isRoom247Chatroom ? (
+						<Room247Chatroom
+							theme={theme}
+							rid={rid}
+							t={t}
+							tmid={this.tmid}
+							room={room}
+							user={user}
+							baseUrl={baseUrl}
+							width={width}
+							loading={loading}
+							announcement={announcement}
+							bannerClosed={bannerClosed}
+							closeBanner={this.closeBanner}
+							renderFooter={this.renderFooter}
+							renderActions={this.renderActions}
+							joinCode={this.joinCode}
+							onJoin={this.onJoin}
+							serverVersion={serverVersion}
+							listRef={this.flatList}
+							flatList={this.flatList}
+							renderRow={this.renderItem}
+							hideSystemMessages={this.hideSystemMessages}
+							showMessageInMainThread={user.showMessageInMainThread ?? false}
+						/>
+					) : (
+						<List
+							ref={this.list}
+							listRef={this.flatList}
+							rid={rid}
+							tmid={this.tmid}
+							renderRow={this.renderItem}
+							loading={loading}
+							hideSystemMessages={this.hideSystemMessages}
+							showMessageInMainThread={user.showMessageInMainThread ?? false}
+							serverVersion={serverVersion}
+						/>
+					)}
+
 					{this.renderFooter()}
 					{this.renderActions()}
 					<UploadProgress rid={rid} user={user} baseUrl={baseUrl} width={width} />
