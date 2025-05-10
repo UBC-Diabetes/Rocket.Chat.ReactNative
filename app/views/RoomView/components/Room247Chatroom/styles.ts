@@ -233,10 +233,10 @@ export default StyleSheet.create({
 	},
 	timestamp: {
 		fontSize: 10,
-		color: '#FFFFFF',
 		position: 'absolute',
 		right: 8,
-		bottom: 4
+		bottom: 4,
+		// color will be set inline depending on own/other
 	},
 	// Message tail styles
 	ownTail: {
