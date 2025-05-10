@@ -46,6 +46,7 @@ interface IMarkdownProps {
 	style?: StyleProp<TextStyle>[];
 	onLinkPress?: TOnLinkPress;
 	isTranslated?: boolean;
+	textColor?: string;
 }
 
 type TLiteral = {
@@ -140,23 +141,23 @@ class Markdown extends PureComponent<IMarkdownProps, any> {
 	}
 
 	renderText = ({ context, literal }: { context: []; literal: string }) => {
-		const { numberOfLines } = this.props;
+		const { numberOfLines, textColor } = this.props;
 		const defaultStyle = [this.isMessageContainsOnlyEmoji ? styles.textBig : {}, ...context.map(type => styles[type])];
 		return (
-			<Text accessibilityLabel={literal} style={[styles.text, defaultStyle]} numberOfLines={numberOfLines}>
+			<Text accessibilityLabel={literal} style={[styles.text, { color: textColor }, defaultStyle]} numberOfLines={numberOfLines}>
 				{literal}
 			</Text>
 		);
 	};
 
 	renderCodeInline = ({ literal }: TLiteral) => {
-		const { theme, style = [] } = this.props;
+		const { theme, style = [], textColor } = this.props;
 		return (
 			<Text
 				style={[
 					{
 						...styles.codeInline,
-						color: themes[theme!].fontDefault,
+						color: textColor || themes[theme!].fontDefault,
 						backgroundColor: themes[theme!].surfaceNeutral,
 						borderColor: themes[theme!].surfaceNeutral
 					},
@@ -168,7 +169,7 @@ class Markdown extends PureComponent<IMarkdownProps, any> {
 	};
 
 	renderCodeBlock = ({ literal }: TLiteral) => {
-		const { theme, style = [] } = this.props;
+		const { theme, style = [], textColor } = this.props;
 		return (
 			<Text
 				style={[
@@ -176,7 +177,7 @@ class Markdown extends PureComponent<IMarkdownProps, any> {
 						...styles.codeBlock,
 						backgroundColor: themes[theme!].surfaceNeutral,
 						borderColor: themes[theme!].strokeLight,
-						color: themes[theme!].fontDefault
+						color: textColor || themes[theme!].fontDefault
 					},
 					...style
 				]}>
@@ -191,7 +192,7 @@ class Markdown extends PureComponent<IMarkdownProps, any> {
 	};
 
 	renderParagraph = ({ children }: any) => {
-		const { numberOfLines, style = [], theme, msg } = this.props;
+		const { numberOfLines, style = [], msg, textColor } = this.props;
 		if (!children || children.length === 0) {
 			return null;
 		}
@@ -199,7 +200,7 @@ class Markdown extends PureComponent<IMarkdownProps, any> {
 			return <Text>{children}</Text>;
 		}
 		return (
-			<Text style={[styles.text, { color: themes[theme!].fontDefault }, ...style]} numberOfLines={numberOfLines}>
+			<Text style={[...style, { color: textColor }]} numberOfLines={numberOfLines}>
 				{children}
 			</Text>
 		);
@@ -255,11 +256,11 @@ class Markdown extends PureComponent<IMarkdownProps, any> {
 	};
 
 	renderHeading = ({ children, level }: any) => {
-		const { numberOfLines, theme } = this.props;
+		const { numberOfLines, theme, textColor } = this.props;
 		// @ts-ignore
 		const textStyle = styles[`heading${level}Text`];
 		return (
-			<Text numberOfLines={numberOfLines} style={[textStyle, { color: themes[theme!].fontDefault }]}>
+			<Text numberOfLines={numberOfLines} style={[textStyle, { color: textColor }, { color: themes[theme!].fontDefault }]}>
 				{children}
 			</Text>
 		);
@@ -275,11 +276,11 @@ class Markdown extends PureComponent<IMarkdownProps, any> {
 	};
 
 	renderListItem = ({ children, context, ...otherProps }: any) => {
-		const { theme } = this.props;
+		const { theme, textColor } = this.props;
 		const level = context.filter((type: string) => type === 'list').length;
 
 		return (
-			<MarkdownListItem level={level} theme={theme} {...otherProps}>
+			<MarkdownListItem level={level} theme={theme} {...otherProps} textColor={textColor}>
 				{children}
 			</MarkdownListItem>
 		);
