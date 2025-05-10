@@ -12,9 +12,15 @@ import { IMessageAttachments } from '../../interfaces';
 import { IAttachment } from '../../../../definitions';
 import { getMessageFromAttachment } from '../../utils';
 
-const Attachments: React.FC<IMessageAttachments> = React.memo(
-	({ attachments, timeFormat, showAttachment, style, getCustomEmoji, isReply, author }: IMessageAttachments) => {
-		const { translateLanguage } = useContext(MessageContext);
+interface IMessageAttachmentsWithTranslate extends IMessageAttachments {
+	translateLanguage?: string;
+}
+
+const Attachments: React.FC<IMessageAttachmentsWithTranslate> = React.memo(
+	({ attachments, timeFormat, showAttachment, style, getCustomEmoji, isReply, author, translateLanguage: propTranslateLanguage }: IMessageAttachmentsWithTranslate) => {
+		const context = useContext(MessageContext);
+		// Use prop if available, otherwise fall back to context
+		const translateLanguage = propTranslateLanguage !== undefined ? propTranslateLanguage : context?.translateLanguage;
 
 		if (!attachments || attachments.length === 0) {
 			return null;

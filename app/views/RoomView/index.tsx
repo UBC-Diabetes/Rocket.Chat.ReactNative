@@ -14,8 +14,7 @@ import Touch from '../../containers/Touch';
 import { replyBroadcast } from '../../actions/messages';
 import database from '../../lib/database';
 import Message from '../../containers/message';
-import Room247Message from '../../containers/message/Room247Message';
-import Room247Chatroom from './components/Room247Chatroom';
+import Room247Chatroom, { Room247Message } from './components/Room247Chatroom';
 import MessageActions, { IMessageActions } from '../../containers/MessageActions';
 import MessageErrorActions, { IMessageErrorActions } from '../../containers/MessageErrorActions';
 import log, { events, logEvent } from '../../lib/methods/helpers/log';
@@ -1351,8 +1350,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 			}
 			const isRoom247Chatroom = room.fname === '24/7 Chatroom';
 
-			// const MessageComponent = isRoom247Chatroom ? Room247Message : Message;
-			const MessageComponent = Message;
+			const MessageComponent = isRoom247Chatroom ? Room247Message : Message;
 
 			content = (
 				<MessageComponent
@@ -1470,6 +1468,17 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 			);
 		}
 
+		// Use WhatsApp-styled composer for 247 Chatroom
+		const isRoom247Chatroom = room.fname === '24/7 Chatroom';
+		if (isRoom247Chatroom) {
+			const WhatsAppComposer = require('../../containers/MessageComposer/WhatsAppStyle').default;
+			return (
+				<WhatsAppComposer theme={theme}>
+					<MessageComposerContainer ref={this.messageComposerRef} />
+				</WhatsAppComposer>
+			);
+		}
+
 		return <MessageComposerContainer ref={this.messageComposerRef} />;
 	};
 
@@ -1550,16 +1559,10 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 							rid={rid}
 							t={t}
 							tmid={this.tmid}
-							room={room}
 							user={user}
 							baseUrl={baseUrl}
 							width={width}
 							loading={loading}
-							announcement={announcement}
-							bannerClosed={bannerClosed}
-							closeBanner={this.closeBanner}
-							renderFooter={this.renderFooter}
-							renderActions={this.renderActions}
 							joinCode={this.joinCode}
 							onJoin={this.onJoin}
 							serverVersion={serverVersion}

@@ -1,31 +1,25 @@
 import React, { RefObject } from 'react';
 
-import { themes } from '../../../../lib/constants';
-import SafeAreaView from '../../../../containers/SafeAreaView';
-import UploadProgress from '../../UploadProgress';
-import JoinCode, { IJoinCode } from '../../JoinCode';
-import I18n from '../../../../i18n';
+import { IJoinCode } from '../../JoinCode';
 import Room247List from './List';
-import { IUser, TSubscriptionModel } from '../../../../definitions';
+import Room247Message from './Room247Message';
+import Message from './Message';
+import MessageAvatar from './MessageAvatar';
+import User from './User';
+import Content from './Content';
+import { IUser } from '../../../../definitions';
 import { useMessages } from '../../List/hooks';
 import { TSupportedThemes, withTheme } from '../../../../theme';
-import { WhatsAppBackground } from '../../../../containers/message/WhatsAppStyle';
 
 interface IRoom247ChatroomProps {
 	theme: string;
 	rid: string;
 	t?: string;
 	tmid?: string;
-	room: TSubscriptionModel;
 	user: IUser;
 	baseUrl: string;
 	width: number;
 	loading: boolean;
-	announcement?: string;
-	bannerClosed?: boolean;
-	closeBanner: () => void;
-	renderFooter: () => React.ReactElement | null;
-	renderActions: () => React.ReactElement | null;
 	joinCode: RefObject<IJoinCode>;
 	onJoin: () => void;
 	serverVersion: string | null;
@@ -39,14 +33,11 @@ interface IRoom247ChatroomProps {
 const Room247Chatroom = ({
 	theme,
 	rid,
-	t,
 	tmid,
 	user,
 	baseUrl,
 	width,
 	loading,
-	joinCode,
-	onJoin,
 	serverVersion,
 	listRef,
 	flatList,
@@ -76,4 +67,5 @@ const Room247Chatroom = ({
 	);
 };
 
+export { Room247Message, Message, MessageAvatar, User, Content };
 export default withTheme(Room247Chatroom);
