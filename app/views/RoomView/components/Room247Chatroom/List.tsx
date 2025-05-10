@@ -14,10 +14,13 @@ interface IRoom247ListProps {
 	loading: boolean;
 }
 
+// DEVELOPMENT: Toggle to enable/disable mock own message
+const SHOW_MOCK_OWN_MESSAGE = true;
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#e5ddd5' // WhatsApp-like chat background color
+		backgroundColor: '#F5F5F5' // Updated message area background color
 	},
 	list: {
 		flex: 1
@@ -46,7 +49,27 @@ const styles = StyleSheet.create({
 });
 
 const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps) => {
-	if (loading && !messages.length) {
+	// Mock own message for development
+	let displayMessages = messages;
+	if (SHOW_MOCK_OWN_MESSAGE && messages.length > 0) {
+		const mockOwnMessage = {
+			id: 'mock-own-message',
+			_id: 'mock-own-message',
+			u: { username: 'myself', _id: 'myself' },
+			msg: 'This is a mock message from me (own message) for development.',
+			ts: new Date(),
+			tcount: 1,
+			replies: ['user1'],
+			rid: 'mock-room',
+			_updatedAt: new Date(),
+			dml: new Date().toISOString(),
+			t: 'rm' // workaround for type checking; treat as user message
+			// Add any other fields as needed for rendering
+		} as unknown as TAnyMessageModel;
+		displayMessages = [mockOwnMessage, ...messages];
+	}
+
+	if (loading && !displayMessages.length) {
 		return (
 			<View style={[styles.loadingContainer, { backgroundColor: themes[theme].backgroundColor }]}>
 				<ActivityIndicator />
@@ -55,7 +78,7 @@ const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps
 	}
 
 	// Empty state display
-	if (!messages.length) {
+	if (!displayMessages.length) {
 		return (
 			<View style={[styles.container, styles.emptyContainer]}>
 				<Text style={styles.emptyText}>No messages yet</Text>
@@ -68,9 +91,9 @@ const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps
 			<FlatList
 				testID='room-view-messages-247'
 				style={styles.list}
-				data={messages}
+				data={displayMessages}
 				keyExtractor={item => item.id}
-				renderItem={({ item, index }) => renderItem(item, messages[index + 1])}
+				renderItem={({ item, index }) => renderItem(item, displayMessages[index + 1])}
 				contentContainerStyle={styles.contentContainer}
 				removeClippedSubviews={false}
 				initialNumToRender={15}

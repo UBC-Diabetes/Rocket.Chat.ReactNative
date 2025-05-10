@@ -9,9 +9,10 @@ export default StyleSheet.create({
 	},
 	container: {
 		paddingVertical: 4,
-		width: '100%', 
+		width: '100%',
 		paddingHorizontal: 14,
-		flexDirection: 'column'
+		flexDirection: 'column',
+		backgroundColor: '#F5F5F5'
 	},
 	contentContainer: {
 		flex: 1
@@ -114,6 +115,7 @@ export default StyleSheet.create({
 	},
 	text: {
 		fontSize: 16,
+		color: '#FFFFFF',
 		...sharedStyles.textRegular
 	},
 	textInfo: {
@@ -193,49 +195,45 @@ export default StyleSheet.create({
 		justifyContent: 'flex-start' // Align to the left
 	},
 	ownMessage: {
-		maxWidth: '75%', // Limit width to 75% of container
-		backgroundColor: '#dcf8c6', // Light green for own messages
+		maxWidth: '75%',
+		backgroundColor: '#1E6CA8',
 		borderRadius: 12,
-		borderTopRightRadius: 4, // Custom corner for WhatsApp style
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
 		marginRight: 12,
-		// Add shadow for depth
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 1 },
 		shadowOpacity: 0.1,
 		shadowRadius: 1,
 		elevation: 1,
-		position: 'relative' // For positioning the tail
+		position: 'relative'
 	},
 	otherMessage: {
-		maxWidth: '75%', // Limit width to 75% of container
-		backgroundColor: '#fff', // White for received messages
+		maxWidth: '75%',
+		backgroundColor: '#FFFFFF',
 		borderRadius: 12,
-		borderTopLeftRadius: 4, // Custom corner for WhatsApp style
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
 		marginLeft: 12,
-		// Add shadow for depth
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 1 },
 		shadowOpacity: 0.1,
 		shadowRadius: 1,
 		elevation: 1,
-		position: 'relative' // For positioning the tail
+		position: 'relative'
 	},
 	bubbleMessageContent: {
 		paddingHorizontal: 12,
 		paddingVertical: 8,
-		paddingBottom: 16, // Extra padding at bottom for timestamp
+		paddingBottom: 16,
 		backgroundColor: 'transparent',
-		minWidth: 80 // Add minimum width to ensure bubble is visible
+		minWidth: 80
 	},
 	timestamp: {
 		fontSize: 10,
-		color: 'rgba(0,0,0,0.5)',
+		color: '#FFFFFF',
 		position: 'absolute',
 		right: 8,
 		bottom: 4
@@ -263,8 +261,8 @@ export default StyleSheet.create({
 	userName: {
 		fontSize: 12,
 		fontWeight: 'bold',
-		marginBottom: 2,
-		color: '#4287f5' // Blue color for user names
+		marginBottom: 2
+		// Color will be set inline per-username
 	},
 	avatarContainer: {
 		width: 40,
@@ -277,5 +275,45 @@ export default StyleSheet.create({
 		borderRadius: 8,
 		alignSelf: 'center',
 		maxWidth: '85%'
+	},
+	replyRow: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 8,
+		marginBottom: 12,
+		gap: 12
+	},
+	replyButton: {
+		backgroundColor: '#1E2A3A',
+		borderRadius: 16,
+		paddingHorizontal: 16,
+		paddingVertical: 6,
+		marginRight: 8
+	},
+	replyButtonText: {
+		color: '#FFFFFF',
+		fontSize: 14,
+		fontWeight: '600'
+	},
+	iconCount: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginRight: 12
+	},
+	icon: {
+		marginRight: 4
+	},
+	iconText: {
+		color: '#1E2A3A',
+		fontSize: 14,
+		fontWeight: '600'
+	},
+	// Message text color for own messages
+	ownMessageText: {
+		color: '#FFFFFF'
+	},
+	// Message text color for other messages
+	otherMessageText: {
+		color: '#000000'
 	}
-}); 
+});
