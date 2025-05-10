@@ -3,7 +3,6 @@ import React, { RefObject } from 'react';
 import { IJoinCode } from '../../JoinCode';
 import Room247List from './List';
 import Room247Message from './Room247Message';
-import Message from './Message';
 import MessageAvatar from './MessageAvatar';
 import User from './User';
 import Content from './Content';
@@ -67,5 +66,5 @@ const Room247Chatroom = ({
 	);
 };
 
-export { Room247Message, Message, MessageAvatar, User, Content };
+export { Room247Message, MessageAvatar, User, Content };
 export default withTheme(Room247Chatroom);
