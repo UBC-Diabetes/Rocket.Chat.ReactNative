@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { useTheme } from '../../../../theme';
 import MessageContext from '../../../../containers/message/Context';
@@ -80,6 +81,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	const { item, user, previousItem, getCustomEmoji, showAttachment, autoTranslateRoom, autoTranslateLanguage } = props;
 	const context = useContext(MessageContext);
 	const { theme } = useTheme();
+	const navigation = useNavigation();
 
 	const isMock = item.id === 'mock-own-message';
 	// Check if the message is from the current user
@@ -107,6 +109,11 @@ const Room247Message = (props: IRoom247MessageProps) => {
 		} else if (props.onLongPress) {
 			props.onLongPress(item);
 		}
+	};
+
+	// Handler for avatar press to navigate to ConnectView
+	const handleAvatarPress = () => {
+		navigation.navigate('ConnectView', { user: item.u, fromRid: item.rid });
 	};
 
 	// Skip special styling for system messages
@@ -148,7 +155,15 @@ const Room247Message = (props: IRoom247MessageProps) => {
 					{ flexDirection: 'row', justifyContent: isOwn ? 'flex-end' : 'flex-start', alignItems: 'flex-start' }
 				]}>
 				{/* Avatar on left for others, right for self */}
-				{!isOwn && <Avatar text={item.u?.username} size={32} borderRadius={16} style={{ marginRight: 8 }} />}
+				{!isOwn && (
+					<Avatar
+						text={item.u?.username}
+						size={32}
+						borderRadius={16}
+						style={{ marginRight: 8 }}
+						onPress={handleAvatarPress}
+					/>
+				)}
 				{/* Message bubble and reply/icons row stacked vertically */}
 				<View style={{ flex: 1, flexDirection: 'column', alignItems: isOwn ? 'flex-end' : 'flex-start' }}>
 					<View style={isOwn ? styles.ownMessageWrapper : styles.otherMessageWrapper}>
@@ -224,7 +239,15 @@ const Room247Message = (props: IRoom247MessageProps) => {
 						</View>
 					</View>
 				</View>
-				{isOwn && <Avatar text={item.u?.username} size={32} borderRadius={16} style={{ marginLeft: 8 }} />}
+				{isOwn && (
+					<Avatar
+						text={item.u?.username}
+						size={32}
+						borderRadius={16}
+						style={{ marginLeft: 8 }}
+						onPress={handleAvatarPress}
+					/>
+				)}
 			</View>
 		</MessageContext.Provider>
 	);
