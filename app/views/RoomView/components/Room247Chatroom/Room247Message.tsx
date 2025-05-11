@@ -219,25 +219,30 @@ const Room247Message = (props: IRoom247MessageProps) => {
 						</View>
 					</View>
 					{/* Reply button and icons row below the reactions row */}
-					<View style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
-						<TouchableOpacity
-							style={styles.replyButton}
-							onPress={() => {
-								if (props.onThreadPress) {
-									props.onThreadPress(item);
-								}
-							}}>
-							<Text style={styles.replyButtonText}>Reply</Text>
-						</TouchableOpacity>
-						<View style={styles.iconCount}>
-							<CustomIcon name='message' size={18} style={styles.icon} color='#1E2A3A' />
-							<Text style={styles.iconText}>{item.tcount ?? 0}</Text>
+					{!props.isThreadRoom && (
+						<View style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
+							<TouchableOpacity
+								style={styles.replyButton}
+								onPress={() => {
+									if (props.onThreadPress) {
+										props.onThreadPress(item);
+									}
+								}}>
+								<Text style={styles.replyButtonText}>Reply</Text>
+							</TouchableOpacity>
+							<View style={styles.iconCount}>
+								<CustomIcon name='message' size={18} style={styles.icon} color='#1E2A3A' />
+								<Text style={styles.iconText}>{item.tcount ?? 0}</Text>
+							</View>
+							<View style={styles.iconCount}>
+								<CustomIcon name='user' size={18} style={styles.icon} color='#1E2A3A' />
+								<Text style={styles.iconText}>{item.replies ? item.replies.length : 0}</Text>
+							</View>
 						</View>
-						<View style={styles.iconCount}>
-							<CustomIcon name='user' size={18} style={styles.icon} color='#1E2A3A' />
-							<Text style={styles.iconText}>{item.replies ? item.replies.length : 0}</Text>
-						</View>
-					</View>
+					)}
+					{props.isThreadRoom && (
+						<View style={styles.replyRow} />
+					)}
 				</View>
 				{isOwn && (
 					<Avatar

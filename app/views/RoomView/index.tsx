@@ -1138,6 +1138,19 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 		const { roomUserId } = this.state;
 		const { navigation } = this.props;
 
+		// Determine the target tmid
+		let targetTmid = '';
+		if ('tmid' in item && item.tmid) {
+			targetTmid = item.tmid;
+		} else if ('id' in item && item.id) {
+			targetTmid = item.id;
+		}
+
+		// Prevent navigating to the same thread room if already there
+		if (this.rid === this.rid && this.tmid === targetTmid) {
+			return;
+		}
+
 		if (!this.rid) {
 			return;
 		}
