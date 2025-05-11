@@ -15,6 +15,7 @@ export interface IRoomContext {
 	onSendMessage?: Function;
 	setQuotesAndText?: (text: string, quotes: string[]) => void;
 	getText?: () => string | undefined;
+	isRoom247Chatroom?: boolean;
 }
 
 export const RoomContext = createContext<IRoomContext>({} as IRoomContext);

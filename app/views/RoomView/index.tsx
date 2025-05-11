@@ -1560,7 +1560,8 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 					editRequest: this.onEditRequest,
 					onSendMessage: this.handleSendMessage,
 					setQuotesAndText: this.setQuotesAndText,
-					getText: this.getText
+					getText: this.getText,
+					isRoom247Chatroom
 				}}>
 				<SafeAreaView style={{ backgroundColor: themes[theme].backgroundColor }} testID='room-view'>
 					<StatusBar />

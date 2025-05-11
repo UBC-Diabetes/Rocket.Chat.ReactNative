@@ -18,7 +18,7 @@ export const SendThreadToChannel = (): React.ReactElement | null => {
 	const alsoSendThreadToChannel = useAlsoSendThreadToChannel();
 	const { setAlsoSendThreadToChannel } = useMessageComposerApi();
 	const showEmojiSearchbar = useShowEmojiSearchbar();
-	const { tmid } = useRoomContext();
+	const { tmid, isRoom247Chatroom } = useRoomContext();
 	const { colors } = useTheme();
 	const subscription = useRef<Subscription>();
 	const alsoSendThreadToChannelUserPref = useAppSelector(state => state.login.user.alsoSendThreadToChannel);
@@ -62,7 +62,7 @@ export const SendThreadToChannel = (): React.ReactElement | null => {
 		};
 	}, [tmid, alsoSendThreadToChannelUserPref, serverVersion, setAlsoSendThreadToChannel]);
 
-	if (!tmid || showEmojiSearchbar) {
+	if (!tmid || showEmojiSearchbar || isRoom247Chatroom) {
 		return null;
 	}
 
