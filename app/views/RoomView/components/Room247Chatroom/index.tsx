@@ -62,6 +62,7 @@ const Room247Chatroom = ({
 			messages={messages}
 			renderItem={(item, prevItem) => renderRow(item, prevItem, null)}
 			loading={loading}
+			fetchMessages={fetchMessages}
 		/>
 	);
 };

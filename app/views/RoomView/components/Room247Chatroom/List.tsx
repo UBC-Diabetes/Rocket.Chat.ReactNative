@@ -13,6 +13,7 @@ interface IRoom247ListProps {
 	messages: TAnyMessageModel[];
 	renderItem: (item: TAnyMessageModel, prevItem: TAnyMessageModel) => React.ReactElement;
 	loading: boolean;
+	fetchMessages: () => void;
 }
 
 // DEVELOPMENT: Toggle to enable/disable mock own message
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps) => {
+const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IRoom247ListProps) => {
 	// Mock own message for development
 	let displayMessages = messages;
 	if (SHOW_MOCK_OWN_MESSAGE && messages.length > 0) {
@@ -139,6 +140,7 @@ const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps
 				onEndReachedThreshold={0.5}
 				inverted={true} // Ensure new messages appear at the bottom
 				showsVerticalScrollIndicator={false} // Hide scrollbar for cleaner look
+				onEndReached={fetchMessages}
 				{...scrollPersistTaps}
 			/>
 		</View>
