@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import sharedStyles from '../../../../views/Styles';
+import sharedStyles from '../../../Styles';
 import { isTablet } from '../../../../lib/methods/helpers';
 
 export default StyleSheet.create({
@@ -12,7 +12,7 @@ export default StyleSheet.create({
 		width: '100%',
 		paddingHorizontal: 14,
 		flexDirection: 'column',
-		backgroundColor: '#F5F5F5'
+		backgroundColor: '#F8F8F8'
 	},
 	contentContainer: {
 		flex: 1

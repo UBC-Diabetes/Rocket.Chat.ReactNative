@@ -5,7 +5,7 @@ import moment from 'moment';
 const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
-		marginTop: 12,
+		marginTop: 16,
 		marginBottom: 12
 	},
 	bubble: {
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	text: {
-		fontSize: 14,
-		color: '#8c8c8c',
+		fontSize: 12,
+		color: '#000',
 		fontWeight: '400'
 	}
 });

@@ -21,7 +21,7 @@ const SHOW_MOCK_OWN_MESSAGE = true;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#F5F5F5' // Updated message area background color
+		backgroundColor: '#F8F8F8' // Updated message area background color
 	},
 	list: {
 		flex: 1
