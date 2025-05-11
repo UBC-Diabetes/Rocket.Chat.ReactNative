@@ -13,6 +13,8 @@ import { themes } from '../../../../lib/constants';
 import Avatar from '../../../../containers/Avatar';
 import { CustomIcon } from '../../../../containers/CustomIcon';
 import CustomReactions from './CustomReactions';
+import Blocks from '../../../../containers/message/Blocks';
+import PollBubble247 from './PollBubble247';
 
 interface IRoom247MessageProps {
 	item: TAnyMessageModel;
@@ -69,11 +71,20 @@ function getUsernameColor(username: string): string {
 	return USERNAME_COLORS[index];
 }
 
+function isPollBlock(blocks: any[]) {
+	// Count the number of section blocks with a button accessory
+	const optionSections = blocks.filter(
+		b => b.type === 'section' && b.accessory?.type === 'button'
+	);
+	// If there are at least 2, it's a poll
+	return optionSections.length >= 2;
+}
+
 const Room247Message = (props: IRoom247MessageProps) => {
 	const { item, user, previousItem, getCustomEmoji, showAttachment, autoTranslateRoom, autoTranslateLanguage } = props;
 	const context = useContext(MessageContext);
 	const { theme } = useTheme();
-	const navigation = useNavigation();
+	const navigation: any = useNavigation();
 
 	const isMock = item.id === 'mock-own-message';
 	// Check if the message is from the current user
@@ -138,6 +149,22 @@ const Room247Message = (props: IRoom247MessageProps) => {
 		rid: props.rid,
 		baseUrl: props.baseUrl
 	};
+
+	// Show blocks (e.g., polls) if present
+	if (item.blocks && item.blocks.length > 0) {
+		if (isPollBlock(item.blocks)) {
+			return (
+				<View style={styles.bubbleMessageContent}>
+					<PollBubble247 blocks={item.blocks} creator={item.u} timestamp={item.ts} />
+				</View>
+			);
+		}
+		return (
+			<View style={styles.bubbleMessageContent}>
+				<Blocks blocks={item.blocks} id={item.id} rid={item.rid} />
+			</View>
+		);
+	}
 
 	return (
 		<MessageContext.Provider value={messageContextValue}>
