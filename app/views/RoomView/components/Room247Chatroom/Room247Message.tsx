@@ -12,15 +12,7 @@ import styles from './styles';
 import { themes } from '../../../../lib/constants';
 import Avatar from '../../../../containers/Avatar';
 import { CustomIcon } from '../../../../containers/CustomIcon';
-import Reactions from '../../../../containers/message/Reactions';
 import CustomReactions from './CustomReactions';
-
-// Define reaction interface
-interface IReaction {
-	_id: string;
-	emoji: string;
-	usernames: string[];
-}
 
 interface IRoom247MessageProps {
 	item: TAnyMessageModel;
@@ -156,13 +148,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 				]}>
 				{/* Avatar on left for others, right for self */}
 				{!isOwn && (
-					<Avatar
-						text={item.u?.username}
-						size={32}
-						borderRadius={16}
-						style={{ marginRight: 8 }}
-						onPress={handleAvatarPress}
-					/>
+					<Avatar text={item.u?.username} size={32} borderRadius={16} style={{ marginRight: 8 }} onPress={handleAvatarPress} />
 				)}
 				{/* Message bubble and reply/icons row stacked vertically */}
 				<View style={{ flex: 1, flexDirection: 'column', alignItems: isOwn ? 'flex-end' : 'flex-start' }}>
@@ -220,7 +206,8 @@ const Room247Message = (props: IRoom247MessageProps) => {
 					</View>
 					{/* Reply button and icons row below the reactions row */}
 					{!props.isThreadRoom && (
-						<View style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
+						<View
+							style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
 							<TouchableOpacity
 								style={styles.replyButton}
 								onPress={() => {
@@ -240,18 +227,10 @@ const Room247Message = (props: IRoom247MessageProps) => {
 							</View>
 						</View>
 					)}
-					{props.isThreadRoom && (
-						<View style={styles.replyRow} />
-					)}
+					{props.isThreadRoom && <View style={styles.replyRow} />}
 				</View>
 				{isOwn && (
-					<Avatar
-						text={item.u?.username}
-						size={32}
-						borderRadius={16}
-						style={{ marginLeft: 8 }}
-						onPress={handleAvatarPress}
-					/>
+					<Avatar text={item.u?.username} size={32} borderRadius={16} style={{ marginLeft: 8 }} onPress={handleAvatarPress} />
 				)}
 			</View>
 		</MessageContext.Provider>

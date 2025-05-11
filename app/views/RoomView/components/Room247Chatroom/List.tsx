@@ -6,6 +6,7 @@ import scrollPersistTaps from '../../../../lib/methods/helpers/scrollPersistTaps
 import ActivityIndicator from '../../../../containers/ActivityIndicator';
 import { TAnyMessageModel } from '../../../../definitions';
 import { TSupportedThemes } from '../../../../theme';
+import Room247MessageSeparator from './Room247MessageSeparator';
 
 interface IRoom247ListProps {
 	theme: TSupportedThemes;
@@ -104,6 +105,15 @@ const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps
 		);
 	}
 
+	// Helper to check if two messages are on different days
+	const isNewDay = (current: TAnyMessageModel, previous?: TAnyMessageModel) => {
+		if (!previous) return true;
+		const currDate = current.ts ? new Date(current.ts) : null;
+		const prevDate = previous.ts ? new Date(previous.ts) : null;
+		if (!currDate || !prevDate) return false;
+		return currDate.toDateString() !== prevDate.toDateString();
+	};
+
 	return (
 		<View style={styles.container}>
 			<FlatList
@@ -111,7 +121,16 @@ const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps
 				style={styles.list}
 				data={displayMessages}
 				keyExtractor={item => item.id}
-				renderItem={({ item, index }) => renderItem(item, displayMessages[index + 1])}
+				renderItem={({ item, index }) => {
+					const prevItem = displayMessages[index + 1]; // FlatList is inverted
+					const showSeparator = isNewDay(item, prevItem);
+					return (
+						<>
+							{showSeparator && <Room247MessageSeparator ts={item.ts} />}
+							{renderItem(item, prevItem)}
+						</>
+					);
+				}}
 				contentContainerStyle={styles.contentContainer}
 				removeClippedSubviews={false}
 				initialNumToRender={15}
