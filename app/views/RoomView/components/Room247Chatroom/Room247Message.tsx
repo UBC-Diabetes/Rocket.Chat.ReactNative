@@ -204,7 +204,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 						</View>
 					</View>
 					{/* Reply button and icons row below the reactions row */}
-					<View style={styles.replyRow}>
+					<View style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
 						<TouchableOpacity
 							style={styles.replyButton}
 							onPress={() => {
