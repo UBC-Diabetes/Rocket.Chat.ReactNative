@@ -279,9 +279,8 @@ export default StyleSheet.create({
 	replyRow: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginTop: 24,
-		marginBottom: 12,
-		gap: 12
+		marginTop: 20,
+		marginBottom: 12
 	},
 	replyButton: {
 		backgroundColor: '#1E2A3A',
@@ -320,7 +319,12 @@ export default StyleSheet.create({
 	reactionsRowAbsoluteContainer: {
 		position: 'absolute',
 		bottom: -16,
-		zIndex: 2,
-		left: 16
+		zIndex: 2
+	},
+	ownReactionsContainer: {
+		left: 8
+	},
+	otherReactionsContainer: {
+		left: 22
 	}
 });

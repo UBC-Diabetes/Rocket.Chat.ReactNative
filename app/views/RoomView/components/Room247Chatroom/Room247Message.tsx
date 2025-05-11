@@ -12,6 +12,14 @@ import { themes } from '../../../../lib/constants';
 import Avatar from '../../../../containers/Avatar';
 import { CustomIcon } from '../../../../containers/CustomIcon';
 import Reactions from '../../../../containers/message/Reactions';
+import CustomReactions from './CustomReactions';
+
+// Define reaction interface
+interface IReaction {
+	_id: string;
+	emoji: string;
+	usernames: string[];
+}
 
 interface IRoom247MessageProps {
 	item: TAnyMessageModel;
@@ -73,8 +81,9 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	const context = useContext(MessageContext);
 	const { theme } = useTheme();
 
+	const isMock = item.id === 'mock-own-message';
 	// Check if the message is from the current user
-	const isOwn = item.id === 'mock-own-message' || item?.u?.username === user?.username;
+	const isOwn = isMock || item?.u?.username === user?.username;
 	const otherUserMessage = item.u?.username !== user?.username;
 
 	// Determine if translation is needed (similar to Message container logic)
@@ -110,7 +119,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	}
 
 	// Determine if we should show the tail (first message or different sender from previous)
-	const showTail = !previousItem || previousItem.u?.username !== item.u?.username;
+	const showTail = isMock || !previousItem || previousItem.u?.username !== item.u?.username;
 
 	// Determine if we should show username (not own message and first message from this user)
 	const showUsername = !isOwn && showTail && item.u?.username !== user.username;
@@ -186,8 +195,12 @@ const Room247Message = (props: IRoom247MessageProps) => {
 							</View>
 						</TouchableOpacity>
 						{/* Absolutely positioned reactions row inside bubble wrapper */}
-						<View style={[styles.reactionsRowAbsoluteContainer]}>
-							<Reactions reactions={item.reactions || []} getCustomEmoji={getCustomEmoji} />
+						<View
+							style={[
+								styles.reactionsRowAbsoluteContainer,
+								isOwn ? styles.ownReactionsContainer : styles.otherReactionsContainer
+							]}>
+							<CustomReactions reactions={item.reactions || []} getCustomEmoji={getCustomEmoji} isOwn={isOwn} />
 						</View>
 					</View>
 					{/* Reply button and icons row below the reactions row */}

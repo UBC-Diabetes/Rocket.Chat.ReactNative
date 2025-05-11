@@ -63,7 +63,25 @@ const Room247List = ({ theme, messages, renderItem, loading }: IRoom247ListProps
 			rid: 'mock-room',
 			_updatedAt: new Date(),
 			dml: new Date().toISOString(),
-			t: 'rm' // workaround for type checking; treat as user message
+			t: 'rm', // workaround for type checking; treat as user message
+			// Add reactions in the correct array format
+			reactions: [
+				{
+					_id: 'mock-own-message-smile',
+					emoji: '😊',
+					usernames: ['user1', 'user2', 'user3']
+				},
+				{
+					_id: 'mock-own-message-thumbsup',
+					emoji: '👍',
+					usernames: ['user4', 'user5']
+				},
+				{
+					_id: 'mock-own-message-heart',
+					emoji: '❤️',
+					usernames: ['user6']
+				}
+			]
 			// Add any other fields as needed for rendering
 		} as unknown as TAnyMessageModel;
 		displayMessages = [mockOwnMessage, ...messages];
