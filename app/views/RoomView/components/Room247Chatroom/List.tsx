@@ -112,7 +112,24 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 		const currDate = current.ts ? new Date(current.ts) : null;
 		const prevDate = previous.ts ? new Date(previous.ts) : null;
 		if (!currDate || !prevDate) return false;
-		return currDate.toDateString() !== prevDate.toDateString();
+
+		// Check if the current message is from today or yesterday
+		const today = new Date();
+		const yesterday = new Date(today);
+		yesterday.setDate(yesterday.getDate() - 1);
+
+		const isToday = currDate.toDateString() === today.toDateString();
+		const isYesterday = currDate.toDateString() === yesterday.toDateString();
+
+		// Only show separator if it's a different day AND there are messages
+		return (
+			currDate.toDateString() !== prevDate.toDateString() &&
+			displayMessages.some(msg => {
+				const msgDate = msg.ts ? new Date(msg.ts) : null;
+				if (!msgDate) return false;
+				return msgDate.toDateString() === currDate.toDateString();
+			})
+		);
 	};
 
 	return (
@@ -127,8 +144,8 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 					const showSeparator = isNewDay(item, prevItem);
 					return (
 						<>
-							{showSeparator && <Room247MessageSeparator ts={item.ts} />}
 							{renderItem(item, prevItem)}
+							{showSeparator && <Room247MessageSeparator ts={item.ts} />}
 						</>
 					);
 				}}
