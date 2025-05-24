@@ -81,7 +81,9 @@ const PollBubble247 = ({ blocks, creator, timestamp }: any) => {
 				</View>
 			))}
 			{votersSummary ? <Text style={styles.voters}>{votersSummary}</Text> : null}
-			<Text style={styles.timestamp}>{timestamp ? new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}</Text>
+			<Text style={styles.timestamp}>
+				{timestamp ? new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+			</Text>
 		</View>
 	);
 };
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
 	title: { fontSize: 16, marginBottom: 8 },
 	optionRow: { marginBottom: 16 },
 	optionButton: {
-		backgroundColor: '#1E2A3A', // dark navy
+		backgroundColor: '#112D4E', // dark navy
 		borderRadius: 999,
 		paddingVertical: 8,
 		paddingHorizontal: 24,

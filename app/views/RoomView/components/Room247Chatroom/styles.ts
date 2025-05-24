@@ -196,7 +196,7 @@ export default StyleSheet.create({
 	},
 	ownMessage: {
 		maxWidth: '75%',
-		backgroundColor: '#1E6CA8',
+		backgroundColor: '#2C74B3',
 		borderRadius: 12,
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.05)',
@@ -283,7 +283,7 @@ export default StyleSheet.create({
 		marginBottom: 12
 	},
 	replyButton: {
-		backgroundColor: '#1E2A3A',
+		backgroundColor: '#112D4E',
 		borderRadius: 16,
 		paddingHorizontal: 16,
 		paddingVertical: 6,
