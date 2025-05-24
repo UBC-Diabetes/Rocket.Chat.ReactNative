@@ -1,7 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import sharedStyles from '../../../Styles';
 import { isTablet } from '../../../../lib/methods/helpers';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+// Helper function to get responsive padding/margin
+const getResponsiveSpacing = (baseSize: number) => {
+	return Math.max(baseSize, SCREEN_WIDTH * 0.03); // Minimum 3% of screen width
+};
 
 export default StyleSheet.create({
 	root: {
@@ -10,7 +17,7 @@ export default StyleSheet.create({
 	container: {
 		paddingVertical: 4,
 		width: '100%',
-		paddingHorizontal: 14,
+		paddingHorizontal: getResponsiveSpacing(14),
 		flexDirection: 'column',
 		backgroundColor: '#F8F8F8'
 	},
@@ -40,7 +47,7 @@ export default StyleSheet.create({
 		marginTop: 8
 	},
 	reactionButton: {
-		marginRight: 8,
+		marginRight: getResponsiveSpacing(8),
 		marginBottom: 8,
 		borderRadius: 4
 	},
@@ -140,8 +147,8 @@ export default StyleSheet.create({
 		marginBottom: 12
 	},
 	repliedThreadIcon: {
-		marginRight: 10,
-		marginLeft: 16
+		marginRight: getResponsiveSpacing(10),
+		marginLeft: getResponsiveSpacing(16)
 	},
 	repliedThreadName: {
 		fontSize: 16,
@@ -155,20 +162,20 @@ export default StyleSheet.create({
 		justifyContent: 'center'
 	},
 	threadBadge: {
-		width: 8,
-		height: 8,
-		borderRadius: 4,
-		marginLeft: 8
+		width: getResponsiveSpacing(8),
+		height: getResponsiveSpacing(8),
+		borderRadius: getResponsiveSpacing(4),
+		marginLeft: getResponsiveSpacing(8)
 	},
 	threadBell: {
-		marginLeft: 8
+		marginLeft: getResponsiveSpacing(8)
 	},
 	rightIcons: {
-		paddingLeft: 5
+		paddingLeft: getResponsiveSpacing(5)
 	},
 	threadDetails: {
 		flex: 1,
-		marginLeft: 12
+		marginLeft: getResponsiveSpacing(12)
 	},
 	blurView: {
 		position: 'absolute',
@@ -201,7 +208,7 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
-		marginRight: 12,
+		marginRight: getResponsiveSpacing(12),
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 1 },
 		shadowOpacity: 0.1,
@@ -216,7 +223,7 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
-		marginLeft: 12,
+		marginLeft: getResponsiveSpacing(12),
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 1 },
 		shadowOpacity: 0.1,
@@ -225,7 +232,7 @@ export default StyleSheet.create({
 		position: 'relative'
 	},
 	bubbleMessageContent: {
-		paddingHorizontal: 12,
+		paddingHorizontal: getResponsiveSpacing(12),
 		paddingVertical: 8,
 		paddingBottom: 16,
 		backgroundColor: 'transparent',
@@ -234,28 +241,28 @@ export default StyleSheet.create({
 	timestamp: {
 		fontSize: 10,
 		position: 'absolute',
-		right: 8,
+		right: getResponsiveSpacing(8),
 		bottom: 4
 		// color will be set inline depending on own/other
 	},
 	// Message tail styles
 	ownTail: {
 		position: 'absolute',
-		right: -8,
+		right: -getResponsiveSpacing(8),
 		top: 0,
-		width: 8,
-		height: 16,
-		backgroundColor: '#dcf8c6', // Same as bubble color
-		borderTopRightRadius: 8
+		width: getResponsiveSpacing(8),
+		height: getResponsiveSpacing(16),
+		backgroundColor: '#2C74B3', // Match ownMessage background color
+		borderTopRightRadius: getResponsiveSpacing(8)
 	},
 	otherTail: {
 		position: 'absolute',
-		left: -8,
+		left: -getResponsiveSpacing(8),
 		top: 0,
-		width: 8,
-		height: 16,
-		backgroundColor: '#fff', // Same as bubble color
-		borderTopLeftRadius: 8
+		width: getResponsiveSpacing(8),
+		height: getResponsiveSpacing(16),
+		backgroundColor: '#FFFFFF', // Match otherMessage background color
+		borderTopLeftRadius: getResponsiveSpacing(8)
 	},
 	// Add extra styling for user name in group chats
 	userName: {
