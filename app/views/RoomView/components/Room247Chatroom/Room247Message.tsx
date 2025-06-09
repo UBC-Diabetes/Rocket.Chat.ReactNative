@@ -148,6 +148,11 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	// Get username color
 	const usernameColor = displayName ? getUsernameColor(displayName) : '#000000';
 
+	// Determine if there are new thread notifications
+	// For now, we'll show the bell if there are replies and the message has thread activity
+	// In a real implementation, this would check against user's last read timestamp
+	const hasNewThreadReplies = !!(item.tlm && item.tcount && item.tcount > 0);
+
 	// Create a message context with all necessary values, including proper translateLanguage
 	const messageContextValue = {
 		user,
@@ -243,8 +248,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 						</View>
 						{/* Reply button and icons row below the reactions row */}
 						{!props.isThreadRoom && (
-							<View
-								style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
+							<View style={[styles.replyRow, { marginLeft: 12 }]}>
 								<TouchableOpacity
 									style={styles.replyButton}
 									onPress={() => {
@@ -262,6 +266,12 @@ const Room247Message = (props: IRoom247MessageProps) => {
 									<CustomIcon name='user' size={18} style={styles.icon} color='#1E2A3A' />
 									<Text style={styles.iconText}>{item.replies ? item.replies.length : 0}</Text>
 								</View>
+								{/* Bell notification - positioned at avatar level but at reply row height */}
+								{hasNewThreadReplies && (
+									<View style={styles.threadBellAtAvatarPosition}>
+										<CustomIcon name='notification' size={18} color='#1E2A3A' />
+									</View>
+								)}
 							</View>
 						)}
 						{props.isThreadRoom && <View style={styles.replyRow} />}

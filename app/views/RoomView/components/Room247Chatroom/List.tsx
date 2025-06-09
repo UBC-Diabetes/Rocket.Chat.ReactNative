@@ -64,6 +64,7 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 			replies: ['user1'],
 			rid: 'mock-room',
 			_updatedAt: new Date(),
+			tlm: new Date(), // Thread last message - triggers bell notification
 			dml: new Date().toISOString(),
 			t: 'rm', // workaround for type checking; treat as user message
 			// Add reactions in the correct array format
@@ -107,8 +108,9 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 			u: { username: 'others', _id: 'othrs' },
 			msg: 'This is a mock message from someone else for development.',
 			ts: new Date(),
-			tcount: 1,
-			replies: ['user1'],
+			tcount: 3,
+			tlm: new Date(), // Thread last message - triggers bell notification
+			replies: ['user1', 'user2', 'user3'],
 			rid: 'mock-room',
 			_updatedAt: new Date(),
 			dml: new Date().toISOString(),
@@ -187,10 +189,12 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 				// Result for option 1
 				{
 					type: 'context',
-					elements: [{
-						text: '45.5% (5)',
-						type: 'mrkdwn'
-					}]
+					elements: [
+						{
+							text: '45.5% (5)',
+							type: 'mrkdwn'
+						}
+					]
 				},
 				// Option 2
 				{
@@ -211,18 +215,22 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 				// Result for option 2
 				{
 					type: 'context',
-					elements: [{
-						text: '54.5% (6)',
-						type: 'mrkdwn'
-					}]
+					elements: [
+						{
+							text: '54.5% (6)',
+							type: 'mrkdwn'
+						}
+					]
 				},
 				// Voters summary
 				{
 					type: 'context',
-					elements: [{
-						text: '11 votes - Alice, Bob, Carol, Dave, Eve, Frank, Grace, Henry, Ivy, Jack, Kate',
-						type: 'mrkdwn'
-					}]
+					elements: [
+						{
+							text: '11 votes - Alice, Bob, Carol, Dave, Eve, Frank, Grace, Henry, Ivy, Jack, Kate',
+							type: 'mrkdwn'
+						}
+					]
 				}
 			]
 		} as unknown as TAnyMessageModel;

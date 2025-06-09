@@ -168,6 +168,20 @@ export default StyleSheet.create({
 	threadBell: {
 		marginLeft: getResponsiveSpacing(8)
 	},
+	threadBellContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginLeft: 12,
+		paddingLeft: 8
+	},
+	threadBellAtAvatarPosition: {
+		position: 'absolute',
+		right: -150, // Position at avatar column (accounting for container padding and avatar space)
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 20,
+		height: 20
+	},
 	rightIcons: {
 		paddingLeft: getResponsiveSpacing(5)
 	},
