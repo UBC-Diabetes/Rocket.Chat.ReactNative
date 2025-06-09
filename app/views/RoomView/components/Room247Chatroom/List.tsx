@@ -148,7 +148,86 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 			]
 			// Add any other fields as needed for rendering
 		} as unknown as TAnyMessageModel;
-		displayMessages = [mockOtherMessage, mockOwnMessage, ...messages];
+
+		const mockPollMessage = {
+			id: 'mock-poll-message',
+			_id: 'mock-poll-message',
+			u: { username: 'admin', _id: 'admin-id', name: 'Admin User' },
+			msg: '', // Empty for poll messages
+			ts: new Date(Date.now() - 60000), // 1 minute ago
+			rid: 'mock-room',
+			_updatedAt: new Date(),
+			dml: new Date().toISOString(),
+			t: 'rm',
+			blocks: [
+				// Title block
+				{
+					type: 'section',
+					text: {
+						text: 'What is your favorite programming language?',
+						type: 'mrkdwn'
+					}
+				},
+				// Option 1
+				{
+					type: 'section',
+					text: {
+						text: 'JavaScript',
+						type: 'mrkdwn'
+					},
+					accessory: {
+						type: 'button',
+						action_id: 'vote_js',
+						text: {
+							type: 'plain_text',
+							text: 'Vote'
+						}
+					}
+				},
+				// Result for option 1
+				{
+					type: 'context',
+					elements: [{
+						text: '45.5% (5)',
+						type: 'mrkdwn'
+					}]
+				},
+				// Option 2
+				{
+					type: 'section',
+					text: {
+						text: 'TypeScript',
+						type: 'mrkdwn'
+					},
+					accessory: {
+						type: 'button',
+						action_id: 'vote_ts',
+						text: {
+							type: 'plain_text',
+							text: 'Vote'
+						}
+					}
+				},
+				// Result for option 2
+				{
+					type: 'context',
+					elements: [{
+						text: '54.5% (6)',
+						type: 'mrkdwn'
+					}]
+				},
+				// Voters summary
+				{
+					type: 'context',
+					elements: [{
+						text: '11 votes - Alice, Bob, Carol, Dave, Eve, Frank, Grace, Henry, Ivy, Jack, Kate',
+						type: 'mrkdwn'
+					}]
+				}
+			]
+		} as unknown as TAnyMessageModel;
+
+		displayMessages = [mockPollMessage, mockOtherMessage, mockOwnMessage, ...messages];
 	}
 
 	if (loading && !displayMessages.length) {
