@@ -200,7 +200,7 @@ export default StyleSheet.create({
 		justifyContent: 'flex-start' // Align to the left
 	},
 	ownMessage: {
-		maxWidth: '75%',
+		maxWidth: '90%',
 		backgroundColor: '#2C74B3',
 		borderRadius: 12,
 		borderWidth: 1,
@@ -215,7 +215,7 @@ export default StyleSheet.create({
 		position: 'relative'
 	},
 	otherMessage: {
-		maxWidth: '75%',
+		maxWidth: '90%',
 		backgroundColor: '#FFFFFF',
 		borderRadius: 12,
 		borderWidth: 1,
