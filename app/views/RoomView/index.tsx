@@ -1524,7 +1524,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 	render() {
 		console.count(`${this.constructor.name}.render calls`);
 		const { room, loading, action, selectedMessages } = this.state;
-		const { user, baseUrl, theme, width, serverVersion, navigation, encryptionEnabled } = this.props;
+		const { user, baseUrl, theme, width, serverVersion, navigation, encryptionEnabled, useRealName } = this.props;
 		const { rid, t } = room;
 		let bannerClosed;
 		let announcement;
@@ -1585,6 +1585,7 @@ class RoomView extends React.Component<IRoomViewProps, IRoomViewState> {
 							renderRow={this.renderItem}
 							hideSystemMessages={this.hideSystemMessages}
 							showMessageInMainThread={user.showMessageInMainThread ?? false}
+							useRealName={useRealName}
 						/>
 					) : (
 						<List

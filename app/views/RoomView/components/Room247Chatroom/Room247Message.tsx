@@ -43,6 +43,7 @@ interface IRoom247MessageProps {
 	isRoom247Chatroom?: boolean;
 	autoTranslateRoom?: boolean;
 	autoTranslateLanguage?: string;
+	useRealName?: boolean;
 	// Other props from MessageContainer
 	[key: string]: any;
 }
@@ -79,7 +80,16 @@ function isPollBlock(blocks: any[]) {
 }
 
 const Room247Message = (props: IRoom247MessageProps) => {
-	const { item, user, previousItem, getCustomEmoji, showAttachment, autoTranslateRoom, autoTranslateLanguage } = props;
+	const {
+		item,
+		user,
+		previousItem,
+		getCustomEmoji,
+		showAttachment,
+		autoTranslateRoom,
+		autoTranslateLanguage,
+		useRealName = false
+	} = props;
 	const context = useContext(MessageContext);
 	const { theme } = useTheme();
 	const navigation: any = useNavigation();
@@ -132,8 +142,11 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	// Determine if we should show username (not own message and first message from this user)
 	const showUsername = !isOwn && showTail && item.u?.username !== user.username;
 
+	// Get display name or username
+	const displayName = (useRealName && item.u?.name) || item.u?.username;
+
 	// Get username color
-	const usernameColor = item.u?.username ? getUsernameColor(item.u.username) : '#000000';
+	const usernameColor = displayName ? getUsernameColor(displayName) : '#000000';
 
 	// Create a message context with all necessary values, including proper translateLanguage
 	const messageContextValue = {
@@ -173,7 +186,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 				]}>
 				{/* Avatar on left for others, right for self */}
 				{!isOwn && (
-					<Avatar text={item.u?.username} size={32} borderRadius={16} style={{ marginRight: 8 }} onPress={handleAvatarPress} />
+					<Avatar text={displayName} size={32} borderRadius={16} style={{ marginRight: 2 }} onPress={handleAvatarPress} />
 				)}
 				{/* Message bubble and reply/icons row stacked vertically */}
 				<View style={{ flex: 1, flexDirection: 'column', alignItems: isOwn ? 'flex-end' : 'flex-start' }}>
@@ -187,14 +200,14 @@ const Room247Message = (props: IRoom247MessageProps) => {
 							{showTail && <View style={isOwn ? styles.ownTail : styles.otherTail} />}
 							<View style={styles.bubbleMessageContent}>
 								{/* Show username for others if it's the first from this sender */}
-								{showUsername && item.u?.username && (
+								{showUsername && displayName && (
 									<Text
 										style={
 											isOwn
 												? [styles.userName, styles.ownMessageText]
 												: [styles.userName, styles.otherMessageText, { color: usernameColor as string }]
 										}>
-										{item.u.username}
+										{displayName}
 									</Text>
 								)}
 								{/* Message content */}
@@ -205,6 +218,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 										username={user?.username}
 										getCustomEmoji={getCustomEmoji}
 										textColor={isOwn ? '#FFFFFF' : '#000000'}
+										style={[styles.messageText]}
 									/>
 								) : null}
 								{/* Attachments - now context is provided above */}
@@ -253,9 +267,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 						{props.isThreadRoom && <View style={styles.replyRow} />}
 					</View>
 				</View>
-				{isOwn && (
-					<Avatar text={item.u?.username} size={32} borderRadius={16} style={{ marginLeft: 8 }} onPress={handleAvatarPress} />
-				)}
+				{isOwn && <Avatar text={displayName} size={32} borderRadius={16} style={{ marginLeft: 2 }} onPress={handleAvatarPress} />}
 			</View>
 		</MessageContext.Provider>
 	);
