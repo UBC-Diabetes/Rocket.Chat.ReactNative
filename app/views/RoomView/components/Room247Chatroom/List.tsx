@@ -82,11 +82,73 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 					_id: 'mock-own-message-heart',
 					emoji: '❤️',
 					usernames: ['user6']
+				},
+				{
+					_id: 'mock-own-message-smile',
+					emoji: '😊',
+					usernames: ['user1', 'user2', 'user3']
+				},
+				{
+					_id: 'mock-own-message-thumbsup',
+					emoji: '👍',
+					usernames: ['user4', 'user5']
+				},
+				{
+					_id: 'mock-own-message-heart',
+					emoji: '❤️',
+					usernames: ['user6']
 				}
 			]
 			// Add any other fields as needed for rendering
 		} as unknown as TAnyMessageModel;
-		displayMessages = [mockOwnMessage, ...messages];
+		const mockOtherMessage = {
+			id: 'mock-other-message',
+			_id: 'mock-other-message',
+			u: { username: 'others', _id: 'othrs' },
+			msg: 'This is a mock message from someone else for development.',
+			ts: new Date(),
+			tcount: 1,
+			replies: ['user1'],
+			rid: 'mock-room',
+			_updatedAt: new Date(),
+			dml: new Date().toISOString(),
+			t: 'rm', // workaround for type checking; treat as user message
+			// Add reactions in the correct array format
+			reactions: [
+				{
+					_id: 'mock-own-message-smile',
+					emoji: '😊',
+					usernames: ['user1', 'user2', 'user3']
+				},
+				{
+					_id: 'mock-own-message-thumbsup',
+					emoji: '👍',
+					usernames: ['user4', 'user5']
+				},
+				{
+					_id: 'mock-own-message-heart',
+					emoji: '❤️',
+					usernames: ['user6']
+				},
+				{
+					_id: 'mock-own-message-smile',
+					emoji: '😊',
+					usernames: ['user1', 'user2', 'user3']
+				},
+				{
+					_id: 'mock-own-message-thumbsup',
+					emoji: '👍',
+					usernames: ['user4', 'user5']
+				},
+				{
+					_id: 'mock-own-message-heart',
+					emoji: '❤️',
+					usernames: ['user6']
+				}
+			]
+			// Add any other fields as needed for rendering
+		} as unknown as TAnyMessageModel;
+		displayMessages = [mockOtherMessage, mockOwnMessage, ...messages];
 	}
 
 	if (loading && !displayMessages.length) {

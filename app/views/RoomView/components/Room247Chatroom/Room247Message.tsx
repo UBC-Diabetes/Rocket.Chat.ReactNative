@@ -73,9 +73,7 @@ function getUsernameColor(username: string): string {
 
 function isPollBlock(blocks: any[]) {
 	// Count the number of section blocks with a button accessory
-	const optionSections = blocks.filter(
-		b => b.type === 'section' && b.accessory?.type === 'button'
-	);
+	const optionSections = blocks.filter(b => b.type === 'section' && b.accessory?.type === 'button');
 	// If there are at least 2, it's a poll
 	return optionSections.length >= 2;
 }
@@ -222,39 +220,38 @@ const Room247Message = (props: IRoom247MessageProps) => {
 								) : null}
 							</View>
 						</TouchableOpacity>
-						{/* Absolutely positioned reactions row inside bubble wrapper */}
-						<View
-							style={[
-								styles.reactionsRowAbsoluteContainer,
-								isOwn ? styles.ownReactionsContainer : styles.otherReactionsContainer
-							]}>
+					</View>
+					{/* Flex container for reactions and reply button */}
+					<View style={[styles.actionsContainer, isOwn ? { alignItems: 'flex-end' } : { alignItems: 'flex-start' }]}>
+						{/* Reactions positioned with flex */}
+						<View style={[styles.reactionsContainer, isOwn ? { marginRight: 12 } : { marginLeft: 12 }]}>
 							<CustomReactions reactions={item.reactions || []} getCustomEmoji={getCustomEmoji} isOwn={isOwn} />
 						</View>
+						{/* Reply button and icons row below the reactions row */}
+						{!props.isThreadRoom && (
+							<View
+								style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
+								<TouchableOpacity
+									style={styles.replyButton}
+									onPress={() => {
+										if (props.onThreadPress) {
+											props.onThreadPress(item);
+										}
+									}}>
+									<Text style={styles.replyButtonText}>Reply</Text>
+								</TouchableOpacity>
+								<View style={styles.iconCount}>
+									<CustomIcon name='message' size={18} style={styles.icon} color='#1E2A3A' />
+									<Text style={styles.iconText}>{item.tcount ?? 0}</Text>
+								</View>
+								<View style={styles.iconCount}>
+									<CustomIcon name='user' size={18} style={styles.icon} color='#1E2A3A' />
+									<Text style={styles.iconText}>{item.replies ? item.replies.length : 0}</Text>
+								</View>
+							</View>
+						)}
+						{props.isThreadRoom && <View style={styles.replyRow} />}
 					</View>
-					{/* Reply button and icons row below the reactions row */}
-					{!props.isThreadRoom && (
-						<View
-							style={[styles.replyRow, isOwn ? { marginLeft: 'auto', maxWidth: '75%', marginRight: 12 } : { marginLeft: 12 }]}>
-							<TouchableOpacity
-								style={styles.replyButton}
-								onPress={() => {
-									if (props.onThreadPress) {
-										props.onThreadPress(item);
-									}
-								}}>
-								<Text style={styles.replyButtonText}>Reply</Text>
-							</TouchableOpacity>
-							<View style={styles.iconCount}>
-								<CustomIcon name='message' size={18} style={styles.icon} color='#1E2A3A' />
-								<Text style={styles.iconText}>{item.tcount ?? 0}</Text>
-							</View>
-							<View style={styles.iconCount}>
-								<CustomIcon name='user' size={18} style={styles.icon} color='#1E2A3A' />
-								<Text style={styles.iconText}>{item.replies ? item.replies.length : 0}</Text>
-							</View>
-						</View>
-					)}
-					{props.isThreadRoom && <View style={styles.replyRow} />}
 				</View>
 				{isOwn && (
 					<Avatar text={item.u?.username} size={32} borderRadius={16} style={{ marginLeft: 8 }} onPress={handleAvatarPress} />

@@ -6,9 +6,7 @@ import { isTablet } from '../../../../lib/methods/helpers';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 // Helper function to get responsive padding/margin
-const getResponsiveSpacing = (baseSize: number) => {
-	return Math.max(baseSize, SCREEN_WIDTH * 0.03); // Minimum 3% of screen width
-};
+const getResponsiveSpacing = (baseSize: number) => Math.max(baseSize, SCREEN_WIDTH * 0.03); // Minimum 3% of screen width
 
 export default StyleSheet.create({
 	root: {
@@ -44,7 +42,7 @@ export default StyleSheet.create({
 	reactionsContainer: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginTop: 8
+		marginTop: 6
 	},
 	reactionButton: {
 		marginRight: getResponsiveSpacing(8),
@@ -286,7 +284,7 @@ export default StyleSheet.create({
 	replyRow: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginTop: 20,
+		marginTop: 4,
 		marginBottom: 12
 	},
 	replyButton: {
@@ -322,16 +320,10 @@ export default StyleSheet.create({
 	otherMessageText: {
 		color: '#000000'
 	},
-	// Position for the reactions container
-	reactionsRowAbsoluteContainer: {
-		position: 'absolute',
-		bottom: -16,
-		zIndex: 2
-	},
-	ownReactionsContainer: {
-		left: 8
-	},
-	otherReactionsContainer: {
-		left: 22
+	// New flex-based layout styles
+	actionsContainer: {
+		flex: 1,
+		flexDirection: 'column',
+		marginTop: 8
 	}
 });
