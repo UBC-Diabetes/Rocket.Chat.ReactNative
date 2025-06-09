@@ -119,17 +119,17 @@ export default StyleSheet.create({
 		resizeMode: 'contain'
 	},
 	text: {
-		fontSize: 16,
+		fontSize: 12,
 		color: '#FFFFFF',
 		...sharedStyles.textRegular
 	},
 	textInfo: {
-		fontSize: 16,
+		fontSize: 12,
 		...sharedStyles.textRegular
 	},
 	startedDiscussion: {
 		fontStyle: 'italic',
-		fontSize: 16,
+		fontSize: 12,
 		marginBottom: 6,
 		...sharedStyles.textRegular
 	},
@@ -149,7 +149,7 @@ export default StyleSheet.create({
 		marginLeft: getResponsiveSpacing(16)
 	},
 	repliedThreadName: {
-		fontSize: 16,
+		fontSize: 14,
 		flex: 1,
 		...sharedStyles.textRegular
 	},
@@ -206,7 +206,7 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
-		marginRight: getResponsiveSpacing(12),
+		marginRight: getResponsiveSpacing(8),
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 1 },
 		shadowOpacity: 0.1,
@@ -221,7 +221,7 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
-		marginLeft: getResponsiveSpacing(12),
+		marginLeft: getResponsiveSpacing(8),
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 1 },
 		shadowOpacity: 0.1,
@@ -325,5 +325,10 @@ export default StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		marginTop: 8
+	},
+	// WhatsApp-style smaller message text
+	messageText: {
+		fontSize: 14,
+		lineHeight: 18
 	}
 });
