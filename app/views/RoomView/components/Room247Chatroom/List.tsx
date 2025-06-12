@@ -17,7 +17,7 @@ interface IRoom247ListProps {
 }
 
 // DEVELOPMENT: Toggle to enable/disable mock own message
-const SHOW_MOCK_OWN_MESSAGE = true;
+const SHOW_MOCK_OWN_MESSAGE = false;
 
 const styles = StyleSheet.create({
 	container: {
