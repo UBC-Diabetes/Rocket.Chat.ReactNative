@@ -236,7 +236,7 @@ export default StyleSheet.create({
 	bubbleMessageContent: {
 		paddingHorizontal: getResponsiveSpacing(12),
 		paddingVertical: 8,
-		paddingBottom: 16,
+		paddingBottom: 20,
 		backgroundColor: 'transparent',
 		minWidth: 80
 	},

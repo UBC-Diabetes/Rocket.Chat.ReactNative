@@ -232,6 +232,7 @@ const Room247Message = (props: IRoom247MessageProps) => {
 									timeFormat={props.timeFormat}
 									showAttachment={showAttachment}
 									getCustomEmoji={getCustomEmoji}
+									style={[{ marginBottom: 8 }]}
 								/>
 								{/* Timestamp */}
 								{timestamp ? (
