@@ -41,12 +41,10 @@ export default StyleSheet.create({
 	},
 	reactionsContainer: {
 		flexDirection: 'row',
-		flexWrap: 'wrap',
-		marginTop: 6
+		flexWrap: 'wrap'
 	},
 	reactionButton: {
 		marginRight: getResponsiveSpacing(8),
-		marginBottom: 8,
 		borderRadius: 4
 	},
 	reactionContainer: {
@@ -288,8 +286,7 @@ export default StyleSheet.create({
 	replyRow: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginTop: 4,
-		marginBottom: 12
+		marginBottom: 18
 	},
 	replyButton: {
 		backgroundColor: '#112D4E',
