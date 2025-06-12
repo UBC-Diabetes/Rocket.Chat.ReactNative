@@ -221,11 +221,6 @@ export default StyleSheet.create({
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
 		marginRight: getResponsiveSpacing(8),
-		shadowColor: '#000',
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.1,
-		shadowRadius: 1,
-		elevation: 1,
 		position: 'relative'
 	},
 	otherMessage: {
@@ -236,11 +231,6 @@ export default StyleSheet.create({
 		borderColor: 'rgba(0,0,0,0.05)',
 		overflow: 'hidden',
 		marginLeft: getResponsiveSpacing(8),
-		shadowColor: '#000',
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.1,
-		shadowRadius: 1,
-		elevation: 1,
 		position: 'relative'
 	},
 	bubbleMessageContent: {
