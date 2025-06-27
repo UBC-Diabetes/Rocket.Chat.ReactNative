@@ -1,11 +1,13 @@
-import React from 'react';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { FlatList, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import { themes } from '../../../../lib/constants';
 import scrollPersistTaps from '../../../../lib/methods/helpers/scrollPersistTaps';
 import ActivityIndicator from '../../../../containers/ActivityIndicator';
+import { CustomIcon } from '../../../../containers/CustomIcon';
 import { TAnyMessageModel } from '../../../../definitions';
 import { TSupportedThemes } from '../../../../theme';
+import { SCROLL_LIMIT, EDGE_DISTANCE } from '../../../RoomView/List/constants';
 import Room247MessageSeparator from './Room247MessageSeparator';
 
 interface IRoom247ListProps {
@@ -18,6 +20,8 @@ interface IRoom247ListProps {
 
 // DEVELOPMENT: Toggle to enable/disable mock own message
 const SHOW_MOCK_OWN_MESSAGE = false;
+
+// Scroll button constants imported from RoomView/List/constants
 
 const styles = StyleSheet.create({
 	container: {
@@ -47,10 +51,35 @@ const styles = StyleSheet.create({
 		color: '#888',
 		textAlign: 'center',
 		marginHorizontal: 40
+	},
+	// Scroll to bottom button styles (adapted from NavBottomFAB)
+	scrollButton: {
+		position: 'absolute',
+		bottom: EDGE_DISTANCE,
+		right: EDGE_DISTANCE,
+		width: 50,
+		height: 50,
+		borderRadius: 25,
+		backgroundColor: '#2C74B3', // Match Room247 theme
+		borderWidth: 1,
+		borderColor: 'rgba(0,0,0,0.1)',
+		alignItems: 'center',
+		justifyContent: 'center',
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5
 	}
 });
 
 const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IRoom247ListProps) => {
+	// FlatList ref for scroll control
+	const flatListRef = useRef<FlatList>(null);
+	
+	// Scroll button visibility state
+	const [showScrollButton, setShowScrollButton] = useState(false);
+	
 	// Mock own message for development
 	let displayMessages = messages;
 	if (SHOW_MOCK_OWN_MESSAGE && messages.length > 0) {
@@ -281,9 +310,25 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 		);
 	};
 
+	// Scroll to bottom function (similar to useScroll.ts)
+	const handleScrollToBottom = () => {
+		flatListRef.current?.scrollToOffset({ offset: -100, animated: true });
+	};
+
+	// Scroll event handler (similar to List.tsx)
+	const handleScroll = (event: any) => {
+		const offsetY = event.nativeEvent.contentOffset.y;
+		if (offsetY > SCROLL_LIMIT) {
+			setShowScrollButton(true);
+		} else {
+			setShowScrollButton(false);
+		}
+	};
+
 	return (
 		<View style={styles.container}>
 			<FlatList
+				ref={flatListRef}
 				testID='room-view-messages-247'
 				style={styles.list}
 				data={displayMessages}
@@ -307,8 +352,20 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 				inverted={true} // Ensure new messages appear at the bottom
 				showsVerticalScrollIndicator={false} // Hide scrollbar for cleaner look
 				onEndReached={fetchMessages}
+				onScroll={handleScroll}
+				scrollEventThrottle={16}
 				{...scrollPersistTaps}
 			/>
+			{/* Scroll to bottom button - only show when scrolled up */}
+			{showScrollButton && (
+				<TouchableOpacity 
+					style={styles.scrollButton}
+					onPress={handleScrollToBottom}
+					testID='room-247-scroll-to-bottom'
+				>
+					<CustomIcon name='chevron-down' size={24} color='#FFFFFF' />
+				</TouchableOpacity>
+			)}
 		</View>
 	);
 };
