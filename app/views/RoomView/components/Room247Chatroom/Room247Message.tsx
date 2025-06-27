@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -45,6 +45,7 @@ interface IRoom247MessageProps {
 	autoTranslateLanguage?: string;
 	useRealName?: boolean;
 	// Other props from MessageContainer
+	toggleFollowThread?: (isFollowing: boolean, messageId: string) => void;
 	[key: string]: any;
 }
 
@@ -148,10 +149,35 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	// Get username color
 	const usernameColor = displayName ? getUsernameColor(displayName) : '#000000';
 
-	// Determine if there are new thread notifications
-	// For now, we'll show the bell if there are replies and the message has thread activity
-	// In a real implementation, this would check against user's last read timestamp
-	const hasNewThreadReplies = !!(item.tlm && item.tcount && item.tcount > 0);
+	// Determine if user is following this thread (using existing ThreadDetails logic)
+	const initialFollowState = item.replies?.find((u: string) => u === user?.id);
+	
+	// Local state for immediate visual feedback
+	const [isFollowing, setIsFollowing] = useState(!!initialFollowState);
+	
+	// Track the last local state we set to detect when backend catches up
+	const lastLocalStateRef = useRef<boolean>(!!initialFollowState);
+	const pendingOperationRef = useRef<boolean>(false);
+	
+	// Update local state when item.replies changes (backend update)
+	useEffect(() => {
+		const backendState = !!item.replies?.find((u: string) => u === user?.id);
+		
+		// If we have a pending operation, check if backend state matches our expectation
+		if (pendingOperationRef.current) {
+			// If backend state now matches what we expected, clear the pending flag
+			if (backendState === lastLocalStateRef.current) {
+				pendingOperationRef.current = false;
+			}
+		} else {
+			// No pending operation, sync with backend
+			setIsFollowing(backendState);
+			lastLocalStateRef.current = backendState;
+		}
+	}, [item.replies, user?.id]);
+	
+	// Always show bell on all posts (new behavior)
+	const shouldShowBell = true;
 
 	// Create a message context with all necessary values, including proper translateLanguage
 	const messageContextValue = {
@@ -267,11 +293,33 @@ const Room247Message = (props: IRoom247MessageProps) => {
 									<CustomIcon name='user' size={18} style={styles.icon} color='#1E2A3A' />
 									<Text style={styles.iconText}>{item.replies ? item.replies.length : 0}</Text>
 								</View>
-								{/* Bell notification - positioned at avatar level but at reply row height */}
-								{hasNewThreadReplies && (
-									<View style={styles.threadBellAtAvatarPosition}>
-										<CustomIcon name='notification' size={18} color='#1E2A3A' />
-									</View>
+								{/* Bell notification - show on all posts, toggle follow status on click */}
+								{shouldShowBell && (
+									<TouchableOpacity 
+										style={styles.threadBellAtAvatarPosition}
+										onPress={() => {
+											if (props.toggleFollowThread) {
+												// Calculate new state
+												const newFollowState = !isFollowing;
+												
+												// Mark as pending operation
+												pendingOperationRef.current = true;
+												
+												// Update local state immediately for visual feedback
+												setIsFollowing(newFollowState);
+												lastLocalStateRef.current = newFollowState;
+												
+												// Call the backend function (matches ThreadDetails pattern)
+												props.toggleFollowThread(isFollowing, item.id);
+											}
+										}}
+									>
+										<CustomIcon 
+											name={isFollowing ? 'notification' : 'notification-disabled'} 
+											size={18} 
+											color='#1E2A3A' 
+										/>
+									</TouchableOpacity>
 								)}
 							</View>
 						)}
