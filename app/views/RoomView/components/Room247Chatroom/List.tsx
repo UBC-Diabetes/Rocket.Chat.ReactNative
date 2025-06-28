@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 		width: 50,
 		height: 50,
 		borderRadius: 25,
-		backgroundColor: '#2C74B3', // Match Room247 theme
+		backgroundColor: '#112D4E', // Dark blue to match reply buttons
 		borderWidth: 1,
 		borderColor: 'rgba(0,0,0,0.1)',
 		alignItems: 'center',
@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
 const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IRoom247ListProps) => {
 	// FlatList ref for scroll control
 	const flatListRef = useRef<FlatList>(null);
-	
+
 	// Scroll button visibility state
 	const [showScrollButton, setShowScrollButton] = useState(false);
-	
+
 	// Mock own message for development
 	let displayMessages = messages;
 	if (SHOW_MOCK_OWN_MESSAGE && messages.length > 0) {
@@ -358,11 +358,7 @@ const Room247List = ({ theme, messages, renderItem, loading, fetchMessages }: IR
 			/>
 			{/* Scroll to bottom button - only show when scrolled up */}
 			{showScrollButton && (
-				<TouchableOpacity 
-					style={styles.scrollButton}
-					onPress={handleScrollToBottom}
-					testID='room-247-scroll-to-bottom'
-				>
+				<TouchableOpacity style={styles.scrollButton} onPress={handleScrollToBottom} testID='room-247-scroll-to-bottom'>
 					<CustomIcon name='chevron-down' size={24} color='#FFFFFF' />
 				</TouchableOpacity>
 			)}

@@ -22,6 +22,7 @@ interface IRoom247MessageProps {
 		id: string;
 		username: string;
 		token: string;
+		roles?: string[];
 	};
 	rid: string;
 	timeFormat?: string;
@@ -46,6 +47,14 @@ interface IRoom247MessageProps {
 	useRealName?: boolean;
 	// Other props from MessageContainer
 	toggleFollowThread?: (isFollowing: boolean, messageId: string) => void;
+	blockAction?: (params: {
+		actionId: string;
+		appId: string;
+		value: any;
+		blockId: string;
+		rid: string;
+		mid: string;
+	}) => void;
 	[key: string]: any;
 }
 
@@ -79,6 +88,7 @@ function isPollBlock(blocks: any[]) {
 	// If there are at least 2, it's a poll
 	return optionSections.length >= 2;
 }
+
 
 const Room247Message = (props: IRoom247MessageProps) => {
 	const {
@@ -195,15 +205,25 @@ const Room247Message = (props: IRoom247MessageProps) => {
 	// Show blocks (e.g., polls) if present
 	if (item.blocks && item.blocks.length > 0) {
 		if (isPollBlock(item.blocks)) {
+			// DEBUG: Use our custom component to analyze block structure
+			console.log('Rendering poll with PollBubble247 for block analysis');
 			return (
 				<View style={styles.bubbleMessageContent}>
-					<PollBubble247 blocks={item.blocks} creator={item.u} timestamp={item.ts} />
+					<PollBubble247 
+						blocks={item.blocks} 
+						creator={item.u} 
+						timestamp={item.ts}
+						rid={props.rid}
+						user={props.user}
+						messageId={item.id}
+						blockAction={props.blockAction}
+					/>
 				</View>
 			);
 		}
 		return (
 			<View style={styles.bubbleMessageContent}>
-				<Blocks blocks={item.blocks} id={item.id} rid={item.rid} />
+				<Blocks blocks={item.blocks} id={item.id} rid={item.rid} blockAction={props.blockAction} />
 			</View>
 		);
 	}
