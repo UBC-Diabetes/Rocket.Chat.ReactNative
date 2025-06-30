@@ -174,11 +174,18 @@ export default StyleSheet.create({
 	},
 	threadBellAtAvatarPosition: {
 		position: 'absolute',
-		right: -150, // Position at avatar column (accounting for container padding and avatar space)
+		right: -Math.min(getResponsiveSpacing(120), SCREEN_WIDTH * 0.25), // Responsive positioning that scales with screen size
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: 20,
 		height: 20
+	},
+	threadBellBetweenBubbleAndEdge: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 32,
+		height: 32,
+		marginRight: getResponsiveSpacing(8) // Space from screen edge
 	},
 	rightIcons: {
 		paddingLeft: getResponsiveSpacing(5)

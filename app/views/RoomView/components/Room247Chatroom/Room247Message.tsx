@@ -313,10 +313,12 @@ const Room247Message = (props: IRoom247MessageProps) => {
 									<CustomIcon name='user' size={18} style={styles.icon} color='#1E2A3A' />
 									<Text style={styles.iconText}>{item.replies ? item.replies.length : 0}</Text>
 								</View>
-								{/* Bell notification - show on all posts, toggle follow status on click */}
+								{/* Spacer to push bell to the right */}
+								<View style={{ flex: 1 }} />
+								{/* Bell notification - positioned between bubble edge and screen edge */}
 								{shouldShowBell && (
 									<TouchableOpacity 
-										style={styles.threadBellAtAvatarPosition}
+										style={styles.threadBellBetweenBubbleAndEdge}
 										onPress={() => {
 											if (props.toggleFollowThread) {
 												// Calculate new state
