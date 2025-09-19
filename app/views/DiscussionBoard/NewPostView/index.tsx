@@ -35,10 +35,11 @@ type ScreenProps = {
 };
 
 const NewPostView: React.FC<ScreenProps> = ({ route }) => {
-	const navigation = useNavigation<StackNavigationProp<any>>();
+	const navigation = useNavigation<NativeStackNavigationProp<any>>();
 	const isMasterDetail = useSelector((state: IApplicationState) => state.app.isMasterDetail);
 	const { displayMode, showAvatar } = useSelector((state: IApplicationState) => state.sortPreferences);
-	const server = useSelector((state: IApplicationState) => state.share.server.server || state.server.server);
+	const server = useSelector((state: IApplicationState) => state.share.params.server || state.server.server);
+
 	const user = useSelector((state: IApplicationState) => getUserSelector(state));
 	// const { theme } = useTheme();
 	const theme = 'light';
@@ -159,8 +160,7 @@ const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 					<TouchableOpacity
 						style={styles.mediaContainer}
 						onPress={onImagePicker}
-						hitSlop={{ top: 0, right: 0, bottom: 0, left: 0 }}
-					>
+						hitSlop={{ top: 0, right: 0, bottom: 0, left: 0 }}>
 						<Image source={getIcon('saveMedia')} style={styles.selectImage} resizeMode='contain' />
 						<Text style={styles.mediaText}>Add Photos/Videos</Text>
 					</TouchableOpacity>
@@ -184,8 +184,7 @@ const NewPostView: React.FC<ScreenProps> = ({ route }) => {
 				<TouchableOpacity
 					style={{ ...styles.button, ...(isButtonDisabled() && { opacity: 0.5 }) }}
 					onPress={() => setShowReadyToPost(true)}
-					disabled={isButtonDisabled()}
-				>
+					disabled={isButtonDisabled()}>
 					<Text style={styles.buttonText}>Publish</Text>
 				</TouchableOpacity>
 			</View>
